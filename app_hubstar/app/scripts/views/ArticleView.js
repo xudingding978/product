@@ -26,10 +26,18 @@ HubStar.ArticleView = Ember.View.extend({
 
                 that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - left) / HubStar.get("pic_current_width")); //set 
                 that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - top) / HubStar.get("pic_current_height"));
-
                 if (that.get("controller").get("enableTag") === true)
                 {
-                    that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                    var pic_w = HubStar.get("pic_current_width");
+                    var pic_h = HubStar.get("pic_current_height");
+                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) && 
+                            (Math.ceil(event.clientY) > Math.ceil(top) && Math.ceil(event.clientY) < Math.ceil(top) + Math.ceil(pic_h))) {
+                        that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
+                    else
+                    {
+                        that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
                 }
                 else
                 {
@@ -39,7 +47,7 @@ HubStar.ArticleView = Ember.View.extend({
                 if (mouseY - 70 > center_y)
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
-                    mouseY = mouseY - 500;
+                    mouseY = mouseY - 575;
                     //$("#showTagSavePhoto").css("position", "relative");
                 }
                 else
@@ -64,8 +72,6 @@ HubStar.ArticleView = Ember.View.extend({
         $('#previousarticlephoto').mousedown(function(event) {
             if (event.which === 1) //2:middle 
             {
-                var sss = event.clientX - $("#tag_image_object").offset().left;
-                var imgtag = $(this).parent(); // get the div to append the tagging entry
                 mouseX = event.clientX - 265; // x and y axis
                 mouseY = event.clientY + 70;
                 var center_y = $(window).height() / 2;
@@ -78,8 +84,16 @@ HubStar.ArticleView = Ember.View.extend({
 
                 if (that.get("controller").get("enableTag") === true)
                 {
-
-                    that.get("controller").set("inImage", true);
+                    var pic_w = HubStar.get("pic_current_width");
+                    var pic_h = HubStar.get("pic_current_height");
+                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) && 
+                            (Math.ceil(event.clientY) > Math.ceil(top) && Math.ceil(event.clientY) < Math.ceil(top) + Math.ceil(pic_h))) {
+                        that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
+                    else
+                    {
+                        that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
                 }
                 else
                 {
@@ -88,7 +102,7 @@ HubStar.ArticleView = Ember.View.extend({
                 }
                 if (mouseY - 70 > center_y)
                 {
-                    mouseY = mouseY - 500;
+                    mouseY = mouseY - 575;
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true);
                     // $("#showTagSavePhoto").css("position", "relative");
                 }

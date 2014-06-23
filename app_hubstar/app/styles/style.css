@@ -8,156 +8,6 @@ body > div.ember-view > div
 {
 
 }
-.tagview
-{
-    border:solid 3px #fff;
-    width:100px;
-    height:100px;
-    position:absolute;
-    display:none;
-}
-#tagit
-{
-    position:absolute;
-    opacity:1;
-
-}
-#tagit1
-{
-    position:absolute;
-    opacity:1;
-    margin:200px 600px;
-
-}
-
-.tagit{
-    opacity:1;
-}
-
-#tagitshow{
-    width: 300px;
-    opacity: 0;
-    border-style: solid;
-    border-color: #ffffff;
-    position: absolute;
-    z-index: 2;
-    background-color: rgba(255,255,255,.9);
-    border: 0 none;
-    overflow: hidden;
-
-    -moz-box-shadow: 0px 0px 5px #555;
-    -webkit-box-shadow: 0px 0px 5px#555;
-    box-shadow: 0px 0px 5px #555;
-    padding: 10px 15px;
-}
-
-
-#tagit .box
-{
-    border:solid 3px #ffffff;
-    width:100px;
-    opacity:.2;
-    height:100px;
-    border-style:solid;
-    border-color:#020202;
-    margin: auto 220px;
-    position: absolute;
-
-}
-
-#tagit .name
-{
-    float:left;
-    background-color:white;
-    width:200px;
-    height:250px;
-    padding:5px;
-
-}
-#tagit div.text
-{
-    margin-bottom:5px;
-}
-#tagit input[type=text]
-{
-    margin-bottom:5px;
-}
-#tagit #tagname
-{
-    width:110px;
-}
-#taglist
-{
-    background-color:#012D4A;
-    width:300px;
-    min-height:200px;
-    height:auto !important;
-    height:200px;
-    float:left;
-    padding:10px;
-    margin-left:20px;
-    color:#BFC6D0;
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px;
-    border-radius:5px;
-
-}
-#taglist ol { padding:0 20px;float:left;cursor:pointer}
-#taglist ol a { color:#BFC6D0;font-size:11px;}
-#taglist ol a:hover { text-decoration:underline }
-.tagtitle
-{
-    font-size:14px;
-    text-align:center;
-    width:100%;
-    float:left;
-}
-
-
-#tagImg{
-    z-index: 1;
-    position: relative;
-    width: 29%;
-    height: 70px;
-    line-height: 70px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    float: left;
-    overflow: hidden;
-}
-
-
-#tagContent{
-    z-index: 1;
-    float: left;
-    width: 100%;
-    font-size: 12px;
-    margin-bottom: 10px;
-}
-
-#tagContent > div{max-height:91px;overflow:hidden;}
-
-#tagBtn{
-    margin-left: 10px;
-    float: left;
-    width: 180px;
-}
-
-
-#tagBtn >  div.disabled-btn{top:0;position:relative;left:0;}
-
-
-#tagName{
-    margin-left: 10px;
-    line-height: 18px;
-    font-size: 15px;
-    color: #333;
-    font-weight: bold;
-    float: left;
-    max-height: 50px;
-}
-
 .ember-view > .fa-tag
 {
 
@@ -560,7 +410,9 @@ body > div.ember-view > div
 }
 
 
-
+.border-right{
+    border-right: 1px solid #ddd;
+}
 
 
 
@@ -881,10 +733,6 @@ div.search-loading-invisible{
 .dropdown-contactme {
     width: 230px;
 }
-
-
-
-
 
 .checkbox-columncontainer{
     display: inline-block;
@@ -1827,4 +1675,10 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     z-index:-1;
     top:0;
     left:0;
+}
+
+/* dropdownList.hbs */
+.Dropdownstyle1a{
+    width:auto;
+    min-width:233px;
 }

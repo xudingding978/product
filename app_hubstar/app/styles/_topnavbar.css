@@ -1,6 +1,6 @@
 .blank-top-bar{
     background-color: transparent;
-    z-index: 10;
+    z-index: 11;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -77,7 +77,7 @@
 #user-dd-menu > li > a >span {
     color: #555;
     font-size: 13px;
-    padding: 10px 30px 10px 60px;
+    padding: 10px 15px 10px 60px;
     display: block;
 }
 
@@ -901,7 +901,7 @@ div#forgot-password-container{
     position: relative;
     float: right; 
     top: 68px; 
-    z-index: 100;
+    z-index: 12;
     left: 40px;
 }
 .notification-triangle-after{
@@ -1207,7 +1207,6 @@ search-bar-on-small-screen #topResidentialCommerical{
     .usersobject-hoverarea {width: 50px; height: 70px;}
 
     .interest-topic-name{font-size: 9px;}
-
     .tell-us-what-ur-interested-in{
         line-height: 20px;
         margin: 4px auto;

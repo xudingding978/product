@@ -28,7 +28,6 @@ HubStar.ApplicationView = Ember.View.extend({
                 if (HubStar.get('showDiscoveryBar') === true) {
                    
                     if (window.pageYOffset > scroll_pos_test) {
-                         console.log("sssssss");
                         if ($(window).width() > 1200) {
                             $("#search-bar").css('display', "block");
                             $("#topResidentialCommerical").css('display', "block");
@@ -46,7 +45,6 @@ HubStar.ApplicationView = Ember.View.extend({
                         }
                     }
                     else {
-                         console.log("aaaa");
                         if (HubStar.get("isTopAdDisplay")) {
                             $("#top_bar_ads").css({"position": "relative", "top": "10px"});                         
                         }

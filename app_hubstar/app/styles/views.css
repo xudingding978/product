@@ -49,8 +49,6 @@ a:hover , a:focus {color: #aaa;}
 
 
 /* flip item                     **************************************************/
-/* flip item                     **************************************************/
-/* flip item                     **************************************************/
 .panel {
     float: left;
     width: 200px;
@@ -61,8 +59,6 @@ a:hover , a:focus {color: #aaa;}
     -webkit-perspective: 600px;
     -moz-perspective: 600px;
 }
-
-
 
 .square-button{
     width: 45PX;
@@ -292,150 +288,11 @@ a:hover , a:focus {color: #aaa;}
 .circle div h2 {padding-top: 3em; text-align: center; }
 
 /* flip item                     **************************************************/
-/* flip item                     **************************************************/
-/* flip item                     **************************************************/
 
 
 
 
 
-.object-tags-box{
-    -webkit-transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
-    transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
-    margin: 15px 0 0 0;
-    max-width: 5%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: 10;
-    opacity: 0;
-}
-
-.object-tags-box:hover{opacity: 1 !important;}
-
-.object-tags-box div{position:relative;z-index:100;}
-.object-tags{
-    clear: both;
-    height: 26px;
-    line-height: 26px;
-    word-wrap: normal;
-    position:relative;
-    z-index:2;
-    margin:1px;
-}
-
-.tags-mark{
-    float: right;
-    height: 26px;
-    margin-right: -4px;
-    padding-right: 4px;
-    width: 0;
-}
-
-.tags{
-    margin: 0 -2px 1px 0;
-    color: #fff;
-    display: block;
-    float: right;
-    max-width: 180px;
-    /*overflow: hidden; this was removed for the tool tips 3/10/13 */
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    background-color: #427fed;
-    opacity: .6;
-    cursor: pointer;
-}
-
-.tags:hover{
-    color: white;
-    background-color: #427fed;
-    box-shadow: 0px 0px 8px #555;
-    opacity: 1;
-}
-
-.tags-new{
-    display: inline-block;
-    font-weight: bold;
-    padding: 0 10px;
-    font-size: 12px;
-    vertical-align: top;
-    margin-right: -4px;
-}
-.object-tags-box .hint--top:after, .object-tags-box .hint--left:after
-{
-    background:#fff;
-    border-color:#fff;
-    color:#666;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -moz-box-shadow: 0 0 5px #888;
-    -webkit-box-shadow: 0 0 5px#888;
-    box-shadow: 0 0 5px #888;
-    text-shadow:0 0 0;
-}
-.object-tags-box .hint--left:before
-{
-    border-left-color:#ccc!important;
-}
-.object-tags-box .hint--top:before
-{
-    border-top-color:#ccc!important;
-}
-
-.hashtags{
-    border: 1px solid #d9d9d9;
-    border-radius: 2px;
-    -webkit-border-radius: 2px;
-    background-color: #FFF;
-    color: #333;
-    font-size: 11px;
-    font-weight: bold;
-    padding: 1px 7px;
-    display: inline-block;
-    line-height: 18px;
-    white-space: nowrap;
-}
-
-.remove-hashtages{
-    display: inline-block;
-    opacity: .6;
-    vertical-align: top;
-    cursor: pointer;
-    font-family: 'Helvetica', sans-serif;
-    padding: 0px 0 0 8px;
-    font-style: normal;
-}
-
-.remove-hashtages:hover{
-    opacity: 1;
-}
-
-
-.object-type{
-    display: inline-block;
-    text-align: center;
-    background-color: #427fed;
-    color: white;
-    border-bottom: 2px solid #427fed;
-}
-
-.object-type:hover{
-    border-bottom: 2px solid #fff;
-    opacity: 1;
-}
-
-.tagsappear{
-    overflow: hidden;
-}
-
-.tagsappear:hover{
-    opacity: 1;
-}
-
-.object-type > i {
-    padding: 10px;
-}
 
 
 
@@ -931,26 +788,19 @@ div.album-description-bg{
 /*MANSONRY OBJECT STYLE             END*/
 
 
-
-
-
 .objectview-wrapper{
     min-width: 700px;
 }
 
 
-
-
 /*OBJECT VIEW LEFT*/
-
-
 
 .objectview-left{
     bottom: 0;
     top: 0;
     left: 0;
     margin: 0;
-    position: absolute;
+    position: fixed;
     right: 320px;
     overflow: hidden;
     z-index: -1;
@@ -999,17 +849,21 @@ div.album-description-bg{
     background-color: rgba(0,0,0,.6);
     opacity: 1;
     text-align: center;
-
     cursor: pointer;
     z-index: 1;
 
 }
 
+.bottom-controlbar > div{
+    display:inline-block;
+    left:45px;
+}
+
 .spinner-object{
-    left: 51px;  
+    left: 37px;  
     display:inline-block; 
     position:relative;
-    top: 9px;
+    top: 0px;
 }
 
 .spinner-object > .spinner{
@@ -1088,16 +942,6 @@ div.album-description-bg{
 }
 
 
-.next {
-    /*    cursor: url(../../../images/nextcursor.png), auto;*/
-}
-
-.previous{
-    /*    cursor: url(../../../images/previouscursor.png), auto;*/
-}
-
-
-
 .arrow-pos{    
     top:400px;  
     color: white; 
@@ -1117,13 +961,13 @@ div.album-description-bg{
     right: 138px;
 }
 .previous-arrow-box{
-    cursor: url(../../images/previouscursor.png),auto;
+
     width: 50%; 
     height: 100%; 
     float: left;
 }
 .next-arrow-box{
-    cursor: url(../../images/nextcursor.png),auto;
+
     width: 50%; 
     height: 100%; 
     float: right;
@@ -1132,6 +976,7 @@ div.album-description-bg{
 .touch-cursor{
     cursor:auto;
 }
+
 
 .close_text{
     position: relative;
@@ -1181,43 +1026,16 @@ div.album-description-bg{
 .icon-on-black{
     color: #aaa;
     cursor: pointer;
-    height: 44px;
-    position: absolute;
     min-width: 44px;
-
+    position:relative;
+    width: auto;
+    margin: 0 5px;
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
     -o-transition: all 0.8s ease;
 }
 
-.left-arrow{
-    display:inline-block; 
-    vertical-align: top; 
-    position:relative; 
-    left:44px;
-}
 
-.right-arrow{
-    left: 44px;
-    position: relative;
-    vertical-align: top;
-    display: inline-block;
-}
-
-.middle-icon{
-    left: 44px; 
-    display:inline-block; 
-    vertical-align: top; 
-    position:relative;
-}
-
-.photo-no{
-    left: 88px; 
-    top:0;
-    position: relative !important;
-    display: inline-block;
-    vertical-align: top;
-}
 .icon-on-black:hover{
     color: #fff;
 }
@@ -1228,44 +1046,36 @@ div.album-description-bg{
     height: 20px;
     left: 0;
     margin: auto;
-    position: absolute;
+    position: relative;
     right: 0;
     top: 0;
     width: 20px;
     font-size: 21px;
     float:left;
 }
+
+.text-on-black{
+    color: #737373;
+    font: normal 14px Roboto,arial,sans-serif;
+    line-height: 44px;
+    padding: 0 10px;
+    position: relative;
+    white-space: nowrap;
+    top: 2px;
+}
+
 /* top naviagtion specific styling */
 .top-controlbar div.icon-on-black{height:auto;}
 .top-controlbar .icon-on-black > i, .top-controlbar .icon-on-black > span{margin:10px 0;}
 .top-controlbar .icon-on-black > span
 {
-    text-indent: 25px;
+
     line-height: 23px;
     font-size: 14px;
     font-weight: bold;
     font-family: FontAwesome, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 }
-.top-article{
-    position:relative;
-    width: 60px;
-    margin: 0 5px;
-}
-
-.top-tag{
-    position:relative;
-    margin: 0 10px;
-    width: 60px;
-}
-
-.top-tag-acts{
-    position:relative;
-    margin: 0 5px;
-    width: 60px;
-}
-
-
 /* top navigation specific styling ends */
 .icon-on-black > .pretooltip{
     float:left;
@@ -1284,14 +1094,7 @@ div.album-description-bg{
     float: right; 
     cursor:pointer;
 }
-.text-on-black{
-    color: #737373;
-    font: normal 14px Roboto,arial,sans-serif;
-    line-height: 44px;
-    padding: 0 10px;
-    position: absolute;
-    white-space: nowrap;
-}
+
 
 
 .caption-container{
@@ -1306,26 +1109,13 @@ div.album-description-bg{
 }
 
 
-
-
-
-
 /*OBJECT VIEW LEFT               END*/
-
-
-
-
-
-
-
-
-
 /*OBJECT VIEW RIGHT*/
 
 
 .objectview-right{
     bottom: 0;
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 0;
     width: 320px;
@@ -1382,6 +1172,9 @@ div.album-description-bg{
     vertical-align: top;
     display: inline-block;
     width: 50%;
+    word-break: break-all;
+    max-height: 80px;
+    overflow: hidden;
 }
 
 .poster-name{
@@ -1399,9 +1192,54 @@ div.album-description-bg{
     line-height:140%;
 }
 
+.popup-box-style{
+    z-index: 11;
+    background-color: white;
+    border: 1px rgba(0,0,0,.6); 
+    border-radius: 3px;
+    box-shadow: 0 0 20px 5px #aaa;  
+    width: 500px;
+    margin: 0 auto; 
+    padding: 20px 40px;
+    position: fixed; 
+    top: 35%;
+    left: 0;
+    right: 0;
+}
 
+.popup-box-style-info{
+    color: #333;
+    font-size: 35px;
+    margin: auto;
+    width: 40px;
+    position: relative;
+    left: 0;
+    right: 0;
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+}
 
+.popup-box-style-hint{
+    color: #333; 
+    font-weight: normal; 
+    font-size: 15px;
+    text-align: center;
+}
+.popup-box-style-message{
+    color: #333; 
+    font-size: 18px; 
+    font-weight: bold; 
+    line-height: 20px; 
+    text-align: center;
+    margin: 10px 0;
+}
 
+.popup-box-style-btn{  
+    width:200px; 
+    margin: 20px auto 5px;
+    text-align: center; 
+}
 
 .object-collapes-title {
     cursor: pointer;
@@ -1515,13 +1353,6 @@ div.album-description-bg{
     overflow: auto;
 }
 
-/*.edit_photo-keywords_field{
-    margin: 10px auto;
-    height: 100px;
-    resize: none;
-    overflow: auto;
-}*/
-
 .sml-partner {
     margin: 7px;
     display: inline-block;
@@ -1580,7 +1411,7 @@ div.album-description-bg{
 }
 
 
-
+/* --------------------Button Style ----------------------*/
 .new-btn {
     /*BASIC POSITION*/
     cursor: pointer;
@@ -1788,7 +1619,7 @@ div.album-description-bg{
     border: 1px solid #ddd;
     color: #aaa;
     box-shadow: none;
-    top: -4px;
+    top: -10px;
     position: relative;
     padding: 0 6px;
     height: 28px;
@@ -1831,7 +1662,7 @@ div.album-description-bg{
 }
 
 
-
+/* --------------------Button Style END----------------------*/
 
 
 
@@ -1854,7 +1685,7 @@ div.album-description-bg{
     font-weight: bold;
     line-height: 30px;
     margin-bottom: 10px;
-    word-break: break-word;
+    word-break: break-all;
     text-transform: capitalize;
 
 }
@@ -2067,6 +1898,12 @@ div.album-description-bg{
     margin-top: 0;
 }
 
+.comment-item-img2{
+    float: right; 
+    margin: 4px -45px 0 0; 
+    margin-top: 0;
+}
+
 .comment-insert-field{
     cursor:text;
     word-wrap: break-word;
@@ -2122,15 +1959,6 @@ div.album-description-bg{
     word-wrap: break-word;
 }
 
-
-
-
-/*OBJECT VIEW RIGHT             END*/
-
-
-
-
-
 .collect_descriptionbox {
     width:300px;
     margin: 0px 0px 10px;
@@ -2138,22 +1966,336 @@ div.album-description-bg{
     resize: none;
 }
 
+
+
+/*----------OBJECT VIEW RIGHT    ---------- END*/
+
+
+/* ----------tag function updated by Charis -------------*/
+
+.object-tags-box{
+    -webkit-transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
+    transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
+    margin: 15px 0 0 0;
+    max-width: 5%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10;
+    opacity: 0;
+}
+
+.object-tags-box:hover{opacity: 1 !important;}
+
+.object-tags-box div{position:relative;z-index:100;}
+.object-tags{
+    clear: both;
+    height: 26px;
+    line-height: 26px;
+    word-wrap: normal;
+    position:relative;
+    z-index:2;
+    margin:1px;
+}
+
+.tags-mark{
+    float: right;
+    height: 26px;
+    margin-right: -4px;
+    padding-right: 4px;
+    width: 0;
+}
+
+.tags{
+    margin: 0 -2px 1px 0;
+    color: #fff;
+    display: block;
+    float: right;
+    max-width: 180px;
+    /*overflow: hidden; this was removed for the tool tips 3/10/13 */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: #427fed;
+    opacity: .6;
+    cursor: pointer;
+}
+
+.tags:hover{
+    color: white;
+    background-color: #427fed;
+    box-shadow: 0px 0px 8px #555;
+    opacity: 1;
+}
+
+.tags-new{
+    display: inline-block;
+    font-weight: bold;
+    padding: 0 10px;
+    font-size: 12px;
+    vertical-align: top;
+    margin-right: -4px;
+}
+.object-tags-box .hint--top:after, .object-tags-box .hint--left:after
+{
+    background:#fff;
+    border-color:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+}
+.object-tags-box .hint--left:before
+{
+    border-left-color:#ccc!important;
+}
+.object-tags-box .hint--top:before
+{
+    border-top-color:#ccc!important;
+}
+
+.hashtags{
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    background-color: #FFF;
+    color: #333;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 1px 7px;
+    display: inline-block;
+    line-height: 18px;
+    white-space: nowrap;
+}
+
+.remove-hashtages{
+    display: inline-block;
+    opacity: .6;
+    vertical-align: top;
+    cursor: pointer;
+    font-family: 'Helvetica', sans-serif;
+    padding: 0px 0 0 8px;
+    font-style: normal;
+}
+
+.remove-hashtages:hover{
+    opacity: 1;
+}
+
+
+.object-type{
+    display: inline-block;
+    text-align: center;
+    background-color: #427fed;
+    color: white;
+    border-bottom: 2px solid #427fed;
+}
+
+.object-type:hover{
+    border-bottom: 2px solid #fff;
+    opacity: 1;
+}
+
+.tagsappear{
+    overflow: hidden;
+}
+
+.tagsappear:hover{
+    opacity: 1;
+}
+
+.object-type > i {
+    padding: 10px;
+}
+
+/*-----show tag -----*/
+
+#show-tag-box-up{
+    bottom: 20px
+}
+
+#show-tag-box-bottom{
+    bottom:-560px;
+}
+
+
+.showTagSavePhoto{
+    z-index: 11;
+    position: absolute; 
+    border-radius: 3px;
+    width: 530px;
+   height: auto;
+}
+
+.show-tag-title{
+    margin-bottom: 10px; 
+    position: relative; 
+    background-color: #f3f3f3; 
+    height: 45px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 3px 3px 0 0;
+}
+
+.show-tag-title-font{
+    font-size: 20px; 
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+
+.show-tag-contactmebox-wapper{
+    width: 530px;
+    font-size: 13px;
+}
+
+.show-tag-part{
+    width:96%;
+    margin: 0 10px;
+}
+
+.show-tag-part-below{
+    width: 96%;
+    margin: 0 10px;
+    min-height: 105px;
+}
+
+.show-tag-part div{
+    display:inline-block;
+    padding: 5px 0;
+}
+
+
+.show-tag-part-below-left{
+    width: 70%;
+    float: left;
+    padding: 7px 0 0 0;
+}
+.show-tag-part-below-right{
+    display:inline-block;
+    margin:10px 20px;
+    float:right;
+}
+
+.show-tag-font{
+    font-size: 18px; 
+    font-weight: bold; 
+    width: 136px;
+    float: left;
+    display: inline-block;
+}
+
+.show-tag-link-to{
+    width: 100%;
+    background-color: #ccc;
+    padding: 10px;
+    height: 60px;
+    overflow: hidden;
+
+}
+
+.show-tag-link-to-content{
+    min-height: 20px;
+    word-break: break-all;
+    width: 73%;
+    display: inline-block;
+    line-height: 15px;
+}
+
+.show-tag-left{
+    margin: 8px 0;
+}
+
+.show-tag-select{
+    display: inline-block;
+    cursor: pointer;
+    width: 220px;
+    overflow: hidden;
+
+}
+
+.show-tag-disabled{
+    display: inline-block;
+    width: 220px;
+    border: none;
+    top: -10px;
+    font-size: 18px;
+    cursor: auto;
+}
+
+.show-tag-profile-content{
+    height:100%; 
+    font-size: 13px; 
+    font-weight: bold; 
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 160px;
+}
+
+.show-tag-profile-content .show-tag-profile-content{
+    width: auto;
+    line-height: 27px;
+}
+
+
+.show-tag-loading{
+    position: absolute;
+    font-size: 12px;
+    bottom: 0;
+    left: 60px;
+}
+
+.show-tag-loading i{
+    position: relative;
+    left: 10px;
+}
+
+
 .tag_descriptionbox {
-    width:300px;
-    margin: 0px 0px 10px;
+    width:370px;
     height: 95px;
     resize: none;
 }
 .tag_currenprofile {
-    width:300px;
-    margin: 0px 0px 10px;
+    width: 370px;
     height: 30px;
     resize: none;
 }
 
+.show-tag-bottom{
+    height: 45px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    border-radius: 0 0 3px 3px;
+    overflow: hidden;
+}
+
+.show-tag-bottom div{
+    height:45px;
+    line-height: 45px;
+}
+
+.show-tag-button-right{
+    border-right: 1px solid #ddd; 
+}
+
+.show-tag-image{
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.03);
+    position: relative;  
+}
+
+.show-tag-image img{
+    width: 80px;
+    height: 80px;
+}
+
 .tag_linkto {
     width:300px;
-    margin: 0px 0px 10px;
     height: 30px;
     resize: none;
 }
@@ -2188,9 +2330,12 @@ div.album-description-bg{
     background-color: rgba(0,0,0,0.1);
 }
 
-.exist-name{
-    text-decoration: none;
-    color: #ddd;
+.selected-none{
+    display:inline-block;
+}
+
+.choose-exist-collection:hover{
+    background-color: rgba(0,0,0,0.1);
 }
 
 .exist-name{
@@ -2203,7 +2348,6 @@ div.album-description-bg{
 }
 
 .add-collection_select-collection{
-
     padding: 10px;
     position: absolute;
     left: 4px;
@@ -2219,14 +2363,23 @@ div.album-description-bg{
 .add-tag_select-tag{
     padding: 5px;
     position: absolute;
-    left: 4px;
-    top: 100px;
+    left: 83px;
     background: #fff;
     -webkit-box-shadow: 0 0px 1px #888;
     -moz-box-shadow: 0 0px 1px #888;
     box-shadow: 0 0px 1px #888;
     z-index: 11;
     width: 334px;
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 160px;
+}
+
+.add-tag_select-tag > div{
+    font-size: 16px; 
+    font-weight: bold; 
+    overflow: auto; 
+    overflow-x:hidden;
 }
 
 .add-tag_select-tag:before{
@@ -2250,6 +2403,224 @@ div.album-description-bg{
     border-width: 10px 10px 10px 10px;
     z-index: -1;
 }
+
+
+.tagview
+{
+    border:solid 3px #fff;
+    width:100px;
+    height:100px;
+    position:absolute;
+    display:none;
+}
+
+#tagit
+{
+    position:absolute;
+    opacity:1;
+
+}
+
+.tagit{
+    position: absolute;
+    margin: 200px 35%;
+}
+
+
+#tagit .box
+{
+    border:solid 3px #ffffff;
+    width:100px;
+    opacity:.2;
+    height:100px;
+    border-style:solid;
+    border-color:#020202;
+    margin: auto 220px;
+    position: absolute;
+
+}
+
+#tagit .name
+{
+    float:left;
+    background-color:white;
+    width:200px;
+    height:250px;
+    padding:5px;
+
+}
+#tagit div.text
+{
+    margin-bottom:5px;
+}
+#tagit input[type=text]
+{
+    margin-bottom:5px;
+}
+#tagit #tagname
+{
+    width:110px;
+}
+#taglist
+{
+    background-color:#012D4A;
+    width:300px;
+    min-height:200px;
+    height:auto !important;
+    height:200px;
+    float:left;
+    padding:10px;
+    margin-left:20px;
+    color:#BFC6D0;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+
+}
+#taglist ol { padding:0 20px;float:left;cursor:pointer}
+#taglist ol a { color:#BFC6D0;font-size:11px;}
+#taglist ol a:hover { text-decoration:underline }
+
+.tagtitle
+{
+    font-size:14px;
+    text-align:center;
+    width:100%;
+    float:left;
+}
+
+/* -------- tag content ---------*/
+#tagitshow{
+    width: 300px;
+    background-color: transparent;
+    position: absolute;
+    z-index: 1;
+    border: none;
+
+}
+
+.tagitshow{
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    z-index: 2;
+    overflow: hidden;
+    border-radius:5px;
+    -moz-box-shadow: 0px 0px 5px #555;
+    -webkit-box-shadow: 0px 0px 5px#555;
+    box-shadow: 0px 0px 5px #555;
+}
+
+.tagImg{
+    z-index: 1;
+    position: relative;
+    width: 30%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    float: left;
+    overflow: hidden; 
+    padding:5px;
+    vertical-align: middle;
+}
+
+.tagMiddle{
+    z-index: 1;
+    position: relative;
+    width: 50%;
+    float: left;
+    overflow: hidden;
+    padding: 5px;
+} 
+
+.tagName{
+    line-height: 20px;
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    position: relative;
+    max-height: 40px;
+}
+
+.tagContent{
+    z-index: 1;
+    width: 100%;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    max-height: 60px;
+    margin: 5px auto;
+    word-break: break-all;
+}
+
+
+
+.tagBtn{
+    width: 20%;
+    position: relative;
+    display: inline-block;
+    height: auto;
+    float: right;
+}
+
+.tag-button{
+    position:relative; 
+    top:-4px; 
+    left: 7px; 
+    display:inline-block; 
+    font-size:15px;
+    cursor: pointer;
+}
+
+
+.tagBtn > div{
+    background-color: #ccc;
+    position: relative;
+    line-height: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 25%;
+    color: #fff;
+    float: right;
+    width: 150px;
+    left:105px;
+    z-index:10;
+}
+
+.tag-content{
+    position: absolute;
+    font-size: 15px;
+    max-width: 200px;
+    height: auto;
+    background-color: #000;
+    color: #fff;
+    border-radius: 2px;
+    text-align: center;
+    padding: 5px 10px;
+    font-weight: bold;
+    word-wrap: break-word;
+    box-shadow: 0 0 10px #fff
+}
+
+.tag-content-arrow{
+    width: 0;
+    height: 0;
+    border-top: 0px solid transparent;
+    border-bottom: 11px solid transparent;
+    border-right: 10px solid #000;
+    position: absolute;
+    top: 0;
+    left: -5px;
+    margin: 0 auto;
+    opacity: 1;
+}
+
+
+
+
+
+
+/* ----------tag function end -------------*/
 
 .edit-btn{
     cursor: pointer;
@@ -2320,6 +2691,13 @@ div.album-description-bg{
     margin: 0 auto;
     left: 45px;
     padding: 0;
+}
+
+.share-box4a{
+    width: 170px; 
+    right: 80px; 
+    position: absolute; 
+    top: 136px;
 }
 .share-type-fb{
     max-height:34px;
@@ -2430,7 +2808,7 @@ div.album-description-bg{
 
 
 
-.collapes-container_inner > .for-tooltip-position.hint--bottom:after{left: -65px!important}
+.collapes-container_inner > .for-tooltip-position.hint--bottom:after{left: -20px!important}
 
 .collapes-container_inner > .hint--bottom:before{left: 14px!important}
 
@@ -2442,7 +2820,7 @@ div.album-description-bg{
 /*call to action style */
 
 
-/* Author: Stephanie Derrick-Hardie */
+/* Author: Stephanie Derrick-Hardie --------Updated by Charis*/
 
 #cta-popup{
 
@@ -2613,6 +2991,623 @@ div.album-description-bg{
     color:#fff;
 }
 
+/* comment.hbs*/
+.show-all-comment-box{
+    height: 20px; 
+    width: 100%; 
+    background-color: #f3f3f3;
+    text-align: center;
+    color: #555; 
+    border-top: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.all-comment-show{
+    display: inline-block; 
+    cursor: pointer;
+}
+
+.all-comment-hide{
+    display: none;
+    cursor: pointer;
+}
+
+.all-comment-indicator-txt{
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* contact.hbs */
+.contact-top{
+    position: relative;
+    height: 35px; 
+    width: 100%;
+    background: #fff url('../../../images/contactbg.png') repeat; 
+    z-index: 11;
+}
+
+.contact-box{
+    width: 500px;
+    font-size:13px;
+    background-color: white;
+    z-index:11;
+    position: absolute;
+}
+
+.contact-navigateBar{
+    position: relative; 
+    text-align: center;
+}
+
+.contact-hide-step{
+    background-color: #aaa;
+}
+
+.contact-step-bar{
+    width: 300px; 
+    height: 2px; 
+    border-radius: 20%;
+    background-color:#ccc;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 19px;
+    z-index: 0;
+}
+
+.contact-step-title{
+    font-size: 18px; 
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+    position: relative;
+    top: 10px;    
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.contact-step-one{
+    right: 87px;
+}
+
+.contact-step-two{
+    left: 90px;
+}
+.contact-head{
+    padding-bottom: 0;
+}
+
+.user-detailBox{
+    width:390px;
+}
+
+.user-detailBox div{
+    display: block;
+}
+
+.user-detailBox div div{
+    display: inline-block;
+}
+
+.user-detailBox div span{
+    display: inline-block;
+}
+
+.user-detailBox div a{
+    display: inline-block;
+}
+
+.contact-title-box{   
+    font-size: 16px; 
+    font-weight: bold; 
+    margin-bottom: 5px;
+}
+
+.contact-title-txt{
+    margin-right: 5px;
+}
+
+.poster_user-title{
+    max-width: 240px; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    position:relative; 
+    top:5px;
+}
+
+.contact-title-marge{
+    margin-right: 5px;
+}
+
+.contact-edit{
+    cursor: pointer; 
+    color: #427fed;
+}
+
+.contact-email{
+    margin-bottom: 15px;
+}
+
+.contact-user-img{
+    float: right;
+    position: relative; 
+    display: inline-block; 
+    vertical-align: top;
+    margin: 5px 0;
+}
+
+.contact-subject{
+    display: inline-block; 
+    margin-right: 10px;
+}
+
+.contact-suject-txt{
+    display: inline-block; 
+    width: 378px; 
+    vertical-align: middle;
+}
+
+.contact-navigateBar-step2{
+    margin-bottom: 20px;
+}
+
+.contact-content-container{
+    border-radius: 0; 
+    padding: 15px 30px 0px;
+}
+
+.contact-content-inner{
+    text-align: center;
+}
+
+.contact-content-inner table{
+    padding: 0 20px; 
+    width: 100%;
+    font-size: 14px;  
+    display: table;
+    border-collapse: separate;
+    border-spacing: 4px;
+}
+
+.contact-content-inner table tbody{
+    display: table-row-group; 
+    vertical-align: middle; 
+    border-color: inherit;
+}
+
+.contact-content-inner table tr td div{
+    display: block;
+}
+
+.contact-category-indicator{
+    color: #555;
+    text-align: right;
+    cursor: default;
+    font-size: 15px;
+    float: left;
+    margin: 5px 0 0 55px;
+}
+
+.contact-category-list{
+    margin: 20px 0 10px 20px;
+    max-height: 170px;
+    overflow: auto;
+}
+
+.contact-middle-container{
+    display: block;
+    padding: 5px 0px;
+}
+
+.contact-middle-msg{
+    display: inline-block; 
+    margin-bottom: 5px;
+}
+
+.contact-msg-box{
+    width: 100%; 
+    height: 200px;
+    resize: none;
+}
+
+.contact-user-env{
+    position: relative;
+    float: left;
+}
+
+.contact-user-txt{
+    position: relative;
+    top:3px;
+}
+
+.contact-user-env-disp{
+    position: relative;
+    bottom: 1px;
+    overflow: hidden;
+    width: 66%;
+    left: 20px;
+    height: 24px;
+}
+
+.contact-pre-container{
+    float: left;
+    margin: 15px;
+    position: relative;
+    left: 15px;
+}
+
+.contact-rem-container{
+    float: left;
+    margin: 10px;
+    position: relative;
+    left: 15px;
+}
+
+/* conversation.hbs */
+
+.conversation-each-container{
+    padding: 15px 0 10px 95px;
+    position: relative;
+}
+
+.conversation-deletebtn{
+    position: absolute;
+    right: 35px;
+    top: 40px;
+    color: #888;
+}
+
+.conversation-img{
+    position: absolute; 
+    top: 20px;
+    margin: 0 0 0 -55px;
+    border: 1px solid #f3f3f3;
+    width: 45px;
+    height: 45px;
+    overflow: hidden;
+}
+
+.conversation-img1{
+    width: 45px;
+    height: 45px;
+    float: left;
+}
+
+.conversation-img2a{
+    width: 45px;
+    height: 45px;
+    float: left; 
+    margin-left: -22.5px;
+}
+
+.conversation-img2b{
+    width: 45px;
+    height: 45px;
+    float: left;
+    vertical-align: top;
+    margin-right: -22.5px;
+}
+
+.conversation-img3a{
+    width: 22.5px;
+    height: 22.5px;
+    float: left;
+}
+
+.conversation-img3b{
+    width: 45px;
+    height: 45px;
+    vertical-align: top;
+    margin-right: -22.5px;
+}
+
+.conversation-img4a{
+    width: 22.5px;
+    height: 22.5px;
+    position: absolute;
+}
+
+.conversation-img4b{
+    top: 22.5px;
+}
+.conversation-comment{
+    width: 400px; 
+    height: 35px; 
+    text-overflow: ellipsis;
+}
+
+/* conversationItem.hbs */
+.conversation-msg-title-box{
+    background-color: #f3f3f3; 
+    width:100%;
+    height: 70px; 
+    border-bottom: 1px solid #ddd;
+    padding: 0 20px;
+}
+
+.conversation-msg-title{
+    color: #555;
+    font-size: 18px;
+    line-height: 70px;
+    font-weight: bold;
+    float: left;
+}
+
+.conversation-msg-img{
+    float: left; 
+    margin: 12px; 
+    box-shadow: 0 0 3px #888;
+    border: 1px solid #f3f3f3;
+    width: 45px;
+    height: 45px;
+    overflow: hidden;
+}
+
+.conversation-msg-img img{
+    width: 45px;
+    height: 45px;
+    float: left;
+}
+
+.conversation-add{
+    position: relative;
+}
+
+.conversation-plus{
+    position: absolute;
+    font-size: 8px;
+    top: 8px;
+    left: 10px;
+    color: white;
+    background-color: #888;
+    height: 12px;
+    width: 12px;
+    line-height: 11px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+}
+
+
+
+.show-more-icon{
+    line-height: 45px;
+    display:none;
+}
+
+.show-close{
+    line-height: 45px;
+    display: inline-block;
+}
+
+.comment-follower-containers{
+    position: relative; 
+    width: 100%; 
+    border-bottom: 1px solid #ddd;
+}
+
+.message-data{
+    padding: 5px  15px;
+    margin-left: 10px; 
+    display: inline-block;
+}
+
+.message-profile-img{
+    box-shadow: 0 0 3px #888;
+    border: 1px solid #f3f3f3;
+    width: 45px;
+    height: 45px;
+    margin:10px 5px;
+}
+
+.message-newppl{
+    padding:5px 15px;
+    background-color: #f4f6f8;
+}
+
+.message-newppl-img{
+    margin:10px 5px;
+    margin-left: 10px;
+    position: relative;
+    width: 45px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.message-newppl-img img{
+    box-shadow: 0 0 3px #888;
+    border: 1px solid #f3f3f3;
+    width: 45px;
+    height: 45px;
+}
+
+.message-comment-container{
+    width: 100%;
+    padding: 20px 6.5%;
+    margin: 0 auto;
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+}
+
+.message-input-box{
+    margin:0 auto; 
+    padding: 0 0 0 45px;
+}
+
+.message-input-img{
+    float: left; 
+    margin: 4px 0 0 -45px; 
+    margin-top: 0;
+}
+
+.post-input{
+    margin: 0;
+    width: 100%; 
+    height:80px;
+}
+
+.post-upload{
+    background-color: rgba(0,0,0,.2);
+    max-width: 100%;
+    max-height: 100px;
+    padding: 10px 12px;
+    text-align: center;
+}
+
+.post-upload img{
+    max-width: 100%; 
+    max-height: 80px;
+}
+
+.post-action-container{
+    height: 30px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    top: -1px;
+}
+
+.post-addphoto{
+    border-right: 1px solid #ddd;
+}
+
+.post-addphoto-txt{
+    opacity:0;
+    position: relative;
+    height:30px;
+    top:-30px;
+    overflow: hidden;
+}
+
+.comment-img-container{
+    margin: 5px auto;
+    max-width: 300px;
+    max-height: 300px;
+    float: left;
+}
+
+.comment-img-container img{
+    border: 4px solid #fff;
+}
+
+/* deletedFunction.hbs */
+.delete-container{
+    z-index: 14;
+    background-color: white; 
+    border: 1px rgba(0,0,0,.6); 
+    border-radius: 3px;
+    box-shadow: 0 0 20px 5px #aaa;  
+    width: 450px;
+    margin: 0 auto; 
+    padding: 20px 30px;
+    position: fixed; 
+    top: 35%;
+    left: 0;
+    right: 0;
+     line-height: 18px;
+}
+
+.deleted-icon{
+    color: #333; 
+    font-size: 35px;
+    margin: auto;
+    width: 40px;
+    position: relative;
+    left: 0;
+    right: 0;
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.deleted-reask{
+    color: #333; 
+    font-size: 18px; 
+    font-weight: bold;  
+    text-align: center; 
+    margin: 10px 0;
+}
+
+.deleted-warning{
+    color: #333; 
+    font-weight: normal; 
+    font-size: 15px;
+    text-align: center;
+}
+
+.deleted-action{
+    width:200px; 
+    margin: 20px auto 5px;
+    text-align: center;
+}
+
+
+/* discoveryBar.hbs */
+.searchbar-wrapper{
+    z-index: auto;
+}
+
+.search-wrapper-container{
+    position: absolute; 
+    top: 140px; 
+    width: 880px;
+    left:0; 
+    right: 0; 
+    margin: auto;
+    text-align: center;
+    height:400px;
+}
+
+.searchbar-title{
+    position:relative;
+    font-size: 50px;
+    color: white;
+    font-weight: bold;
+    height: 50px;
+}
+
+.searchbar-title1{
+    display:block;
+}
+.searchbar-title2{
+    display:none;
+    text-align: center; 
+}
+
+.searchbar-maintopic{
+    position:relative; 
+    height:100px;
+}
+
+.searchbar-listIcon{
+    font-size: 20px;
+}
+
+.searchbar-listtxt{
+    line-height: 0;
+    position: relative;
+    bottom: 5px;
+}
+
+.searchbar-searchicon-container{
+    position: relative !important;
+    float: right !important;
+    border-radius: 0 3px 3px 0 !important;
+    top: -60px !important; 
+    right: -5px;
+    border-left: 1px solid #ddd;
+    width: 60px !important;
+}
+
+.searchcar-searchicon{
+    font-size: 20px;
+    line-height: 3;
+}
+
+.searchbar-populartopic{
+    float: left;
+    color: white;
+    font-family: Georgia, serif;
+    font-style: italic;
+    margin: 5px 10px;
+}
 @media (max-width: 1280px){
     #cta-popup{
         right: 10%;

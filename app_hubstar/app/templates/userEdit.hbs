@@ -25,16 +25,16 @@
 
                 <div id="dragAndDroppArea" class="dragndropbox" style="display:block;height: 345px;width: 100%;top: 0;background-color: #fff; padding: 0;overflow: hidden;position: relative;">
 
-                    <div class='styleup_uploadbox easing' style="height: 335px; width: 95%;position: absolute;">
-                        <i class='fa fa-arrow-circle-o-up fa fa-3x' style="width: 40px;margin: auto;display: block;position: relative;top: 110px;" ></i>
+                    <div class="styleup_uploadbox easing" style="height: 335px; width: 95%;position: absolute;">
+                        <i class="fa fa-arrow-circle-o-up fa fa-3x" style="width: 40px;margin: auto;display: block;position: relative;top: 110px;" ></i>
                         <span style="display: block; position: relative;line-height: 30px;font-size: 30px;top: 115px; cursor: default;  font-weight: bold">Drag & drop a cover image here</span>
-                        <span style='font-size: 16px;display: block;line-height: 25px;top: 210px;position: relative;'> {{controller.RequiredImageSize}}</span>
+                        <span style="font-size: 16px;display: block;line-height: 25px;top: 210px;position: relative;"> {{controller.RequiredImageSize}}</span>
 
 
                         <div style="position: absolute;  vertical-align: top; text-align: center;width: 100%;height: 333px;top: 0;line-height: 333px;background-color: Rgba(30,30,30,.2);">
                             <div>
-                                <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 170px; max-height: 170px;">
-                                <div id='uploadStyleImg' style="display: none;">
+                                <img  {{bindAttr src="newStyleImageSource"}}  style="max-width: 170px; max-height: 170px;">
+                                <div id="uploadStyleImg" style="display: none;">
                                     <img style="width: 25px; height: 25px;position: absolute;top: 40%;left: 62px;" src="../../../images/uploadphotos_spinner.gif"/>
                                 </div>
                             </div>
@@ -48,23 +48,23 @@
 
                 <div style="text-align: center;height: 75px;line-height: 85px;bottom: 0;position: relative;width: 98%;">
                     <div class="new-btn blue-btn" style="margin: 28px 20px; width: 83px; float: left;">
-                        <i class='fa fa-arrow-circle-o-up'> &nbsp;Choose</i>
+                        <i class="fa fa-arrow-circle-o-up"> &nbsp;Choose</i>
                         <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view HubStar.SingleImageInputButtonView }}</div>
                     </div>
 
                     <div style="margin: auto;width: 250px;float: right;">
 
                         {{#if controller.isCrop}}
-                        <span id="photoUploadbtn" class="new-btn blue-btn" {{action cropButton}}><i class='fa fa-cut '> &nbsp;</i>Crop</span>
+                        <span id="photoUploadbtn" class="new-btn blue-btn" {{action cropButton}}><i class="fa fa-cut "> &nbsp;</i>Crop</span>
                         {{else}}
-                        <span  class="disabled-btn" ><i class='fa fa-cut'> &nbsp;</i>Crop</span>
+                        <span  class="disabled-btn" ><i class="fa fa-cut"> &nbsp;</i>Crop</span>
                         {{/if}} 
                         {{#if controller.isUpload}}
-                        <span id="photoUploadbtn" class="new-btn green-btn" {{action savePhotoUpdate}}><i class='fa fa-save '> &nbsp;</i>Upload</span>
+                        <span id="photoUploadbtn" class="new-btn green-btn" {{action savePhotoUpdate}}><i class="fa fa-save "> &nbsp;</i>Upload</span>
                         {{else}}
-                        <span  class="disabled-btn" ><i class='fa fa-save '> &nbsp;</i>Upload</span>
+                        <span  class="disabled-btn" ><i class="fa fa-save "> &nbsp;</i>Upload</span>
                         {{/if}} 
-                        <span class='new-btn flip-back'{{action userDashboardBackButton }}><i class='fa fa-group'> &nbsp;</i>Back</span>
+                        <span class="new-btn flip-back"{{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
                     </div>
 
 
@@ -80,7 +80,7 @@
 
                 <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">GENERAL SETTINGS</div>
 
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" class='profilesnew-table' style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin:10px auto;">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" class="profilesnew-table" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin:10px auto;">
                     <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
 
                         <tr>
@@ -152,7 +152,7 @@
 
                 <div style="right: 0;margin:10px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action saveUpdate}}>Save</span>
-                    <span class='new-btn flip-back' {{action userDashboardBackButton }}><i class='fa fa-group'> &nbsp;</i>Back</span>
+                    <span class="new-btn flip-back" {{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
                 </div>
 
             </div>
@@ -160,7 +160,7 @@
             <div class="tab-pane" id="tab3">
                 <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">SOCIAL LINKS</div>
 
-                <table class='profilesnew-table' style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 10px auto;">
+                <table class="profilesnew-table" style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 10px auto;">
                     <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
 
                         <tr>
@@ -245,7 +245,7 @@
 
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action saveSociallinkUpdate}} >Save</span>
-                    <span class='new-btn flip-back'{{action userDashboardBackButton }}><i class='fa fa-group'> &nbsp;</i>Back</span>
+                    <span class="new-btn flip-back"{{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
                 </div>
 
             </div>
@@ -253,7 +253,7 @@
             <div class="tab-pane" id="tab4">
                 <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">SECURITY</div>
 
-                <table class='profilesnew-table' style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+                <table class="profilesnew-table" style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
                     <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
 
                         <tr>
@@ -294,15 +294,12 @@
 
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action savePassword}} >Save</span>
-                    <span class='new-btn flip-back'{{action userDashboardBackButton }}><i class='fa fa-group'> &nbsp;</i>Back</span>
+                    <span class="new-btn flip-back"{{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
                 </div>
 
             </div>          
             {{/unless}}
             <div class="tab-pane" id="tab5">
-
-
-
                 <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">NOTIFICATION</div>
                 <div style="margin: 10px 40px;"> 
                     <span style="font-size: 15px; font-weight: bold; color: #555;">How You Get Notifications:</span>
@@ -327,7 +324,7 @@
 
                 <div style="right: 0;margin:10px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action saveNotification}}>Save</span>
-                    <span class='new-btn flip-back' {{action userDashboardBackButton }}><i class='fa fa-group'> &nbsp;</i>Back</span>
+                    <span class="new-btn flip-back" {{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
                 </div>
 
             </div>
@@ -335,59 +332,87 @@
             <div class="tab-pane" id="tab6">
                 <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">YOUR BUSINESS PROFILES</div>
 
-                <div style="width: 100%;height: auto; max-height: 50px;padding: 10px 10px;line-height: 10px;margin-left: 15px;">
-                    <i class="fa fa-bookmark" style="position: relative; font-size: 13px; color: red; display: inline-block; margin-right: 5px;">&nbsp;Administrator</i>
-                    <i class="fa fa-bookmark" style="position: relative; font-size: 13px; color: blue;display: inline-block; margin-right: 5px;">&nbsp;Editor</i>
-                    <i class="fa fa-bookmark" style="position: relative;  font-size: 13px; color: gold;display: inline-block">&nbsp;Creator</i>
-                </div>
 
                 <div id="user_profiles"> 
-                    {{#each HubStar.profiles}}
-                    {{#if this.isAdministrator}}
-                    <div>
-                        <a href="#/profiles/{{unbound this.profile_id}}"> 
-                            <div style="padding:20px; width:100%"> 
-                                <div class="user-profile-image-position"><img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound width}}; height:{{unbound height}}"></div>
-                                <div class="user-profile-name-position">{{this.profile_name}}</div>
-                                <div class="user-profile-bookmark"><i class="fa fa-bookmark" style=" font-size: 30px; color: red;"></i></div>    
+                    <div class="user-profile-hover">
+                        <div id="profile-creator-title" class="user-title-list" {{action clickToDisplay 'Creator' on="click" target="view"}}> 
+                             <i class="fa fa-user-md" >&nbsp;</i>Creator &nbsp;(&nbsp;{{HubStar.userCreator}}&nbsp;)
+                        </div>
+                        <div id="user-profile-creator">
+                            {{#each HubStar.profiles}}
+                            {{#if this.isCreator}}
+                            <div>
+                                <a href="#/profiles/{{unbound this.profile_id}}">
+                                    <div  class="profile-image"> 
+                                        <div class="profile-top-image-position">
+                                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                                        </div>
+                                        <div class="profile-top-name-position">{{unbound this.profile_name}} </div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                            {{/if}}
+                            {{/each}}
+                        </div>
                     </div>
-                    {{/if}}
-                    {{#if this.isEditor}}
-                    <div>
-                        <a href="#/profiles/{{unbound this.profile_id}}"> 
-                            <div style="padding:20px; width:100%"> 
-                                <div class="user-profile-image-position"><img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound width}}; height:{{unbound height}}"></div>
-                                <div class="user-profile-name-position">{{this.profile_name}}</div>
-                                <div class="user-profile-bookmark"><i class="fa fa-bookmark" style=" font-size: 30px; color: blue;"></i></div>    
-                            </div>
-                        </a>
-                    </div>
-                    {{/if}}
-                    {{#if this.isCreator}}
-                    <div>
-                        <a href="#/profiles/{{unbound this.profile_id}}"> 
-                            <div style="padding:20px; width:100%"> 
-                                <div class="user-profile-image-position"><img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound width}}; height:{{unbound height}}"></div>
-                                <div class="user-profile-name-position">{{this.profile_name}}</div>
-                                <div class="user-profile-bookmark"><i class="fa fa-bookmark" style=" font-size: 30px; color: gold;"></i></div>    
-                            </div>
-                        </a>
-                    </div>
-                    {{/if}}
-                    {{/each}}
+                    <div class="user-profile-hover">
+                        <div id="profile-admin-title" class="user-title-list " {{action clickToDisplay "Admin" on="click" target="view"}}>
+                             <i class="fa fa-user" ></i>&nbsp;Administrator &nbsp;(&nbsp;{{HubStar.userAdministrator}}&nbsp;)
 
+                        </div>
+                        <div id="user-profile-admin">
+
+                            {{#each HubStar.profiles}}  
+                            {{#if this.isAdministrator}}
+                            <div>
+                                <a href="#/profiles/{{unbound this.profile_id}}">
+                                    <div class="profile-image" > 
+                                        <div class="profile-top-image-position">
+                                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                                        </div>
+
+                                        <div class="profile-top-name-position">{{this.profile_name}}</div>
+
+                                    </div>
+                                </a>
+                            </div>
+                            {{/if}}
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="user-profile-hover">
+                        <div id="profile-editor-title" class="user-title-list" {{action clickToDisplay "Editor" on="click" target="view"}}>
+                             <i class="fa fa-users">&nbsp;</i>Editor  &nbsp;(&nbsp;{{HubStar.userEditor}}&nbsp;)
+
+                        </div>
+                        <div id="user-profile-editor">
+
+                            {{#each HubStar.profiles}}  
+                            {{#if this.isEditor}}
+                            <div>
+                                <a href="#/profiles/{{unbound this.profile_id}}">
+                                    <div class="profile-image" > 
+
+                                        <div class="profile-top-image-position">
+                                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                                        </div>
+                                        <div class="profile-top-name-position">{{this.profile_name}} </div>
+                                    </div>
+                                </a>
+                            </div>
+                            {{/if}}
+                            {{/each}}
+                        </div>
+                    </div>
                 </div>
 
                 <div style="width: 100%;height: auto; min-height: 50px;padding-left: 25px;">
-
-                    <div style="font-size: 20px;font-weight: bold;color: #555; height: auto; min-height: 50px;vertical-align: middle;display: inline-block;">
-                        <a href="#/profiles/new"><i class="fa fa-plus">&nbsp;New Profile</I></a>
-                    </div>
+                    {{#if view.is_trends_user}}
+                    <div class='new-profile-display-button'><a href="#/profiles/new"><i class="fa fa-plus">&nbsp;New Profile</i></a> </div>
+                    {{/if}}
                 </div>
-                <div style="margin: 0 auto;width: 150px;">
-                    <span class='new-btn flip-back' {{action userDashboardBackButton }}><i class='fa fa-group'> &nbsp;</i>Back</span>
+                <div style="margin: 0 auto;width: 100px;clear: both;">
+                    <span class="new-btn flip-back" {{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
                 </div>
 
             </div>
@@ -401,11 +426,11 @@
 
 
     {{#if controller.isPhotoEditingMode}}
-    <div class='' style='position:relative;height: 65px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
-        <span style="position: relative;display: inline-block;font-size: 40px; vertical-align: top;"><i class='fa fa-check-circle'></i></span>
+    <div class="" style="position:relative;height: 65px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);">
+        <span style="position: relative;display: inline-block;font-size: 40px; vertical-align: top;"><i class="fa fa-check-circle"></i></span>
         <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
-            <span style='font-size: 20px;display: block;line-height: 25px;font-weight: bold'>Crop your picture now!</span>
-            <span style='font-size: 15px;display: block;line-height: 15px;'> Image Size: <span id="log"></span> </span>  
+            <span style="font-size: 20px;display: block;line-height: 25px;font-weight: bold">Crop your picture now!</span>
+            <span style="font-size: 15px;display: block;line-height: 15px;"> Image Size: <span id="log"></span> </span>  
         </span>
     </div>
 
@@ -417,8 +442,8 @@
     </div>
     <div style="margin:20px auto;width: 150px;">
 
-        <span class="new-btn green-btn " {{action savePhotoUpdate}} ><i class='fa fa-save'> &nbsp;Save</i></span>
-        <span class='new-btn flip-back'{{action userDashboardBackButton}}><i class='fa fa-group'> &nbsp;</i>Back</span>
+        <span class="new-btn green-btn " {{action savePhotoUpdate}} ><i class="fa fa-save"> &nbsp;Save</i></span>
+        <span class="new-btn flip-back"{{action userDashboardBackButton}}><i class="fa fa-group"> &nbsp;</i>Back</span>
 
     </div>
     {{/if}}

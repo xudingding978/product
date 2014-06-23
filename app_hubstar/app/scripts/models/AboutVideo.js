@@ -4,6 +4,13 @@ HubStar.AboutVideo = DS.Model.extend({
     video_desc: DS.attr('string'),
     video_url: DS.attr('string'),
     optional: DS.attr('string'),
+    display: function() {
+        if (this.get('video_url') === null || this.get('video_url') === "") {
+            return false;
+        } else {
+            return true;
+        }
+    }.property('video_url'),
     didLoad: function() {
 
     },

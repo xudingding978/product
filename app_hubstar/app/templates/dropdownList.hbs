@@ -1,7 +1,7 @@
 
 
 {{#if controller.projectCategoryDropdown}}
-<div id="dropItem1"  class="Dropdownstyle1" {{action dropdown controller.dropdownCategory}}>
+<div id="dropItem1"  class="Dropdownstyle1 Dropdownstyle1a" {{action dropdown controller.dropdownCategory}}>
      {{#each controller.categorys}}
      <div  class="ite " {{action topicSelection this}}>{{topic}}</div>
     {{/each}}
@@ -11,7 +11,7 @@
 
 
 {{#if controller.projectTimeframeDropdown}}
-<div id="dropItem2" class="Dropdownstyle1" {{action dropdown controller.dropdownTimeframe}}>
+<div id="dropItem2" class="Dropdownstyle1 Dropdownstyle1a" {{action dropdown controller.dropdownTimeframe}}>
      <div  class="ite ">1-2 months</div>
     <div  class="ite ">Next 6 months</div>
     <div  class="ite ">Within 12 months</div>
@@ -20,8 +20,9 @@
 </div>
 {{/if}}
 
+
 {{#if controller.projectBudgetDropdown}}
-<div id="dropItem3" class="Dropdownstyle1" {{action dropdown controller.dropdownBudget}}>
+<div id="dropItem3" class="Dropdownstyle1 Dropdownstyle1a" {{action dropdown controller.dropdownBudget}}>
      <div  class="ite ">Less than 5k</div>
     <div  class="ite ">5k-10k</div>
     <div  class="ite ">10k-50k</div>
@@ -43,12 +44,12 @@
 {{/if}}
 
 {{#if controller.countryDropdown}}
-<div id="countryDropdown" class="Dropdownstyle1"  style="width: 450px;text-align: center; left: 0;" {{action dropdown "country"}}>
+<div id="countryDropdown" class="Dropdownstyle1"  style="width: 420px;text-align: center; left: 0;" {{action dropdown "country"}}>
 </div>
 {{/if}}
 
 {{#if controller.regionDropdown}}
-<div id="regionDropdown" class="Dropdownstyle1" style="width: 450px;text-align: center; left: 0;" {{action dropdown "region"}}>
+<div id="regionDropdown" class="Dropdownstyle1" style="width: 420px;text-align: center; left: 0;" {{action dropdown "region"}}>
 </div>
 {{/if}}
 
@@ -62,7 +63,7 @@
 {{/if}}
 
 {{#if controller.subcategoryDropdown}}
-<div id="subcategoryDropdown" class="Dropdownstyle1" style="width: 225px; left: 0;" {{action dropdown "subcategory"}}>
+<div id="subcategoryDropdown" class="Dropdownstyle1" style="width: 204px; left: 0;" {{action dropdown "subcategory"}}>
 
      {{#each controller.subcate}}
      <div  class="ite " >{{category_topic}}</div>
@@ -71,22 +72,8 @@
 </div>
 {{/if}}
 
-{{#if controller.numberDropdown}}
-<div id="numberDropdown" class="Dropdownstyle1" style="width: 90px;left:0;" {{action dropdown "number"}}>
-     <div class="ite easing" style="">09</div>
-    <div class="ite easing" style="">04</div>
-    <div class="ite easing" style="">03</div>
-    <div class="ite easing" style="">075</div>
-    <div class="ite easing" style="">071</div>
-    <div class="ite easing" style="">024</div>
-</div>
-{{/if}}
-
-
-
-
 {{#if controller.isPackgetDropdown}}
-<div id="profilePackgetDropdown" class="Dropdownstyle1" style="width: 500px;" {{action dropdown controller.projectCategoryDropdownType}}>
+<div id="profilePackgetDropdown" class="Dropdownstyle1" style="width: 482px; margin: -1px -8px;text-align:center;" {{action dropdown controller.projectCategoryDropdownType}}>
      <div  class="ite ">Platinum</div>
     <div  class="ite ">Gold</div>
     <div  class="ite ">Silver</div>
@@ -112,14 +99,14 @@
     {{/if}}
 
     {{#if controller.isActiveDropdown}}
-    <div id="is_actvie" class="Dropdownstyle1" style="width: 500px;" {{action dropdown controller.projectActiveDropdownType}}>
+    <div id="is_actvie" class="Dropdownstyle1" style="width: 482px; margin: -1px -8px;text-align:center;" {{action dropdown controller.projectActiveDropdownType}}>
          <div  class="ite ">true</div>
         <div  class="ite ">false</div>
     </div>
     {{/if}}
 
     {{#if controller.isDeleteDropdown}}
-    <div id="is_delete" class="Dropdownstyle1" style="width: 500px;" {{action dropdown controller.projectDeleteDropdownType}}>
+    <div id="is_delete" class="Dropdownstyle1" style="width: 482px; margin: -1px -8px;text-align:center;" {{action dropdown controller.projectDeleteDropdownType}}>
          <div  class="ite ">true</div>
         <div  class="ite ">false</div>
     </div>
@@ -128,7 +115,7 @@
 
 
     {{#if controller.profileCategoryDropdown}}
-    <div id="profileCategoryDropdown"  class="Dropdownstyle1"  style="width: 260px; left: 0;" {{action dropdown "category"}}>
+    <div id="profileCategoryDropdown" class="Dropdownstyle1" style="width: 230px; left: 0;" {{action dropdown "category"}}>
          {{#each controller.categorys}}
          <div  class="ite " {{action topicSelection this}}>{{topic}}</div>
         {{/each}}
@@ -137,7 +124,7 @@
     {{/if}}
 
     {{#if controller.profileSubcategoryDropdown}}
-    <div id="profileSubcategoryDropdown" class="Dropdownstyle1" style="width: 260px; left: 0;" {{action dropdown "subcategory"}}>
+    <div id="profileSubcategoryDropdown" class="Dropdownstyle1" style="width: 216px; left: 0;" {{action dropdown "subcategory"}}>
 
          {{#each controller.subcate}}
          <div  class="ite " >{{category_topic}}</div>

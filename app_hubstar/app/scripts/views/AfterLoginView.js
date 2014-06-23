@@ -66,7 +66,7 @@ HubStar.AfterLoginView = Ember.View.extend({
 
         $("#user-dd-menu").attr("style", "display:none");
         $("#profileDashboard").attr("style", "display:none");
-        $("#profilePanel").removeClass("panel");
+       $("#profilePanel").removeClass("panel");
         $(".brand").addClass("tour-background");
         $(".Geo-Filter").addClass("tour-background");
         $("#login_detail").addClass("tour-background");

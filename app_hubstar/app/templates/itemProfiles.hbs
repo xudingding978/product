@@ -13,12 +13,12 @@
     </div>
     {{/if}}
 
-    <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;z-index: 2;">
+    <span class="edit-object easing" style="position: absolute;margin: 10px; top:0;z-index: 2;">
 
         {{#if controller.is_authentic_user}}
         <div class="new-btn blue-btn hint--right hint--rounded" style="margin: 4px 0px;" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
              <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
-            <i class='fa fa-caret-down'></i>
+            <i class="fa fa-caret-down"></i>
         </div>
 
         <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
@@ -47,12 +47,12 @@
 
 {{#if isFollowCurrentUser}}
 
-<div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 5px auto 15px;width: 100px;display: block;"{{action followThisUser this}}><i class='fa fa-circle-o' >&nbsp; </i> Following</div>
+<div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 5px auto 15px;width: 100px;display: block;"{{action followThisUser this}}><i class="fa fa-circle-o" >&nbsp; </i> Following</div>
 
 {{else}}
 
 
-<div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 5px auto 15px;width: 100px;display: block;"{{action followThisUser this}}><i class='fa fa-plus' >&nbsp; </i> Follow</div>
+<div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 5px auto 15px;width: 100px;display: block;"{{action followThisUser this}}><i class="fa fa-plus" >&nbsp; </i> Follow</div>
 
 {{/if}}
 

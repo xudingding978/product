@@ -5,10 +5,11 @@
         {{/if}}
 
         <div class="top-controlbar easing">
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this video to a collection" style="position:relative;width: 60px;margin: 0 5px;" {{action switchCollection on="click" target="controller"}} >
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this video to a collection"  {{action switchCollection on="click" target="controller"}} >
                 <i class="fa fa-folder"></i><span class="pretooltip">Save</span>
             </div>
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this video" style="position:relative;width: 60px;margin: 0 5px;" {{action dropdownPhotoSetting "1"}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this video" {{action dropdownPhotoSetting "1"}}>
+
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
             <ul class="hideClass edit-object-ul share-box4" id="dropdown_id_1">
@@ -77,7 +78,7 @@
         <div class="collapes-container view-stats-box">
             <div class="collapes-container_inner view-stats-innerbox">
                 {{megaResouce.photo_isLike}}
-                
+
                 {{#if megaResouce.isLike}}
                 <div  class="square-button hint--rounded hint--bottom"  data-hint="unLike this Idea!" {{action unLike}}>
                       <i class="fa fa-thumbs-up">&nbsp;<span class="view-stats-font">{{megaResouce.likes_count}}</span>&nbsp;</i>
@@ -91,23 +92,22 @@
                 <div class="square-button hint--rounded hint--bottom"  data-hint="Save this video to a collection" {{action switchCollection on="click" target="controller"}}>
                     <i class="fa fa-folder" >&nbsp;<span class="view-stats-font">{{megaResouce.save_count}}</span>&nbsp;</i>
                 </div>
-
-                <div class="square-button hint--rounded hint--bottom for-tooltip-position" data-hint="Share this video" style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting "2"}}>
+                <div class="square-button hint--rounded hint--bottom for-tooltip-position share-box2" data-hint="Share this video" {{action dropdownPhotoSetting "2"}}>
                      <i class="fa fa-share" >&nbsp;<span class="view-stats-font">{{megaResouce.share_count}}</span>&nbsp;</i>
                 </div>
 
-                <ul class="hideClass edit-object-ul" id="dropdown_id_2" style="width: 170px; right: 80px; position: absolute; top: 136px;">
+                <ul class="hideClass edit-object-ul" id="dropdown_id_2 share-box4a">
                     <li class="ite" {{action  fbShare "2"}} >
-                        <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
+                        <i class="fa fa-facebook share-type share-type-pos2"></i><span class="share-type-txt2">Facebook</span>
                     </li>
                     <li class='ite' {{action tShare "2"}} >
-                        <i class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Twitter</span>
+                        <i class="fa fa-twitter share-type share-type-pos2"></i><span class="share-type-txt2">Twitter</span>
                     </li>
                     <li class='ite' {{action pShare "2"}} >
-                        <i class="fa fa-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Pinterest</span>
+                        <i class="fa fa-pinterest share-type share-type-pos2"></i><span class="share-type-txt2">Pinterest</span>
                     </li>
                     <li class="ite" {{action gpShare "2"}}>
-                        <i class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Google+</span>
+                        <i class="fa fa-google-plus share-type share-type-pos2"></i><span class="share-type-txt2">Google+</span>
                     </li>
                 </ul>
             </div>

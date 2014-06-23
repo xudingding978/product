@@ -44,17 +44,17 @@
 {{/if}}
 
 {{#if controller.countryDropdown}}
-<div id="countryDropdown" class="Dropdownstyle1"  style="width: 420px;text-align: center; left: 0;" {{action dropdown "country"}}>
+<div id="countryDropdown" class="Dropdownstyle1 locationDropdown" {{action dropdown "country"}}>
 </div>
 {{/if}}
 
 {{#if controller.regionDropdown}}
-<div id="regionDropdown" class="Dropdownstyle1" style="width: 420px;text-align: center; left: 0;" {{action dropdown "region"}}>
+<div id="regionDropdown" class="Dropdownstyle1 locationDropdown" {{action dropdown "region"}}>
 </div>
 {{/if}}
 
 {{#if controller.categoryDropdown}}
-<div id="categoryDropdown"  class="Dropdownstyle1"  style="width: 225px; left: 0;" {{action dropdown "category"}}>
+<div id="categoryDropdown"  class="Dropdownstyle1 categoryDropdown" {{action dropdown "category"}}>
      {{#each controller.categorys}}
      <div  class="ite " {{action topicSelection this}}>{{topic}}</div>
     {{/each}}
@@ -63,7 +63,7 @@
 {{/if}}
 
 {{#if controller.subcategoryDropdown}}
-<div id="subcategoryDropdown" class="Dropdownstyle1" style="width: 204px; left: 0;" {{action dropdown "subcategory"}}>
+<div id="subcategoryDropdown" class="Dropdownstyle1 subcategoryDropdown" style="" {{action dropdown "subcategory"}}>
 
      {{#each controller.subcate}}
      <div  class="ite " >{{category_topic}}</div>
@@ -73,7 +73,7 @@
 {{/if}}
 
 {{#if controller.isPackgetDropdown}}
-<div id="profilePackgetDropdown" class="Dropdownstyle1" style="width: 482px; margin: -1px -8px;text-align:center;" {{action dropdown controller.projectCategoryDropdownType}}>
+<div id="profilePackgetDropdown" class="Dropdownstyle1 profilepackageDropdown" {{action dropdown controller.projectCategoryDropdownType}}>
      <div  class="ite ">Platinum</div>
     <div  class="ite ">Gold</div>
     <div  class="ite ">Silver</div>
@@ -124,7 +124,7 @@
     {{/if}}
 
     {{#if controller.profileSubcategoryDropdown}}
-    <div id="profileSubcategoryDropdown" class="Dropdownstyle1" style="width: 216px; left: 0;" {{action dropdown "subcategory"}}>
+    <div id="profileSubcategoryDropdown" class="Dropdownstyle1" style="width: 230px; left: 0;" {{action dropdown "subcategory"}}>
 
          {{#each controller.subcate}}
          <div  class="ite " >{{category_topic}}</div>

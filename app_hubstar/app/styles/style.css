@@ -1682,3 +1682,26 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     width:auto;
     min-width:233px;
 }
+
+.locationDropdown{
+    width: 420px;
+    text-align: center; 
+    left: 0;
+}
+
+.categoryDropdown{
+    width: 225px; 
+    left: 0;
+}
+
+.subcategoryDropdown{
+    width: 204px; 
+    left: 0;
+}
+
+.profilepackageDropdown{
+    width: 482px; 
+    margin: -1px -8px;
+    text-align:center;
+}
+

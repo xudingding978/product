@@ -64,8 +64,8 @@
 }
 
 .user-profilepic-container img{
-   width: 180px;
-   height: 180px; 
+    width: 180px;
+    height: 180px; 
 }
 
 .user-profilepic-container:hover .changeuserprofilepic{
@@ -161,8 +161,8 @@
 }
 
 .show-interest-up{
-     float: right;
-     padding: 7px;
+    float: right;
+    padding: 7px;
 }
 
 .show-interest-button{
@@ -267,4 +267,239 @@ textarea.add-interests{
 }
 
 /* interest ENDS */
+
+
+/* --------user photo edit ---------------*/
+
+.user-picture-edit{
+    display:block;height: 420px;
+    top: 0;
+    background-color: #fff; 
+    padding: 0;
+    overflow: hidden
+}
+
+.user-picture-upload-box{
+    height: 400px;
+    width: 93%;
+    position: absolute;
+}
+
+.user-picture-upload-box > i {
+    width: 40px;
+    margin: auto;
+    display: block;
+    position: relative;
+    top: 125px;
+}
+
+.user-picture-span-font{
+    display: block; 
+    position: relative;
+    font-size: 20px;
+    top: 140px; 
+    cursor: default; 
+    font-weight: bold;
+    line-height: 25px;
+    margin-left:0px;
+}
+
+.user-picture-span-size{
+    font-size: 16px;
+    display: block;
+    line-height: 18px;
+    position: relative;
+    top: 240px;
+    margin-left:0px;
+}
+
+.user-picture-upload-box > div{
+    position: absolute;  
+    vertical-align: top; 
+    text-align: center;
+    width: 100%;
+    height: 398px;
+    top: 0;
+    line-height: 345px;
+    background-color: Rgba(30,30,30,.2);
+}
+
+.user-picture-upload-box > div > div > img{
+    max-width: 170px; 
+    max-height: 170px;  
+}
+
+#uploadStyleImg{
+    display: none;
+}
+
+#uploadStyleImg img{
+    width: 25px; 
+    height: 25px;
+    position: absolute;
+    top: 40%;
+    left: 62px;
+}
+
+.user-picture-img-button{
+    text-align: center;
+    height: 75px;
+    line-height: 85px;
+    background-color: #f3f3f3;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+
+.user-picture-img-button-choose{
+    margin: 28px 10px; 
+    width: 83px; 
+    float: left;
+}
+
+.user-picture-img-button-choose > div{
+    opacity:0;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 85px;
+    overflow: hidden;
+}
+
+.user-picture-img-button-crop{
+    margin: auto 10px;
+    width: 150px;
+    float: right;
+}
+
+.user-picture-img-crop-title{
+   position:relative;
+   height: 85px; 
+   width: 100%;
+   background-color: #fafafa;
+   text-align: left;
+   color: #555;
+   padding: 10px;
+   text-shadow: 0 1px 0 rgba(255,255,255,0.8); 
+}
+
+.user-picture-img-crop-title-icon{
+    position: relative;
+    display: inline-block;
+    font-size: 40px;
+    margin: 10px 0;
+    vertical-align: top;
+}
+
+.user-picture-img-crop-title-name{
+    position: relative;
+    display: inline-block;
+    margin: 15px 10px;
+    font-size: 20px;
+    line-height: 25px;
+    width: 75%;
+}
+
+.user-picture-crop-container{
+    width: 300px;
+    height: 350px;
+    text-align: center; 
+    margin: 10px auto
+}
+
+.user-picture-crop-container canvas{
+    max-width: 300px; 
+    max-height: 350px;
+    width: auto;
+    height: auto;
+}
+
+.user-picture-crop-button{
+    margin: auto;
+    width: 150px;
+}
+
+
+
+/* ---------------- user  post -----------*/
+
+
+.user-post-title{
+    height: 50px; 
+    font-size: 20px; 
+    padding: 20px;
+    text-align: center;
+}
+
+.user-post-container{
+    width: 98%;
+    padding: 15px 10px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ddd;
+    min-height: 165px;
+}
+
+.user-post-wrapper{
+    margin:0 auto;
+    padding: 0 0 0 56px;
+}
+
+.user-post-angle{
+    left: 55px;
+}
+
+.user-post-img{
+    width: 45px; 
+    height: 45px;
+    float: left; 
+    margin: 4px 0 0 -60px; 
+    margin-top: 0;
+}
+
+.user-post-content{
+    width: 100%;
+    border-radius: 2px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.user-post-content-textarea{
+    margin: 0;
+    width: 100%; 
+    height:100px;
+}
+
+.user-post-content-upload-photo{
+   max-width: 100%;
+   max-height: 100px;
+   padding: 10px 12px;
+   text-align: center;
+   border-top: 1px solid #ddd; 
+}
+
+.user-post-content-upload-photo img{
+    max-width: 100%; 
+    max-height: 80px;
+    
+}
+
+.user-post-content-button{
+    height: 30px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    top: -1px;
+}
+
+.user-post-content-button-add-photo-back{
+    opacity:0;
+    position: relative;
+    height:30px;
+    top:-30px;
+    overflow: hidden;
+}
+
+
+
+
+
 

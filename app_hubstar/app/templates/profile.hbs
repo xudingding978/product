@@ -4,9 +4,9 @@
     <img  {{bindAttr src= model.profile_bg_url}} class="profile-bg-url">
 </div>
 <div class="profile-top"></div>
-<div id="profilePanel" class="panel profilePanel">
 
-    <div id="profileFront" class="front" style="    text-align: inherit; width: auto;height: auto; box-shadow: none; border: none; position: relative !important;">
+<div id="profilePanel" class="hover panel profilePanel" style="position: relative !important;"><!-- must keep inline css for some reason by Ally-->
+    <div id="profileFront" class="front" style="text-align: inherit; width: auto;height: auto; box-shadow: none; border: none; position: relative !important;">
 
         <div class="profilewrapper premium">
             <!--corpbanner-->
@@ -459,16 +459,16 @@
                         <div class="profile-row">
                             <div class="profile-col1" >Profile Contact:</div>
                             <div class="profile-col2"> 
-                                
 
-                                    <div  class="profile-tab-row2a">
-                                        {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
-                                    </div>
-                                    <div class="profile-tab-row2b">
-                                        {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
-                                    </div>
 
-                                
+                                <div  class="profile-tab-row2a">
+                                    {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
+                                </div>
+                                <div class="profile-tab-row2b">
+                                    {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
+                                </div>
+
+
                             </div>
                         </div>
 
@@ -501,7 +501,7 @@
                         <div class="profile-row">
                             <div class="profile-col1" >Physical Address:</div>
                             <div class="profile-col2"> 
-                                
+
                                 <div  class="profile-tab-row2a">
                                     {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
                                 </div>
@@ -509,7 +509,7 @@
                                     {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
                                 </div>
 
-                               
+
                             </div>
                         </div>
                         <div class="profile-row">
@@ -564,7 +564,7 @@
                 </div>
 
                 <div class="tab-pane" id="tab3">
-                    
+
                     <div class="profile-tab-title">Account Settings</div>
                     <div class="profile-tab-table">
                         <div class="profile-row">
@@ -630,7 +630,7 @@
                             <div class="profile-col1" >Facebook:</div>
                             <div id="facebook" class="profile-col2" > 
                                 <div class="profile-tab-row1">
-                                 {{input type="text" value=facebook placeholder="www.facebook.com/username"}}
+                                    {{input type="text" value=facebook placeholder="www.facebook.com/username"}}
                                 </div>
                             </div> 
                         </div>
@@ -638,7 +638,7 @@
                             <div class="profile-col1" >Twitter:</div>
                             <div id="twitter" class="profile-col2" > 
                                 <div class="profile-tab-row1">
-                                 {{input type="text" value=twitter placeholder="www.twitter.co/username"}}
+                                    {{input type="text" value=twitter placeholder="www.twitter.co/username"}}
                                 </div>
                             </div> 
                         </div>
@@ -646,7 +646,7 @@
                             <div class="profile-col1" >Google+:</div>
                             <div id="googleplus" class="profile-col2" > 
                                 <div class="profile-tab-row1">
-                                 {{input type="text" value=googleplus placeholder="plus.google.com/username"}}
+                                    {{input type="text" value=googleplus placeholder="plus.google.com/username"}}
                                 </div>
                             </div> 
                         </div>
@@ -654,7 +654,7 @@
                             <div class="profile-col1" >Pinterest:</div>
                             <div id="pinterest" class="profile-col2" > 
                                 <div class="profile-tab-row1">
-                                 {{input type="text" value=pinterest placeholder="www.pinterest.com/username"}}
+                                    {{input type="text" value=pinterest placeholder="www.pinterest.com/username"}}
                                 </div>
                             </div> 
                         </div>
@@ -662,7 +662,7 @@
                             <div class="profile-col1" >Linkedin:</div>
                             <div id="linkedin" class="profile-col2" > 
                                 <div class="profile-tab-row1">
-                                 {{input type="text" value=linkedin placeholder="www.linkedin.com/in/username"}}
+                                    {{input type="text" value=linkedin placeholder="www.linkedin.com/in/username"}}
                                 </div>
                             </div> 
                         </div>
@@ -670,7 +670,7 @@
                             <div class="profile-col1" >Youtube:</div>
                             <div id="youtube" class="profile-col2" > 
                                 <div class="profile-tab-row1">
-                                 {{input type="text" value=youtube placeholder="www.youtube.com/user/username"}}
+                                    {{input type="text" value=youtube placeholder="www.youtube.com/user/username"}}
                                 </div>
                             </div> 
                         </div>
@@ -678,7 +678,7 @@
                             <div class="profile-col1" >Instagram:</div>
                             <div id="instagram" class="profile-col2" > 
                                 <div class="profile-tab-row1">
-                                 {{input type="text" value=instagram placeholder="www.instagram.com/username"}}
+                                    {{input type="text" value=instagram placeholder="www.instagram.com/username"}}
                                 </div>
                             </div> 
                         </div>                     
@@ -690,7 +690,7 @@
                 </div>
 
                 <div class="tab-pane" id="tab4">
-                    
+
                     <div class="profile-tab-title">Authority Settings</div>
                     <div class="mustfull profile-tab-row1-wrn" id="errorMessage2">You can't change the package, your keyword numbers exceed the limit of<br> the package you want to change, please delete some keywords in your "Keyword Settings".</div>
 
@@ -735,7 +735,7 @@
                             <div class="profile-col4 profile-col4a">Creator:</div>
                             <div class="profile-col2">
                                 <div class="disabled-btn profile-tab-row2d profile-tab-col1">
-                                     <span> {{controller.profile_creator}}</span> 
+                                    <span> {{controller.profile_creator}}</span> 
                                 </div>
                             </div>
                         </div> 
@@ -743,7 +743,7 @@
                             <div class="profile-col4">Domains:</div>
                             <div class="profile-col2"> 
                                 <div class="profile-tab-row2d profile-tab-row2e">
-                                     {{view Ember.TextField valueBinding="domains"  class="mustFill4"  }}
+                                    {{view Ember.TextField valueBinding="domains"  class="mustFill4"  }}
                                 </div>
                                 <div class="mustfill profile-tab-row1-wrn" id="emailFormat6">not correct email format.....</div>
                                 <div class="mustfull profile-tab-row1-wrn" id="mustFill6">please fill in info... </div>
@@ -753,7 +753,7 @@
                             <div class="profile-col4 ">Keywords:</div>
                             <div class="profile-col2"> 
                                 <div class="profile-tab-row2d profile-tab-row2f">
-                                     {{view Ember.TextArea valueBinding="keywords" class="no-resize"  placeholder="Please use a comma separated list! i.e.: bathroom, kitchen, living room"}}
+                                    {{view Ember.TextArea valueBinding="keywords" class="no-resize"  placeholder="Please use a comma separated list! i.e.: bathroom, kitchen, living room"}}
                                 </div>
                             </div> 
                         </div>                
@@ -876,24 +876,24 @@
 
                     {{#if controller.isProfilePicture}}
                     <div id="crop-container" class="profile-tab1-edit-profilepic">          
-                    {{/if}}
-                    {{#if controller.isProfileHero}}
-                    <div id="crop-container" class="profile-tab1-edit-profilehero">
-                    {{/if}}
-                    {{#if controller.isProfileBackground}}
-                    <div id="crop-container" class="profile-tab1-edit-profilebg">
-                    {{/if}}
-                         <canvas id="panel" class="crop-canvas profile-tab1-edit-canvas"><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
-                    </div>
+                        {{/if}}
+                        {{#if controller.isProfileHero}}
+                        <div id="crop-container" class="profile-tab1-edit-profilehero">
+                            {{/if}}
+                            {{#if controller.isProfileBackground}}
+                            <div id="crop-container" class="profile-tab1-edit-profilebg">
+                                {{/if}}
+                                <canvas id="panel" class="crop-canvas profile-tab1-edit-canvas"><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
+                            </div>
 
-                    <div class="profile-tab1-edit-action">
+                            <div class="profile-tab1-edit-action">
 
-                        <div class="controlbtn">
-                            <span class="new-btn green-btn " {{action photoUpload}} ><i class="fa fa-save"> &nbsp;</i>Save</span>
-                            <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" ><i class="fa fa-group"> &nbsp;</i>Back</span> </a>
+                                <div class="controlbtn">
+                                    <span class="new-btn green-btn " {{action photoUpload}} ><i class="fa fa-save"> &nbsp;</i>Save</span>
+                                    <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" ><i class="fa fa-group"> &nbsp;</i>Back</span> </a>
 
-                        </div>
-                    </div>
+                                </div>
+                            </div>
                             {{/if}}
                             {{#if controller.isFinished}}
 
@@ -927,6 +927,14 @@
         </div>
 
 
+        {{/unless}}
+
+
+        {{#if editorAdd}}
+        {{render editEditors}}
+        {{/if}}
+
+
         {{#if controller.switchPhoto}}
 
 
@@ -935,65 +943,51 @@
         {{else}}
 
 
-        {{render "masonryCollectionItems"}}
+        {{render masonryCollectionItems}}
+
+
+        {{/if}}
+        
+
+        {{#if controller.makeSureDelete}}
+
+        {{view HubStar.DeleteFunctionView}}
 
 
         {{/if}}
 
-    </div>
-</div>
-
-
-{{/unless}}
-
-
-{{#if editorAdd}}
-{{render editEditors}}
-{{/if}}
 
 
 
+        {{#if controller.rateTime}}
+
+        {{render review this}}
 
 
-{{#if controller.makeSureDelete}}
-
-{{view HubStar.DeleteFunctionView}}
-
-
-{{/if}}
-
-
-
-
-{{#if controller.rateTime}}
-
-{{render review this}}
-
-
-{{/if}}
+        {{/if}}
 
 
 
 
 
 
-{{#if controller.popUpMap}}
+        {{#if controller.popUpMap}}
 
-{{view  HubStar.GoogleMapPopupView}}
-
-
-{{/if}}
+        {{view  HubStar.GoogleMapPopupView}}
 
 
-{{#if controller.makeSelection}}
-
-{{view HubStar.SelectFunctionView}}
-
-{{/if}}
+        {{/if}}
 
 
-{{#if controller.contactChecking}}
-{{render contact}}
-{{/if}}
+        {{#if controller.makeSelection}}
+
+        {{view HubStar.SelectFunctionView}}
+
+        {{/if}}
+
+
+        {{#if controller.contactChecking}}
+        {{render contact}}
+        {{/if}}
 
 

@@ -374,7 +374,7 @@ input{
     max-height: 500px;
 }
 .profilePanel{
-    z-index: 0;  
+    z-index: 0;
     float: none;
     position: relative !important; 
     width: 87%; 
@@ -386,9 +386,9 @@ input{
     max-width: 1260px;
     min-width: 1250px;
     overflow: hidden;
-    font-size: .8em; 
+/*    font-size: .8em; 
     -webkit-perspective: 600px;
-    -moz-perspective: 600px;
+    -moz-perspective: 600px;*/
 }
 
 .main-title{
@@ -1093,7 +1093,7 @@ div#appfeedback .fresh-message > i.fa-times{
     border-right: 0px solid transparent;
     right: 74px;
     position: absolute;
-    z-index: 2;
+    z-index: 1;
 }
 
 .user-says-angle-before3{
@@ -1110,7 +1110,7 @@ div#appfeedback .fresh-message > i.fa-times{
     right: 72px;
 
     position: absolute;
-    z-index: 1;
+    z-index: 0;
 }
 
 .user-says-angle-after3{

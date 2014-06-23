@@ -179,6 +179,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         var that = this;
         requiredBackEnd('login', 'selecttopic', updateTopic, 'POST', function() {
             setTimeout(function() {
+                ga('Trends.send', 'event', 'button', 'click', 'SignUp');
                 $('#register-with-email-step-4').css('display', 'block');
                 $('#register-with-email-step-3').css('display', 'none');
                 $('#user-login-pane').css('display', 'none');
@@ -214,6 +215,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         var that = this;
         requiredBackEnd('login', 'selecttopic', updateTopic, 'POST', function() {
             setTimeout(function() {
+                ga('Trends.send', 'event', 'button', 'click', 'SignUp');
                 HubStar.set('checkLoginStatus', false);
                 localStorage.checkUser = 'newUser';
                 localStorage.checkSocialUser = '';
@@ -240,7 +242,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
             that.set('loginStatus', params.COUCHBASE_ID);
             localStorage.userType = "email";
             localStorage.loginState = "login";
-
+            
             var emailInfo = [params.USER_NAME, that.encrypt(params.USER_NAME), that.encrypt(params.PWD_HASH)];
             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function() {
 

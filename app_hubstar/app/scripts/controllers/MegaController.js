@@ -1037,7 +1037,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("selectPhoto", false);
 
         this.set("enableTag", false);  //close the showTag template
-
+        this.set("contentTags", []);
         this.set("isRead", false);
         var address = document.URL;
         var collection_id;

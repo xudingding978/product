@@ -241,10 +241,12 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             {
                 if (HubStar.get("isArticleTag") === true)
                 {
+                    thatthat.get("controllers.article").set("contentTagsArticle", []);
                     thatthat.get("controllers.article").set("tagCount", 0);
                 }
                 else
                 {
+                    thatthat.get("controllers.mega").set("contentTags", []);
                     thatthat.get("controllers.mega").set("tagCount", 0);
                 }
             }

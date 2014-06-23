@@ -58,6 +58,8 @@ var HubStar = window.HubStar = Ember.Application.create({
             a.src = g;
             m.parentNode.insertBefore(a, m);
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-235915-17', {'name': 'Trends'});
+        ga('create', 'UA-46481605-1', {'name': 'HubStar'});
     }
 });
 

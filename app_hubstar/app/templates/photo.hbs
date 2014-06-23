@@ -133,7 +133,9 @@
             <div class="fa icon-on-black" {{action nextImage on="click" target="controller"}}>
                 <i class="fa fa-arrow-right"></i>
             </div>
+            {{#unless controller.isRead}}
             <div class="text-on-black"> {{controller.image_no}}/{{content.length}} </div>
+            {{/unless}}
         </div>
 
     </div>

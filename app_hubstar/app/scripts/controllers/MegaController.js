@@ -767,6 +767,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             var pics = HubStar.Mega.find({RquireType: "profileCollection", user_id: id, collection_id: collection_id});
             var that = this;
+            this.set("isRead", true);
             pics.then(function() {
                 var flag = false;
                 for (var i = 0; i < pics.get("length"); i++) {
@@ -839,6 +840,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     }
                 }
                 that.checkSinglePhoto(that.get("content").get("length"));
+                that.set("isRead", false);
             });
         }
         this.set("clickOrRoute", false);
@@ -935,6 +937,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
             var that = this;
             var article;
+            this.set("isRead", true);
             results.then(function() {
                 for (var i = 0; i < results.get("length"); i++) {
                     var tempObject = results.objectAt(i);
@@ -986,7 +989,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     else if (photoContent.objectAt(i).get("type") === "video")
                     {
                         id = photoContent.objectAt(i).get("id");
-                        if (that.get("content").objectAt(0).get('id') !== id)
+                        if (mega.get('id') !== id)
                         {
                             photoUrl = photoContent.objectAt(i).get("videoes").objectAt(0).get("videoImg");
                             article = HubStar.Mega.find(id);
@@ -1008,6 +1011,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     }
                 }
                 that.checkSinglePhoto(that.get("content").length);
+                that.set("isRead", false);
             });
         }
 

@@ -8,7 +8,7 @@
     </div>
     <div  id="review_{{unbound model.review_id}}"class="review-list-content easing" style="">
         <div style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;border-radius: 3px 3px 0 0;">
-            <div {{action 'showOneReview' model.review_id "content" target='view' on="click"}} class="comment-namentime" style="display: block;position: relative;height: 35px;">
+            <div {{action "showOneReview" model.review_id "content" target="view" on="click"}} class="comment-namentime" style="display: block;position: relative;height: 35px;">
                 <div class="namentime_position" style="margin: 0;float: left;">
                     
                         {{model.review_user_name}}
@@ -24,10 +24,10 @@
 
         <div  style="background-color: #fff; padding: 10px 40px; font-size: 13px;">
 
-            <div id="review_content_{{unbound model.review_id}}" {{action 'upContent' model.review_id target='view' on="click"}} style="width: 390px; max-height:100px;line-height:20px; position: relative; display: inline-block; overflow: hidden; ">{{model.review_content}}  </div>   
+            <div id="review_content_{{unbound model.review_id}}" {{action "upContent" model.review_id target="view" on="click"}} style="width: 390px; max-height:100px;line-height:20px; position: relative; display: inline-block; overflow: hidden; ">{{model.review_content}}  </div>   
 
-            <span {{action 'showOneReview' model.review_id "content" target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;"  id="down_button_{{unbound model.review_id}}"  ><i class="fa fa-caret-down">&nbsp;</i>more</span>
-            <span {{action 'upContent' model.review_id target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:none;"  id="up_button_{{unbound model.review_id}}" ><i class="fa fa-caret-up">&nbsp;</i>collapse</span>
+            <span {{action "showOneReview" model.review_id "content" target="view" on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;"  id="down_button_{{unbound model.review_id}}"  ><i class="fa fa-caret-down">&nbsp;</i>more</span>
+            <span {{action "upContent" model.review_id target="view" on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:none;"  id="up_button_{{unbound model.review_id}}" ><i class="fa fa-caret-up">&nbsp;</i>collapse</span>
 
 
             <div style="position: relative; display: block;margin: 15px 0 10px;height: 20px;width: 100%;">
@@ -48,7 +48,7 @@
                     <li class="ite" {{action  fbShare model}} >
                 <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
                 </li>
-                <li class='ite' {{action tShare model}} >
+                <li class="ite" {{action tShare model}} >
             <i class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Twitter</span>
             </li>
             <li class="ite" {{action gpShare model}}>
@@ -69,8 +69,8 @@
         <div style="margin:0 auto; padding: 0 45px 15px 0;">
             <a  href="#/users/{{unbound controller.currentUser.id}}">
                 <img class="profilepic_comment"  style="float: right; margin: 4px -10px 0 0; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url_large"}} /> 
-                <div class='user-reply-angle-before'></div>
-                <div class='user-reply-angle-after'></div>
+                <div class="user-reply-angle-before"></div>
+                <div class="user-reply-angle-after"></div>
             </a>
 
             <div class="reply-comment-container" style="width: 378px;height: 32px;">
@@ -78,8 +78,8 @@
                     {{view HubStar.SearchRequireTextFieldView valueBinding="controller.replyReviewContent"  class="no-resize"  placeholder="Write a comment..." }}                                                   
                 </div>
                 <div style="float: right;height: 34px;position: relative;">
-                    <div id="ok_{{unbound model.review_id}}" class="message-btn easing" style='width: 30px;'{{action addReviewReply model.review_id}}>
-                         <i  class='fa fa-check'></i>
+                    <div id="ok_{{unbound model.review_id}}" class="message-btn easing" style="width: 30px;"{{action addReviewReply model.review_id}}>
+                         <i  class="fa fa-check"></i>
                     </div>
 
                 </div>
@@ -88,7 +88,7 @@
     </div>
 
 
-    <div id="view-comments_{{unbound model.review_id}}" {{action 'showOneReview' model.review_id "viewReply" target='view' on="click"}} class="hover-opacity" style="display:block; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;">
+    <div id="view-comments_{{unbound model.review_id}}" {{action "showOneReview" model.review_id "viewReply" target="view" on="click"}} class="hover-opacity" style="display:block; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;">
          view comments {{this.model.reply_reviews.length}}
          <i class="fa fa-caret-down">&nbsp;</i>
     </div>
@@ -100,7 +100,7 @@
 
     </div>
 
-    <div id="up-comments_{{unbound model.review_id}}" {{action 'upComments' model.review_id target='view' on="click"}}  class="hover-opacity" style="display: none; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;">
+    <div id="up-comments_{{unbound model.review_id}}" {{action "upComments" model.review_id target="view" on="click"}}  class="hover-opacity" style="display: none; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;">
         collapse comments {{this.model.reply_reviews.length}}
         <i class="fa fa-caret-up">&nbsp;</i>
     </div>
@@ -130,7 +130,7 @@
 <div class="Add-review" style="overflow:hidden">
 
     <div id="review_{{unbound model.review_id}}" style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
-        <div {{action 'showOneReview' model.review_id target='view' on="click"}} class="comment-namentime" style="display: block;position: relative;height: 35px;">
+        <div {{action "showOneReview" model.review_id target="view" on="click"}} class="comment-namentime" style="display: block;position: relative;height: 35px;">
             <div class="namentime_position" style="margin: 0;float: left;">
                 <a class="comment-username" href="#/users/{{unbound model.review_user_id}}"  >
                     {{model.review_user_name}}
@@ -149,7 +149,7 @@
 
     <div class="" style="height: 41px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
         <div  class="message-btn easing"  style="width: 50%;border-right: 1px solid #ddd;" {{action cancelReview }}><i class="fa fa-times">&nbsp;</i>Cancel</div>
-        <div class="message-btn easing" style="width: 50%;" {{action  saveReview }}><i class='fa fa-check'>&nbsp;</i>Post</div>
+        <div class="message-btn easing" style="width: 50%;" {{action  saveReview }}><i class="fa fa-check">&nbsp;</i>Post</div>
     </div>
 </div>
 

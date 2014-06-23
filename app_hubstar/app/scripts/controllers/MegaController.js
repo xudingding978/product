@@ -377,8 +377,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("showRequestTag", false);
         this.set("showTagAfterSave", false);
         this.set("showEachTagContent", false);
-        this.set("tempShowTags",this.get("showAllTags"));
-        this.set("showAllTags",true);       
+        this.set("tempShowTags", this.get("showAllTags"));
+        this.set("showAllTags", true);
         this.set("enableTag", true);
         $("#p").addClass("hideClass");
         $("#n").addClass("hideClass");
@@ -395,7 +395,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("inImage", false);  //click the end tag recove the value
         this.set("showTagAfterSave", true);
         this.set("showRequestTag", true);
-        this.set("showAllTags",this.get("tempShowTags"));
+        this.set("showAllTags", this.get("tempShowTags"));
         $("#p").removeClass("hideClass"); //remove the left and right icon
         $("#n").removeClass("hideClass");
         $("#previousphoto").removeClass("touch-cursor");
@@ -618,13 +618,27 @@ HubStar.MegaController = Ember.ArrayController.extend({
             var data = HubStar.Mega.find({RequireType: "profileCollection", "owner_profile_id": owner_profile_id, "collection_id": collection_id});
             this.set("isRead", true);
             data.then(function() {
+                var flag = false;
                 for (var i = 0; i < data.get('length'); i++) {
                     var id = data.objectAt(i).id;
-                    if (HubStar.Mega.find(id).get('photo').get('length') === 1 && mega.get('id') !== id)
+                    console.log(data.objectAt(i));
+                    if (HubStar.Mega.find(id).get('photo').get('length') === 1)
                     {
-                        if (HubStar.Mega.find(id).get('collection_id') === collection_id) {
-
-                            that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
+                        if (mega.get('id') !== id) {
+                            if (HubStar.Mega.find(id).get('collection_id') === collection_id) {
+                                if (flag === false) {
+                                    that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
+                                }
+                                else
+                                {
+                                    that.get("content").insertAt(0,HubStar.Mega.find(id).get("photo").objectAt(0));
+                                }
+                            }
+                        }
+                        else
+                        {
+                            that.set("image_no",data.get('length')-i);
+                            flag = true;
                         }
                     }
                 }

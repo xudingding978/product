@@ -1705,3 +1705,22 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     text-align:center;
 }
 
+.isLogin1{
+    position: absolute;
+}
+
+.isLogin2{
+    position: absolute;
+    right:95px;
+}
+
+.statusDropdown{
+    width: 482px; 
+    margin: -1px -8px;
+    text-align:center;
+}
+
+.profileDropdown{
+    width: 230px; 
+    left: 0;
+}

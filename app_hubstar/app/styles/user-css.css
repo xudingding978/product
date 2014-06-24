@@ -421,8 +421,11 @@ textarea.add-interests{
 
 
 
-/* ---------------- user  post -----------*/
+/* ---------------- user post -----------*/
 
+.user-post-background{
+    background-color: #fafafa;
+}
 
 .user-post-title{
     height: 50px; 
@@ -539,6 +542,10 @@ textarea.add-interests{
     position:relative; 
     overflow: hidden;
 }
+
+/* --------user following ------------------*/
+
+
 
 
 

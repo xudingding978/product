@@ -138,11 +138,11 @@ HubStar.Router.reopen({
         this._super(infos);
         Ember.run.next(function() {
 
-            ga('create', 'UA-235915-17', {'name': 'Trends'});
+            
             ga('Trends.require', 'displayfeatures');
             ga('Trends.send', 'pageview');
 
-            ga('create', 'UA-46481605-1', {'name': 'HubStar'});
+           
             ga('HubStar.require', 'displayfeatures');
             ga('HubStar.send', 'pageview', window.location.href);
         });

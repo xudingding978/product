@@ -1,51 +1,51 @@
 
 <div class="blur_black" {{action closeContact }}></div>
 
-<div  style="position: relative;height: 35px; width: 100%;background: #fff url('../../../images/contactbg.png') repeat; z-index: 11;"></div>
+<div class="contact-top"></div>
 
-<div class="contactmebox-wapper" style="width: 500px;font-size:13px;background-color: white;z-index:11;position: absolute;">
+<div class="contactmebox-wapper contact-box">
 
 
     {{#unless controller.firstStepOfContactEmail}}
     <div class="head controlbtn-field">
-        <div style="position: relative; text-align: center;">
-            <div class="panelcircle radius-circle" style="">1</div>
-            <div class="panelcircle radius-circle" style="background-color: #aaa" {{action nextSendingEmailProcess}} >2</div>
-            <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
-            <div style='font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);position: relative;top: 10px;right: 87px;font-weight: bold;margin-bottom: 10px;'> Send a message.</div>
+        <div class="contact-navigateBar">
+            <div class="panelcircle radius-circle">1</div>
+            <div class="panelcircle radius-circle contact-hide-step" {{action nextSendingEmailProcess}} >2</div>
+            <div class="contact-step-bar"></div>
+            <div class="contact-step-title contact-step-one"> Send a message.</div>
         </div>
     </div>
 
-    <div class="head" style='padding-bottom: 0;'>
-        <div class="poster_user" style="width:390px;">
-            <div style="display: block; font-size: 16px; font-weight: bold; margin-bottom: 5px;">
-                <span style="display: inline-block;margin-right: 5px;">Send an Email to</span>
-                <div class="poster-user-name" style="max-width: 240px; display: inline-block; overflow: hidden; text-overflow: ellipsis; position:relative; top:5px;" >{{controller.selectedMega.owner_title}}</div>
+    <div class="head contact-head">
+        <div class="poster_user user-detailBox">
+            <div class="contact-title-box">
+                <span class="contact-title-txt">Send an Email to</span>
+                <div class="poster-user-name poster_user-title">{{controller.selectedMega.owner_title}}</div>
             </div>
-            <div style="display: block;">
+            <div>
                 {{#unless controller.isDisplayNameEditable}}
-                <span style="display: inline-block;margin-right: 5px;">From: {{controller.displayName}}</span>
+                <span class="contact-title-marge">From: {{controller.displayName}}</span>
                 {{else}}
 
                 {{view HubStar.SearchRequireTextFieldView valueBinding="controller.displayName" class="lineuptextbox"}}
                 {{/unless}}
-                <a style="display: inline-block; cursor: pointer; color: #427fed;" {{action setEditable "Name"}}>{{editNameStatus}}</a>
+                <a class="contact-edit" {{action setEditable "Name"}}>{{editNameStatus}}</a>
             </div>
-            <div style="display: block; margin-bottom: 15px;">
+            <div class="contact-email">
                 {{#unless controller.isDisplayEmailEditable}}
-                <span style="display: inline-block;margin-right: 5px;">Email: {{controller.displayEmail}}</span>
+                <span class="contact-title-marge">Email: {{controller.displayEmail}}</span>
                 {{else}}
                 {{view HubStar.SearchAreaTextFieldView valueBinding="controller.displayEmail" class="lineuptextbox"}}
                 {{/unless}}
-                <a style="display: inline-block;cursor: pointer; color: #427fed;" {{action setEditable "Email"}}>{{editEmailStatus}}</a>
+                <a class="contact-edit" {{action setEditable "Email"}}>{{editEmailStatus}}</a>
             </div>
         </div>
-        <div style="float: right;position: relative; display: inline-block; vertical-align: top;margin: 5px 0;">
+        <div class="contact-user-img">
             <a href="#"><img {{bindAttr src="controller.owner_profile_pic"}} class="profilepic"/></a>              
         </div>
         <div>
-            <span style="display: inline-block; margin-right: 10px;">Subject:</span>
-            <div style="display: inline-block; width: 378px; vertical-align: middle;">
+            <span class="contact-subject">Subject:</span>
+            <div class="contact-suject-txt">
                 {{view Ember.TextField valueBinding="controller.emailSubject"}}
             </div>
         </div>
@@ -55,11 +55,11 @@
 
     {{#if controller.secondStepOfContactEmail}}
     <div class="head controlbtn-field">
-        <div style="position: relative;margin-bottom: 20px;text-align: center;">
-            <div class="panelcircle radius-circle" style="background-color: #aaa" {{action proviousSendingEmailProcess}}>1</div>
+        <div class="contact-navigateBar contact-navigateBar-step2">
+            <div class="panelcircle radius-circle contact-hide-step" {{action proviousSendingEmailProcess}}>1</div>
             <div class="panelcircle radius-circle" >2</div>
-            <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
-            <div style='font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);position: relative;top: 10px;left: 90px;font-weight: bold;margin-bottom: 10px;'>Help us help you.</div>
+            <div class="contact-step-bar"></div>
+            <div class="contact-step-title contact-step-two">Help us help you.</div>
         </div>
     </div>
     {{/if}}
@@ -69,18 +69,18 @@
 
 
 
-    <div class="content" style="border-radius: 0; padding: 15px 30px 0px;">
-        <div class="contactme-table easing" style="text-align: center;">
+    <div class="content contact-content-container">
+        <div class="contactme-table easing contact-content-inner">
 
             {{#if controller.secondStepOfContactEmail}}
 
 
-            <table style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;">
-                <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+            <table>
+                <tbody>
                     <tr>
                         <td>Project Category:</td>
                         <td>
-                            <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownCategory}}>
+                            <div class="new-btn" style="" {{action dropdown controller.dropdownCategory}}>
                                  <span id="dropdownCategory">{{controller.projectCategorySelection}}</span>
                                 <span class="caret"></span>
                             </div>
@@ -92,7 +92,7 @@
                     <tr>
                         <td>Project Timeframe:</td>
                         <td> 
-                            <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownTimeframe}}>
+                            <div class="new-btn" {{action dropdown controller.dropdownTimeframe}}>
                                  <span id="dropdownTimeframe">{{controller.timeframeSelection}}</span>
                                 <span class="caret"></span>
                             </div>
@@ -104,7 +104,7 @@
                     <tr>
                         <td>Project Budget:</td>
                         <td> 
-                            <div class="new-btn" style="display: block;" {{action dropdown controller.dropdownBudget}}>
+                            <div class="new-btn" {{action dropdown controller.dropdownBudget}}>
                                  <span id="dropdownBudget">{{controller.projectBudgetSelection}}</span>
                                 <span class="caret"></span>
                             </div>
@@ -116,7 +116,7 @@
                     <tr>
                         <td>Project Experience:</td>
                         <td>
-                            <div class="new-btn" style="display: block;"  {{action dropdown controller.dropdownExperience}}>
+                            <div class="new-btn" {{action dropdown controller.dropdownExperience}}>
                                  <span id="dropdownExperience">{{controller.projectExperienceSelection}} </span>
                                 <span class="caret"></span>
                             </div>
@@ -128,14 +128,14 @@
                 </tbody>
             </table>    
 
-            <span style='color: #555;text-align: right;cursor: default;font-size: 15px;float: left;margin: 5px 0 0 55px;'> I need help on: (Please choose your category)</span>
+            <span class="contact-category-indicator"> I need help on: (Please choose your category)</span>
 
-            <ol  class="checkbox-columncontainer" style="margin: 20px 0 10px 20px;max-height: 170px;overflow: auto;">
+            <ol  class="checkbox-columncontainer contact-category-list">
                 {{#if controller.showCate}} 
                 {{#each controller.subcate}}
                 <li class="checkbox-container" {{action checkedAction list_id this}}>
 
-                    <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox"   >
+                    <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox" >
                     <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check {{unbound list_id}}">{{category_topic}}</label>
 
 
@@ -156,16 +156,16 @@
 
 
 
-        <div style="display: block;padding: 5px 0px;">
+        <div class="contact-middle-container">
             <div>
-                <span style="display: inline-block; margin-bottom: 5px;">Message:</span>
-                <div style=" width: 100%; height: 200px;resize: none;">
+                <span class="contact-middle-msg">Message:</span>
+                <div class="contact-msg-box">
                     
                     {{view Ember.TextArea valueBinding="controller.emailBody" rows="12" cols="70" class="no-resize" placeholder="I saw your profile, I'd love to talk to you about my project, Please reply if you are interested.........."}}
                     {{#unless controller.firstStepOfContactEmail}}
-                    <div style="position: relative;float: left;">
+                    <div class="contact-user-env">
                         <div>{{view Ember.Checkbox checkedBinding="osAndBrowser"}}
-                            <span style='position: relative;top:3px;'>
+                            <span class="contact-user-txt">
                                 User's Environment
                             </span>
                         </div>
@@ -174,7 +174,7 @@
 
 
                 </div>
-                <div style='position: relative;bottom: 1px;overflow: hidden;width: 66%;left: 20px;height: 24px;'>
+                <div class="contact-user-env-disp">
                     {{controller.userEnvironment}}
                 </div>
             </div>
@@ -191,7 +191,7 @@
 
 
         {{#if controller.secondStepOfContactEmail}}
-        <span style="float: left;margin: 15px;position: relative;left: 15px;">
+        <span class="contact-pre-container">
             <div type="button" {{action proviousSendingEmailProcess}}  class="new-btn blue-btn">
                  <i class='fa fa-arrow-left'>&nbsp;</i>Previous</div>
         </span>
@@ -199,8 +199,8 @@
         {{#unless controller.firstStepOfContactEmail}}
 
 
-        <span style="float: left;margin: 10px;position: relative;left: 15px;">
-            <div>{{view Ember.Checkbox checkedBinding="rememberMessage"}}<span style='position: relative;top:3px;'>&nbsp;Remember My Message</span></div>
+        <span class="contact-rem-container">
+            <div>{{view Ember.Checkbox checkedBinding="rememberMessage"}}<span class="contact-user-txt">&nbsp;Remember My Message</span></div>
         </span>
 
         {{/unless}}

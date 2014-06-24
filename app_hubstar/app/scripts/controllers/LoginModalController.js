@@ -3,21 +3,23 @@ HubStar.LoginModalController = Ember.Controller.extend({
     isAdd: false,
     isRegistering: true,
     contentTopicResidential: [
-        {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
-        {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
-        {id: "3", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/kitchen.png', topic: 'Kitchens'},
-        {id: "4", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/bathroom.png', topic: 'Bathrooms'},
-        {id: "5", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/interiordesign.png', topic: 'Interior design'},
-        {id: "6", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/outdoorliving.png', topic: 'Outdoor Living'}
+        {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment Design'},
+        {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/bathroom.png', topic: 'Bathrooms'},
+        {id: "3", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/hometheatre.png', topic: 'Home Theatre'},
+        {id: "4", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/interiordesign.png', topic: 'Interior design'},
+        {id: "5", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/kitchen.png', topic: 'Kitchens'},
+        {id: "6", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
+        {id: "7", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/outdoorliving.png', topic: 'Outdoor Living'},
+        {id: "8", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'}
     ],
     contentTopicCommercial: [
-        {id: "7", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/office.png', topic: 'Office'},
-        {id: "8", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/civic.png', topic: 'Civic'},
-        {id: "9", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/education.png', topic: 'Education'},
-        {id: "10", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/hospitality.png', topic: 'Hospitality'},
-        {id: "11", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/retail.png', topic: 'Retail'},
-        {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment'}
-
+        {id: "9", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment Design'},
+        {id: "10", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/civic.png', topic: 'Civic Design'},
+        {id: "11", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/education.png', topic: 'Educational Design'},
+        {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/hospitality.png', topic: 'Hospitality Desgin'},
+        {id: "13", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/office.png', topic: 'Office Design'},
+        {id: "14", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/refurbishment.png', topic: 'Refurbishment'},
+        {id: "15", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/retail.png', topic: 'Retail Design'}
     ],
     needs: ['application', 'mega'],
     init: function() {
@@ -121,7 +123,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
 
         if (this.checkSignupInfo()) {
             var signupInfo = [this.get('email')];
-            var that=this;
+            var that = this;
             requiredBackEnd('login', 'getemail', signupInfo, 'POST', function(params) {
                 if (params === 1) {
                     $('#register-with-email-step-2').addClass('active-step');
@@ -177,6 +179,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         var that = this;
         requiredBackEnd('login', 'selecttopic', updateTopic, 'POST', function() {
             setTimeout(function() {
+                ga('Trends.send', 'event', 'button', 'click', 'SignUp');
                 $('#register-with-email-step-4').css('display', 'block');
                 $('#register-with-email-step-3').css('display', 'none');
                 $('#user-login-pane').css('display', 'none');
@@ -212,6 +215,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         var that = this;
         requiredBackEnd('login', 'selecttopic', updateTopic, 'POST', function() {
             setTimeout(function() {
+                ga('Trends.send', 'event', 'button', 'click', 'SignUp');
                 HubStar.set('checkLoginStatus', false);
                 localStorage.checkUser = 'newUser';
                 localStorage.checkSocialUser = '';
@@ -238,7 +242,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
             that.set('loginStatus', params.COUCHBASE_ID);
             localStorage.userType = "email";
             localStorage.loginState = "login";
-
+            
             var emailInfo = [params.USER_NAME, that.encrypt(params.USER_NAME), that.encrypt(params.PWD_HASH)];
             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function() {
 

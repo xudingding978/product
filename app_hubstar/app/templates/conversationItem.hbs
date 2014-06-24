@@ -2,45 +2,45 @@
 
 {{render invitePeople}}      
 {{/if}}
-<div class="Message-Board box" style="">
-    <div style="background-color: #f3f3f3; width:100%;height: 70px; border-bottom: 1px solid #ddd;padding: 0 20px;">
-        <div style="color: #555;font-size: 18px;line-height: 70px;font-weight: bold;float: left;">
-            <div class="radius-circle" style="float: left; margin: 12px; box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;overflow: hidden">
-                <img style="width: 45px;height: 45px;float: left;" {{bindAttr src= controller.commenter_photo_url}} />
+<div class="Message-Board box">
+    <div class="conversation-msg-title-box">
+        <div class="conversation-msg-title">
+            <div class="radius-circle conversation-msg-img">
+                <img {{bindAttr src= controller.commenter_photo_url}} />
             </div>
             &nbsp;Conversation
         </div>
         <div class="create-conversation easing hint--left hint--rounded" data-hint="Invite friends to this conversation!" {{action invitePeople id}}>
-             <span style="position: relative">
-                <i class="fa fa-user" style=""></i>
-                <i class="fa fa-plus" style="position: absolute;font-size: 8px;top: 8px;left: 10px;color: white;background-color: #888;height: 12px;width: 12px;line-height: 11px;border: 1px solid #fff;border-radius: 50%;"></i>
+             <span class="conversation-add">
+                <i class="fa fa-user"></i>
+                <i class="fa fa-plus conversation-plus"></i>
             </span>
         </div>
-        <div class="create-conversation easing" style="position: absolute;right: 0px;  width: 20px;text-align: center;line-height: 70px;">
-            <div  id="showMoreComment"  style="line-height: 45px;display:none;"  {{action seeMore target="controller" on="click"}}>
+        <div class="create-conversation easing show-more-comment">
+            <div  id="showMoreComment"  class="show-more-icon"  {{action seeMore target="controller" on="click"}}>
                 <i class="fa fa-caret-down show-comment_inner" ></i>   
             </div>
-            <div id="closeComment"   style="line-height: 45px;display: inline-block;" {{action closeMore target="controller" on="click"}}>
+            <div id="closeComment" class="show-close" {{action closeMore target="controller" on="click"}}>
                 <i class="fa fa-caret-up show-comment_inner" ></i>
             </div>
         </div>
     </div>
 
-    <div style="position: relative; width: 100%; border-bottom: 1px solid #ddd;">       
-        <div id="messageData"  style="padding: 5px  15px;margin-left: 10px; display: inline-block;" >
+    <div class="comment-followers-container">       
+        <div id="messageData"  class="message-data" >
             {{#each  contentFollowerPhotoOld }}     
             <div  class="hint--rounded hint--bottom" data-hint="{{unbound this.name}}">
-                <img class="profilepic_comment radius-circle"  style=" box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;margin:10px 5px;" {{bindAttr src= this.photo_url}} />                
+                <img class="profilepic_comment radius-circle message-profile-img" {{bindAttr src= this.photo_url}} />                
             </div>
             {{/each}}
         </div>
         {{#if isNewPeople}}
-        <div style="padding:5px 15px;background-color: #f4f6f8;">
+        <div class="message-newppl">
             {{#each  contentFollowerPhoto}}
             {{#if this.isAdd}}
-            <div style="margin:10px 5px;margin-left: 10px;position: relative;width: 45px;display: inline-block;vertical-align: top;"  data-hint="{{unbound this.name}}" {{action addToList id}} >            
-                 <div class="invite-this-friend radius-circle easing" style="opacity: .8;"><i class="fa fa-minus" ></i></div>
-                <img class="profilepic_comment radius-circle"  style=" box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bindAttr src= this.photo_url}} />                         
+            <div class="message-newppl-img" data-hint="{{unbound this.name}}" {{action addToList id}} >            
+                 <div class="invite-this-friend radius-circle easing message-newppl-minus"><i class="fa fa-minus" ></i></div>
+                <img class="profilepic_comment radius-circle" {{bindAttr src= this.photo_url}} />                         
             </div>
             {{/if}}
             {{/each}}
@@ -48,27 +48,27 @@
         {{/if}}
     </div>
 
-    <div  style="width: 100%;padding: 20px 6.5%;margin: 0 auto;overflow: hidden;border-bottom: 1px solid #ddd;">
-        <div style="margin:0 auto; padding: 0 0 0 45px;">
+    <div  class="message-comment-container">
+        <div class="message-input-box">
             <a>
-                <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -45px; margin-top: 0;" {{bindAttr src= controller.commenter_photo_url}} /> 
+                <img class="profilepic_comment message-input-img" {{bindAttr src= controller.commenter_photo_url}} /> 
                 <div class='user-says-angle-before'></div>
                 <div class='user-says-angle-after'></div>
             </a>
 
             <div class="post-comment-container">
-                <div   style="margin: 0;width: 100%; height:80px;">
+                <div class="post-input">
                     {{view Ember.TextArea valueBinding="messageContent" class="no-resize" placeholder="Write a comment..." }}                                          
                 </div>
                 {{#if controller.isUploadPhoto}}
-                <div style='background-color: rgba(0,0,0,.2);max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;'>
+                <div class="post-upload">
                     <div class='remove-comment-photo easing' {{action removePic }}><i class="fa fa-times"></i></div>
-                    <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;;">
+                    <img  {{bindAttr src= "newStyleImageSource"}}>
                 </div>
                 {{/if}}
-                <div class="" style="height: 30px;position: relative;border-top: 1px solid #ddd;top: -1px;">
-                    <div  class="message-btn easing" style=" border-right: 1px solid #ddd;"><i class='fa fa-picture-o'>&nbsp;</i>Add Photo
-                        <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
+                <div class="post-action-container">
+                    <div  class="message-btn easing post-addphoto"><i class='fa fa-picture-o'>&nbsp;</i>Add Photo
+                        <div class="post-addphoto-txt"> 
                             {{view HubStar.SingleImageInputButtonView }}
                         </div>
                     </div>
@@ -85,9 +85,9 @@
     </div>
 
 
-    <div  id="content_conversationItem_{{unbound controller.id}}" class='Message-Board_comment-container' style=" ">
+    <div id="content_conversationItem_{{unbound controller.id}}" class="Message-Board_comment-container">
         {{#each conversationItemContent}}
-        <div class="Message-Board_comment-item" style=''>         
+        <div class="Message-Board_comment-item">         
             <div class="comment-position">   
                 <a class="profilepic-comment-container"   href="#/users/{{unbound this.sender_id}}">
                     <img class="profilepic_comment" {{bindAttr src= this.sender_photo_url_large}} />
@@ -106,19 +106,15 @@
                     <div class="comment-content">
                         {{{this.msg}}}<br>
                         {{#if this.isUrl }}
-                        <div style='margin: 5px auto;max-width: 300px;max-height: 300px;float: left;'>
-                            <img {{bindAttr src= this.url}} style="border: 4px solid #fff;"/>
+                        <div class="comment-img-container">
+                            <img {{bindAttr src= this.url}}/>
                         </div>
                         {{/if}}
                     </div>
                 </div>
             </div>
-
         </div>
-
         {{/each}}
-
-
     </div>
 </div>
 

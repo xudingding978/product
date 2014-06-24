@@ -79,7 +79,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     loadingTime: false,
     localStorage: "",
     applicationCategoryDropdownType: 'geoLocation',
-    total_profiels:0,
+    total_profiels: 0,
     init: function() {
         HubStar.set("isTopAdDisplay", true);
         var that = this;
@@ -238,16 +238,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 for (var i = 0; i < HubStar.get('objectAds')[3].length; i++)
                 {
                     var ad = HubStar.get('objectAds')[3][i];
-                    //if (ad.type === type)
-                    {
-                        if (document.getElementById(ad.div) === null) {
-                            var adDiv = document.createElement('div');
-                            adDiv.id = ad.div;
-                            var height = ad.size[1];
-                            var width = ad.size[0];
-                            adDiv.style.display = "block";
-                            adDiv.style.height = height + "px";
-                            adDiv.style.width = width + "px";
+                    if (document.getElementById(ad.div) === null) {
+                        var adDiv = document.createElement('div');
+                        adDiv.id = ad.div;
+                        var height = ad.size[1];
+                        var width = ad.size[0];
+                        adDiv.style.display = "block";
+                        adDiv.style.height = height + "px";
+                        adDiv.style.width = width + "px";
+                        if (photo !== null) {
                             photo.appendChild(adDiv);
                             if (ad.isNew === true) {
                                 googletag.cmd.push(function() {
@@ -272,7 +271,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         }
                     }
                 }
-            }, 500);
+            }, 1500);
         });
     },
     grapData: function() {
@@ -391,12 +390,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         "heightTop": heightTop, "widthTop": widthTop
                     });
                 }
-                that.set("total_profiels",HubStar.get("profiles").length);
+                that.set("total_profiels", HubStar.get("profiles").length);
             });
         }
         else
         {
-            that.displayTopAds();
+            setTimeout(function() {
+                that.displayTopAds();
+            }, 5200);
         }
         this.set("user", u);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);

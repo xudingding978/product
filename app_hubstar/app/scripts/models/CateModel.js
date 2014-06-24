@@ -10,10 +10,34 @@ HubStar.Cate = DS.Model.extend({
     type: DS.attr('string'),
     classification: localStorage.resOrcom,
     display: DS.attr('boolean'),
-    type1: function() {
+    image: DS.attr('string'),
+    chooseNumber : 0,
+    isResidential: function() {
         var id = this.get('type');
-        if ( this.get("classification") === undefined) {
-            this.set("classification","All");
+        if (id.indexOf("residential") !== -1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }.property("type"),
+    isCommercial: function() {
+        var id = this.get('type');
+        if (id.indexOf("commercial") !== -1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }.property("type"),
+            type1: function() {
+        var id = this.get('type');
+        if (this.get("classification") === undefined) {
+            this.set("classification", "All");
         }
         if (this.get("classification") === "All")
         {

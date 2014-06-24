@@ -250,7 +250,7 @@
         if(urlName==="search"){
           
              if (this._currentStep === 5) {
-                 console.log("hehe1");
+                
                  $(".Navigator-box").css("display", "block");
                       
         }

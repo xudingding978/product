@@ -73,9 +73,10 @@
 <div>
     {{#each about_us}}
     <div>{{about_desc}}</div> 
-    <hr> 
+     
     {{#each about_embeded_object}}
     {{#if embed_object_enabled}}
+    <hr>
     <iframe width="800" height="560" src="//e.issuu.com/embed.html#{{unbound embeded_object_id}}" frameborder="0" allowfullscreen></iframe>
 
     {{#if embeded_object_code}}
@@ -92,11 +93,12 @@
 
 
     <div class="left-area">         
+        
+        {{#each about_video}}
+        {{#if display}}
         <a rel="nofollow" target="_blank" href="http://www.youtube.com/trendspublishing" class="cursor-pointer"> 
             <h4>View the Latest Video from the Trends YouTube channel</h4></a>
         <hr>
-        {{#each about_video}}
-        {{#if display}}
         <div class="bg-color-area bg-video-position" >                        
             <iframe width="650" height="450" {{bindAttr src="controller.embeded_url"}} frameborder="0" allowfullscreen=""></iframe> 
             <div class="video-des-area">
@@ -110,12 +112,12 @@
         <div class="left-bottom-area">
             {{#each about_image}}
             {{#if display}}
-            <a rel="nofollow" target="_blank" {{bindAttr href="image_link"}} class="display-article-img-area">
+            <a rel="nofollow" target="_blank" {{bindAttr href="image_link"}} class="display-article-img-area">             
                 <div class="display-article-img-box"><img class="width-100" {{bindAttr src="image_url"}}></div>
                 <div class="display-article-img-Titledes">
                     <h4 class="left-area-title-color"> {{image_title}}</h4>
                     <div class="display-article-img-des">{{image_desc}}</div>
-                </div>
+                </div>              
             </a>
             {{/if}}
             {{/each}}

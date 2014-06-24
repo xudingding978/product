@@ -84,8 +84,46 @@ class MegasController extends Controller {
             $mega['keyword'] = $keyword;
 //            $mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($mega['pdf']);            
             $this->createUploadedPdf($mega);
+        } else if ($mega['type'] == "group") {
+            $this->createGroup($mega);
         }
-        $this->sendResponse(204);
+        $this->sendResponse(204, $request_json);
+    }
+
+
+    public function createGroup($mega) {
+
+        $cb = $this->couchBaseConnection();
+        $id = $mega['id'];
+        $domain = $this->getDomain();
+        $docID = $domain . "/groups/" . $id;
+        if (!isset($mega['accessed'])) {
+            $mega["accessed"] = 1;
+        }
+        $mega["accessed"] = date_timestamp_get(new DateTime());
+        $mega["created"] = $mega["accessed"];
+        if ($cb->add($docID, CJSON::encode($mega))) {
+            if ($mega['creator'] !== "") {
+                $url = $domain . "/users/" . $mega['creator'];
+                $tempRecord = $cb->get($url);
+                $oldRecord = CJSON::decode($tempRecord, true);
+                $newProfile = array();
+                $newProfile['group_id'] = $id;
+                $newProfile['type'] = "creator";
+                if (!isset($oldRecord['user'][0]['groups'])) {
+                    $oldRecord['user'][0]['groups'] = array();
+                }
+                array_push($oldRecord['user'][0]['groups'], $newProfile);
+                if ($cb->set($url, CJSON::encode($oldRecord))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'saving error');
+                }
+            }
+            $this->sendResponse(204);
+        } else {
+            $this->sendResponse(409, "some thing wronggggggggggggggggg");
+        }
     }
 
     public function actionRead() {

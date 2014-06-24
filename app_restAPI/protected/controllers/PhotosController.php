@@ -176,8 +176,10 @@ class PhotosController extends Controller {
 
             //$oldRecord['photo'][0]['photo_keywords'] = $newRecord['photo']['photo_keywords'];
             //$keyword = $this->getPictureKeyword($newRecord['photo']['photo_keywords'], $oldRecord['owner_id']);
-            //$oldRecord['keyword'] = $keyword;                     
-            //$oldRecord['photo'][0]['photo_keywords'] =  $newRecord['photo']['photo_keywords'];          
+
+            //$oldRecord['keyword'] = $keyword;
+            //$oldRecord['photo'][0]['photo_keywords'] =  $newRecord['photo']['photo_keywords'];
+
             //$keyword = $this->getProfileKeyword($owner_id);
             //$oldRecord['keyword'] = $keyword;
 
@@ -194,6 +196,37 @@ class PhotosController extends Controller {
         }
     }
 
+    public function actionSavePicGroup() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+
+        $src = $request_array[0];
+        $name = $request_array[1];
+        $type = $request_array[2];
+        $variable = $request_array[3];
+        $timeID = date_timestamp_get(new DateTime());
+        $id = (string) (rand(10000, 99999)) . $timeID;
+
+        $data_arr = $this->convertToString64($src);
+        $photo = imagecreatefromstring($data_arr['data']);
+        $compressed_photo = $this->compressPhotoData($type, $photo);
+        $orig_size['width'] = imagesx($compressed_photo);
+        $orig_size['height'] = imagesy($compressed_photo);
+        $urls = array();
+        if ($variable === "logo") {
+            $url = $this->savePhotoInTypes($orig_size, "user_picture", $name, $compressed_photo, $data_arr, $id, "group" ,null);
+            array_unshift($urls, $url);
+        } else if ($variable === "bg") {
+            $url = $this->savePhotoInTypes($orig_size, "user_cover", $name, $compressed_photo, $data_arr, $id, "group" ,null);    
+            $url_small = $this->savePhotoInTypes($orig_size, "hero", $name, $compressed_photo, $data_arr, $id,"group" ,null);            
+            array_unshift($urls, $url,$url_small);
+        }
+        if ($urls) {
+            $this->sendResponse(200, CJSON::encode($urls));
+        } else {
+            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+        }
+    }
 
     public function getPictureKeyword($newRecord, $owner_id) {
         $keyword_id = null;
@@ -222,23 +255,21 @@ class PhotosController extends Controller {
 
 
 
-            /*$returnedkeyinfo[$x] = array(
-                "keyword_id: " . $keyword_id,
-                "keyword_name: " . $keyarray[$x],
-                "create_date: " . $create_date,
-                "expire_date: " . $expire_date,
-                "value: " . $value,
-                "profile_id: " . $profile_id,
-                "collection_id: " . $collection_id,
-                "is_delete: " . $is_delete);*/
+            /* $returnedkeyinfo[$x] = array(
+              "keyword_id: " . $keyword_id,
+              "keyword_name: " . $keyarray[$x],
+              "create_date: " . $create_date,
+              "expire_date: " . $expire_date,
+              "value: " . $value,
+              "profile_id: " . $profile_id,
+              "collection_id: " . $collection_id,
+              "is_delete: " . $is_delete); */
 
 
 
             $returnedkeyinfo[$x] = $item;
-            
         }
         return $returnedkeyinfo;
-        
     }
 
     public function getProfileKeyword($owner_id) {
@@ -398,9 +429,15 @@ class PhotosController extends Controller {
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
         $bucket = 's3.hubsrv.com';
-        if ($optional == null || $optional == 'undefined' || $optional == "") {
+        if ($optional == null || $optional == 'undefined' || $optional == "") {           
             $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $photo_name;
-        } else if ($optional == 'profile_picture') {
+        } 
+        else if($optional === 'group')
+        {
+            $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
+            $url = $this->getDomain() . '/groups' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
+        }
+        else if ($optional == 'profile_picture') {
             $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
             $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
         } else if ($optional == "photo") {
@@ -586,7 +623,7 @@ class PhotosController extends Controller {
     }
 
     public function photoUpdate($mega) {
-        
+
         try {
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
@@ -596,8 +633,8 @@ class PhotosController extends Controller {
             $linkText = $mega['mega']['photo'][0]['photo_link_text'];
             $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
             //$keyword = $mega['mega']['photo'][0]['photo_keywords'];
-            
-            
+
+
             $deleted = $mega['mega']['is_deleted'];
 
 
@@ -624,14 +661,11 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
             $oldRecord['photo'][0]['photo_link_text'] = $linkText;
             $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;
-           
-            //$newkeyword = $this->getPictureKeyword($keyword, $oldRecord['owner_id']);
-            
-           
 
+            //$newkeyword = $this->getPictureKeyword($keyword, $oldRecord['owner_id']);
             //$oldRecord['keyword'] = $newkeyword;
-           
-            
+
+
             $oldRecord['is_deleted'] = $deleted;
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);

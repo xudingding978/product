@@ -1,7 +1,7 @@
 HubStar.SingleImageInputButtonView = Ember.TextField.extend({
     type: 'file',
     classNameBindings: ['new-btn'],
-multiple: true,
+    multiple: true,
     change: function(evt) {
         var controller = this.get('targetObject');
         var input = evt.target;
@@ -21,5 +21,4 @@ multiple: true,
             this.value = null;
         };
     }
-
 });

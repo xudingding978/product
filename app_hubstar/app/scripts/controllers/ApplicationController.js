@@ -78,7 +78,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     loadingTime: false,
     localStorage: "",
     applicationCategoryDropdownType: 'geoLocation',
-    total_profiels:0,
+    total_profiels: 0,
     init: function() {
         HubStar.set("isTopAdDisplay", true);
         var that = this;
@@ -245,30 +245,32 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         adDiv.style.display = "block";
                         adDiv.style.height = height + "px";
                         adDiv.style.width = width + "px";
-                        photo.appendChild(adDiv);
-                        if (ad.isNew === true) {
-                            googletag.cmd.push(function() {
-                                var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-                                ad.slot1 = slot1;
-                                googletag.pubads().enableSingleRequest();
-                                googletag.enableServices();
-                                googletag.display(ad.div);
-                                googletag.pubads().refresh([slot1]);
-                            });
-                            ad.isNew = false;
-                        }
-                        else
-                        {
-                            googletag.cmd.push(function() {
-                                googletag.pubads().enableSingleRequest();
-                                googletag.enableServices();
-                                googletag.display(ad.div);
-                                googletag.pubads().refresh([ad.slot1]);
-                            });
+                        if (photo !== null) {
+                            photo.appendChild(adDiv);
+                            if (ad.isNew === true) {
+                                googletag.cmd.push(function() {
+                                    var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                                    ad.slot1 = slot1;
+                                    googletag.pubads().enableSingleRequest();
+                                    googletag.enableServices();
+                                    googletag.display(ad.div);
+                                    googletag.pubads().refresh([slot1]);
+                                });
+                                ad.isNew = false;
+                            }
+                            else
+                            {
+                                googletag.cmd.push(function() {
+                                    googletag.pubads().enableSingleRequest();
+                                    googletag.enableServices();
+                                    googletag.display(ad.div);
+                                    googletag.pubads().refresh([ad.slot1]);
+                                });
+                            }
                         }
                     }
                 }
-            }, 500);
+            }, 1500);
         });
     },
     grapData: function() {
@@ -359,12 +361,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     });
 
                 }
-                that.set("total_profiels",HubStar.get("profiles").length);
+                that.set("total_profiels", HubStar.get("profiles").length);
             });
         }
         else
         {
-            that.displayTopAds();
+            setTimeout(function() {
+                that.displayTopAds();
+            }, 5200);
         }
         this.set("user", u);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);

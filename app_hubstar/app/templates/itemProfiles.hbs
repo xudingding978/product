@@ -36,9 +36,9 @@
 <div style="position: relative; width: 100%; height: 70px; display: block; z-index: 1"></div>
 
 
-<div class="masonry-object_profilepic" style="cursor:pointer;" {{action toProfilePage this}}>
+<div class="masonry-object_profilepic" style="cursor:pointer;" >
 <div id="init_photo_{{unbound getID}}">
-     <a  href="#/profiles/{{unbound this.id}}" > <img class="easing" {{bindAttr src="profile_pic_url"}}  />   </a>
+     <a  href="#/profiles/{{unbound this.id}}/collections"{{action transitionToProfile id}}> <img class="easing" {{bindAttr src="profile_pic_url"}}  />   </a>
 </div>
 </div>
 
@@ -57,7 +57,7 @@
 {{/if}}
 
 <div class="masonry-object_name-position" style="margin-bottom: 5px;"> 
-    <a  href="#/profiles/{{unbound this.id}}" class="comment-username" style="cursor:pointer; font-size:18px;"{{bindAttr href="getProfile_id"}}  {{action toProfilePage this}}>{{profile_name}} </a>
+    <a  href="#/profiles/{{unbound this.id}}/collections" class="comment-username" style="cursor:pointer; font-size:18px;"{{action transitionToProfile id}}>{{profile_name}} </a>
 </div>
 
 <div style="width:100%; text-align:center; margin-bottom: 10px;">

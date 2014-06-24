@@ -52,7 +52,7 @@ class MeganewsController extends Controller {
         $mega = $request_arr['meganew'];
         if ($mega['type'] == "profile") {
             $this->createProfile($mega);
-        }
+        } 
     }
 
     public function actionCreateNewProfile() {
@@ -111,7 +111,7 @@ class MeganewsController extends Controller {
     public function actionDelete() {
         
     }
-
+ 
     public function createProfile($mega) {
 
         $cb = $this->couchBaseConnection();

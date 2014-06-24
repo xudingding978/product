@@ -492,6 +492,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 HubStar.set("pic_current_width", Math.round(max_width));
             }
         }
+
         else
         {
             if (max_height > height)
@@ -505,6 +506,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 HubStar.set("pic_current_width", Math.round(width / height * max_height));
             }
         }
+        
+//         if (HubStar.get('ctaView') === true) {
+//                this.get("controllers.checkingLoginStatus").popupLogin();
+//                HubStar.set('ctaView', false);
+//            }
+
     },
     getInitData: function(megaObject) {
 

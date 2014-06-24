@@ -21,7 +21,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         {id: "3", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/kitchen.png', topic: 'Kitchens'},
         {id: "4", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/bathroom.png', topic: 'Bathrooms'},
         {id: "5", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/interiordesign.png', topic: 'Interior design'},
-        {id: "6", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/outdoorliving.png', topic: 'Outdoor Living'}
+        {id: "6", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/outdoorliving.png', topic: 'Outdoor Living'},
+        {id: "13", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/hometheatre.png', topic: 'Home theatre'}
     ],
     contentTopicCommercial: [
         {id: "7", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/office.png', topic: 'Office'},
@@ -29,8 +30,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         {id: "9", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/education.png', topic: 'Education'},
         {id: "10", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/hospitality.png', topic: 'Hospitality'},
         {id: "11", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/retail.png', topic: 'Retail'},
-        {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment'}
-
+        {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment'},
+        {id: "14", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/refurbishment.png', topic: 'Refurbishment'}
     ],
     classification: "All",
     //commercial: "1",
@@ -221,6 +222,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         $(".user-top").css("height", "40px");
         $(".profile-top").css("height", "150px");
+        $("#group-top").css("top", "0px");
         this.searchSmallScreen();
         var tempComment = [this.get("user").get("id")];
         var that = this;
@@ -236,8 +238,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 for (var i = 0; i < HubStar.get('objectAds')[3].length; i++)
                 {
                     var ad = HubStar.get('objectAds')[3][i];
-                    //if (ad.type === type)
-                    {
+                    if (document.getElementById(ad.div) === null) {
                         var adDiv = document.createElement('div');
                         adDiv.id = ad.div;
                         var height = ad.size[1];
@@ -287,6 +288,35 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         if (localStorage.loginStatus) {
             var u = HubStar.User.find(localStorage.loginStatus);
             u.then(function() {
+                HubStar.set("profiles", []);
+                HubStar.set("groups", []);
+                for (var i = 0; i < u.get("groups").get("length"); i++) {
+                    var id = u.get("groups").objectAt(i).get("group_id");
+                    var name = u.get("groups").objectAt(i).get("group_name");
+                    var pic = u.get("groups").objectAt(i).get("group_pic_url");
+                    var url = pic.split("_");
+                    var length = url.length;
+                    var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
+                    var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+                    var heightNew = 50;
+                    var widthNew = 50;
+                    if (width > height)
+                    {
+                        heightNew = Math.ceil(height / width * 50);
+                        widthNew = 50;
+                    }
+                    else
+                    {
+                        heightNew = 50;
+                        widthNew = Math.ceil(width / height * heightNew);
+                    }
+                    width = widthNew + "px";
+                    height = heightNew + "px";
+                    HubStar.get("groups").pushObject({'group_id': id, 'group_name': name, 'group_pic_url': pic,
+                        'width': width,
+                        'height': height
+                    });
+                }
                 if (HubStar.get("top_ad_display") === true) {
                     HubStar.set("isTopAdDisplay", u.get("is_top_ad_display"));
                 }
@@ -359,7 +389,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator, "height": height, "width": width,
                         "heightTop": heightTop, "widthTop": widthTop
                     });
-
                 }
                 that.set("total_profiels", HubStar.get("profiles").length);
             });

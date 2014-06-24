@@ -30,11 +30,15 @@
        {{/if}}
     {{/unless}}
 
-    <div style="position:relative;top:120px">
+
+
+    <div style="position:relative;top:90px">
         {{outlet profiles}}
         {{outlet profile}}
         {{outlet user}}
+        {{outlet group}}
         {{outlet "profileNew"}}
+        {{outlet "groupsNew"}}
         {{#if controller.islogin}}
         {{render "footer"}}
         {{/if}}
@@ -42,6 +46,8 @@
     {{outlet photos}}
     {{outlet articles}}
     {{outlet videoes}}
+
+
     {{#if controller.loadingTime}}
     {{render loadingSpinner}}
     {{/if}}

@@ -7,7 +7,7 @@ HubStar.SearchRoute = Ember.Route.extend({
             HubStar.set('isLogin', true);
         }
         this.controllerFor('searchs').set("loginInfo", localStorage.loginStatus);
-        this.controllerFor('searchs').setLoginImge();
+        //this.controllerFor('searchs').setLoginImge();
         this.controllerFor('application').set('search_string', model.id);
         var that = this;
         $(document).ready(function() {
@@ -132,6 +132,7 @@ HubStar.SearchRoute = Ember.Route.extend({
                     $("#search-bar").css('display', "none");
                     $("#topResidentialCommerical").css('display', "none");
                     $(".search-bar-on-small-screen").css('display', "block");
+
                     if (HubStar.get("isTopAdDisplay")) {
                         $('#masonry_wrapper').css('top', "290px");
                     }

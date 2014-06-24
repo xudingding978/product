@@ -206,7 +206,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             $("#search-bar").css('display', "block");
                             $("#topResidentialCommerical").css('display', "block");
                             $(".search-bar-on-small-screen").css('display', "none");
-                             if (HubStar.get("isTopAdDisplay")) { 
+                            if (HubStar.get("isTopAdDisplay")) {
                             }
                             else
                             {
@@ -217,7 +217,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             $("#topResidentialCommerical").css('display', "none");
                             $(".search-bar-on-small-screen").css('display', "block");
                             if (HubStar.get("isTopAdDisplay")) {
-                                $("#top_bar_ads").css({"position": "fixed", "top": "150px"});                               
+                                $("#top_bar_ads").css({"position": "fixed", "top": "150px"});
                             }
                             else
                             {
@@ -910,35 +910,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             document.getElementById("body_id").style.overflow = "hidden";
 
             this.set('contactChecking', !this.get('contactChecking'));
-        }
-    },
-    eShare: function() {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            $("#showprofile").css("display", "block");
-            var mega = HubStar.Mega.find(this.get('currentUserID'));
-            mega.then(function() {
-                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-                {
-                    mega.set("share_count", 0);
-                }
-                else
-                {
-                    mega.set("share_count", mega.get("share_count") + 1);
-                }
-                mega.store.save();
-            });
-//            this.sendEventTracking('event', 'button', 'click', 'Contact us');
-            var shareEmailController = this.get('controllers.shareEmail');
-            shareEmailController.setProfileSelectedMega(this.get('currentUserID'));
-//            document.getElementById('light').style.display = 'block';
-//            document.getElementById('fade').style.display = 'block';
-            this.set("isShareEmail", true);
-//        this.get("controllers.shareEmail").getClientId(this.get("Id"));
-
-
-//            this.set('contactChecking', !this.get('contactChecking'));
-            //return false;
         }
     },
     closeContact: function() {
@@ -1806,6 +1777,34 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     'height=436,width=626'
                     ).focus();
             return false;
+        }
+    },
+    eShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            var currentUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+            var shareEmailController = this.get('controllers.shareEmail');
+            shareEmailController.setSelectedMega(this.get('currentUserID'));
+//            var selectid = this.get('selectedPhoto').id; 
+            shareEmailController.setThumbnailUrl(this.get('profile_pic_url'));
+            shareEmailController.setUrl(currentUrl);
+            shareEmailController.setUser();
+            shareEmailController.setRelatedController('profile');
+//            shareEmailController.setSelectedMega(selectid);
+            shareEmailController.setTitle(this.get('profile_name'));
+            this.set("isShareEmail", true);
         }
     },
     keywordSearch: function(keyword) {

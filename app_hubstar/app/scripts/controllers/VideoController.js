@@ -403,7 +403,8 @@ HubStar.VideoController = Ember.Controller.extend({
     eShare: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-
+            this.set('descript', this.get('videoObject').get("videoTitle"));
+            var currentUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
             var mega = HubStar.Mega.find(this.get('currentUserID'));
             mega.then(function() {
                 if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
@@ -416,22 +417,20 @@ HubStar.VideoController = Ember.Controller.extend({
                 }
                 mega.store.save();
             });
-//            this.sendEventTracking('event', 'button', 'click', 'Contact us');
+
             var shareEmailController = this.get('controllers.shareEmail');
-            var selectid = this.get('megaResouce').id;
+            var selectid = this.get('megaResouce').id;;
             shareEmailController.setImageID(selectid);
             var tempUrl = this.get('megaResouce').get('object_image_url');
             shareEmailController.setThumbnailUrl(tempUrl);
+            shareEmailController.setUrl(currentUrl);
             shareEmailController.setUser();
             shareEmailController.setRelatedController('video');
-            shareEmailController.setProfileSelectedMega(this.get('currentUserID'));
-
+            shareEmailController.setSelectedMega(selectid);
+            shareEmailController.setTitle(this.get('descript'));
             this.set("isShareEmail", true);
 //        this.get("controllers.shareEmail").getClientId(this.get("Id"));
 
-
-//            this.set('contactChecking', !this.get('contactChecking'));
-            //return false;
         }
     },
     editingPhotoMegaData: function() {

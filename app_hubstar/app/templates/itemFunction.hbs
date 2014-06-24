@@ -74,13 +74,11 @@
                 <img src="../../../images/sent.png" style="width: 16px;height: 16px">
                 <i class="send_email" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 1.5em">E-mail</span>
             </li>
-=
         </ul>
     </div>
 
 </div>
 {{/if}}
-
-        {{#if isShareEmail}}
-        {{render shareEmail}}
-        {{/if}}
+<div id="addEmail_{{unbound model.id}}"  style="display: none">
+    {{render shareEmail}}
+</div>

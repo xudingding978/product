@@ -54,11 +54,11 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("showRequestTag", false);
         this.set("showTagAfterSave", false);
         this.set("showEachTagContent", false);
-        
-        this.set("tempShowTags",this.get("showAllTags"));
-        this.set("showAllTags",true);  
-        
-        this.set("enableTag", true);      
+
+        this.set("tempShowTags", this.get("showAllTags"));
+        this.set("showAllTags", true);
+
+        this.set("enableTag", true);
         $("#previousarticlephoto").addClass("touch-cursor");
         $("#nextarticlephoto").addClass("touch-cursor");
     },
@@ -73,7 +73,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("enableTag", false);
         this.set("showTagAfterSave", false);
         this.set("inImage", false);  //click the end tag recove the value
-        this.set("showAllTags",this.get("tempShowTags"));
+        this.set("showAllTags", this.get("tempShowTags"));
         $("#previousarticlephoto").removeClass("touch-cursor");
         $("#nextarticlephoto").removeClass("touch-cursor");
     },
@@ -1038,7 +1038,16 @@ HubStar.ArticleController = Ember.Controller.extend({
     eShare: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-
+            this.set('descript', this.get('selectedPhoto').get('photo_title'));
+            var currentUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedPhoto').get('id');
+            if (this.get('selectedPhoto').get("type") === "article")
+            {
+                this.set('descript', this.get('selectedPhoto').get('article').objectAt(0).get("article_headline"));
+            }
+            else if (this.get('selectedPhoto').get("type") === "video")
+            {
+                this.set('descript', this.get('selectedPhoto').get('videoes').objectAt(0).get("videoTitle"));
+            }
             var mega = HubStar.Mega.find(this.get('currentUserID'));
             mega.then(function() {
                 if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
@@ -1053,26 +1062,18 @@ HubStar.ArticleController = Ember.Controller.extend({
             });
 
             var shareEmailController = this.get('controllers.shareEmail');
-            var selectid = this.get('articleResouce').id;
+            var selectid = this.get('selectedPhoto').id;
             shareEmailController.setImageID(selectid);
-
-            var tempUrl = this.get('articleResouce').get("article_image_url");
+            var tempUrl = this.get('selectedPhoto').get('photo_image_thumbnail_url');
             shareEmailController.setThumbnailUrl(tempUrl);
-            shareEmailController.setRelatedController('article');
+            shareEmailController.setUrl(currentUrl);
             shareEmailController.setUser();
-            //this.set('collectable', !this.get('collectable'));
-
-//            this.sendEventTracking('event', 'button', 'click', 'Contact us');
-
-            shareEmailController.setProfileSelectedMega(this.get('currentUserID'));
-//            document.getElementById('light').style.display = 'block';
-//            document.getElementById('fade').style.display = 'block';
+            shareEmailController.setRelatedController('article');
+            shareEmailController.setSelectedMega(selectid);
+            shareEmailController.setTitle(this.get('descript'));
             this.set("isShareEmail", true);
 //        this.get("controllers.shareEmail").getClientId(this.get("Id"));
 
-
-//            this.set('contactChecking', !this.get('contactChecking'));
-            //return false;
         }
     },
     addLike: function() {

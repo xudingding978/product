@@ -122,6 +122,9 @@ class EmailsController extends Controller {
         $sendPersonProfile = $request[5];
         $sharedPhoto = $request[6];
         $linkedURL = $request[7];
+        $contentTitle = $request[8];
+        $contentOwner = $request[9];
+        $ownerPic = $request[10];
 
         //error_log(var_export($emails, true));
         $domain = $this->getDomain();
@@ -135,6 +138,8 @@ class EmailsController extends Controller {
             "Destination" => array(
                 "ToAddresses" => array(
                     $email),
+                "BccAddresses" => array(
+                    $sendPersonEmail)
             ),
             "Message" => array(
                 "Subject" => array(
@@ -142,7 +147,7 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->getEmailForm3($email_body, $sendPersonName, $sendPersonPhoto, $sendPersonProfile, $sharedPhoto, $linkedURL)
+                        "Data" => $this->getEmailForm3($email_body, $sendPersonName, $sendPersonPhoto, $sendPersonProfile, $sharedPhoto, $linkedURL, $contentTitle, $contentOwner, $ownerPic)
 //                                $owner_title, $objectUrl
                     )
                 )
@@ -562,7 +567,7 @@ class EmailsController extends Controller {
 ';
     }
 
-    public function getEmailForm3($emailBody, $sendPersonName, $sendPersonPhoto, $sendPersonProfile, $sharedPhoto, $linkedURL) {
+    public function getEmailForm3($emailBody, $sendPersonName, $sendPersonPhoto, $sendPersonProfile, $sharedPhoto, $linkedURL, $contentTitle, $contentOwner, $ownerPic) {
 //        $recieveProfile, $objectUrl
         return '
     <!doctype html>
@@ -592,15 +597,15 @@ class EmailsController extends Controller {
 
 			<div style=" margin: 30px 0;">
 				<div style="width: 200px; height: 200px; padding: 10px; background-color: #eee; margin: auto; text-align: center; line-height: 150px;">
-					<img style="max-width:100%;max-height:100%;" src='.$sendPersonProfile.'>
+					<img style="max-width:100%;max-height:100%;" src='.$sharedPhoto.'>
 				</div>
 				<div style="border-radius: 5px; background-color: #BCD2EE; padding:10px; font-size: 20px; color:#fff; text-align: center; width: 200px; margin: 10px auto; cursor:pointer;"><a href='.$linkedURL.'>View Content</a></div>
 			</div>
 
-			<div style="position: absolute; left: 20px; bottom: 110px; font-weight: bold; font-size: 18px; width: 180px;">Geberit Bathrooms</div>
+			<div style="position: absolute; left: 20px; bottom: 110px; font-weight: bold; font-size: 18px; width: 180px;">'.$contentTitle.'</div>
 			<div style="position: absolute; right: 10px; bottom: 110px; font-weight: bold; font-size: 12px; width: 180px; text-align: center;">
-				<img style="width:80px" src="http://s3.hubsrv.com/trendsideas.com/profiles/geberit-australia/profile_picture/profile_picture">
-				<div>Geberit Australia</div>
+				<img style="width:80px" src='.$ownerPic.'>
+				<div>'.$contentOwner.'</div>
 			</div>
 
 		</div>

@@ -3505,6 +3505,10 @@ div.album-description-bg{
 }
 
 /* deletedFunction.hbs */
+.deleted-z{
+    z-index:13;
+}
+
 .delete-container{
     z-index: 14;
     background-color: white; 

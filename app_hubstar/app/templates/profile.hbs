@@ -1,5 +1,4 @@
 
-
 <div class="profile-wallpaper profile-box">
     <img  {{bindAttr src= model.profile_bg_url}} class="profile-bg-url">
 </div>
@@ -53,13 +52,13 @@
                             <div style="position: absolute;width: 100%;">
                                 <div style=";width: 50%; float: left;" data-step="1" data-intro="Click here to <b>Rate and Review</b> a profile." data-position="right">
 
-                                    <span class="stars" style="float: left;margin: 5px 15px 5px 0;" ><span id="starsize" ></span></span>  
+                                    <span class="stars" style="float: left;margin: 5px 15px 5px 0;" ><span id="starsize" ></span></span>
                                     <div class="hint--right hint--rounded" data-hint="Review this profile!"  {{action rateEditing model.id}} >
                                          <div class="contactmeicon easing" style="float: left;width: 45px;height: 45px;line-height: 33px;text-align: center;font-weight: bold;font-size: 15px;border: 5px solid rgba(0,0,0,.3);top: -5px;;">{{this.profile_average_review}}</div>
-                                        <div class="hover-opacity" style="font-size: 13px; font-weight: bold; color: #fff; cursor: pointer;  float: left;  margin: 8px 10px;">{{this.reviews.length}} • Reviews</div> 
+                                        <div class="hover-opacity" style="font-size: 13px; font-weight: bold; color: #fff; cursor: pointer;  float: left;  margin: 8px 10px;">{{this.reviews.length}} • Reviews</div>
                                     </div>
 
-                                </div>  
+                                </div>
                                 <!--contact me-->
                                 <div class="enquiryBtn-containter" style="float: right;margin: -5px 20px 0 0;position: relative; right: 20px;"  data-step="3" data-intro="Click here to <b>Contact</b> the profile owner." data-position="left">
                                     <div class="enquiryBtn-ring"></div>
@@ -78,10 +77,10 @@
                                     <a class="contactmeicon easing" {{action editingEditor }}><i class="fa fa-user easing" style="font-size: 18px;"></i></a>
                                     <div class="btn-description">EDITOR</div>
                                 </div>
-                                {{/if}} 
-                                {{/if}} 
+                                {{/if}}
+                                {{/if}}
 
-                            </div>  
+                            </div>
                             <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px;  padding: 0;right: 65px;top: 100px;position: absolute;">
                                 <li class="ite" {{action  fbShare}} >
                                     <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
@@ -118,7 +117,7 @@
                                             <div style="min-height: 175px; overflow: visible; line-height: 175px;margin-bottom: 20px;" data-hint="{{unbound model.profile_name}}">
                                                 <a href="#/profiles/{{unbound model.id}}">
                                                     <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;min-height: 0;width: 100%">
-                                                </a> 
+                                                </a>
                                             </div>
                                             {{#if controller.follow_status}}
                                             <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class="fa fa-circle-o" >&nbsp; </i> Following</div>
@@ -132,12 +131,12 @@
                                         <div>
                                             <div class="LatestFollower" >
 
-                                                {{#each contentFollowerPhoto}}                                             
+                                                {{#each contentFollowerPhoto}}
                                                 <a class="radius-circle" href="#/users/{{unbound this.id}}">
                                                     <div class="hint--bottom hint--rounded" data-hint="{{unbound this.name}}">
                                                         <img {{bindAttr src= this.photo_url}}/>
                                                     </div>
-                                                </a>                                             
+                                                </a>
                                                 {{/each}}
                                             </div>
                                             <div class="Followed-by easing" {{action selectFollower this }}>Followed by {{controller.profileFollowerStatistics}} people.</div>
@@ -145,18 +144,18 @@
 
 
                                         <!--KEYWORDS SECTION-->
-                                        <div class="aside-container" > 
+                                        <div class="aside-container" >
                                             <div style="margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;">
                                                 <i class="fa fa-bookmark" style="margin-right: 10px;"></i>Keywords
                                             </div>
 
                                             <div style="width: 100%;min-height: 100px;">
-                                                <ul class="Client-Keywords-tags">    
-                                                    {{#each controller.show_keyword_array}}  
+                                                <ul class="Client-Keywords-tags">
+                                                    {{#each controller.show_keyword_array}}
                                                     <li><div class="tags-before"></div><a href="#" {{action keywordSearch this.keyword_name}} >{{this.keyword_name}}</a></li>
                                                     {{/each}}
                                                 </ul>
-                                            </div>                                            
+                                            </div>
                                         </div>
 
 
@@ -215,12 +214,12 @@
                                                                 {{#if controller.profileSubcategoryDropdown}}
                                                                 {{view HubStar.DropdownListView}}
                                                                 {{/if}}
-                                                            </div>      
+                                                            </div>
                                                             {{else}}
                                                             <div class="Contact_2child"><a >{{model.profile_subcategory}}</a></div>
                                                             {{/if}}
                                                         </td>
-                                                    </tr>   
+                                                    </tr>
                                                     <tr valign="top">
                                                         <th style="vertical-align: top;">Address:</th>
                                                         <td>
@@ -268,10 +267,10 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        {{#if controller.editingContact}}   
-                                                        <th style="color: #aaa;text-align: right;font-size: 14px;font-weight: normal;width: 90px;">Website URL:</th>   
+                                                        {{#if controller.editingContact}}
+                                                        <th style="color: #aaa;text-align: right;font-size: 14px;font-weight: normal;width: 90px;">Website URL:</th>
                                                         <td>
-                                                            {{input type="text" class="insert-contactdetails" value=website_url }}  
+                                                            {{input type="text" class="insert-contactdetails" value=website_url }}
                                                         </td>
                                                         {{else}}
                                                         {{/if}}
@@ -339,7 +338,7 @@
                                         </div>
 
 
-                                        <!--PROFILE GOOGLEMAP SECTION--> 
+                                        <!--PROFILE GOOGLEMAP SECTION-->
                                         <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;" data-step="7" data-intro=" Click the <b>Location Map</b> to find out how to reach the profile owner’s address from your location." data-position="right">
                                             <div id="google-map"  style="width: 290px;height: 260px; border: 5px solid #fff;cursor: pointer" >
                                                 <div class="enlarge-map easing" style=""{{action popUpGoogleMap}}><k class="fa fa-expand"></k></div>
@@ -386,7 +385,7 @@
                     <li class="easing" {{action changeSize}}><a href="#tab3" data-toggle="tab">Account Settings</a></li>
                     <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Links</a></li>
                     {{#if controller.isAdmin}}
-                    <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>     
+                    <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>
                     {{/if}}
                     {{#if controller.is_authentic_user}}
                     <li class="easing" {{action changeSize}}><a href="#tab5" data-toggle="tab">Keyword Settings</a></li>
@@ -447,18 +446,18 @@
 
                         <div class="profile-row">
                             <div class="profile-col1" >Profile Name*:</div>
-                            <div class="profile-col2" > 
+                            <div class="profile-col2" >
                                 <div class="profile-tab-row1">
                                     {{view Ember.TextField valueBinding="profile_name"   class="mustFill1" placeholder=""}}
                                     <div class="mustfull profile-tab-row1-wrn" id="mustFill1">please fill in info... </div>
                                 </div>
 
-                            </div> 
+                            </div>
                         </div>
 
                         <div class="profile-row">
                             <div class="profile-col1" >Profile Contact:</div>
-                            <div class="profile-col2"> 
+                            <div class="profile-col2">
 
 
                                 <div  class="profile-tab-row2a">
@@ -473,7 +472,7 @@
                         </div>
 
                         <div class="profile-row">
-                            <div class="profile-col1" >Profile Category:</div> 
+                            <div class="profile-col1" >Profile Category:</div>
 
                             <div  class="profile-col2">
 
@@ -493,14 +492,14 @@
                                     {{/if}}
 
 
-                                </div>                              
+                                </div>
 
                             </div>
                         </div>
 
                         <div class="profile-row">
                             <div class="profile-col1" >Physical Address:</div>
-                            <div class="profile-col2"> 
+                            <div class="profile-col2">
 
                                 <div  class="profile-tab-row2a">
                                     {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
@@ -514,47 +513,47 @@
                         </div>
                         <div class="profile-row">
                             <div class="profile-col1" >Contact Number:</div>
-                            <div class="profile-col2"> 
+                            <div class="profile-col2">
                                 <div class="profile-tab-row1">
                                     {{view Ember.TextField valueBinding="profile_contact_number" placeholder=""}}
                                 </div>
 
-                            </div> 
+                            </div>
                         </div>
                         <div class="profile-row">
                             <div class="profile-col1" >Website Domain:</div>
-                            <div class="profile-col2"> 
+                            <div class="profile-col2">
                                 <div class="profile-tab-row1">
                                     {{view Ember.TextField valueBinding="website" placeholder="yourdomain.com"}}
                                 </div>
 
-                            </div> 
-                        </div>    
+                            </div>
+                        </div>
                         <div class="profile-row">
                             <div class="profile-col1" >Website URL:</div>
-                            <div class="profile-col2"> 
+                            <div class="profile-col2">
                                 <div class="profile-tab-row1">
                                     {{view Ember.TextField valueBinding="website_url" placeholder="http://www.yourdomain.com"}}
                                 </div>
 
-                            </div> 
+                            </div>
                         </div>
                         <div class="profile-row">
                             <div class="profile-col1" >Profile Cover Text:</div>
-                            <div class="profile-col2"> 
+                            <div class="profile-col2">
                                 <div class="profile-tab-row1">
                                     {{view Ember.TextField valueBinding="profile_cover_text" placeholder="Brief description (displayed when your profile appears in search results)"}}
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div class="profile-row">
                             <div class="profile-col1" >Google Analytics Tracking ID:</div>
-                            <div class="profile-col2"> 
+                            <div class="profile-col2">
                                 <div class="profile-tab-row1">
                                     {{view Ember.TextField valueBinding="profile_analytics_code" placeholder=""}}
                                 </div>
 
-                            </div> 
+                            </div>
                         </div>
                     </div>
                     <div class="profile-tab-save2">
@@ -569,52 +568,52 @@
                     <div class="profile-tab-table">
                         <div class="profile-row">
                             <div class="profile-col3" >Country*:</div>
-                            <div class="profile-col2" > 
+                            <div class="profile-col2" >
                                 <div class="profile-tab-row2">
                                     {{view Ember.TextField valueBinding="country" class="country"  placeholder="New Zealand" value="New Zealand"}}
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div class="profile-row">
                             <div class="profile-col3" >Region*:</div>
-                            <div class="profile-col2" > 
+                            <div class="profile-col2" >
                                 <div class="profile-tab-row2">
                                     {{view Ember.TextField valueBinding="region" class="region"  placeholder="Auckland"}}
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div class="profile-row">
                             <div class="profile-col3" >Direct Enquiry Primary Email (To:)*:</div>
-                            <div class="profile-col2" > 
+                            <div class="profile-col2" >
                                 <div class="profile-tab-row2">
                                     {{view Ember.TextField valueBinding="contact_email"  class="mustFill4"  placeholder=""}}
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div class="profile-row">
                             <div class="profile-col3" >Direct Enquiry Secondary Email (Cc:):</div>
-                            <div class="profile-col2" > 
+                            <div class="profile-col2" >
                                 <div class="profile-tab-row2">
                                     {{view Ember.TextField valueBinding="secondary_email"  class=""  placeholder=""}}
                                 </div>
-                            </div> 
-                        </div> 
+                            </div>
+                        </div>
                         <div class="profile-row">
                             <div class="profile-col3" >Direct Enquiry Tertiary Email (Bcc:):</div>
-                            <div class="profile-col2" > 
+                            <div class="profile-col2" >
                                 <div class="profile-tab-row2">
                                     {{view Ember.TextField valueBinding="direct_enquiry_provide_email"  class=""  placeholder=""}}
                                 </div>
-                            </div> 
-                        </div> 
+                            </div>
+                        </div>
                         <div class="profile-row">
                             <div class="profile-col3" >Editors*:</div>
-                            <div class="profile-col2" > 
+                            <div class="profile-col2" >
                                 <div class="profile-tab-row2 profile-tab-editor">
                                     {{view Ember.TextArea valueBinding="editors"   class="mustFill6 no-resize" placeholder=""}}
                                 </div>
-                            </div> 
-                        </div>                                          
+                            </div>
+                        </div>
                     </div>
                     <div class="profile-tab-save3">
                         <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
@@ -628,61 +627,61 @@
                     <div class="profile-tab-table">
                         <div class="profile-row">
                             <div class="profile-col1" >Facebook:</div>
-                            <div id="facebook" class="profile-col2" > 
+                            <div id="facebook" class="profile-col2" >
                                 <div class="profile-tab-row1">
                                     {{input type="text" value=facebook placeholder="www.facebook.com/username"}}
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div class="profile-row">
                             <div class="profile-col1" >Twitter:</div>
-                            <div id="twitter" class="profile-col2" > 
+                            <div id="twitter" class="profile-col2" >
                                 <div class="profile-tab-row1">
                                     {{input type="text" value=twitter placeholder="www.twitter.co/username"}}
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div class="profile-row">
                             <div class="profile-col1" >Google+:</div>
-                            <div id="googleplus" class="profile-col2" > 
+                            <div id="googleplus" class="profile-col2" >
                                 <div class="profile-tab-row1">
                                     {{input type="text" value=googleplus placeholder="plus.google.com/username"}}
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div class="profile-row">
                             <div class="profile-col1" >Pinterest:</div>
-                            <div id="pinterest" class="profile-col2" > 
+                            <div id="pinterest" class="profile-col2" >
                                 <div class="profile-tab-row1">
                                     {{input type="text" value=pinterest placeholder="www.pinterest.com/username"}}
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div class="profile-row">
                             <div class="profile-col1" >Linkedin:</div>
-                            <div id="linkedin" class="profile-col2" > 
+                            <div id="linkedin" class="profile-col2" >
                                 <div class="profile-tab-row1">
                                     {{input type="text" value=linkedin placeholder="www.linkedin.com/in/username"}}
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div class="profile-row">
                             <div class="profile-col1" >Youtube:</div>
-                            <div id="youtube" class="profile-col2" > 
+                            <div id="youtube" class="profile-col2" >
                                 <div class="profile-tab-row1">
                                     {{input type="text" value=youtube placeholder="www.youtube.com/user/username"}}
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div class="profile-row">
                             <div class="profile-col1" >Instagram:</div>
-                            <div id="instagram" class="profile-col2" > 
+                            <div id="instagram" class="profile-col2" >
                                 <div class="profile-tab-row1">
                                     {{input type="text" value=instagram placeholder="www.instagram.com/username"}}
                                 </div>
-                            </div> 
-                        </div>                     
-                    </div>                                   
+                            </div>
+                        </div>
+                    </div>
                     <div class="profile-tab-save1">
                         <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
                         <span class="new-btn blue-btn flip-back"{{action flipFrontBack}}><i class="fa fa-group"> &nbsp;</i>Back</span>
@@ -735,28 +734,28 @@
                             <div class="profile-col4 profile-col4a">Creator:</div>
                             <div class="profile-col2">
                                 <div class="disabled-btn profile-tab-row2d profile-tab-col1">
-                                    <span> {{controller.profile_creator}}</span> 
+                                    <span> {{controller.profile_creator}}</span>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                         <div class="profile-row">
                             <div class="profile-col4">Domains:</div>
-                            <div class="profile-col2"> 
+                            <div class="profile-col2">
                                 <div class="profile-tab-row2d profile-tab-row2e">
                                     {{view Ember.TextField valueBinding="domains"  class="mustFill4"  }}
                                 </div>
                                 <div class="mustfill profile-tab-row1-wrn" id="emailFormat6">not correct email format.....</div>
                                 <div class="mustfull profile-tab-row1-wrn" id="mustFill6">please fill in info... </div>
-                            </div> 
+                            </div>
                         </div>
                         <div class="profile-row">
                             <div class="profile-col4 ">Keywords:</div>
-                            <div class="profile-col2"> 
+                            <div class="profile-col2">
                                 <div class="profile-tab-row2d profile-tab-row2f">
                                     {{view Ember.TextArea valueBinding="keywords" class="no-resize"  placeholder="Please use a comma separated list! i.e.: bathroom, kitchen, living room"}}
                                 </div>
-                            </div> 
-                        </div>                
+                            </div>
+                        </div>
                     </div>
 
                     <div class="profile-tab-save4">
@@ -773,9 +772,9 @@
                     {{#view HubStar.KeywordDropTargetView}}
                     <div class="profile-tab5-txtContainer">
 
-                        {{#each controller.show_keyword_array}}                    
-                        <div class="hashtags profile-tab5-keyword">{{keyword_name}}{{#if controller.is_authentic_user}}<i class="remove-hashtages" {{action deleteKeywords keyword_id "show"}}>x</i>{{/if}}</div>                    
-                        {{/each}}    
+                        {{#each controller.show_keyword_array}}
+                        <div class="hashtags profile-tab5-keyword">{{keyword_name}}{{#if controller.is_authentic_user}}<i class="remove-hashtages" {{action deleteKeywords keyword_id "show"}}>x</i>{{/if}}</div>
+                        {{/each}}
 
                         <div class="profile-tab5-txt">You can display up to 10 keywords at a time on your business profile. <br/>Drag and drop keywords from the area below.</div>
                     </div>
@@ -814,16 +813,16 @@
                             <img  {{bindAttr src= "backgroundImage"}}>
 
                             <p class="profile-tab1-title">
-                                {{controller.UploadImageMode}} 
+                                {{controller.UploadImageMode}}
 
                             </p>
-                            <span class="profile-tab1-txt2">Please select one photo for your choice.</span>   
+                            <span class="profile-tab1-txt2">Please select one photo for your choice.</span>
                             <span class="profile-tab1-txt2"> {{controller.RequiredImageSize}}</span>
                             <span class="profile-tab1-txt2"> {{controller.CurrentImageSize}}</span>
 
                         </div>
                         <div class="new-btn blue-btn profile-tab1-choose-box">
-                            Choose 
+                            Choose
                             <div class="profile-tab1-choosebtn"> {{view HubStar.SingleImageInputButtonView }}</div>
                             <div class="profile-tab1-choosebtn"> </div>
                         </div>
@@ -854,7 +853,7 @@
                             <span id="photoUploadbtn" class="new-btn green-btn" {{action photoUpload}}>Upload</span>
                             {{else}}
                             <span  class="disabled-btn" >Upload</span>
-                            {{/if}} 
+                            {{/if}}
                             <a href="#tab1" data-toggle="tab" {{action resetNewStyleImageSource}}><span class="new-btn">Close</span></a>
 
 
@@ -870,12 +869,12 @@
                         <span class="profile-tab1-edit-check"><i class="fa fa-check-circle"></i></span>
                         <span class="profile-tab1-edit-titlectn">
                             <span class="profile-tab1-edit-title">Crop your picture now!</span>
-                            <span class="profile-tab1-edit-imgsize"> Image Size: <span id="log"></span> </span>  
+                            <span class="profile-tab1-edit-imgsize"> Image Size: <span id="log"></span> </span>
                         </span>
                     </div>
 
                     {{#if controller.isProfilePicture}}
-                    <div id="crop-container" class="profile-tab1-edit-profilepic">          
+                    <div id="crop-container" class="profile-tab1-edit-profilepic">
                         {{/if}}
                         {{#if controller.isProfileHero}}
                         <div id="crop-container" class="profile-tab1-edit-profilehero">
@@ -947,7 +946,7 @@
 
 
         {{/if}}
-        
+
 
         {{#if controller.makeSureDelete}}
 
@@ -989,5 +988,3 @@
         {{#if controller.contactChecking}}
         {{render contact}}
         {{/if}}
-
-

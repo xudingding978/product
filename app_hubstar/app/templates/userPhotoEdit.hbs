@@ -2,46 +2,33 @@
     {{#if controller.isPhotoUploadMode}}
     {{#view HubStar.SingleFileUploaderView }}
 
-    <div id="dragAndDroppArea" class="dragndropbox" style="display:block;height: 420px;top: 0;background-color: #fff; padding: 0;overflow: hidden">
+    <div id="dragAndDroppArea" class="dragndropbox user-picture-edit">
 
-        <div class='styleup_uploadbox easing' style=" height: 400px;width: 93%;position: absolute;">
-            <i class='fa fa-arrow-circle-o-up fa fa-3x' style="width: 40px;margin: auto;display: block;position: relative;top: 125px;" ></i>
-            <span style="display: block; position: relative;line-height: 30px;font-size: 20px;top: 140px; cursor: default;  font-weight: bold;line-height: 25px;">Drag & drop a profile image here</span>
-            <span style='font-size: 16px;display: block;line-height: 18px;position: relative;top: 240px;'> {{controller.RequiredImageSize}}</span>
-
-
-            <div style="position: absolute;  vertical-align: top; text-align: center;width: 100%;height: 398px;top: 0;line-height: 345px;background-color: Rgba(30,30,30,.2);">
+        <div class='styleup_uploadbox easing user-picture-upload-box'>
+            <i class='fa fa-arrow-circle-o-up fa fa-3x'></i>
+            <span class="user-picture-span-font">Drag & drop a profile image here</span>
+            <span class="user-picture-span-size"> {{controller.RequiredImageSize}}</span>
+            <div>
                 <div>
-                    <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 170px; max-height: 170px;">
-                    <div id='uploadStyleImg' style="display: none;">
-                        <img style="width: 25px; height: 25px;position: absolute;top: 40%;left: 62px;" src="../../../images/uploadphotos_spinner.gif"/>
+                    <img  {{bindAttr src= "newStyleImageSource"}}>
+                    <div id='uploadStyleImg'>
+                        <img style="" src="../../../images/uploadphotos_spinner.gif"/>
                     </div>
                 </div>
-                <div style="margin: 2px auto 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px; display: none">{{newStyleImageName}}</div>
-
             </div>
-
         </div>
     </div>
-
-
-
-    <div style="text-align: center;height: 75px;line-height: 85px;background-color: #f3f3f3;bottom: 0;position: absolute;width: 100%;">
-        <div class="new-btn blue-btn" style="margin: 28px 10px; width: 83px; float: left;">
+    <div class="user-picture-img-button">
+        <div class="new-btn blue-btn user-picture-img-button-choose">
             <i class='fa fa-arrow-circle-o-up'> &nbsp;Choose </i>
-                <div style="opacity:0;position: absolute;top: 0px;left: 0;width: 85px;overflow: hidden;"> {{view HubStar.SingleImageInputButtonView }}</div>
+            <div style=""> {{view HubStar.SingleImageInputButtonView }}</div>
         </div>
-
-
-        <div style="margin: auto 10px;width: 150px;float: right;">
-
+        <div class="user-picture-img-button-crop">
             {{#if controller.isCrop}}
-            <span id="photoUploadbtn" class="new-btn blue-btn" {{action cropButton}}><i class='fa fa-cut '> &nbsp;</i>Crop</span>
+            <span id="photoUploadbtn" class="new-btn green-btn" {{action cropButton}}><i class='fa fa-cut '> &nbsp;</i>Crop</span>
             {{else}}
             <span  class="disabled-btn" ><i class='fa fa-cut '> &nbsp;</i>Crop</span>
             {{/if}} 
-
-
             <span class='new-btn flip-back'{{action userPhotoEditBackButton }}><i class='fa fa-user'> &nbsp;</i>Back</span>
 
         </div>
@@ -50,15 +37,15 @@
     {{/if}}
 
     {{#if controller.isPhotoEditingMode}}
-    <div class='' style='position:relative;height: 85px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
-        <span style="position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;"><i class='fa fa-check-circle'></i></span>
-        <span style="position: relative;display: inline-block;margin: 15px 10px;font-size: 20px;line-height: 25px;width: 75%;">Crop your picture now!</span>
+    <div class="user-picture-img-crop-title">
+        <span class="user-picture-img-crop-title-icon"><i class='fa fa-check-circle'></i></span>
+        <span class="user-picture-img-crop-title-name">Crop your picture now!</span>
     </div>
 
-    <div id="crop-container" style="width: 300px; height: 350px;text-align: center; margin: 10px auto">
-        <canvas id="panel" style="max-width: 300px; max-height: 350px;width: auto; height: auto;"><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
+    <div id="crop-container" class="user-picture-crop-container">
+        <canvas id="panel" ><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
     </div>
-    <div style="margin: auto;width: 150px;">
+    <div class="user-picture-crop-button">
         <span class="new-btn green-btn " {{action savePhotoUpdate}} ><i class='fa fa-save'> &nbsp;</i>Save</span>
         <span class='new-btn flip-back'{{action userPhotoEditBackButton }}><i class='fa fa-group'> &nbsp;</i>Back</span>
     </div>

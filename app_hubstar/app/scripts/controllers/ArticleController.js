@@ -329,7 +329,6 @@ HubStar.ArticleController = Ember.Controller.extend({
                     this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
             }
-
             this.set("photo_album_id", "album_" + this.get('selectedPhoto').get("id"));
             this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').get("id"));
             this.selectedImage(this.get('selectedPhoto').get("id"));
@@ -427,6 +426,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
                     this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
+
 
             }
             this.set("photo_album_id", "album_" + this.get('selectedPhoto').get("id"));
@@ -777,6 +777,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
+        this.set("contentTagsArticle", []);
         var address = document.URL;
         var collection_id = address.split("#")[1].split("/")[6];
         var user_id = address.split("#")[1].split("/")[2];

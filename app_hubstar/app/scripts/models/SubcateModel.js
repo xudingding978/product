@@ -7,6 +7,7 @@ HubStar.Subcate = DS.Model.extend({
     //ids: DS.attr('string'),
     category_topic: DS.attr('string'),
     subcategories: DS.hasMany('HubStar.Subcategories'),
+    isSelected:false,
     ids: function() { 
         return createNavigatorId();
     }.property('category_topic'),

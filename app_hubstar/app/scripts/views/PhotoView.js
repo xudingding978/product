@@ -33,7 +33,8 @@ HubStar.PhotoView = Ember.View.extend({
                 {
                     var pic_w = HubStar.get("pic_current_width");
                     var pic_h = HubStar.get("pic_current_height");
-                    if ((e.clientX > left && e.clientX < left + pic_w) && (e.clientY > top && e.clientY < top + pic_h)) {
+                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) && 
+                            (Math.ceil(event.clientY) > Math.ceil(top) && Math.ceil(event.clientY) < Math.ceil(top) + Math.ceil(pic_h))) {
                         that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
                     }
                     else
@@ -89,7 +90,8 @@ HubStar.PhotoView = Ember.View.extend({
                 {
                     var pic_w = HubStar.get("pic_current_width");
                     var pic_h = HubStar.get("pic_current_height");
-                    if ((event.clientX > left && event.clientX < left + pic_w) && (event.clientY > top && event.clientY < top + pic_h)) {
+                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) && 
+                            (Math.ceil(event.clientY) > Math.ceil(top) && Math.ceil(event.clientY) < Math.ceil(top) + Math.ceil(pic_h))) {
                         that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
                     }
                     else

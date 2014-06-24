@@ -1,13 +1,10 @@
 
 <h1>USERS</h1>
-
-
  {{#each model}}
  <ul>
      <li>
          <h3>{{#linkTo 'user' this}}{{id}}{{/linkTo}}    {{display_name}}</h3>
      </li>
  </ul>
- 
  
  {{/each}}

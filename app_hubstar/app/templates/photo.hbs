@@ -1,9 +1,4 @@
-<!--
-{{#if controller.loadingTime}}
 
-{{render loadingSpinner}}
-
-{{/if}}-->
 {{#if controller.collectable}}
 {{render addCollection}}
 {{/if}}
@@ -17,14 +12,14 @@
             {{#if controller.megaResouce.getVideo}}
             <div class="fa icon-on-black hint--rounded hint--bottom " data-hint="Watch this Video" {{action transitionToVideo controller.megaResouce}}>
                  <i class="fa fa-film"></i><span class="pretooltip">Watch</span>
-            </div>   
+            </div>
             {{/if}}
             {{#unless controller.enableTag}}
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this image to a collection" {{action switchCollection on="click" target="controller"}}>
                 <i class="fa fa-folder"></i><span class="pretooltip">Save</span>
             </div>
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this image" {{action dropdownPhotoSetting "1"}}>
-                 <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
+                 <i class="fa fa-share"></i><span class="pretooltip">Share</span>
             </div>
             {{/unless}}
             {{#if HubStar.tagging_display}}
@@ -34,11 +29,11 @@
             {{#if controller.enableTag}}
 
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Exit image tagging" {{action endTag}}>
-                 <i class="fa fa-tag"></i><span class="pretooltip">Done Tagging</span> 
+                 <i class="fa fa-tag"></i><span class="pretooltip">Done Tagging</span>
             </div>
             {{else}}
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Add a new tag " {{action activateTag}}>
-                 <i class="fa fa-tag"></i><span class="pretooltip">Tag Image</span> 
+                 <i class="fa fa-tag"></i><span class="pretooltip">Tag Image</span>
             </div>
             {{/if}}
             {{/if}}
@@ -50,7 +45,7 @@
             </div>
             {{else}}
             <div class="fa icon-on-black hint--rounded hint--bottom " data-hint="Show all tags on this image" {{action showTags}}>
-                 <i class="fa fa-tag"></i><span class="pretooltip">Show Tags</span> 
+                 <i class="fa fa-tag"></i><span class="pretooltip">Show Tags</span>
             </div>
             {{/if}}
             {{/unless}}
@@ -107,7 +102,7 @@
                 {{/if}}
             </div>
         </div>
-        <!--     image show here-->   
+        <!--     image show here-->
         <div id ="tag_image">
             {{view HubStar.PhotoDisplayAreaView}}
 
@@ -136,13 +131,15 @@
             </div>
             {{else}}
             <div  class="spinner-object" >
-                <i class="spinner"></i> 
+                <i class="spinner"></i>
             </div>
             {{/unless}}
             <div class="fa icon-on-black" {{action nextImage on="click" target="controller"}}>
                 <i class="fa fa-arrow-right"></i>
             </div>
+            {{#unless controller.isRead}}
             <div class="text-on-black"> {{controller.image_no}}/{{content.length}} </div>
+            {{/unless}}
         </div>
 
     </div>
@@ -152,11 +149,11 @@
         <div style="cursor: pointer;">
             <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
                 <div class="profilepic-container">
-                    <a class="profilepic" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>              
+                    <a class="profilepic" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>
                 </div>
                 <div class="poster_user" >
                     <a class="poster-name" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
-                </div>        
+                </div>
 
                 <div class="enquiryBtn-containter message-img">
                     <div class="enquiryBtn-ring"></div>
@@ -195,7 +192,7 @@
                 {{#if controller.megaResouce.getArticle}}
                 <div class="square-button hint--rounded hint--bottom" data-hint="Read this article"  {{action transitionToArticle controller.megaResouce.id}}>
                      <i class="fa fa-book">&nbsp;</i>
-                </div>       
+                </div>
                 {{/if}}
 
                 {{#if controller.is_authentic_user}}
@@ -330,7 +327,7 @@
                 </span>
                 <div class="dropdownicon">
                     <i class="fa fa-angle-down dropdownicon-dis"></i>
-                </div>      
+                </div>
             </div>
 
 
@@ -341,14 +338,14 @@
                         <div class="discuss-input-innerbox">
                             <a>
                                 <img class="profilepic_comment comment-item-img comment-item-img-z1" src="http://develop.devbox.s3.amazonaws.com/profile_pic/default/defaultpic1.jpg" />
-                                <img class="profilepic_comment comment-item-img comment-item-img-z2" {{bindAttr src="controller.currentUser.photo_url_large"}} /> 
+                                <img class="profilepic_comment comment-item-img comment-item-img-z2" {{bindAttr src="controller.currentUser.photo_url_large"}} />
                                 <div class="user-says-angle-before user-says-angle-before1"></div>
                                 <div class="user-says-angle-after user-says-angle-after1"></div>
                             </a>
 
                             <div class="discuss-input">
                                 <div class="discuss-input-txt">
-                                    {{view Ember.TextArea valueBinding="commentContent" id="AddRecord" class="no-resize no-effect" placeholder="Write a comment..." }}                                          
+                                    {{view Ember.TextArea valueBinding="commentContent" id="AddRecord" class="no-resize no-effect" placeholder="Write a comment..." }}
                                 </div>
                                 <div class="discuss-submit">
                                     <div class="message-btn easing width-100"{{action addComment}}><i class='fa fa-check'>&nbsp;</i>Post </div>
@@ -371,11 +368,11 @@
                                         {{name}}
                                     </a>
                                     <div class="posttime-container">
-                                        <span class="posttime">{{date time_stamp}}</span>                  
+                                        <span class="posttime">{{date time_stamp}}</span>
                                     </div>
                                     {{#if this.getUser}}
                                     <span class="edit-comment easing">
-                                        <i class="fa fa-trash-o"  {{action removeComment this}}></i>                 
+                                        <i class="fa fa-trash-o"  {{action removeComment this}}></i>
                                         <i class="fa fa-pencil" {{action updateComment this}}></i>
                                     </span>
                                     {{/if}}
@@ -395,7 +392,7 @@
                         </div>
                     </div>
                     {{else}}
-                    {{render editComment this}}   
+                    {{render editComment this}}
                     {{/unless}}
 
                     {{/each}}
@@ -446,7 +443,7 @@
 {{#if controller.makeSureActivateTag}}
 {{view HubStar.ActivateTagFunctionView}}
 {{/if}}
-{{#if  controller.enableTag}}      
+{{#if  controller.enableTag}}
 {{#if controller.inImage}} <!--only when it within the image place can add the tag-->
 {{ render showTag }}
 {{/if}}
@@ -457,12 +454,13 @@
 {{ view HubStar.TagContentView }}
 {{/if}}
 {{/unless}}
-<!--     show all the tags--> 
+<!--     show all the tags-->
 {{#if controller.showAllTags}} <!--      showOrNot tag-->
 {{#each controller.contentTags}}
-{{view HubStar.TagMouseView}} 
+{{view HubStar.TagMouseView}}
 {{/each}}
 {{/if}}
+
 {{/if}}
 
 

@@ -294,9 +294,10 @@ HubStar.UserController = Ember.Controller.extend({
                     $("#search-bar").css('display', "block");
                     $("#topResidentialCommerical").css('display', "block");
                     $(".search-bar-on-small-screen").css('display', "none");
+
                     if (HubStar.get("isTopAdDisplay")) {
-                       
-                    }else{
+
+                    } else {
                         $(".user-top").css("height", "40px");
                     }
 
@@ -306,11 +307,11 @@ HubStar.UserController = Ember.Controller.extend({
                     $(".search-bar-on-small-screen").css('display', "block");
                     if (HubStar.get("isTopAdDisplay")) {
                         $("#top_bar_ads").css({"position": "fixed", "top": "140px"});
-                    }else{
+                    } else {
                         $(".user-top").css("height", "40px");
                     }
                 }
-                 
+
 
             }, 50);
         });

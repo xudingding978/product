@@ -56,9 +56,20 @@ HubStar.Router.map(function() {
         this.resource("profiles", function() {
             this.resource("index", {path: '/'});
             this.resource("profileNew", {path: '/new'});
-
         }); // ### create [NEW] business profile end 
 
+        this.resource("groupsNew", {path: 'groups/new'});
+
+        this.resource("group", {path: '/groups/:group_id'}, function() {
+            this.resource("groupCollections", {path: '/collections'}, function() {
+                this.resource("groupPhoto", {path: '/photos/:photo_id'});
+                this.resource("groupVideo", {path: '/videos/:video_id'});
+                this.resource("groupArticle", {path: '/article/:article_id'}, function() {
+                    this.resource("groupArticlePhoto", {path: '/photos/:photo_id'});
+                });
+            });
+            this.resource("groupNetwork", {path: '/network'});
+        }); // ### business profile end 
 
         this.resource("user", {path: '/users/:user_id'}, function() {
             this.resource("following", {path: '/following'});
@@ -127,11 +138,11 @@ HubStar.Router.reopen({
         this._super(infos);
         Ember.run.next(function() {
 
-            ga('create', 'UA-235915-17', {'name': 'Trends'});
+            
             ga('Trends.require', 'displayfeatures');
             ga('Trends.send', 'pageview');
 
-            ga('create', 'UA-46481605-1', {'name': 'HubStar'});
+           
             ga('HubStar.require', 'displayfeatures');
             ga('HubStar.send', 'pageview', window.location.href);
         });

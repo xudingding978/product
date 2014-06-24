@@ -14,12 +14,11 @@ HubStar.ContactView = Ember.View.extend({
 
         //browser
         var nVer = navigator.appVersion;
-        var nAgt = navigator.userAgent;
+        var nAgt = navigator.userAgent+"";
         var browser = navigator.appName;
         var version = '' + parseFloat(navigator.appVersion);
         var majorVersion = parseInt(navigator.appVersion, 10);
         var nameOffset, verOffset, ix;
-
         // Opera
         if ((verOffset = nAgt.indexOf('Opera')) !== -1) {
             browser = 'Opera';
@@ -52,7 +51,7 @@ HubStar.ContactView = Ember.View.extend({
             version = nAgt.substring(verOffset + 8);
         }
         // Other browsers
-        else if ((nameOffset = nAgt.lastIndexOf(' ') + 1) < (verOffset === nAgt.lastIndexOf('/'))) {
+        else if ((nameOffset = nAgt.lastIndexOf(' ') + 1) < (verOffset = nAgt.lastIndexOf('/'))) {
             browser = nAgt.substring(nameOffset, verOffset);
             version = nAgt.substring(verOffset + 1);
             if (browser.toLowerCase() === browser.toUpperCase()) {

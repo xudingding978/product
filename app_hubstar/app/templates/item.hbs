@@ -9,7 +9,7 @@
 
 {{/if}}
 
-
+{{business_profile_pic}}
 {{#if getPhoto}}
 <div class="box col2 noStyle1" data-step="9" data-intro="This is an <b>image</b> result. Click the image to see a full screen view and to read the caption." data-position='right' {{action checkingLoginStatus target="view" on="click"}} >
 
@@ -64,10 +64,10 @@
 
             <div class="profilepic-on-masonry">
                 <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  
-                    <img   style="width:46px; height: 46px;"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                    <img style="width:{{unbound profile_width}}; height: {{unbound profile_height}};"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; word-break: break-word;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name" style="cursor: pointer; word-break: break-word;" href="#/profiles/{{unbound owner_id}}/collections" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
@@ -122,7 +122,7 @@
 
             {{#if controller.isUser}}
             <a class="mainfeature-container" {{action transitionToPhoto id}}>
-               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
+               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 1;">
                     <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
                 </div>
                 <div id="init_photo_{{unbound id}}">
@@ -131,7 +131,7 @@
             </a>
             {{else}}
             <a class="mainfeature-container" {{action transitionToVideo id}}>
-               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
+               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 1;">
                     <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
                 </div>
                 <div id="init_photo_{{unbound id}}">
@@ -172,7 +172,7 @@
 
 
             <div class="profilepic-on-masonry">
-                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  style="width:46px; height: 46px;" {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  style="width:{{unbound profile_width}}; height: {{unbound profile_height}};" {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="cursor: pointer; word-break: break-word;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
@@ -338,7 +338,7 @@
 
         <div class="masonry-object_poster">
             <div class="profilepic-on-masonry">
-                <img   style="width:46px; height: 46px;"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+                <img   style="width:{{unbound profile_width}}; height: {{unbound profile_height}};"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="word-break: break-word;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{owner_title}}</a>

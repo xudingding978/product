@@ -1,0 +1,270 @@
+/* 
+    Document   : user-css
+    Created on : 18/06/2014, 2:59:30 PM
+    Author     : Charis
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.user-top{
+    width:100%; 
+    height: 120px; 
+    display:block;
+    opacity: 0;
+}
+
+
+.user-board{
+    width: 87%;
+    position: relative;
+    margin: 0 auto 20px;
+    left: 0;
+    right: 0;
+    min-width: 1060px;
+    max-width: 1260px;
+}
+
+.user-board_left{
+    background: white;
+    width: 26%;
+    display: inline-block;
+    vertical-align: top;
+    height: 500px;
+    margin-right: 0.5%;
+}
+
+.user-board_right{
+    background: white;
+    width: 73%;
+    height: 500px;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+
+.user-profilepic-container{
+    width: 180px; 
+    height: 180px; 
+    margin: auto;
+    margin-top: 40px;
+    position: relative;
+    display: block;
+    border: 5px solid #f3f3f3; 
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius:50%;
+    overflow: hidden;
+}
+.user-follow-style{
+    margin: 30px auto 20px;
+    display: block; 
+    text-align: center;
+}
+
+.user-profilepic-container img{
+   width: 180px;
+   height: 180px; 
+}
+
+.user-profilepic-container:hover .changeuserprofilepic{
+    opacity: 0.6;
+}
+
+.changeuserprofilepic > i{
+    font-size: 35px;
+    color: #fff;
+    line-height: 180px;
+    margin: auto;
+    display: block;
+    width: 35px;
+}
+
+.changeuserprofilepic{
+    cursor: pointer;
+    opacity: 0;
+    background-color: #000;
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    overflow:hidden;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius:50%;
+}
+
+.user-photo_left{
+    float:left;
+    width:100%;
+}
+
+.user-cover{
+    height: 300px; 
+    overflow: hidden;
+}
+
+.user-cover img{
+    width:100%;
+}
+
+.user-cover:hover .edit-dashboard-btn{
+    opacity: 1;
+    box-shadow: 0 0 10px #fff;
+}
+
+.user-display-name{
+    font-size: 26px;
+    font-weight: bold; 
+    line-height: 30px; 
+    color: white;
+    position: absolute;
+    top: 245px;
+    margin:0 30px;
+    text-shadow: 0 0 10px #777;
+}
+
+
+/* interest BEGINS */
+.show-interest{
+    background-color: #f3f3f3;
+    height: 30px;
+    line-height: 33px;
+    margin: 5px -20px 10px;
+    padding: 0 20px;
+}
+
+.show-interest:hover{
+    background-color: #fff;
+}
+
+.show-interest-style{
+    font-weight: bold;
+    line-height: 20px; 
+    color: #777; 
+    font-size: 17px;
+    margin-bottom: 5px; 
+    display:inline-block;
+}
+
+.show-interest-plus{
+    height: 20px;
+    line-height: 20px;
+    margin:0;
+}
+
+.show-interest-plus i{
+    font-size:13px;
+    margin:0;
+    padding:9px 10px;
+}
+
+.show-interest-up{
+     float: right;
+     padding: 7px;
+}
+
+.show-interest-button{
+    text-align: center;
+    right: 15px;
+    position: relative;
+}
+
+.show-interest-button div i{
+    position:absolute;
+    top:0;
+    left:0;
+    width:33px;
+    height:26px;
+    line-height:26px;
+    text-align:center;
+}
+
+.unvisible{
+    color: #777;
+    opacity: 0;
+}
+
+#interest_btn{cursor:pointer;}
+
+
+#show_interest:hover .unvisible{
+    opacity: .7
+}
+
+#show_interest
+{
+    position:absolute;
+    top:298px;
+    left:0;
+    padding: 5px 20px 0;
+    width: 100%;
+    height: 200px;
+    float:left;
+    overflow: hidden;
+    background: #F3F3F3;
+
+}
+div.profile-picture-active
+{
+    margin:5px 12px 0 20px!important;
+    width:50px!important;
+    height:50px!important;
+    z-index:1!important;
+    float:left!important;
+    border-width:4px!important;
+    position:absolute;
+}
+div#profile-picture.profile-picture-active > img{
+    min-width:50px;
+    min-height:50px;
+    max-height:53px;
+    max-width: 53px;
+    margin:-4px 0 0 -4px;
+}
+#profile-picture > img{
+    margin-left:-5px;
+    min-width:180px;
+    min-height:180px;
+    max-width:235px;
+    max-height:235px;
+}
+
+.follow-btn-active
+{
+    float: right!important;
+    top: 13px!important;
+    margin: 0 20px 0 0!important;
+    width: auto !important;
+}
+
+textarea.add-interests{
+    max-width:100%;
+}
+
+.user-profilepic-container > div#change_profile{max-width:100%;max-height:100%;}
+
+.interesttags-container{width: 100%;height: 100px;line-height: 25px;padding: 0 0 0 0;margin-top: -5px;overflow: hidden;}
+
+.interest-textarea{width: 100%;margin-bottom: 5px;height: 70px;}
+
+.interest-insert-hint{
+    display: none;
+    height: 80px; 
+    width: 100%; 
+    border-radius: 6px; 
+    border: 1px solid #999;
+    background-color: rgba(30,30,30,.3); 
+    color: #fff;
+    line-height: 15px;
+    text-align: center;
+    font-weight: bold;
+
+    margin: 5px auto 15px;
+    padding: 6px 20px;
+    font-size: 12px;
+}
+
+/* interest ENDS */
+

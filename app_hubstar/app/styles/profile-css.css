@@ -1741,7 +1741,8 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .left-bottom-area{
-    margin: 0 -5px;
+    margin: 0 auto;
+    width:800px;
 }
 
 .display-article-img-area{
@@ -1751,10 +1752,11 @@ div#appfeedback .fresh-message > i.fa-times{
     width: 255px;
     line-height: 18px; 
     float: left;
+    height:  350px;
 }
 
 .display-article-img-box{
-    height: 200px; 
+    max-height: 200px; 
     text-align: center;
     overflow: hidden;
 }

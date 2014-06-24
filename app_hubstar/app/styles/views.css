@@ -1182,6 +1182,7 @@ div.album-description-bg{
     font-weight: bold;
     display: block;
     unicode-bidi: normal;
+    word-break: break-word;
 }
 .poster-name:hover, .poster-name:focus{color:#005580;}
 
@@ -1685,7 +1686,7 @@ div.album-description-bg{
     font-weight: bold;
     line-height: 30px;
     margin-bottom: 10px;
-    word-break: break-all;
+    word-break: break-word;
     text-transform: capitalize;
 
 }

@@ -502,7 +502,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 shareEmailController = this.get('controllers.shareEmail');
                 selectid = model.id;
                 shareEmailController.setImageID(selectid);
-                tempUrl = photoObj.get('photo_image_url');
+                tempUrl = photoObj.get('photo_image_original_url');
                 this.set("selectedPhoto", model.get("photo").objectAt(0));
                 currentUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
                 shareEmailController.setThumbnailUrl(tempUrl);
@@ -552,34 +552,8 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
             }
             $("#body_id").css("overflow", "hidden");
         }
-//        if (this.get("controllers.checkingLoginStatus").popupLogin())
-//        {
-//
-//            var mega = HubStar.Mega.find(this.get('currentUserID'));
-//            mega.then(function() {
-//                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-//                {
-//                    mega.set("share_count", 0);
-//                }
-//                else
-//                {
-//                    mega.set("share_count", mega.get("share_count") + 1);
-//                }
-//                mega.store.save();
-//            });
-////            this.sendEventTracking('event', 'button', 'click', 'Contact us');
-////            var shareEmailController = this.get('controllers.shareEmail');
-////            shareEmailController.setSelectedMega(this.get('currentUserID'));
-//            this.set("isShareEmail", true);
-////        this.get("controllers.shareEmail").getClientId(this.get("Id"));
-//
-//
-////            this.set('contactChecking', !this.get('contactChecking'));
-//            //return false;
-//        }
-    },
-    closeShareEmail: function() {
-        this.set('shareEmail', false);
+
     }
+
 }
 );

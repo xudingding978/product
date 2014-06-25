@@ -1065,7 +1065,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             var shareEmailController = this.get('controllers.shareEmail');
             var selectid = this.get('selectedPhoto').id;
             shareEmailController.setImageID(selectid);
-            var tempUrl = this.get('selectedPhoto').get('photo_image_thumbnail_url');
+            var tempUrl = this.get('selectedPhoto').get('photo_image_original_url');
             shareEmailController.setThumbnailUrl(tempUrl);
             shareEmailController.setUrl(currentUrl);
             shareEmailController.setUser();

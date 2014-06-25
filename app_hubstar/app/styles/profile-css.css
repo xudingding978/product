@@ -2745,3 +2745,68 @@ div#appfeedback .fresh-message > i.fa-times{
     height: 45px;
     line-height: 45px;
 }
+
+/* selectFuction.hbs */
+.selectfunction-container{
+    height: auto;
+    top:30%;
+}
+
+.selectfunction-exit{
+    float: right;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center; 
+    cursor: pointer;
+}
+
+.selectfunction-title{
+    width: 100%;
+    height: 55px; 
+    line-height: 33px;
+    padding: 10px 25px;
+    background-color: #F3F3F3;
+    border-bottom: 1px solid #ddd;
+}
+
+.selectfunction-icon{
+    font-size: 35px;
+    width: 45px;
+    height: 45px;
+    float: left;
+}
+
+.selectfunction-txt{
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;  
+    vertical-align: middle;
+    display: inline-block;
+    width: 390px;
+}
+
+.selectfunction-content{
+    margin: 15px auto 20px; 
+    padding: 0 40px;
+    height: 200px;
+    color: #333; 
+    font-size: 15px;
+}
+
+.selectfunction-action{
+    height: 41px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    bottom: 0;
+    width: 100%;
+}
+
+.selectfunction-editor{
+    width: 50% !important;
+    border-right: 1px solid #ddd;
+}
+
+.selectfunction-temp{
+    width: 50% !important;
+}

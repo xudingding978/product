@@ -1063,6 +1063,12 @@ search-bar-on-small-screen #topResidentialCommerical{
     font-size: 20px;
 }
 
+.header-about{
+    width: 160px;
+    position: absolute;
+    top:80px;
+    left: 110px;
+}
 /*letop & tablet*/
 @media all and (max-width: 1800px){
 

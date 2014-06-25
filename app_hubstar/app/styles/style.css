@@ -1713,10 +1713,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     text-align:center;
 }
 
-.isLogin1{
-    position: absolute;
-}
-
 .isLogin2{
     position: absolute;
     right:95px;

@@ -213,8 +213,8 @@
             <div class="welcome-res-position">Residential</div>         
         </div>
         {{#each controller.contentTopicResidential}}
-        <div class="welcome-select-interest" {{action selectTopic id topic}}>
-             <div id="minuss_{{unbound id}}" class="welcome-plus-or-minus radius-circle easing hideClass"  {{action selectTopic id topic }}><i class="fa fa-minus" ></i></div>
+        <div class="welcome-select-interest" {{action selectSocialTopic id topic}}>
+             <div id="minuss_{{unbound id}}" class="welcome-plus-or-minus radius-circle easing hideClass"  {{action selectSocialTopic id topic }}><i class="fa fa-minus" ></i></div>
             <div id="pluss_{{unbound id}}" class="welcome-plus-or-minus radius-circle easing"><i class="fa fa-plus" ></i></div>
             <div class="welcome-image-container">
                 <div  class="welcome-object-hoverarea easing"></div>
@@ -233,8 +233,8 @@
         </div>
 
         {{#each controller.contentTopicCommercial}}
-        <div class="welcome-select-interest" {{action selectTopic id topic}}>
-             <div id="minuss_{{unbound id}}" class="welcome-plus-or-minus radius-circle easing hideClass"  {{action selectTopic id topic }}><i class="fa fa-minus" ></i></div>
+        <div class="welcome-select-interest" {{action selectSocialTopic id topic}}>
+             <div id="minuss_{{unbound id}}" class="welcome-plus-or-minus radius-circle easing hideClass"  {{action selectSocialTopic id topic }}><i class="fa fa-minus" ></i></div>
             <div id="pluss_{{unbound id}}" class="welcome-plus-or-minus radius-circle easing"  ><i class="fa fa-plus" ></i></div>
             <div class="welcome-image-container">
                 <div  class="welcome-object-hoverarea easing" ></div>
@@ -248,7 +248,7 @@
     </div>
     <div class="welcome-button">
         <div class="register-btn easing welcome-button-style border-right "></div>
-        <div class="register-btn easing welcome-button-style " {{action submitSelection }}>Next&nbsp;<i class="fa fa-long-arrow-right"></i></div>
+        <div class="register-btn easing welcome-button-style " {{action submitSocialSelection }}>Next&nbsp;<i class="fa fa-long-arrow-right"></i></div>
     </div> 
 </div>
 </div>

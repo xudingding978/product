@@ -2,18 +2,15 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         var address = document.URL;
         var id;
-        if (model.id === undefined || model.id === "") {
+        if (model.get("id") === undefined || model.get("id") === "") {
 
             id = address.split("#")[1].split("/")[4];
         }
         else {
-
-            id = model.id;
+            id = model.get("id");
         }
         if (model.get('title') !== undefined) {
             var title = model.get('title');
-
-
         }
         this.controllerFor('mega').set("type", "profile");
 

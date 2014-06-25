@@ -615,9 +615,33 @@ textarea.add-interests{
     padding: 0 5px;
 }
 
+.user-following-user-pic{
+   position:relative; 
+   top: -50px;
+   margin: 0 auto;
+   width: 100px;
+   height: 100px;
+   border: 2px solid #f3f3f3;
+}
 
+.user-following-user-pic a img{
+    width: 100px;
+    height: 100px;
+}
 
+.user-following-user-name{
+    position:relative;
+    height:35px; 
+    line-height: 35px;
+    margin: -40px auto 5px;
+}
 
+.user-following-user-name span{
+    font-size: 13px;
+    line-height: 15px; 
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8); 
+    font-weight: bold;
+}
 
 
 /* editCollection.hbs */

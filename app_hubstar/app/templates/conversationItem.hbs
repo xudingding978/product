@@ -5,7 +5,7 @@
 <div class="Message-Board box">
     <div class="conversation-msg-title-box">
         <div class="conversation-msg-title">
-            <div class="radius-circle conversation-msg-img">
+            <div class="radius-circle conversation-msg-img conversation-msg-img2">
                 <img {{bindAttr src= controller.commenter_photo_url}} />
             </div>
             &nbsp;Conversation
@@ -26,11 +26,11 @@
         </div>
     </div>
 
-    <div class="comment-followers-container">       
+    <div class="comment-follower-containers">       
         <div id="messageData"  class="message-data" >
             {{#each  contentFollowerPhotoOld }}     
             <div  class="hint--rounded hint--bottom" data-hint="{{unbound this.name}}">
-                <img class="profilepic_comment radius-circle message-profile-img" {{bindAttr src= this.photo_url}} />                
+                <img class="profilepic_comment radius-circle message-profile-img message-profile-img2" {{bindAttr src= this.photo_url}} />                
             </div>
             {{/each}}
         </div>

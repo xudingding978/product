@@ -852,6 +852,34 @@ div#appfeedback .fresh-message > i.fa-times{
 .message-btn-w{
     width: 30px;
 }
+
+.message-btn-w2{
+    width:30px; 
+    border-right: 1px solid #ddd; 
+    border-left: 1px solid #ddd;
+}
+
+.message-btn-w3{
+    opacity:0;
+    position: relative;
+    height:30px;
+    top:-30px;
+    overflow: hidden;
+}
+
+.upload-img{
+    max-width: 100%;
+    max-height: 100px;
+    padding: 10px 12px;
+    text-align: center;
+    border:1px solid #ddd;
+}
+
+.upload-img img{
+    max-width: 100%; 
+    max-height: 80px;
+}
+
 .message-btn-box{
     height:45px;
     line-height: 45px;
@@ -1029,6 +1057,13 @@ div#appfeedback .fresh-message > i.fa-times{
     position: relative;
 }
 
+.reply-comment-action2{
+    right: 61px;
+    height: 34px;
+    position: absolute;
+}
+
+
 .reply-display{
     border-top: 1px solid #ddd;
 }
@@ -1063,6 +1098,10 @@ div#appfeedback .fresh-message > i.fa-times{
     left: 51px;
 }
 
+.user-says-angle-before5{
+    left: 49px;
+}
+
 .user-says-angle-after{
     width: 0px;
     height: 0px;
@@ -1085,6 +1124,9 @@ div#appfeedback .fresh-message > i.fa-times{
     left: 49px;
 }
 
+.user-says-angle-after5{
+    left: 47px;
+}
 .user-reply-angle-before{
     width: 0px;
     height: 0px;
@@ -1101,6 +1143,10 @@ div#appfeedback .fresh-message > i.fa-times{
 .user-says-angle-before3{
     right: 47px;
 }
+
+.user-reply-angle-before4{
+    right: 47px; 
+}
 .user-reply-angle-after{
     width: 0px;
     height: 0px;
@@ -1116,6 +1162,10 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .user-says-angle-after3{
+    right: 45px;
+}
+
+.user-reply-angle-after4{
     right: 45px;
 }
 
@@ -2500,6 +2550,22 @@ div#appfeedback .fresh-message > i.fa-times{
     padding: 0 15px;
 }
 
+.profile-editors-admin{
+    color:red;
+}
+
+.profile-editors-edit{
+    color:blue;
+}
+
+.profile-editors-follower{
+    position: relative; 
+    float: left;
+}
+
+.profile-editors-div{
+    top :24px;
+}
 .profile-editors-top div{
     color: #555; 
     font-size: 15px; 
@@ -2551,6 +2617,9 @@ div#appfeedback .fresh-message > i.fa-times{
     line-height: 40px;
 }
 
+.profile-editors-btn-span{
+    position: relative;
+}
 .profile-editors-button .fa-plus{
     position: absolute;
     font-size: 8px;

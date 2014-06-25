@@ -7,16 +7,16 @@
 
 
 
-<div class=" box col1 style-box t-style-box" style="text-align: center; ">
-    <div style="position:relative;height: 100px;overflow: hidden;line-height: 0;">
-        <img {{bindAttr src= this.photo_url_large}} style="width:100%;"/>
+<div class=" box col1 style-box t-style-box user-following-position">
+    <div class="user-following-profile-hero">
+        <img {{bindAttr src= this.photo_url_large}} />
     </div>
 
-    <!--TAGS-->
+    <!--right top TAGS-->
 
     <div class="object-tags-box">
         <div class="object-tags">
-            <span class="tags-mark" style="background-color: #427fed"></span>
+            <span class="tags-mark"></span>
             <div class="tags easing">
                 <div class="object-type">
                     <i class="fa fa-group"></i>
@@ -27,30 +27,26 @@
 
     <!--END TAGS-->
 
-    <div class="masonry-object_profilepic" style="cursor:pointer;width: 100px;position: relative;top: -50px;line-height: 100px;display: block;" >
-
+    <div class="masonry-object_profilepic user-following-profile-pic" >
         <a class='radius-circle' href="#/profiles/{{unbound this.id}}/collections">
-            <img class="easing" {{bindAttr src=this.photo_url}} style="width:100%;"/>   
+            <img class="easing" {{bindAttr src=this.photo_url}} />   
         </a>
-
     </div>
-    <div style="position:relative;  line-height: 18px;margin: -40px auto 5px;width: 150px;">
-        <span style="font-size: 13px;line-height: 15px; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-weight: bold;">
-            {{this.name}}
-        </span>
+    <div class="user-following-profile-name">
+        <span>{{this.name}}  </span>
     </div>
 
     {{#if this.follow_status}}
-    <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='fa fa-circle-o' >&nbsp; </i> Following</div>
+    <div href="#question_modal" role="button" class="disabled-btn disabled-green user-follow-style" data-toggle="modal" {{action followThisUser this}}><i class='fa fa-circle-o' >&nbsp; </i> Following</div>
     {{else}}
-    <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='fa fa-plus' >&nbsp; </i> Follow</div>
+    <div href="#question_modal" role="button" class="new-btn green-btn user-follow-style" data-toggle="modal" {{action followThisUser this}}><i class='fa fa-plus' >&nbsp; </i> Follow</div>
     {{/if}}
 
-    <div style="position:relative; background-color: #f3f3f3; height: 25px; width:100%;margin-top: 10px;">
-        <ul class="locationandlinks" style="font-size: 12px;height: 20px;margin: 2px auto;width: 100%;line-height: 10px;">
-            <li class="location_li" style="padding: 0 5px;"><i class="fa fa-eye"> {{this.collections_size}} </i></li>
-            <li class="location_li" style="padding: 0 5px;"><i class="fa fa-group"> {{ this.partner_size}}</i></li>
-            <li class="location_li" style="padding: 0 5px;"><i class="fa fa-circle-o"> {{this.follower_size}}</i></li>
+    <div class="user-following-location-link">
+        <ul class="locationandlinks">
+            <li class="location_li" ><i class="fa fa-eye"> {{this.collections_size}} </i></li>
+            <li class="location_li" ><i class="fa fa-group"> {{ this.partner_size}}</i></li>
+            <li class="location_li" ><i class="fa fa-circle-o"> {{this.follower_size}}</i></li>
         </ul>
     </div>
 

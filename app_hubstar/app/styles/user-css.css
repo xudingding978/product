@@ -269,12 +269,13 @@ textarea.add-interests{
 /* interest ENDS */
 
 
+
 /* --------user photo edit ---------------*/
 
 .user-picture-edit{
     display:block;height: 420px;
     top: 0;
-    background-color: #fff; 
+    background-color: #fff;
     padding: 0;
     overflow: hidden
 }
@@ -294,11 +295,11 @@ textarea.add-interests{
 }
 
 .user-picture-span-font{
-    display: block; 
+    display: block;
     position: relative;
     font-size: 20px;
-    top: 140px; 
-    cursor: default; 
+    top: 140px;
+    cursor: default;
     font-weight: bold;
     line-height: 25px;
     margin-left:0px;
@@ -314,8 +315,8 @@ textarea.add-interests{
 }
 
 .user-picture-upload-box > div{
-    position: absolute;  
-    vertical-align: top; 
+    position: absolute;
+    vertical-align: top;
     text-align: center;
     width: 100%;
     height: 398px;
@@ -325,8 +326,8 @@ textarea.add-interests{
 }
 
 .user-picture-upload-box > div > div > img{
-    max-width: 170px; 
-    max-height: 170px;  
+    max-width: 170px;
+    max-height: 170px;
 }
 
 #uploadStyleImg{
@@ -334,7 +335,7 @@ textarea.add-interests{
 }
 
 #uploadStyleImg img{
-    width: 25px; 
+    width: 25px;
     height: 25px;
     position: absolute;
     top: 40%;
@@ -352,8 +353,8 @@ textarea.add-interests{
 }
 
 .user-picture-img-button-choose{
-    margin: 28px 10px; 
-    width: 83px; 
+    margin: 28px 10px;
+    width: 83px;
     float: left;
 }
 
@@ -374,13 +375,13 @@ textarea.add-interests{
 
 .user-picture-img-crop-title{
    position:relative;
-   height: 85px; 
+   height: 85px;
    width: 100%;
    background-color: #fafafa;
    text-align: left;
    color: #555;
    padding: 10px;
-   text-shadow: 0 1px 0 rgba(255,255,255,0.8); 
+   text-shadow: 0 1px 0 rgba(255,255,255,0.8);
 }
 
 .user-picture-img-crop-title-icon{
@@ -403,12 +404,12 @@ textarea.add-interests{
 .user-picture-crop-container{
     width: 300px;
     height: 350px;
-    text-align: center; 
+    text-align: center;
     margin: 10px auto
 }
 
 .user-picture-crop-container canvas{
-    max-width: 300px; 
+    max-width: 300px;
     max-height: 350px;
     width: auto;
     height: auto;
@@ -428,8 +429,8 @@ textarea.add-interests{
 }
 
 .user-post-title{
-    height: 50px; 
-    font-size: 20px; 
+    height: 50px;
+    font-size: 20px;
     padding: 20px;
     text-align: center;
 }
@@ -452,10 +453,10 @@ textarea.add-interests{
 }
 
 .user-post-img{
-    width: 45px; 
+    width: 45px;
     height: 45px;
-    float: left; 
-    margin: 4px 0 0 -60px; 
+    float: left;
+    margin: 4px 0 0 -60px;
     margin-top: 0;
 }
 
@@ -468,22 +469,22 @@ textarea.add-interests{
 
 .user-post-content-textarea{
     margin: 0;
-    width: 100%; 
+    width: 100%;
     height:100px;
 }
 
 .user-post-content-upload-photo{
    max-width: 100%;
-   max-height: 100px;
+   max-height: 100%;
    padding: 10px 12px;
    text-align: center;
-   border-top: 1px solid #ddd; 
+   border-top: 1px solid #ddd;
 }
 
 .user-post-content-upload-photo img{
-    max-width: 100%; 
+    max-width: 100%;
     max-height: 80px;
-    
+
 }
 
 .user-post-content-button{
@@ -505,12 +506,12 @@ textarea.add-interests{
    font-size:15px;
    line-height: 20px;
    margin: 5px 20px;
-   color: #888; 
+   color: #888;
 }
 
 .user-about-us-title{
    margin-bottom: 5px;
-   display: inline-block; 
+   display: inline-block;
    font-size: 18px;
    padding:0;
 }
@@ -536,19 +537,435 @@ textarea.add-interests{
 }
 
 .user-about-us-share{
-    margin: 10px 30px; 
-    width:600px; 
-    height: 40px; 
-    position:relative; 
+    margin: 10px 30px;
+    width:600px;
+    height: 40px;
+    position:relative;
     overflow: hidden;
 }
 
-/* --------user following ------------------*/
+/* -----------user following -----------*/
+
+.user-following-profile-hero{
+    position:relative;
+    height: 100px;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.user-following-profile-hero img{
+   width:100%;
+}
+
+.user-following-position{
+    text-align: center;
+}
+
+.user-following-profile-pic{
+  cursor:pointer;
+  width: 100px;
+  position: relative;
+  top: -50px;
+  line-height: 100px;
+  display: block;
+}
+
+.user-following-profile-pic a img{
+   width:100%;
+}
+
+.user-following-profile-name{
+    position:relative;  
+    line-height: 18px;
+    margin: -40px auto 5px;
+    width: 150px;
+}
+
+.user-following-profile-name span{
+    font-size: 13px;
+    line-height: 15px; 
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8); 
+    font-weight: bold;
+}
+
+.user-follow-style{
+    margin: 15px auto;
+    width: 100px;
+    display: block;
+}
+
+.user-following-location-link{
+    position:relative; 
+    background-color: #f3f3f3; 
+    height: 25px; 
+    width:100%;
+    margin-top: 10px;
+}
+
+.user-following-location-link > ul
+{
+    font-size: 12px;
+    height: 20px;
+    margin: 2px auto;
+    width: 100%;
+    line-height: 10px;
+}
+
+.user-following-location-link > ul > li{
+    padding: 0 5px;
+}
 
 
 
 
 
+
+/* editCollection.hbs */
+.upload-area{
+    display: none;
+}
+.createNew{
+    color: #333; 
+    font-size: 20px; 
+    font-weight: bold; 
+    text-align: center; 
+    margin: 5px 0 0;
+}
+
+.updateCollection{ 
+    display: none;
+}
+
+.createNetwork{
+    width: 80%;  
+    margin: auto;
+}
+
+.createNetwork-link{
+    font-size: 16px;
+    font-weight: bold;
+    color: #555; 
+    line-height: 25px;
+}
+
+.createNetwork-preview{
+    margin: auto; 
+    vertical-align: top;
+    width: 80%;
+    left: 0;
+    right: 0;
+    position: relative;
+}
+
+.createNetwork-preview-inner{
+    height: 180px; 
+    overflow: hidden;
+    width: 100%;
+    line-height: 180px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.createNetwork-preview-inner img{
+    max-height: 100%; 
+    padding: 10px; 
+    background-color: rgba(0,0,0,0.03);
+}
+
+.create-discription{
+    font-size: 16px;
+    font-weight: bold;
+    color: #555; 
+    line-height: 25px;
+}
+
+.create-discription-input{
+    height: 150px;
+}
+
+.editCollection-action{
+    margin-top: 0px;
+    height: 60px;
+}
+
+.editCollection-updates{
+    position: relative; 
+    right: 15px;
+    margin-top: 8px;
+    float: right;
+}
+
+.editCollection-cancel{
+    right: 0;
+}
+
+.editCollection-update{
+    right:0; 
+    display: none;
+}
+
+.editCollection-updates2{
+    float: right; 
+    margin: 5px 20px;
+}
+
+.editCollection-add{
+    right:0;
+}
+
+/* invitePeople.hbs */
+.invitepeople-container{
+    z-index: 11; 
+    position: fixed; 
+    width: 545px; 
+    margin: 10px auto; 
+    border-radius:5px; 
+    overflow: hidden; 
+    background-color: rgb(255, 255, 255); 
+    top: 25%; 
+    left: 0px;
+    display: block;
+    right: 0;
+    box-shadow: 0 0 5px #fff;
+}
+
+.invitepeople-title-box{
+    height: 50px; 
+    width: 100%;
+    position: relative; 
+    border-bottom: 1px solid #ddd; 
+    background-color: #f3f3f3;
+    padding: 0 15px;
+}
+
+.invitepeople-title{
+    color: #555; 
+    font-size: 15px; 
+    line-height: 50px; 
+    font-weight: bold; 
+    float: left;
+    margin-left: 20px;
+}
+
+.invitepeople-display-container{
+    position: relative; 
+    width: 100%;
+    min-height: 100px;
+    max-height: 520px;
+    padding: 0 45px;
+}
+
+.invitepeople-spinner{
+    position: relative; 
+    width: 100%;
+    text-align: center;
+    height: 190px;
+    padding-top: 70px;
+    float: left;
+}
+
+.invitepeople-isadded{
+    opacity: .8;
+}
+
+.invitepeople-profileimg{
+    box-shadow: 0 0 3px #888;
+    border: 1px solid #f3f3f3;
+    width: 45px;
+    height: 45px;
+}
+
+.invitepeople-action-container{
+    height: 41px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    bottom: 0;
+    width: 100%;
+    display: block;
+    clear: both;
+}
+
+.invitepeople-action{
+    font-size: 15px; 
+    height: 40px; 
+    line-height: 40px;
+}
+
+.invitepeople-cancel{
+    border-right: 1px solid #ddd;
+}
+
+.invitepeople-action-span{
+    position: relative;
+    margin-left: 0px;
+    float: none;
+}
+
+.invitepeople-action-plus{
+    position: absolute;
+    font-size: 8px;
+    top: 8px;
+    left: 10px;
+    color: white;
+    background-color: #333;
+    height: 12px;
+    width: 12px;
+    line-height: 11px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+}
+
+
+/* messageCenter.hbs */
+.messagecenter-unreadcount{
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    width: auto;
+    padding: 0 5px 0 4px;
+    height: 15px;
+    background-color: red;
+    line-height: 15px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+}
+.messagecenter-container{
+    background-color: #f3f3f3; 
+    width:100%;
+    height: 70px; 
+    border-bottom: 1px solid #ddd;
+    padding: 0 20px;
+}
+
+.messagecenter-title{
+    color: #555;
+    font-size: 18px;
+    line-height: 70px;
+    font-weight: bold;
+    float: left;
+}
+
+/* editReply.hbs */
+.editreply-container{
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.editreply-innercontainer{
+    margin:0 auto; 
+    padding: 0 45px 0 0;
+}
+
+.editreply-reply{
+    width: 100%;
+    height: 32px;
+}
+
+.editreply-input{
+    margin: 0;
+    width: 210px; 
+    height: 30px;
+    float: left;
+}
+
+.editreply-edit{
+    float: right;
+    height: 34px;
+    position: relative;
+}
+
+.editreply-addimg{
+    width:30px; 
+    border-right: 1px solid #ddd; 
+    border-left: 1px solid #ddd;
+}
+
+.editreply-imgbtn{
+    opacity:0;
+    position: relative;
+    height:30px;
+    top:-30px;
+    overflow: hidden;
+}
+
+.editreply-reply-w{
+    width: 30px;
+}
+
+/* editMessage.hbs */
+.editMessage-container{
+    width: 98%;
+    padding: 15px 10px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+}
+
+.editMessage-innercontainer{
+    margin:0 auto; 
+    padding: 0 0 0 50px;
+}
+
+.editMessage-img{
+    width: 45px; 
+    height: 45px;
+    float: left; 
+    margin: 4px 0 0 -50px; 
+    margin-top: 0; 
+}
+
+.editMessage-input-container{
+    width: 100%; 
+    border-radius: 2px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.editMessage-inputbox{
+    margin: 0;
+    width: 100%; 
+    height:100px;
+}
+
+.editMessage-addimg{
+    max-width: 100%;
+    max-height: 100px;
+    padding: 10px 12px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+.editMessage-addimg img{
+    max-width: 100%; 
+    max-height: 80px;
+}
+
+.editMessage-actioncontainer{
+    height: 30px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    top: -1px;
+}
+
+.editMessage-action-addphoto{
+    border-right: 1px solid #ddd;
+}
+
+.editMessage-action-add{
+    opacity:0;
+    position: relative;
+    height:30px;
+    top:-30px;
+    overflow: hidden;
+}
+
+/* message.hbs */
+.message-replyedit-container{
+    padding: 15px;
+}
 
 
 

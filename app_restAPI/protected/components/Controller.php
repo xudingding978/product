@@ -1304,7 +1304,7 @@ class Controller extends CController {
                 if (isset($hit['owner_id'])) {
                     $profile_id = $hit['owner_id'];
                     $domain = $this->getDomain();
-                    $docID_profile = $domain . "/profiles/" . $profile_id;
+                    $docID_profile = $domain . "/profiles/" . trim($profile_id);
                     $tempMega_profile = $cb->get($docID_profile);
                     $mega_profile = CJSON::decode($tempMega_profile, true);
                     $profile_editors = (isset($mega_profile["profile"][0]["profile_editors"])) ? $mega_profile["profile"][0]["profile_editors"] : '*@trendsideas.com';
@@ -1337,7 +1337,7 @@ class Controller extends CController {
                 if (isset($hit['owner_id'])) {
                     $profile_id = $hit['owner_id'];
                     $domain = $this->getDomain();
-                    $docID_profile = $domain . "/profiles/" . $profile_id;
+                    $docID_profile = $domain . "/profiles/" . trim($profile_id);
                     $tempMega_profile = $cb->get($docID_profile);
                     $mega_profile = CJSON::decode($tempMega_profile, true);
                     $profile_editors = (isset($mega_profile["profile"][0]["profile_editors"])) ? $mega_profile["profile"][0]["profile_editors"] : '*@trendsideas.com';

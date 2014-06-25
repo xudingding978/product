@@ -26,7 +26,7 @@ HubStar.ApplicationView = Ember.View.extend({
 
             $(window).resize(function() {
                 if (HubStar.get('showDiscoveryBar') === true) {
-                   
+
                     if (window.pageYOffset > scroll_pos_test) {
                         if ($(window).width() > 1200) {
                             $("#search-bar").css('display', "block");
@@ -46,7 +46,7 @@ HubStar.ApplicationView = Ember.View.extend({
                     }
                     else {
                         if (HubStar.get("isTopAdDisplay")) {
-                            $("#top_bar_ads").css({"position": "relative", "top": "10px"});                         
+                            $("#top_bar_ads").css({"position": "relative", "top": "10px"});
                         }
                         $("#search-bar").css('display', "none");
                         $("#topResidentialCommerical").css('display', "none");
@@ -130,27 +130,31 @@ HubStar.ApplicationView = Ember.View.extend({
     },
     didScroll: function() {
         if (HubStar.get("isTopAdDisplay")) {
-            var top = $("#top_bar_ads").offset().top;
-            var docViewTop = $(window).scrollTop();
-            if (document.getElementById("top_bar_ads").getAttribute("style").indexOf("relative") !== -1) {
-                if (top - docViewTop <= 90)
-                {
-                    if ($(window).width() > 1200) {
-                        $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
+            $(document).ready(function() {
+                setTimeout(function() {
+                    var top = $("#top_bar_ads").offset().top;
+                    var docViewTop = $(window).scrollTop();
+                    if (document.getElementById("top_bar_ads").getAttribute("style").indexOf("relative") !== -1) {
+                        if (top - docViewTop <= 90)
+                        {
+                            if ($(window).width() > 1200) {
+                                $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
+                            }
+                            else
+                            {
+                                $("#top_bar_ads").css({"position": "fixed", "top": "140px"});
+                            }
+                        }
                     }
                     else
                     {
-                        $("#top_bar_ads").css({"position": "fixed", "top": "140px"});
+                        if (top <= 530 && HubStar.get("showDiscoveryBar") === true)
+                        {
+                            $("#top_bar_ads").css({"position": "relative", "top": "10px"});
+                        }
                     }
-                }
-            }
-            else
-            {
-                if (top <= 530 && HubStar.get("showDiscoveryBar") === true)
-                {
-                    $("#top_bar_ads").css({"position": "relative", "top": "10px"});
-                }
-            }
+                }, 5);
+            });
         }
         if (this.isScrolledToBottom() && HubStar.get('isMansonryPageLoad')) {
             this.get('controller').scrollDownAction();

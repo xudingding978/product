@@ -329,7 +329,6 @@ HubStar.ArticleController = Ember.Controller.extend({
                     this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
             }
-
             this.set("photo_album_id", "album_" + this.get('selectedPhoto').get("id"));
             this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').get("id"));
             this.selectedImage(this.get('selectedPhoto').get("id"));
@@ -427,6 +426,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
                     this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
+
 
             }
             this.set("photo_album_id", "album_" + this.get('selectedPhoto').get("id"));

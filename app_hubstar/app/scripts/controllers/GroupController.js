@@ -53,7 +53,7 @@ HubStar.GroupController = Ember.Controller.extend({
                     $("#topResidentialCommerical").css('display', "block");
                     $(".search-bar-on-small-screen").css('display', "none");
                     if (HubStar.get("isTopAdDisplay")) {
-                        $('#group-top').css('top', "120px");
+                        $('#group-top').css('top', "90px");
                     }
                     else
                     {
@@ -65,7 +65,7 @@ HubStar.GroupController = Ember.Controller.extend({
                     $(".search-bar-on-small-screen").css('display', "block");
                     if (HubStar.get("isTopAdDisplay")) {
                         $("#top_bar_ads").css({"position": "fixed", "top": "150px"});
-                        $('#group-top').css('top', "120px");
+                        $('#group-top').css('top', "90px");
                     }
                     else
                     {

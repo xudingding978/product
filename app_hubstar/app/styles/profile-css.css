@@ -2634,3 +2634,114 @@ div#appfeedback .fresh-message > i.fa-times{
     border-radius: 50%;
 }
 
+/* googleMapPopup.hbs */
+.googlemappop-container{
+    position: absolute; 
+    top: 15%; 
+    z-index: 10; 
+    margin: auto; 
+    left: 0px; 
+    right: 0px; 
+    width: 800px;
+    height: 565px;
+    background-color: #fff;
+    border: 0;
+}
+
+.googlemappop-exit{
+    z-index: 10; 
+    right: -45px; 
+    opacity: .9;
+}
+
+.googlemappop-canvas{
+    border-radius:3px 3px 0 0; 
+    width: 800px; 
+    height: 425px; 
+    background-color: rgb(229, 227, 223); 
+    -webkit-transform: translateZ(0); 
+    position: relative; 
+    overflow: hidden;
+    border-bottom: 1px solid #ddd; 
+}
+
+.googlemappop-scrollbar{
+    display:none; 
+    position: absolute; 
+    width: 265px; 
+    direction: ltr; 
+    height: 425px; 
+    overflow: auto; 
+    overflow-x: hidden;
+    right: 0px; 
+    top: 0px; 
+    border-left-width: 1px; 
+    border-left-style: solid; 
+    border-left-color: rgb(221, 221, 221); 
+    border-bottom: 1px solid #ddd;
+}
+
+.googlemappop-input-container{
+    width: 2%;
+    float: left;
+    margin-left: 20px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.googlemappop-input-top{
+    margin-top: 5px;
+}
+
+.googlemappop-input{
+    margin: 10px auto;
+    border-bottom: 1px solid #ddd; 
+    width: 87%;
+    left: 20px;
+    position: relative;
+}
+
+.googlemappop-action-container{
+    height: 45px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    top: 8px;
+}
+
+.googlemappop-printmap{
+    width: 33%;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 0 0 0 3px;
+}
+
+.googlemappop-routemode{
+    border: none; 
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd; 
+    width: 34%;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 0;
+}
+
+.googlemappop-routemode-container{
+    z-index: 1000; 
+    position: fixed;
+    text-align: center;
+    margin: 42px 264px;
+}
+
+.googlemappop-dir{
+    width: 33%;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 0 0 3px 0;
+}
+
+.googlemappop-clear{
+    display:none;
+    width: 33%;
+    height: 45px;
+    line-height: 45px;
+}

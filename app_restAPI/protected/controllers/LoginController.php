@@ -177,7 +177,7 @@ class LoginController extends Controller {
     }
 
     public function actionResetemail() {
-
+    
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $currentUser = User::model()
                 ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
@@ -193,6 +193,19 @@ class LoginController extends Controller {
                     $result .= mb_substr($chars, $index, 1);
                 }
                 $currentUser->PWD_HASH = $result;
+                
+                $currentUser_cbid=$currentUser->COUCHBASE_ID;
+                
+                $docIDDeep = $this->getDomain() . "/users/" . $currentUser_cbid; 
+                $cb = $this->couchBaseConnection();
+                $oldDeep = $cb->get($docIDDeep);
+                $oldRecordDeep = CJSON::decode($oldDeep, true);
+                if($oldRecordDeep['user'][0]["email_activate"] === false)
+                {
+                $oldRecordDeep['user'][0]["email_activate"] = true;
+                $cb->set($docIDDeep, CJSON::encode($oldRecordDeep));
+                }
+                
 
                 $currentUser->save(false);
                 $this->sendResponse(200, CJSON::encode($currentUser));

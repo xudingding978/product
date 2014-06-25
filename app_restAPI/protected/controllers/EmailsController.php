@@ -568,15 +568,14 @@ class EmailsController extends Controller {
     }
 
     public function getEmailForm3($emailBody, $sendPersonName, $sendPersonPhoto, $sendPersonProfile, $sharedPhoto, $linkedURL, $contentTitle, $contentOwner, $ownerPic) {
-//        $recieveProfile, $objectUrl
         return '
     <!doctype html>
 <html>
 <body>
 
-	<div style="width:600px;margin:auto;position:relative;font-family: Helvetica, Sans-Serif;">
-		<div style="width:100%;border-bottom:1px solid #555;">
-			<img src="http://gallery.mailchimp.com/91bd07182dd5fde3a7de96739/images/2aeb74a3-002b-4618-af46-5a82fd797eff.jpg" style="height:70px">
+	<div style="width:800px;margin:auto;position:relative;font-family: Helvetica, Sans-Serif;">
+		<div style="width:105%;border-bottom:1px solid #555;">
+			<img src="http://gallery.mailchimp.com/91bd07182dd5fde3a7de96739/images/2aeb74a3-002b-4618-af46-5a82fd797eff.jpg" style="height:100px">
 		</div>
 
 		<div style="width: 100%; border-bottom: 1px solid #555; padding:10px 20px;">
@@ -584,29 +583,30 @@ class EmailsController extends Controller {
 		</div>
 
 		<div style="width: 100%; border-bottom: 1px solid #555; padding: 20px;position: relative;">
-			<div style="display:inline-block;vertical-align:top;width:10%">
-				<div style="width:45px;height:45px;border-radius:50px;overflow:hidden;"><img style="height:45px" src='.$sendPersonPhoto.'></div>
-				<p style="font-size:12px;">' . $sendPersonName . '</p>
+			<div style="display:inline-block;vertical-align:top;width:20%;">
+				<div style="width:90%;height:50px;border-radius:50px;overflow:hidden;"><img style="height:45px" src=' . $sendPersonPhoto . '></div>
+				<p style="font-size:12px;margin-left:42px;">' . $sendPersonName . '</p>
 
 			</div>
 
-			<div style="display: inline-block; vertical-align: top; width: 80%; background-color: #BFEFFF; padding:0 20px; font-size: 15px">
+			<div style="display: inline-block; vertical-align: top; width: 74%; height: 150px; background-color: #BFEFFF; padding:0 20px; font-size: 15px">
 				<p>' . $emailBody . '</p>
 				
 			</div>
 
 			<div style=" margin: 30px 0;">
 				<div style="width: 200px; height: 200px; padding: 10px; background-color: #eee; margin: auto; text-align: center; line-height: 150px;">
-					<img style="max-width:100%;max-height:100%;" src='.$sharedPhoto.'>
+					<img style="max-width:100%;max-height:100%;" src=' . $sharedPhoto . '>
 				</div>
-				<div style="border-radius: 5px; background-color: #BCD2EE; padding:10px; font-size: 20px; color:#fff; text-align: center; width: 200px; margin: 10px auto; cursor:pointer;"><a href='.$linkedURL.'>View Content</a></div>
+				<div style="border-radius: 5px; background-color: #BCD2EE; padding:10px; font-size: 20px; color:#fff; text-align: center; width: 200px; margin: 10px auto; cursor:pointer;"><a href=' . $linkedURL . '>View Content</a></div>
 			</div>
-
-			<div style="position: absolute; left: 20px; bottom: 110px; font-weight: bold; font-size: 18px; width: 180px;">'.$contentTitle.'</div>
-			<div style="position: absolute; right: 10px; bottom: 110px; font-weight: bold; font-size: 12px; width: 180px; text-align: center;">
-				<img style="width:80px" src='.$ownerPic.'>
-				<div>'.$contentOwner.'</div>
-			</div>
+                        <div>
+			        <div style="position: absolute; left: 20px; bottom: 110px; font-weight: bold; font-size: 18px; width: 180px; height: 100px; display: inline-block;">' . $contentTitle . '</div>
+			        <div style="position: relative; margin-left: 53%;; font-weight: bold; font-size: 12px; width: 180px; text-align: center; display: inline-block;">
+				        <img style="width:50px" src=' . $ownerPic . '>
+				        <div>' . $contentOwner . '</div>
+			        </div>
+                        </div>
 
 		</div>
 

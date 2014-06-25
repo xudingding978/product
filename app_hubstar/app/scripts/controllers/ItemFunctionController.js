@@ -502,7 +502,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 shareEmailController = this.get('controllers.shareEmail');
                 selectid = model.id;
                 shareEmailController.setImageID(selectid);
-                tempUrl = photoObj.get('photo_image_thumbnail_url');
+                tempUrl = photoObj.get('photo_image_url');
                 this.set("selectedPhoto", model.get("photo").objectAt(0));
                 currentUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
                 shareEmailController.setThumbnailUrl(tempUrl);
@@ -524,7 +524,6 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 this.set("selectedArticle", model.get("article").objectAt(0));
                 currentUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedArticle').get('id');
                 shareEmailController.setThumbnailUrl(tempUrl);
-                console.log(tempUrl);
                 shareEmailController.setUrl(currentUrl);
                 shareEmailController.setUser();
                 shareEmailController.setRelatedController('itemFunction');

@@ -237,6 +237,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
+            ga('Trends.send', 'event', 'button', 'click', 'SignUp');
             localStorage.userName = params.USER_NAME;
             that.set('loginUsername', localStorage.userName);
             that.set('loginStatus', params.COUCHBASE_ID);

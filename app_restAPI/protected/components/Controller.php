@@ -1503,7 +1503,6 @@ class Controller extends CController {
             }
         }
         $results .= ']}';
-
         return $results;
     }
 

@@ -289,3 +289,31 @@ a.fork {
 .main_aboutus section .wysihtml5-sandbox body > img{
     width:98% !important;
 }
+
+/* htmlEditor.hbs */
+.htmleditor-container{
+    background-color: #f3f3f3;
+    border-bottom: 1px dashed #999;
+    background-clip: padding-box;
+}
+
+.htmleditor-toolarea{
+    z-index: 10;
+    opacity: .9;
+}
+
+.htmleditor-input{
+    display: inline-block; 
+    margin: 0 10px;
+    font-weight: bold; 
+    color: #888;
+}
+
+.htmleditor-btn{
+    top:0;
+}
+
+.htmleditor-textarea{
+    overflow: hidden;
+    width: 99%;
+}

@@ -125,6 +125,26 @@
     text-shadow: 0 0 10px #777;
 }
 
+.user-editor-content{
+    height: 140px; 
+    padding: 10px 20px;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+}
+
+#uploadStyleImg{
+    display: none;
+}
+
+#uploadStyleImg img{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 40%;
+    left: 62px;
+}
+
 
 /* interest BEGINS */
 .show-interest{
@@ -330,17 +350,6 @@ textarea.add-interests{
     max-height: 170px;
 }
 
-#uploadStyleImg{
-    display: none;
-}
-
-#uploadStyleImg img{
-    width: 25px;
-    height: 25px;
-    position: absolute;
-    top: 40%;
-    left: 62px;
-}
 
 .user-picture-img-button{
     text-align: center;
@@ -418,6 +427,102 @@ textarea.add-interests{
 .user-picture-crop-button{
     margin: auto;
     width: 150px;
+}
+
+
+/* ----------------user edit -------------*/
+
+.user-edit-title{
+    font-size: 25px; 
+    color: #555; 
+    text-align: center;
+    font-weight: bold
+}
+
+.user-cover-edit{
+   display:block;
+   height: 345px;
+   width: 100%;
+   top: 0;
+   background-color: #fff; 
+   padding: 0;
+   overflow: hidden;
+   position: relative; 
+}
+
+.user-edit-upload-box{
+   height: 335px; 
+   width: 95%;
+   position: absolute; 
+}
+
+.user-edit-upload-box i{
+  width: 40px;
+  margin: auto;
+  display: block;
+  position: relative;
+  top: 110px; 
+}
+
+.user-edit-upload-box-span-font{
+    display: block; 
+    position: relative;
+    line-height: 30px;
+    font-size: 30px;
+    top: 115px; 
+    cursor: default;  
+    font-weight: bold
+}
+
+.user-edit-upload-box-span-size{
+    font-size: 16px;
+    display: block;
+    line-height: 25px;
+    top: 210px;
+    position: relative;
+}
+
+.user-edit-upload-box > div{
+   position: absolute;  
+   vertical-align: top; 
+   text-align: center;
+   width: 100%;
+   height: 333px;
+   top: 0;
+   line-height: 333px;
+   background-color: Rgba(30,30,30,.2); 
+}
+
+.user-edit-upload-box > div > div > img{
+    max-width: 170px;
+    max-height: 170px;
+}
+
+.user-edit-buttons{
+    text-align: center;
+    height: 75px;
+    line-height: 85px;
+    bottom: 0;
+    position: relative;
+    width: 98%;
+}
+.user-edit-crop-button{
+    margin: auto;
+    width: 250px;
+    float: right;
+}
+
+.user-edit-choose-button{
+    margin: 28px 20px;
+    width: 83px; 
+    float: left;
+}
+
+.user-edit-choose-button > div{
+    opacity:0;
+    position: absolute;
+    top: 0px;
+    left: 0;
 }
 
 

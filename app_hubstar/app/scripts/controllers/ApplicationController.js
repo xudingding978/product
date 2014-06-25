@@ -112,6 +112,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         });
 
         if (localStorage.userType !== 'email' && localStorage.checkSocialUser === 'newSocialUser') {
+            ga('Trends.send', 'event', 'button', 'click', 'SignUp');
             HubStar.set('checkLoginStatus', true);
             setTimeout(function() {
                 $("#cta-popup").css("display", "none");

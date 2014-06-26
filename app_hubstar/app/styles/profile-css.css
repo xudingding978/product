@@ -852,6 +852,34 @@ div#appfeedback .fresh-message > i.fa-times{
 .message-btn-w{
     width: 30px;
 }
+
+.message-btn-w2{
+    width:30px; 
+    border-right: 1px solid #ddd; 
+    border-left: 1px solid #ddd;
+}
+
+.message-btn-w3{
+    opacity:0;
+    position: relative;
+    height:30px;
+    top:-30px;
+    overflow: hidden;
+}
+
+.upload-img{
+    max-width: 100%;
+    max-height: 100px;
+    padding: 10px 12px;
+    text-align: center;
+    border:1px solid #ddd;
+}
+
+.upload-img img{
+    max-width: 100%; 
+    max-height: 80px;
+}
+
 .message-btn-box{
     height:45px;
     line-height: 45px;
@@ -1029,6 +1057,13 @@ div#appfeedback .fresh-message > i.fa-times{
     position: relative;
 }
 
+.reply-comment-action2{
+    right: 61px;
+    height: 34px;
+    position: absolute;
+}
+
+
 .reply-display{
     border-top: 1px solid #ddd;
 }
@@ -1063,6 +1098,10 @@ div#appfeedback .fresh-message > i.fa-times{
     left: 51px;
 }
 
+.user-says-angle-before5{
+    left: 49px;
+}
+
 .user-says-angle-after{
     width: 0px;
     height: 0px;
@@ -1085,6 +1124,9 @@ div#appfeedback .fresh-message > i.fa-times{
     left: 49px;
 }
 
+.user-says-angle-after5{
+    left: 47px;
+}
 .user-reply-angle-before{
     width: 0px;
     height: 0px;
@@ -1101,6 +1143,10 @@ div#appfeedback .fresh-message > i.fa-times{
 .user-says-angle-before3{
     right: 47px;
 }
+
+.user-reply-angle-before4{
+    right: 47px; 
+}
 .user-reply-angle-after{
     width: 0px;
     height: 0px;
@@ -1116,6 +1162,10 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .user-says-angle-after3{
+    right: 45px;
+}
+
+.user-reply-angle-after4{
     right: 45px;
 }
 
@@ -2002,7 +2052,7 @@ div#appfeedback .fresh-message > i.fa-times{
 
 
 
-/* profile.hbs */
+/* profile.hbs -------fixed by Ally*/
 .profile-tab-container{
     width: 100%;
     height:auto;  
@@ -2500,6 +2550,22 @@ div#appfeedback .fresh-message > i.fa-times{
     padding: 0 15px;
 }
 
+.profile-editors-admin{
+    color:red;
+}
+
+.profile-editors-edit{
+    color:blue;
+}
+
+.profile-editors-follower{
+    position: relative; 
+    float: left;
+}
+
+.profile-editors-div{
+    top :24px;
+}
 .profile-editors-top div{
     color: #555; 
     font-size: 15px; 
@@ -2551,6 +2617,9 @@ div#appfeedback .fresh-message > i.fa-times{
     line-height: 40px;
 }
 
+.profile-editors-btn-span{
+    position: relative;
+}
 .profile-editors-button .fa-plus{
     position: absolute;
     font-size: 8px;
@@ -2565,3 +2634,180 @@ div#appfeedback .fresh-message > i.fa-times{
     border-radius: 50%;
 }
 
+/* googleMapPopup.hbs */
+.googlemappop-container{
+    position: absolute; 
+    top: 15%; 
+    z-index: 10; 
+    margin: auto; 
+    left: 0px; 
+    right: 0px; 
+    width: 800px;
+    height: 565px;
+    background-color: #fff;
+    border: 0;
+}
+
+.googlemappop-exit{
+    z-index: 10; 
+    right: -45px; 
+    opacity: .9;
+}
+
+.googlemappop-canvas{
+    border-radius:3px 3px 0 0; 
+    width: 800px; 
+    height: 425px; 
+    background-color: rgb(229, 227, 223); 
+    -webkit-transform: translateZ(0); 
+    position: relative; 
+    overflow: hidden;
+    border-bottom: 1px solid #ddd; 
+}
+
+.googlemappop-scrollbar{
+    display:none; 
+    position: absolute; 
+    width: 265px; 
+    direction: ltr; 
+    height: 425px; 
+    overflow: auto; 
+    overflow-x: hidden;
+    right: 0px; 
+    top: 0px; 
+    border-left-width: 1px; 
+    border-left-style: solid; 
+    border-left-color: rgb(221, 221, 221); 
+    border-bottom: 1px solid #ddd;
+}
+
+.googlemappop-input-container{
+    width: 2%;
+    float: left;
+    margin-left: 20px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.googlemappop-input-top{
+    margin-top: 5px;
+}
+
+.googlemappop-input{
+    margin: 10px auto;
+    border-bottom: 1px solid #ddd; 
+    width: 87%;
+    left: 20px;
+    position: relative;
+}
+
+.googlemappop-action-container{
+    height: 45px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    top: 8px;
+}
+
+.googlemappop-printmap{
+    width: 33%;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 0 0 0 3px;
+}
+
+.googlemappop-routemode{
+    border: none; 
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd; 
+    width: 34%;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 0;
+}
+
+.googlemappop-routemode-container{
+    z-index: 1000; 
+    position: fixed;
+    text-align: center;
+    margin: 42px 264px;
+}
+
+.googlemappop-dir{
+    width: 33%;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 0 0 3px 0;
+}
+
+.googlemappop-clear{
+    display:none;
+    width: 33%;
+    height: 45px;
+    line-height: 45px;
+}
+
+
+/* selectFuction.hbs */
+.selectfunction-container{
+    height: auto;
+    top:30%;
+}
+
+.selectfunction-exit{
+    float: right;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center; 
+    cursor: pointer;
+}
+
+.selectfunction-title{
+    width: 100%;
+    height: 55px; 
+    line-height: 33px;
+    padding: 10px 25px;
+    background-color: #F3F3F3;
+    border-bottom: 1px solid #ddd;
+}
+
+.selectfunction-icon{
+    font-size: 35px;
+    width: 45px;
+    height: 45px;
+    float: left;
+}
+
+.selectfunction-txt{
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;  
+    vertical-align: middle;
+    display: inline-block;
+    width: 390px;
+}
+
+.selectfunction-content{
+    margin: 15px auto 20px; 
+    padding: 0 40px;
+    height: 200px;
+    color: #333; 
+    font-size: 15px;
+}
+
+.selectfunction-action{
+    height: 41px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    bottom: 0;
+    width: 100%;
+}
+
+.selectfunction-editor{
+    width: 50% !important;
+    border-right: 1px solid #ddd;
+}
+
+.selectfunction-temp{
+    width: 50% !important;
+}

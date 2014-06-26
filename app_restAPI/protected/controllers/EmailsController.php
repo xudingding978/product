@@ -609,41 +609,48 @@ class EmailsController extends Controller {
 
 		</div>
 
-		<div style="width: 100%; border-bottom: 1px solid #555; padding: 20px;text-align: center;">
-			<div style="font-weight:bold;font-size:18px;margin-bottom:10px">Need more help?</div>
-			<div style="font-size:12px;margin-bottom:20px">If you are looking for even more design ideas, here are some great ways to find them.</div>
-        <div style = "width:100%">
-        <div style = "width:33%;display:inline-block;vertical-align:bottom;">
-        <img style = "width:100px" src = "http://s3.hubsrv.com/trendsideas.com/profiles/t2-design-creative-strategy-services/profile_pic.jpg">
-        <p style = "font-size:12px">Kitchen - UNITED STATES</p>
-        </div>
-        <div style = "width:32%;display:inline-block;vertical-align:bottom;">
-        <img style = "width:100px" src = "http://s3.hubsrv.com/trendsideas.com/users/trends-top-thirty-new-zealand/profile_picture/Screen%20Shot%202013-09-20%20at%203.01.14%20PM.png">
-        <p style = "font-size:12px">TRENDS TOP 30 AWARDS</p>
-        </div>
-        <div style = "width:33%;display:inline-block;vertical-align:bottom;">
-        <img style = "width:100px" src = "http://develop.devbox.s3.amazonaws.com/myTrends-weekly.png">
-        <p style = "font-size:12px">Trends Ideas Weekly</p>
-        </div>
-        </div>
-        <div style = "font-size:12px;margin:20px auto">Already researching for products and services to put your design ideas into action? myTrends Project puts everything you need at your fingertips.</div>
-        <a>myTrends Project</a>
-
 
 
         </div>
-
-
-
-
+        <div style="width: 100%; border-bottom: 1px solid #555; padding: 20px;text-align: center;color:black;">
+                <div style="font-size:12px;margin-bottom:10px;font-style: italic;">Copyright @ 2014 Trends Publishing International. All rights reserved.</div>
+                <div style="font-size:12px;margin-bottom:20px"><a href="my.trendsideas.com">Sign up</a> to MyTrends</div>
+                
+                <div style="font-size:12px;margin-bottom:10px;font-weight:bold;">Our mailing address is:</div>
+                <div style="font-size:12px;margin-bottom:10px">Trends Publishing International</div>
+                <div style="font-size:12px;margin-bottom:10px">Private Bag 11908</div>
+                <div style="font-size:12px;margin-bottom:10px">Ellerslie</div>
+                <div style="font-size:12px;margin-bottom:10px">Auckland, Auckland 1542</div>
+                <div style="font-size:12px;margin-bottom:10px">New Zealand</div>                                                
         </div>
-
-
-
+                
         </body>
         </html>
         ';
     }
+    //		<div style="width: 100%; border-bottom: 1px solid #555; padding: 20px;text-align: center;">
+//			<div style="font-weight:bold;font-size:18px;margin-bottom:10px">Need more help?</div>
+//			<div style="font-size:12px;margin-bottom:20px">If you are looking for even more design ideas, here are some great ways to find them.</div>
+//        <div style = "width:100%">
+//        <div style = "width:33%;display:inline-block;vertical-align:bottom;">
+//        <img style = "width:100px" src = "http://s3.hubsrv.com/trendsideas.com/profiles/t2-design-creative-strategy-services/profile_pic.jpg">
+//        <p style = "font-size:12px">Kitchen - UNITED STATES</p>
+//        </div>
+//        <div style = "width:32%;display:inline-block;vertical-align:bottom;">
+//        <img style = "width:100px" src = "http://s3.hubsrv.com/trendsideas.com/users/trends-top-thirty-new-zealand/profile_picture/Screen%20Shot%202013-09-20%20at%203.01.14%20PM.png">
+//        <p style = "font-size:12px">TRENDS TOP 30 AWARDS</p>
+//        </div>
+//        <div style = "width:33%;display:inline-block;vertical-align:bottom;">
+//        <img style = "width:100px" src = "http://develop.devbox.s3.amazonaws.com/myTrends-weekly.png">
+//        <p style = "font-size:12px">Trends Ideas Weekly</p>
+//        </div>
+//        </div>
+//        <div style = "font-size:12px;margin:20px auto">Already researching for products and services to put your design ideas into action? myTrends Project puts everything you need at your fingertips.</div>
+//        <a>myTrends Project</a>
+//
+//
+//
+//        </div>
 
     public function forgetEmailForm($username, $password) {
         return '

@@ -1100,5 +1100,36 @@ textarea.add-interests{
     padding: 15px;
 }
 
+/* itemFunction.hbs */
+.itemfunction-add{
+    display: none;
+}
 
+.itemfunction-icon-position{
+    float: left;
+}
 
+.itemfunction-font{
+    font-size: 11px;
+}
+
+.itemfunction-icon{
+    padding:10px;
+}
+
+.itemfunction-share-container{
+    width: 150px; 
+    margin: 0 auto; 
+    top: 35px; 
+    left:45px; 
+    position: absolute;
+}
+
+.itemfunction-clikearea{
+    position:fixed;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    z-index:-1;
+}

@@ -76,12 +76,12 @@
 
         <div class="masonry-object_text">
             <div class="masonry-object_text-container">
-                <div style="font-weight: bold;margin-bottom: 5px;font-size:16px;">{{#each photo}}{{photo_title}}{{/each}} </div>
+                <div style="font-weight: bold;margin-bottom: 5px;font-size:16px;word-break: break-word;">{{#each photo}}{{photo_title}}{{/each}} </div>
             </div>
 
             <div class="more_detail" style="margin:0;"{{bindAttr id="id"}} >
                 <div class="more_text-container" >
-                    <div style="display:block;text-">
+                    <div style="display:block;">
                         {{#each photo}}
                         {{{photo_caption}}}
                         {{/each}}
@@ -185,7 +185,7 @@
 
         <div class="masonry-object_text">
             <div style="">
-                <p style="font-weight: bold;margin-bottom: 5px;font-size:16px;" {{action transitionToVideo id}}>{{object_title}}</p>
+                <p style="font-weight: bold;margin-bottom: 5px;font-size:16px;word-break: break-word;" {{action transitionToVideo id}}>{{object_title}}</p>
                 <p class="masonry-object_text-container" style="font-size: 13px; max-height: 50px;">{{object_description}}</p>
             </div>
 
@@ -274,7 +274,7 @@
 
         <div class="masonry-object_text">
             <div style="">
-                <p style="font-weight: bold;margin-bottom: 5px;font-size:16px;font-style:italic;" {{action transitionToPdf id}}>{{object_title}}</p>
+                <p style="font-weight: bold;margin-bottom: 5px;font-size:16px;font-style:italic;word-break: break-word;" {{action transitionToPdf id}}>{{object_title}}</p>
                 <p class="masonry-object_text-container" style="font-size: 13px; max-height: 50px;">{{object_description}}</p>
             </div>
             
@@ -352,7 +352,7 @@
 
         <div class="masonry-object_text">
             <div class="masonry-object_text-container">
-                <a style="font-size: 16px; font-weight: bold;cursor: pointer;text-transform: capitalize;" {{action transitionToArticle id}}>{{object_title}}</a>
+                <a style="font-size: 16px; font-weight: bold;cursor: pointer;text-transform: capitalize; word-break: break-word;" {{action transitionToArticle id}}>{{object_title}}</a>
                 <p style="text-overflow: ellipsis"; {{action transitionToArticle id}}>{{{object_description}}}</p>
             </div>
 

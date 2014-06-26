@@ -14,6 +14,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     isSearchBoard: true,
     itemID: "",
     profileId: "",
+    createTime: "",
     isSave: false,
     type: "",
     needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting', 'applicationFeedback'],
@@ -49,6 +50,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             if (this.get("collections").objectAt(i).get("id") === collection_id)
             {
                 this.set('title', this.get("collections").objectAt(i).get('title'));
+                if (this.get("collections").objectAt(i).get('updated_at') !== null) {
+                    var date = this.get("collections").objectAt(i).get('updated_at');
+                    this.set("createTime", date + "");
+                }
             }
         }
         var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
@@ -81,8 +86,8 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                             $('#masonry_photo_collection_container').masonry("reloadItems");
                             setTimeout(function() {
                                 $('#masonry_photo_collection_container').masonry();
-                                  $('html,body').animate({
-                                    scrollTop: $("#profile_submenu_collection").offset().top-100
+                                $('html,body').animate({
+                                    scrollTop: $("#profile_submenu_collection").offset().top - 100
                                 });
                                 that.set("loadingTime", false);
                             }, 15);
@@ -406,7 +411,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                                 $('#masonry_photo_collection_container').masonry();
                                 that.set("loadingTime", false);
                                 $('html,body').animate({
-                                    scrollTop: $("#profile_submenu_collection").offset().top-100
+                                    scrollTop: $("#profile_submenu_collection").offset().top - 100
                                 });
                             }, 15);
                         }, 15);

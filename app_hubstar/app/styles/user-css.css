@@ -8,7 +8,7 @@
 
 .user-top{
     width:100%; 
-    height: 120px; 
+    height: 120px !important; 
     display:block;
     opacity: 0;
 }
@@ -123,6 +123,26 @@
     top: 245px;
     margin:0 30px;
     text-shadow: 0 0 10px #777;
+}
+
+.user-editor-content{
+    height: 140px; 
+    padding: 10px 20px;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+}
+
+#uploadStyleImg{
+    display: none;
+}
+
+#uploadStyleImg img{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 40%;
+    left: 62px;
 }
 
 
@@ -330,17 +350,6 @@ textarea.add-interests{
     max-height: 170px;
 }
 
-#uploadStyleImg{
-    display: none;
-}
-
-#uploadStyleImg img{
-    width: 25px;
-    height: 25px;
-    position: absolute;
-    top: 40%;
-    left: 62px;
-}
 
 .user-picture-img-button{
     text-align: center;
@@ -374,14 +383,14 @@ textarea.add-interests{
 }
 
 .user-picture-img-crop-title{
-   position:relative;
-   height: 85px;
-   width: 100%;
-   background-color: #fafafa;
-   text-align: left;
-   color: #555;
-   padding: 10px;
-   text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+    position:relative;
+    height: 85px;
+    width: 100%;
+    background-color: #fafafa;
+    text-align: left;
+    color: #555;
+    padding: 10px;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
 }
 
 .user-picture-img-crop-title-icon{
@@ -421,9 +430,112 @@ textarea.add-interests{
 }
 
 
+/* ----------------user edit -------------*/
 
-/* ---------------- user  post -----------*/
+.user-edit-title{
+    font-size: 25px; 
+    color: #555; 
+    text-align: center;
+    font-weight: bold
+}
 
+.user-cover-edit{
+    display:block;
+    height: 345px;
+    width: 100%;
+    top: 0;
+    background-color: #fff; 
+    padding: 0;
+    overflow: hidden;
+    position: relative; 
+}
+
+.user-edit-upload-box{
+    height: 335px; 
+    width: 95%;
+    position: absolute; 
+}
+
+.user-edit-upload-box i{
+    width: 40px;
+    margin: auto;
+    display: block;
+    position: relative;
+    top: 110px; 
+}
+
+.user-edit-upload-box-span-font{
+    display: block; 
+    position: relative;
+    line-height: 30px;
+    font-size: 30px;
+    top: 115px; 
+    cursor: default;  
+    font-weight: bold;
+    margin-left:0px;
+    float: none; 
+}
+
+.user-edit-upload-box-span-size{
+    font-size: 16px;
+    display: block;
+    line-height: 25px;
+    top: 210px;
+    position: relative;
+    margin-left:0px;
+    float: none; 
+}
+
+.user-edit-upload-box > div{
+    position: absolute;  
+    vertical-align: top; 
+    text-align: center;
+    width: 100%;
+    height: 333px;
+    top: 0;
+    line-height: 333px;
+    background-color: Rgba(30,30,30,.2); 
+}
+
+.user-edit-upload-box > div > div > img{
+    max-width: 170px;
+    max-height: 170px;
+}
+
+.user-edit-buttons{
+    text-align: center;
+    height: 75px;
+    line-height: 85px;
+    bottom: 0;
+    position: relative;
+    width: 98%;
+}
+.user-edit-crop-button{
+    margin: auto;
+    width: 250px;
+    float: right;
+}
+
+.user-edit-choose-button{
+    margin: 28px 20px;
+    width: 83px; 
+    float: left;
+}
+
+.user-edit-choose-button > div{
+    opacity:0;
+    position: absolute;
+    top: 0px;
+    left: 0;
+}
+
+
+
+/* ---------------- user post -----------*/
+
+.user-post-background{
+    background-color: #fafafa;
+}
 
 .user-post-title{
     height: 50px;
@@ -471,11 +583,11 @@ textarea.add-interests{
 }
 
 .user-post-content-upload-photo{
-   max-width: 100%;
-   max-height: 100px;
-   padding: 10px 12px;
-   text-align: center;
-   border-top: 1px solid #ddd;
+    max-width: 100%;
+    max-height: 100%;
+    padding: 10px 12px;
+    text-align: center;
+    border-top: 1px solid #ddd;
 }
 
 .user-post-content-upload-photo img{
@@ -500,17 +612,17 @@ textarea.add-interests{
 }
 
 .user-about-us{
-   font-size:15px;
-   line-height: 20px;
-   margin: 5px 20px;
-   color: #888;
+    font-size:15px;
+    line-height: 20px;
+    margin: 5px 20px;
+    color: #888;
 }
 
 .user-about-us-title{
-   margin-bottom: 5px;
-   display: inline-block;
-   font-size: 18px;
-   padding:0;
+    margin-bottom: 5px;
+    display: inline-block;
+    font-size: 18px;
+    padding:0;
 }
 
 .user-about-us-title i{
@@ -540,6 +652,106 @@ textarea.add-interests{
     position:relative;
     overflow: hidden;
 }
+
+/* -----------user following -----------*/
+
+.user-following-profile-hero{
+    position:relative;
+    height: 100px;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.user-following-profile-hero img{
+    width:100%;
+}
+
+.user-following-position{
+    text-align: center;
+}
+
+.user-following-profile-pic{
+    cursor:pointer;
+    width: 100px;
+    position: relative;
+    top: -50px;
+    line-height: 100px;
+    display: block;
+}
+
+.user-following-profile-pic a img{
+    width:100%;
+}
+
+.user-following-profile-name{
+    position:relative;  
+    line-height: 18px;
+    margin: -40px auto 5px;
+    width: 150px;
+}
+
+.user-following-profile-name span{
+    font-size: 13px;
+    line-height: 15px; 
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8); 
+    font-weight: bold;
+}
+
+.user-follow-style{
+    margin: 15px auto;
+    width: 100px;
+    display: block;
+}
+
+.user-following-location-link{
+    position:relative; 
+    background-color: #f3f3f3; 
+    height: 25px; 
+    width:100%;
+    margin-top: 10px;
+}
+
+.user-following-location-link > ul
+{
+    font-size: 12px;
+    height: 20px;
+    margin: 2px auto;
+    width: 100%;
+    line-height: 10px;
+}
+
+.user-following-location-link > ul > li{
+    padding: 0 5px;
+}
+
+.user-following-user-pic{
+    position:relative; 
+    top: -50px;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+    border: 2px solid #f3f3f3;
+}
+
+.user-following-user-pic a img{
+    width: 100px;
+    height: 100px;
+}
+
+.user-following-user-name{
+    position:relative;
+    height:35px; 
+    line-height: 35px;
+    margin: -40px auto 5px;
+}
+
+.user-following-user-name span{
+    font-size: 13px;
+    line-height: 15px; 
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8); 
+    font-weight: bold;
+}
+
 
 /* editCollection.hbs */
 .upload-area{
@@ -887,3 +1099,6 @@ textarea.add-interests{
 .message-replyedit-container{
     padding: 15px;
 }
+
+
+

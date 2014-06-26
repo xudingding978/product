@@ -1202,6 +1202,10 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     resize: none;
 }
 
+.text-center{
+    text-align:center;
+}
+
 
 
 

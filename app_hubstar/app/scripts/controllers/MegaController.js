@@ -1580,7 +1580,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     eShare: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            var mega = HubStar.Mega.find(this.get('selectedPhoto').get('id'));
             mega.then(function() {
                 if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                 {

@@ -1049,7 +1049,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             {
                 this.set('descript', this.get('selectedPhoto').get('videoes').objectAt(0).get("videoTitle"));
             }
-            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            var mega = HubStar.Mega.find(this.get('articleID'));
             mega.then(function() {
                 if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                 {

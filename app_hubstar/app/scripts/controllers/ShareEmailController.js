@@ -66,8 +66,8 @@ HubStar.ShareEmailController = Ember.Controller.extend({
 //        console.log(this.get('displayEmail'));
 //        console.log(this.get("currentUser").get('photo_url_large'));
 //        console.log(this.get("owner_profile_pic"));
-        console.log(this.get("selectedPhotoThumbnailUrl"));
-        console.log(this.get("selectedUrl"));
+//        console.log(this.get("selectedPhotoThumbnailUrl"));
+//        console.log(this.get("selectedUrl"));
 //        console.log(this.get('contentTitle'));
 //        console.log(this.get("selectedMega").get("owner_title"));
 //        console.log(this.get("selectedMega").get("owner_profile_pic"));

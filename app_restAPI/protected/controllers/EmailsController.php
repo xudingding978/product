@@ -132,7 +132,8 @@ class EmailsController extends Controller {
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
         $platformEmail = $platformSettings['support']['email'];
-        $subject_prefix = "$sendPersonName send you a content";
+        $sendPersonNameEmail = ucfirst($sendPersonName);
+        $subject_prefix = "$sendPersonNameEmail Sent You a Content";
         $args = array(
             "Source" => $platformEmail,
             "Destination" => array(
@@ -147,7 +148,7 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->getEmailForm3($email_body, $sendPersonName, $sendPersonPhoto, $sendPersonProfile, $sharedPhoto, $linkedURL, $contentTitle, $contentOwner, $ownerPic)
+                        "Data" => $this->getEmailForm3($email_body, $sendPersonNameEmail, $sendPersonPhoto, $sendPersonProfile, $sharedPhoto, $linkedURL, $contentTitle, $contentOwner, $ownerPic)
 //                                $owner_title, $objectUrl
                     )
                 )
@@ -573,8 +574,8 @@ class EmailsController extends Controller {
 <html>
 <body>
 
-	<div style="width:800px;margin:auto;position:relative;font-family: Helvetica, Sans-Serif;">
-		<div style="width:105%;border-bottom:1px solid #555;">
+	<div style="width:600px;margin:auto;position:relative;font-family: Helvetica, Sans-Serif;">
+		<div style="width:106%;border-bottom:1px solid #555;">
 			<img src="http://gallery.mailchimp.com/91bd07182dd5fde3a7de96739/images/2aeb74a3-002b-4618-af46-5a82fd797eff.jpg" style="height:100px">
 		</div>
 
@@ -583,29 +584,27 @@ class EmailsController extends Controller {
 		</div>
 
 		<div style="width: 100%; border-bottom: 1px solid #555; padding: 20px;position: relative;">
-			<div style="display:inline-block;vertical-align:top;width:20%;">
-				<div style="width:90%;height:50px;border-radius:50px;overflow:hidden;"><img style="height:45px" src=' . $sendPersonPhoto . '></div>
-				<p style="font-size:12px;margin-left:42px;">' . $sendPersonName . '</p>
+			<div style="display:inline-block;vertical-align:top;width:10%;">
+				<div style="width:45px;margin-left: 5px;height:45px;border-radius:50px;overflow:hidden;"><img style="border-radius: 50%; width: 46px; height: 46px; border: 1px solid #f3f3f3;" src=' . $sendPersonPhoto . '></div>
+				<p style="font-size:12px;margin-top: 1px;">' . $sendPersonName . '</p>
 
 			</div>
 
-			<div style="display: inline-block; vertical-align: top; width: 74%; height: 150px; background-color: #BFEFFF; padding:0 20px; font-size: 15px">
+			<div style="display: inline-block; height: 70px;vertical-align: top; width: 82%; background-color: #BFEFFF; padding:0 20px; font-size: 15px">
 				<p>' . $emailBody . '</p>
 				
 			</div>
 
-			<div style=" margin: 30px 0;">
-				<div style="width: 200px; height: 200px; padding: 10px; background-color: #eee; margin: auto; text-align: center; line-height: 150px;">
-					<img style="max-width:100%;max-height:100%;" src=' . $sharedPhoto . '>
-				</div>
-				<div style="border-radius: 5px; background-color: #BCD2EE; padding:10px; font-size: 20px; color:#fff; text-align: center; width: 200px; margin: 10px auto; cursor:pointer;"><a href=' . $linkedURL . '>View Content</a></div>
-			</div>
-                        <div>
-			        <div style="position: absolute; left: 20px; bottom: 110px; font-weight: bold; font-size: 18px; width: 180px; height: 100px; display: inline-block;">' . $contentTitle . '</div>
-			        <div style="position: relative; margin-left: 53%;; font-weight: bold; font-size: 12px; width: 180px; text-align: center; display: inline-block;">
+			<div style="width: 100%;">
+                                <div style="font-weight:bold;font-size:14px;width:24%;display:inline-block;vertical-align:bottom;">' . $contentTitle . '</div>
+				<div style="width: 40%; display:inline-block; padding: 10px; background-color: #eee; margin: auto; text-align: center;vertical-align:bottom;">
+					<img style="max-width:100%;max-height:100%;" src=' . $sharedPhoto . '>				
+				        <div style="border-radius: 5px; background-color: #BCD2EE; padding:10px; font-size: 20px; color:#fff; text-align: center; width: 200px; margin: 10px auto; cursor:pointer;"><a href=' . $linkedURL . '>View Content</a></div>
+			        </div>			        
+			        <div style="font-weight:bold;font-size:12px;width:30%;text-align:center;display:inline-block;vertical-align:bottom;">
 				        <img style="width:50px" src=' . $ownerPic . '>
 				        <div>' . $contentOwner . '</div>
-			        </div>
+                                </div>
                         </div>
 
 		</div>

@@ -253,6 +253,7 @@ HubStar.VideoController = Ember.Controller.extend({
         this.set('shareEmail', false);
     },
     dropdownPhotoSetting: function(param) {
+        console.log("111");
         var tempUrl = this.get('megaResouce').get('object_image_url');
         this.set('sharePhotoUrl', tempUrl);
         this.set('sharePhotoName', "test");
@@ -405,7 +406,7 @@ HubStar.VideoController = Ember.Controller.extend({
         {
             this.set('descript', this.get('videoObject').get("videoTitle"));
             var currentUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
-            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
             mega.then(function() {
                 if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                 {

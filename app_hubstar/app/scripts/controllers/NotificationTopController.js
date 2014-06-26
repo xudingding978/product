@@ -245,43 +245,27 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         var user = HubStar.User.find(localStorage.loginStatus);
         var that = this;
         this.set("goConversation", true);
-//        if (user.get('isLoaded')) {
-//            var data = null;
-//
-//            for (var i = 0; i < user.get('conversations').get("length"); i++) {
-//                data = user.get('conversations').objectAt(i);
-//                if (data.get("conversation_id") === conversationID) {
-//
-//                    data.set("id", data.get("conversation_id"));
-//                    break;
-//                }
-//            }
-//            this.transitionToRoute('user', user);
-//
-//            this.get('controllers.messageCenter').getClientId(localStorage.loginStatus, conversationID);
-//            this.transitionToRoute('conversation', data);
-//        }
         user.then(function() {
-            //if (user.get('isLoaded')) 
-            {
-                var data = null;
+            var data = null;
 
-                for (var i = 0; i < user.get('conversations').get("length"); i++) {
-                    data = user.get('conversations').objectAt(i);
-                    if (data.get("conversation_id") === conversationID) {
+            for (var i = 0; i < user.get('conversations').get("length"); i++) {
+                data = user.get('conversations').objectAt(i);
+                if (data.get("conversation_id") === conversationID) {
 
-                        data.set("id", data.get("conversation_id"));
-                        break;
-                    }
-
+                    data.set("id", data.get("conversation_id"));
+                    break;
                 }
-                that.transitionToRoute('user', user);
-                that.transitionToRoute('messageCenter');
+
+            }
+            that.transitionToRoute('user', user);
+            setTimeout(function() {
+                that.transitionToRoute('conversation', data);
+                //that.transitionToRoute('messageCenter');
                 setTimeout(function() {
                     that.get('controllers.messageCenter').getClientId(localStorage.loginStatus, conversationID);
-                    that.transitionToRoute('conversation', data);
+                    
                 }, 20);
-            }
+            }, 20);
             $(window).scrollTop(550);
         });
         //this.reviewCancel();

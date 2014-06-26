@@ -54,6 +54,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     var date = this.get("collections").objectAt(i).get('updated_at');
                     this.set("createTime", date + "");
                 }
+                else
+                    {
+                        this.set("createTime",  "Wed Jan 01 2014 00:00:00 GMT+1200 (NZST)");
+                    }
             }
         }
         var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});

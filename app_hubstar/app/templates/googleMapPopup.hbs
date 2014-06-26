@@ -5,29 +5,29 @@
     <div id="google_pop" class="popup-bg-fadeout" style="" {{action setGooglePopup on="click" target="view"}}></div>
 
 
-    <div  id ="google_map_pop" class="aside-container radius-rounded-corner box" style="position: absolute; top: 15%; z-index: 10; margin: auto; left: 0px; right: 0px; width: 800px;height: 565px;background-color: #fff;border: 0;" >
+    <div  id ="google_map_pop" class="aside-container radius-rounded-corner box googlemappop-container">
        
-        <div id="" class="enlarge-map easing" style="z-index: 10; right: -45px; opacity: .9;"  {{action setGooglePopup on="click" target="view"}} ><i class="fa fa-times" ></i></div>
-        <div  id="map_canvas_pop" class="" style="border-radius:3px 3px 0 0; width: 800px; height: 425px; background-color: rgb(229, 227, 223); -webkit-transform: translateZ(0); position: relative; overflow: hidden;border-bottom: 1px solid #ddd; " >
+        <div id="" class="enlarge-map easing googlemappop-exit" {{action setGooglePopup on="click" target="view"}} ><i class="fa fa-times" ></i></div>
+        <div  id="map_canvas_pop" class="googlemappop-canvas" >
 
 
         </div>
         <div class="scrollbarGoogleMap">
-            <div  id="directionsPanel" style="display:none; position: absolute; width: 265px; direction: ltr; height: 425px; overflow: auto; overflow-x: hidden;right: 0px; top: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); border-bottom: 1px solid #ddd;" > 
+            <div id="directionsPanel" class="googlemappop-scrollbar" > 
             </div>        
         </div>
 
-        <div style="margin: 15px 0 5px;">
-            <div style="width: 2%;float: left;margin-left: 20px;margin-top: 5px;font-weight: bold;text-align: right;">From:</div>
-            <div style="margin: 10px auto;border-bottom: 1px solid #ddd; width: 87%;left: 20px;position: relative;">{{input type="text" value=fromAddress placeholder="Enter your start address here" class="no-effect"}}</div>
-            <div style="width: 2%;float: left;margin-left: 20px;font-weight: bold;text-align: right;">To:</div>
-            <div style="margin: 10px auto;border-bottom: 1px solid #ddd; width: 87%;left: 20px;position: relative;">{{address}}, {{suburb}}, {{region}}, {{country}}</div>
+        <div style="">
+            <div class="googlemappop-input-container googlemappop-input-top">From:</div>
+            <div class="googlemappop-input">{{input type="text" value=fromAddress placeholder="Enter your start address here" class="no-effect"}}</div>
+            <div class="googlemappop-input-container">To:</div>
+            <div class="googlemappop-input">{{address}}, {{suburb}}, {{region}}, {{country}}</div>
         </div>
 
-        <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: 8px;">
-            <div class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;border-radius: 0 0 0 3px;' value="Print map" onclick="printmap('google_map_pop');"><i class='fa fa-print'>&nbsp;</i>Print Map</div>
+        <div class="googlemappop-action-container" >
+            <div class="message-btn easing googlemappop-printmap" value="Print map" onclick="printmap('google_map_pop');"><i class='fa fa-print'>&nbsp;</i>Print Map</div>
  
-          <div id ="routeMode" class="message-btn easing" style="border: none; border-right: 1px solid #ddd;border-left: 1px solid #ddd; width: 34%;height: 45px;line-height: 45px;border-radius: 0;" {{action dropdownRoute target="view" on="click"}}>
+          <div id ="routeMode" class="message-btn easing googlemappop-routemode" {{action dropdownRoute target="view" on="click"}}>
              {{#if view.showTransportation}}
              <span id="routeModeSelection">Transportation</span>
              {{else}}
@@ -35,18 +35,18 @@
              {{/if}}
             </div>
 
-            <div id="routeModeDropdown" class="hideClass Dropdownstyle1" style=" z-index: 1000; position: fixed;text-align: center;margin: 42px 264px;" {{action selectRoute target="view" on="click"}}>
+            <div id="routeModeDropdown" class="hideClass Dropdownstyle1 googlemappop-routemode-container" {{action selectRoute target="view" on="click"}}>
                 <li class="ite" value="DRIVING" >DRIVING</li>
                 <li class='ite' value="WALKING">WALKING</li>
                 <li class='ite' value="BICYCLING">BICYCLING</li>
                 <li class="ite" value="TRANSIT">TRANSIT</li>
             </div>
             {{#if fromAddress}}
-            <div id="routeGo" class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;border-radius: 0 0 3px 0;'{{action routeGo on="click" target="view"}}>Get Directions <i class='fa fa-long-arrow-right'>&nbsp;</i></div>
+            <div id="routeGo" class="message-btn easing googlemappop-dir" {{action routeGo on="click" target="view"}}>Get Directions <i class='fa fa-long-arrow-right'>&nbsp;</i></div>
             {{else}}
-            <div  class="message-btn-x easing" style='width: 33%;height: 45px;line-height: 45px; border-radius: 0 0 3px 0;'>Get Directions <i class='fa fa-long-arrow-right'>&nbsp;</i></div>
+            <div  class="message-btn-x easing googlemappop-dir" >Get Directions <i class='fa fa-long-arrow-right'>&nbsp;</i></div>
             {{/if}}
-            <div  id="routeClear" class="message-btn easing" style='display:none;width: 33%;height: 45px;line-height: 45px;'{{action routeClear on="click" target="view"}}><i class='fa fa-long-arrow-left'>&nbsp;</i>Clear</div>
+            <div  id="routeClear" class="message-btn easing googlemappop-clear" {{action routeClear on="click" target="view"}}><i class='fa fa-long-arrow-left'>&nbsp;</i>Clear</div>
         </div>
 
     </div>

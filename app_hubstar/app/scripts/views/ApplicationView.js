@@ -132,25 +132,27 @@ HubStar.ApplicationView = Ember.View.extend({
         if (HubStar.get("isTopAdDisplay")) {
             $(document).ready(function() {
                 setTimeout(function() {
-                    var top = $("#top_bar_ads").offset().top;
-                    var docViewTop = $(window).scrollTop();
-                    if (document.getElementById("top_bar_ads").getAttribute("style").indexOf("relative") !== -1) {
-                        if (top - docViewTop <= 90)
-                        {
-                            if ($(window).width() > 1200) {
-                                $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
-                            }
-                            else
+                    if ($("#top_bar_ads").offset() !== undefined) {
+                        var top = $("#top_bar_ads").offset().top;
+                        var docViewTop = $(window).scrollTop();
+                        if (document.getElementById("top_bar_ads").getAttribute("style").indexOf("relative") !== -1) {
+                            if (top - docViewTop <= 90)
                             {
-                                $("#top_bar_ads").css({"position": "fixed", "top": "140px"});
+                                if ($(window).width() > 1200) {
+                                    $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
+                                }
+                                else
+                                {
+                                    $("#top_bar_ads").css({"position": "fixed", "top": "140px"});
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        if (top <= 530 && HubStar.get("showDiscoveryBar") === true)
+                        else
                         {
-                            $("#top_bar_ads").css({"position": "relative", "top": "10px"});
+                            if (top <= 530 && HubStar.get("showDiscoveryBar") === true)
+                            {
+                                $("#top_bar_ads").css({"position": "relative", "top": "10px"});
+                            }
                         }
                     }
                 }, 5);

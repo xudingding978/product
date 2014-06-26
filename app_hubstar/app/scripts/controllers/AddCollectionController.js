@@ -96,7 +96,8 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                     if(collection.get("cover") === defaulturl){
                         collection.set('cover',this.get("commentObject").get("object_image_url"));
                     }
-                    collection.store.save();
+                    collection.set("updated_at", new Date());
+                    collection.save();
                     var tempComment = [ob_id];
                     requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
                         that.get("commentObject").set("save_count", params);

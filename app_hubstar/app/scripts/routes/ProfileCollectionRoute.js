@@ -24,6 +24,14 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
             if (profile.get('collections').objectAt(j).get('id') === id)
             {
                 profileId = profile.get('collections').objectAt(j).get('optional');
+                if (profile.get('collections').objectAt(j).get('updated_at') !== null) {
+                    var date = profile.get('collections').objectAt(j).get('updated_at');
+                    this.controllerFor('masonryCollectionItems').set("createTime", date + "");
+                }
+                else
+                    {
+                        this.controllerFor('masonryCollectionItems').set("createTime", "Wed Jan 01 2014 00:00:00 GMT+1200 (NZST)");
+                    }
             }
         }
         this.controllerFor('masonryCollectionItems').selectModelForProfile(id, title, profileId);

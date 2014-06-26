@@ -221,9 +221,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     closeTopAd: function() {
 
-        $(".user-top").css("height", "40px");
-        $(".profile-top").css("height", "150px");
-        $("#group-top").css("top", "0px");
+        $(".user-top").css("height", "120px");
+        $(".profile-top").css("height", "180px");
+        $("#group-top").css("top", "70px");
         this.searchSmallScreen();
         var tempComment = [this.get("user").get("id")];
         var that = this;

@@ -586,7 +586,7 @@ class EmailsController extends Controller {
 		<div style="width: 100%; border-bottom: 1px solid #555; padding: 20px;position: relative;">
 			<div style="display:inline-block;vertical-align:top;width:10%;">
 				<div style="width:45px;margin-left: 5px;height:45px;border-radius:50px;overflow:hidden;"><img style="border-radius: 50%; width: 46px; height: 46px; border: 1px solid #f3f3f3;" src=' . $sendPersonPhoto . '></div>
-				<p style="font-size:12px;margin-top: 1px;">' . $sendPersonName . '</p>
+				<p style="font-size:12px;margin-top: 1px;margin-left: 12px;">' . $sendPersonName . '</p>
 
 			</div>
 

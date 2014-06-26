@@ -1,38 +1,38 @@
 
 
-<div id="uploadArea"  style="height: 510px;width: 570px;  display: none">
+<div id="uploadArea"  class="upload-area">
 
     {{#if controller.updateOrCreate}}
 
-    <div id="createCollection" style=' color: #333; font-size: 20px; font-weight: bold; text-align: center; margin: 5px 0 0;'>Create a Collection</div>
+    <div id="createCollection" class="createNew">Create a Collection</div>
 
-    <div id="updateCollection" style=' color: #333; font-size: 20px; font-weight: bold; text-align: center; margin: 5px 0 0; display: none' >Update a Collection</div>
+    <div id="updateCollection" class="createNew updateCollection" >Update a Collection</div>
     {{/if}}
 
 
     {{#if controller.addPartner}}
 
-    <div id="createCollection" style=' color: #333; font-size: 20px; font-weight: bold; text-align: center; margin: 5px 0 0;'>Add Partner </div>
+    <div id="createCollection" class="createNew">Add Partner </div>
 
     {{/if}}
-    <div  style=" width: 80%;  margin: auto;" id="clientAddCollection">
+    <div  class="createNetwork" id="clientAddCollection">
         {{#if controller.updateOrCreate}}
-        <div style="font-size: 16px;font-weight: bold;color: #555; line-height: 25px;">Name*</div>
+        <div class="createNetwork-link">Name*</div>
         {{/if}}
 
         {{#if controller.addPartner}}
-        <div style="font-size: 16px;font-weight: bold;color: #555; line-height: 25px;">URL*</div>
+        <div class="createNetwork-link">URL*</div>
         {{/if}}
         {{#if controller.updateOrCreate}}
-        {{view HubStar.SearchRequireTextFieldView valueBinding="controller.newTitle"  id="" class="" style="height:30px;" placeholder="Name this Collection" }} 
+        {{view HubStar.SearchRequireTextFieldView valueBinding="controller.newTitle" style="height:30px;" placeholder="Name this Collection" }} 
 
         {{/if}}
 
         {{#if controller.addPartner}}
-        {{view HubStar.SearchRequireTextFieldView valueBinding="currentAddPartnerPic"  id="" class="" style="height:30px;" placeholder="http://my.trendsideas.com/#/profiles/new-home-trends-nz" }} 
-        <div style="margin: auto; vertical-align: top;width: 80%;left: 0;right: 0;position: relative;">
-            <div style="height: 180px; overflow: hidden;width: 100%;line-height: 180px;text-align: center;margin-top: 5px;">
-                <img style="max-height: 100%; padding: 10px; background-color: rgba(0,0,0,0.03);" {{bindAttr src="selectedPartnerPic"}}/>
+        {{view HubStar.SearchRequireTextFieldView valueBinding="currentAddPartnerPic" style="height:30px;" placeholder="http://my.trendsideas.com/#/profiles/new-home-trends-nz" }} 
+        <div class="createNetwork-preview">
+            <div class="createNetwork-preview-inner">
+                <img {{bindAttr src="selectedPartnerPic"}}/>
             </div>
         </div>
 
@@ -43,8 +43,8 @@
         {{#if controller.updateOrCreate}}
 
 
-        <div style="font-size: 16px;font-weight: bold;color: #555; line-height: 25px;">Description</div>
-        <div style="height: 150px;">
+        <div class="create-discription">Description</div>
+        <div class="create-discription-input">
             {{view Ember.TextArea valueBinding="controller.newDesc" rows="12" cols="70" class="no-resize"  placeholder="Write a brief description for this Collection"}}
         </div>
 
@@ -53,26 +53,26 @@
 
 
     </div>
-    <div class="controlbtn-field" style="margin-top: 0px;height: 60px;">
+    <div class="controlbtn-field editCollection-action">
                     {{#if controller.is_authentic_user}}
-        <div id="deletebtn" type="button" {{action deleteSelectedCollection}} class="new-btn red-btn" style="right:0; display: none">
+        <div id="deletebtn" type="button" {{action deleteSelectedCollection}} class="new-btn red-btn editCollection-update">
              <i class='fa fa-trash-o'></i>
         </div>
                     {{/if}}
         {{#if controller.updateOrCreate}}
-        <div style="position: relative; right: 15px;margin-top: 8px;float: right;">
+        <div class="editCollection-updates">
 
-            <div id="uploadingObject" class='new-btn' style="right: 0;"  {{action returnCollection  id target="view" on="click"}}>Cancel</div>
+            <div id="uploadingObject" class="new-btn editCollection-cancel" {{action returnCollection  id target="view" on="click"}}>Cancel</div>
             <div id="createbtn" type="button" {{action submit }}  class="new-btn green-btn" style="right:0;">Create</div>
-            <div id="updatebtn" type="button" {{action updateCollectionInfo }} class="new-btn green-btn" style="right:0; display: none">Update</div>
+            <div id="updatebtn" type="button" {{action updateCollectionInfo }} class="new-btn green-btn editCollection-update">Update</div>
 
         </div>
         {{/if}}
 
         {{#if controller.addPartner}}
-        <div style="float: right; margin: 5px 20px;">
-            <div id="uploadingObject" class='new-btn' style="right: 0;"  {{action returnCollection  id target="view" on="click"}}>Cancel</div>
-            <div id="createbtn" type="button" {{action submit }}  class="new-btn green-btn" style="right:0;">Add</div>
+        <div class="editCollection-updates2">
+            <div id="uploadingObject" class="new-btn editCollection-cancel" {{action returnCollection  id target="view" on="click"}}>Cancel</div>
+            <div id="createbtn" type="button" {{action submit }}  class="new-btn green-btn editCollection-add">Add</div>
         </div>
         {{/if}}
     </div>

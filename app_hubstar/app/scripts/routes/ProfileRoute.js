@@ -92,7 +92,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
             var profile = HubStar.Profile.find(user_id);
             for (var i = 0; i < profile.get('collections').get("length"); i++) {
                 var data = profile.get('collections').objectAt(i);
-                if (data.id === collection_id) {
+                if (data.get("id") === collection_id) {
                     break;
                 }
             }

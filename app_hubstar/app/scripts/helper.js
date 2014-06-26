@@ -93,6 +93,19 @@ Ember.Handlebars.registerBoundHelper('date', function(date) {
     }
 });
 
+Ember.Handlebars.registerBoundHelper('dateCalendar', function(date) {
+    if (date === "" || date === null || date === undefined) {
+        return "";
+    } else {
+        var matches = date.match('^[0-9]+$');
+        if (matches !== null) {
+            return moment.unix(date).calendar();
+        } else {
+            return moment(date).calendar();
+        }
+    }
+});
+
 Ember.Handlebars.registerBoundHelper('dateTImeStamp', function(date) {
     if (date === "" || date === null || date === undefined) {
         return "";

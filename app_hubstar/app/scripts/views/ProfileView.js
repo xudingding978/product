@@ -7,7 +7,7 @@ HubStar.ProfileView = Ember.View.extend({
         else {
             $('#starsize').attr("style", "width:100px");
         }
-        if (this.get('controller').get('about_us').objectAt(0) !== undefined && this.get('controller').get('about_us').objectAt(0).get('about_image').get('length'))
+       if (this.get('controller').get('about_us').objectAt(0) !== undefined && this.get('controller').get('about_us').objectAt(0).get('about_image').get('length'))
         {
             var count = 0;
             for (var i = 0; i < this.get('controller').get('about_us').objectAt(0).get('about_image').get('length'); i++) {
@@ -25,8 +25,7 @@ HubStar.ProfileView = Ember.View.extend({
                 }, 1000);
             });
         }
-
-        if (this.get('controller').get('about_us').objectAt(0) !== undefined) {
+       if (this.get('controller').get('about_us').objectAt(0) !== undefined) {
             for (var i = 0; i < this.get('controller').get('about_us').objectAt(0).get('about_embeded_object').get('length'); i++) {
                 var about_embeded_object = this.get('controller').get('about_us').objectAt(0).get('about_embeded_object').objectAt(i);
                 if (about_embeded_object.get('embeded_object_code') !== null && about_embeded_object.get('embeded_object_code') !== '' && about_embeded_object.get('embeded_object_code') !== undefined) {
@@ -46,7 +45,7 @@ HubStar.ProfileView = Ember.View.extend({
                 }
             }
         }
-        $(".navbar").css("box-shadow", "0 0 10px #333");
+       $(".navbar").css("box-shadow", "0 0 10px #333");
         $(document).ready(function() {
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");

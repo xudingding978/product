@@ -1,5 +1,5 @@
 
-<div id="wysihtml5-editor-toolbar" style="background-color: #f3f3f3;border-bottom: 1px dashed #999;background-clip: padding-box;">
+<div id="wysihtml5-editor-toolbar" class="htmleditor-container">
     <header>
         <ul class="commands">
             <li data-wysihtml5-command="bold" title="Make text bold (CTRL + B)" class="command easing"><i class="fa fa-bold editor-icon">&nbsp;</i></li>
@@ -10,7 +10,7 @@
             <li data-wysihtml5-command="insertImage" title="Insert an image" class="command easing"><i class="fa fa-picture-o editor-icon">&nbsp;</i></li>
             <li data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1" title="Insert headline 1" class="command easing"><i class="editor-icon">H1</i></li>
             <li data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2" title="Insert headline 2" class="command easing"><i class="editor-icon">H2</i></li>
-            <li data-wysihtml5-command-group="foreColor" class="fore-color" title="Color the selected text" class="command easing"><i class="editor-icon"> T </i>
+            <li data-wysihtml5-command-group="foreColor" class="fore-color command easing" title="Color the selected text"><i class="editor-icon"> T </i>
                 <ul>
                     <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="silver"></li>
                     <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="gray"></li>
@@ -27,28 +27,28 @@
             <li data-wysihtml5-action="change_view" title="Show HTML" class="action easing"><i class="fa fa-code editor-icon">&nbsp;</i></li>
         </ul>
     </header>
-    <div data-wysihtml5-dialog="createLink" class="easing" style="display: none;z-index: 10;opacity: .9">
-        <div style="display: inline-block; margin: 0 10px;font-weight: bold; color: #888;">
+    <div data-wysihtml5-dialog="createLink" class="easing htmleditor-toolarea" style="display: none;"><!-- keep this display style inline -->
+        <div class="htmleditor-input">
             Link:
-            <input class="disabled-btn" style="top:0" data-wysihtml5-dialog-field="href" value="http://">
+            <input class="disabled-btn" data-wysihtml5-dialog-field="href" value="http://">
         </div>
-        <a class="new-btn blue-btn" data-wysihtml5-dialog-action="save" style="top:0">OK</a>&nbsp;<a class="new-btn" data-wysihtml5-dialog-action="cancel" style="top:0">Cancel</a>
+        <a class="new-btn blue-btn htmleditor-btn" data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a class="new-btn htmleditor-btn" data-wysihtml5-dialog-action="cancel" >Cancel</a>
     </div>
 
 
-    <div data-wysihtml5-dialog="insertImage" class="easing" style="display: none;z-index: 10;opacity: .9">
-        <div style="display: inline-block; margin: 0 10px;font-weight: bold; color: #888;">
+    <div data-wysihtml5-dialog="insertImage" class="easing  htmleditor-toolarea" style="display: none;"><!-- keep this display style inline -->
+        <div class="htmleditor-input">
             Image: 
-            <input class="disabled-btn" style="top:0" data-wysihtml5-dialog-field="src" value="http://">
+            <input class="disabled-btn" data-wysihtml5-dialog-field="src" value="http://">
         </div>
-        <a class="new-btn blue-btn" data-wysihtml5-dialog-action="save" style="top:0">OK</a>&nbsp;<a class="new-btn" data-wysihtml5-dialog-action="cancel" style="top:0">Cancel</a>
+        <a class="new-btn blue-btn htmleditor-btn" data-wysihtml5-dialog-action="save" >OK</a>&nbsp;<a class="new-btn htmleditor-btn" data-wysihtml5-dialog-action="cancel" >Cancel</a>
     </div>
 </div>
 
 
 <section>
 
-    <div class="wysihtml5_text-area" style="overflow: hidden;width: 99%;">
+    <div class="wysihtml5_text-area htmleditor-textarea" >
         {{view Ember.TextArea valueBinding="model.profile_about_us" id="wysihtml5-editor"}}
     </div>
 

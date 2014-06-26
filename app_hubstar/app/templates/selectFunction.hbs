@@ -3,21 +3,21 @@
 
 <div class="blur_black"></div>
 
-<div class="Add-review" style="height: auto;top:30%">
-    <div class="hover-opacity" style="float: right;width: 30px;height: 30px;line-height: 30px;text-align: center; cursor: pointer"{{action noSelection}}><i class="fa fa-times">&nbsp;</i></div>
-    <div style="width: 100%;height: 55px; line-height: 33px;padding: 10px 25px;background-color: #F3F3F3;border-bottom: 1px solid #ddd;">
-        <i class="fa fa-exclamation-circle" style="font-size: 35px;width: 45px;height: 45px;float: left;"></i>
-        <div style="font-size: 16px;font-weight: bold;color: #555;  vertical-align: middle;display: inline-block;width: 390px;"><span>How would you like to edit the About Us section?</span></div>
+<div class="Add-review selectfunction-container" >
+    <div class="hover-opacity selectfunction-exit" {{action noSelection}}><i class="fa fa-times">&nbsp;</i></div>
+    <div class="selectfunction-title">
+        <i class="fa fa-exclamation-circle selectfunction-icon" ></i>
+        <div class="selectfunction-txt"><span>How would you like to edit the About Us section?</span></div>
     </div>
 
 
-    <div style="margin: 15px auto 20px; padding: 0 40px;height: 200px;color: #333; font-size: 15px; ">
+    <div class="selectfunction-content">
         {{{controller.message}}}
     </div>
-
-    <div class="" style="height: 41px;position: relative;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-        <div  class="message-btn easing"  style="width: 50%;border-right: 1px solid #ddd;" {{action selectionOne target="view"}}><i class="fa fa-html5">&nbsp;</i>{{controller.select_one}}</div>
-        <div class="message-btn easing" style="width: 50%;" {{action selectionTwo target="view"}}><i class="fa fa-puzzle-piece">&nbsp;</i>{{controller.select_two}}</div>
+ 
+    <div class="selectfunction-action" >
+        <div class="message-btn easing selectfunction-editor" {{action selectionOne target="view"}}><i class="fa fa-html5">&nbsp;</i>{{controller.select_one}}</div>
+        <div class="message-btn easing selectfunction-temp" {{action selectionTwo target="view"}}><i class="fa fa-puzzle-piece">&nbsp;</i>{{controller.select_two}}</div>
     </div>
 
 </div>

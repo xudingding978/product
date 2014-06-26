@@ -298,7 +298,7 @@ HubStar.UserController = Ember.Controller.extend({
                     if (HubStar.get("isTopAdDisplay")) {
 
                     } else {
-                        $(".user-top").css("height", "40px");
+                        $(".user-top").css("height", "120px");
                     }
 
                 } else {
@@ -308,7 +308,7 @@ HubStar.UserController = Ember.Controller.extend({
                     if (HubStar.get("isTopAdDisplay")) {
                         $("#top_bar_ads").css({"position": "fixed", "top": "140px"});
                     } else {
-                        $(".user-top").css("height", "40px");
+                        $(".user-top").css("height", "120px");
                     }
                 }
 
@@ -492,12 +492,10 @@ HubStar.UserController = Ember.Controller.extend({
     showMore: function() {
         this.set("more", true);
         $(".limit_about_us").attr('style', 'display: none');
-        $("#tom").attr('style', 'display: block');
     },
     collap: function(checkingInfo) {
         this.set("more", false);
         this.set('about_me', checkingInfo);
-        $("#tom").attr('style', 'display: none');
         this.saveUpdateInterest();
         $(".limit_about_us").attr('style', 'display: block');
     },

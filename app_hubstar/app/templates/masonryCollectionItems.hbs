@@ -18,17 +18,13 @@
         <div class="hint--right hint--rounded" data-hint="Go back" style="margin: 4px 0; display: inline-block;">
             <i class="fa fa-level-up edit-btn" style="color: #555; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-size: 20px;" {{action goBack}}></i>
         </div>
-
-
+        <div style="width: auto;position: relative;display: inline-block;float: right;right: 2%;top: 3px;">Updated at : {{dateCalendar controller.createTime}}
+        </div>
     </div>
 
     <div id="masonry_photo_collection_container"  class="centered clearfix masonry_push_down" >
 
         <!--SECTION CONTROL BAR-->
-
-
-
-
         {{#if controller.is_profile_editing_mode}}
         {{#if controller.is_authentic_user}}
         {{#if controller.uploadStuff}}

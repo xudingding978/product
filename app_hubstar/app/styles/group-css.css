@@ -1,5 +1,12 @@
 
 /*-------------------------Creat Group Part -------------------------------------------*/
+.group-top{
+    width:100%;
+    height:auto; 
+    position:relative; 
+    top: 70px;
+}
+
 .group-profilewrapper{
     z-index: 2;
     position: relative;
@@ -22,7 +29,7 @@
     box-shadow: 0px 0px 13px;
     border-radius: 3px;
     padding: 5px;
-    top: 120px; 
+    top: 90px; 
     margin-bottom: 200px;
 }
 
@@ -47,7 +54,6 @@
     cursor:pointer;
 
 }
-
 
 .group-package{
     cursor: pointer;
@@ -618,6 +624,30 @@
     background-color: #fff;
 }
 
+.group-category{
+    position: relative;
+    top:200px;
+}
+
+.group-step-2title{
+    width:60%; 
+    cursor: pointer;
+}
+
+.group-step-3title{
+    width:60%;
+}
+.group-step-button2{
+    float:left;
+}
+
+.group-upload{
+    width: 100%;
+}
+
+.group-donebtn{
+    background: green;
+}
 @media only screen and (max-width : 1600px) {
     .group-button{
         font-size: 25px;

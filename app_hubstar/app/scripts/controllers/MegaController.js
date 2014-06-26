@@ -77,7 +77,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             {
                 for (var i = 0; i < user.get('collections').get("length"); i++) {
                     var data = user.get('collections').objectAt(i);
-                    if (data.id === collection_id) {
+                    if (data.get("id") === collection_id) {
                         break;
                     }
                 }
@@ -162,7 +162,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     var profile = HubStar.Profile.find(owner_id);
                     for (var i = 0; i < profile.get('collections').get("length"); i++) {
                         var data = profile.get('collections').objectAt(i);
-                        if (data.id === collection_id) {
+                        if (data.get("id") === collection_id) {
                             break;
                         }
                     }
@@ -254,7 +254,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     var profile = HubStar.Profile.find(owner_id);
                     for (var i = 0; i < profile.get('collections').get("length"); i++) {
                         var data = profile.get('collections').objectAt(i);
-                        if (data.id === collection_id) {
+                        if (data.get("id") === collection_id) {
                             break;
                         }
                     }
@@ -1061,7 +1061,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     var profile = HubStar.Profile.find(owner_id);
                     for (var i = 0; i < profile.get('collections').get("length"); i++) {
                         var data = profile.get('collections').objectAt(i);
-                        if (data.id === collection_id) {
+                        if (data.get("id") === collection_id) {
                             break;
                         }
                     }
@@ -1213,7 +1213,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 data = null;
                 for (var i = 0; i < profile.get('collections').get("length"); i++) {
                     data = profile.get('collections').objectAt(i);
-                    if (data.id === collection_id) {
+                    if (data.get("id") === collection_id) {
                         break;
                     }
                 }
@@ -1231,7 +1231,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             var data = null;
             for (var i = 0; i < user.get('collections').get("length"); i++) {
                 data = user.get('collections').objectAt(i);
-                if (data.id === collection_id) {
+                if (data.get("id") === collection_id) {
 
                     break;
                 }

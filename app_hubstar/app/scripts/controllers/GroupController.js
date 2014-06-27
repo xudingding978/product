@@ -57,7 +57,7 @@ HubStar.GroupController = Ember.Controller.extend({
                     }
                     else
                     {
-                        $('#group-top').css('top', "0px");
+                        $('#group-top').css('top', "70px");
                     }
                 } else {
                     $("#search-bar").css('display', "none");
@@ -69,7 +69,7 @@ HubStar.GroupController = Ember.Controller.extend({
                     }
                     else
                     {
-                        $('#group-top').css('top', "0px");
+                        $('#group-top').css('top', "70px");
                     }
 
                 }
@@ -103,6 +103,10 @@ HubStar.GroupController = Ember.Controller.extend({
             setTimeout(function() {
                 that.refreshCate();
                 $(".subcategory-box").css("padding", "10px");
+                $(".group-top").css("top", "20px");
+                $(".group-wallpaper").css("max-height", "850px");
+                $(".new-masonry-bar").parent().css("bottom", "100px");
+
             }, 2);
         });
     },
@@ -187,7 +191,7 @@ HubStar.GroupController = Ember.Controller.extend({
     },
     topicSelection: function(data) {
         if (data !== this.get("topic")) {
-            
+
             this.set('selected_cate', []);
         }
         data.set("isSelected", true);
@@ -244,6 +248,9 @@ HubStar.GroupController = Ember.Controller.extend({
         this.set("selected_cate", []);
         this.set("topic", []);
         this.setPic();
+        $(".group-top").css("top", "70px");
+        $(".group-wallpaper").css("max-height", "700px");
+        $(".new-masonry-bar").parent().css("bottom", "0px");
     },
     refreshPage: function() {
         if (this.get('group_expertise') === "First Time")
@@ -486,39 +493,39 @@ HubStar.GroupController = Ember.Controller.extend({
         if (this.get("description") !== this.get("model").get("group_description"))
         {
             this.get("model").set("group_description", this.get("description"));
-             flag = true;
+            flag = true;
         }
         if (this.get("group_pic_url") !== this.get("model").get("group_pic_url"))
         {
             this.get("model").set("group_pic_url", this.get("group_pic_url"));
-             flag = true;
+            flag = true;
         }
         if (this.get("group_bg_url") !== this.get("model").get("group_bg_url"))
         {
             this.get("model").set("group_bg_url", this.get("group_bg_url"));
             this.get("model").set("group_hero_url", this.get("group_hero_url"));
-             flag = true;
+            flag = true;
         }
         if (this.get("group_expertise") !== this.get("model").get("group_expertise"))
         {
             this.get("model").set("group_expertise", this.get("group_expertise"));
-             flag = true;
+            flag = true;
         }
         if (this.get("group_budget") !== this.get("model").get("group_budget"))
         {
             this.get("model").set("group_budget", this.get("group_budget"));
-             flag = true;
+            flag = true;
         }
         if (this.get("group_timeframe") !== this.get("model").get("group_timeframe"))
         {
             this.get("model").set("group_timeframe", this.get("group_timeframe"));
-             flag = true;
+            flag = true;
         }
         if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
             this.get("model").set("group_category", this.get("Category"));
             this.get("model").set("group_subcategory", this.get("subCategory"));
             this.get("model").set("group_classification", this.get("topic").get("type"));
-             flag = true;
+            flag = true;
         }
         return flag;
     },

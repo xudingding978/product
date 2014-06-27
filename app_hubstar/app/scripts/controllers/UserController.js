@@ -298,7 +298,7 @@ HubStar.UserController = Ember.Controller.extend({
                     if (HubStar.get("isTopAdDisplay")) {
 
                     } else {
-                        $(".user-top").css("height", "40px");
+                        $(".user-top").css("height", "120px");
                     }
 
                 } else {
@@ -308,7 +308,7 @@ HubStar.UserController = Ember.Controller.extend({
                     if (HubStar.get("isTopAdDisplay")) {
                         $("#top_bar_ads").css({"position": "fixed", "top": "140px"});
                     } else {
-                        $(".user-top").css("height", "40px");
+                        $(".user-top").css("height", "120px");
                     }
                 }
 

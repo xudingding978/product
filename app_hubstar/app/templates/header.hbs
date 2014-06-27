@@ -13,8 +13,7 @@
         {{#if controller.headerAbout}}
         <div id="header_menu_about" class="blank-top-bar"  {{action dropdown "about"}}>&nbsp;</div>
              
-        <ul id="top-menu" class="edit-object-ul" style="width: 160px;position: absolute;top:80px;left: 110px;">
-            <li class="ite" > <span><a  target="blank" href="http://about.trendsideas.com/">About</a></span></li>
+        <ul id="top-menu" class="edit-object-ul header-about" >
             <li class="ite" > <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span></li>
             <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span></li>
             <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span></li>
@@ -67,8 +66,8 @@
         <div class="search-bar-on-large-screen" >
             <div id="search-bar" class="search-bar-ontop">
                 <div id ="navigator" class="Nav-btn easing" {{action dropdownHeaderNavigator}}>
-                     <i class="fa fa-list" style="font-size: 20px;"></i>
-                    <div style="line-height: 0;position: relative;bottom: 5px;">Categories</div>
+                     <i class="fa fa-list header-categoryicon"></i>
+                    <div class="header-category">Categories</div>
                 </div>
 
                 {{#if controller.isHeaderNavigatorDropdown}}
@@ -77,8 +76,8 @@
 
                 <div class="search-box easing" >
                     {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
-                    <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;width: 60px"  {{action searching on="click" target="view"}}>
-                        <i class="fa fa-search" style="font-size: 20px;line-height: 3;"></i>
+                    <div class="Nav-btn easing header-searchbtn"  {{action searching on="click" target="view"}}>
+                        <i class="fa fa-search header-searchicon"></i>
                     </div>
                 </div>
             </div>
@@ -97,15 +96,15 @@
 
         <div id="search-bar" class="search-bar-ontop">
             <div id ="navigator" class="Nav-btn easing"  {{action dropdownHeaderNavigator}}>
-                 <i class="fa fa-list" style="font-size: 20px;"></i>
+                 <i class="fa fa-list header-categoryicon"></i>
             </div>
             {{#if controller.isHeaderNavigatorDropdown}}
             {{view HubStar.NavigatorView}}
             {{/if}}
             <div class="search-box easing" >
                 {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses-small" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
-                <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;"  {{action searchingSmall on="click" target="view"}}>
-                    <i class="fa fa-search" style="font-size: 20px;"></i>
+                <div class="Nav-btn easing header-searchbtn"  {{action searchingSmall on="click" target="view"}}>
+                    <i class="fa fa-search header-searchicon2"></i>
                 </div>
             </div>
         </div>

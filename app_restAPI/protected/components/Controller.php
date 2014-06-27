@@ -1,3 +1,4 @@
+
 <?php
 
 header('Access-Control-Allow-Origin: *');
@@ -1309,11 +1310,11 @@ class Controller extends CController {
                     $mega_profile = CJSON::decode($tempMega_profile, true);
                     $profile_editors = (isset($mega_profile["profile"][0]["profile_editors"])) ? $mega_profile["profile"][0]["profile_editors"] : '*@trendsideas.com';
                     $profile_name = (isset($mega_profile["profile"][0]["profile_name"])) ? $mega_profile["profile"][0]["profile_name"] : 'Trends Ideas';
-                    $profile_pic = (isset($mega_profile["profile"][0]["profile_pic_url"])) ? $mega_profile["profile"][0]["profile_pic_url"] : 'http://s3.hubsrv.com/trendsideas.com/profiles/new-home-trends/profile_picture/profile_picture_192x192.jpg';                   
+                    $profile_pic = (isset($mega_profile["profile"][0]["profile_pic_url"])) ? $mega_profile["profile"][0]["profile_pic_url"] : 'http://s3.hubsrv.com/trendsideas.com/profiles/new-home-trends/profile_picture/profile_picture_192x192.jpg';
                     $tempResult['stats'][0]['megas'][$i]['editors'] = $profile_editors;
                     $tempResult['stats'][0]['megas'][$i]['owner_title'] = $profile_name;
                     $tempResult['stats'][0]['megas'][$i]['owner_profile_pic'] = $profile_pic;
-                    $profile_classification  =  $mega_profile['classification'];
+                    $profile_classification = $mega_profile['classification'];
                     $tempResult['stats'][0]['megas'][$i]['classification'] = $profile_classification;
                     $profile_editor = (isset($mega_profile["profile"][0]["profile_editor"])) ? $mega_profile["profile"][0]["profile_editor"] : '';
                     $profile_administrator = (isset($mega_profile["profile"][0]["profile_administrator"])) ? $mega_profile["profile"][0]["profile_administrator"] : '';
@@ -1324,8 +1325,7 @@ class Controller extends CController {
                     $tempResult['stats'][0]['megas'][$i]['owner_contact_email'] = (isset($mega_profile["profile"][0]["owner_contact_email"])) ? $mega_profile["profile"][0]["owner_contact_email"] : "";
                     $tempResult['stats'][0]['megas'][$i]['owner_contact_cc_emails'] = (isset($mega_profile["profile"][0]["owner_contact_cc_emails"])) ? $mega_profile["profile"][0]["owner_contact_cc_emails"] : "";
                     $tempResult['stats'][0]['megas'][$i]['owner_contact_bcc_emails'] = (isset($mega_profile["profile"][0]["owner_contact_bcc_emails"])) ? $mega_profile["profile"][0]["owner_contact_bcc_emails"] : "";
-                    if(isset($tempResult['stats'][0]['megas'][$i]['photo'][0]['tags']))
-                    {
+                    if (isset($tempResult['stats'][0]['megas'][$i]['photo'][0]['tags'])) {
                         $tempResult['stats'][0]['megas'][$i]['photo'][0]['tags'] = array();
                     }
                 }
@@ -1346,7 +1346,9 @@ class Controller extends CController {
                     $tempResult['megas'][$i]['editors'] = $profile_editors;
                     $tempResult['megas'][$i]['owner_title'] = $profile_name;
                     $tempResult['megas'][$i]['owner_profile_pic'] = $profile_pic;
-                    $profile_classification  =  $mega_profile['classification'];
+                    if (isset($mega_profile['classification'])) {
+                        $profile_classification = $mega_profile['classification'];
+                    }
                     $tempResult['megas'][$i]['classification'] = $profile_classification;
                     $profile_editor = (isset($mega_profile["profile"][0]["profile_editor"])) ? $mega_profile["profile"][0]["profile_editor"] : '';
                     $profile_administrator = (isset($mega_profile["profile"][0]["profile_administrator"])) ? $mega_profile["profile"][0]["profile_administrator"] : '';
@@ -1357,10 +1359,9 @@ class Controller extends CController {
                     $tempResult['megas'][$i]['owner_contact_email'] = (isset($mega_profile["profile"][0]["owner_contact_email"])) ? $mega_profile["profile"][0]["owner_contact_email"] : "";
                     $tempResult['megas'][$i]['owner_contact_cc_emails'] = (isset($mega_profile["profile"][0]["owner_contact_cc_emails"])) ? $mega_profile["profile"][0]["owner_contact_cc_emails"] : "";
                     $tempResult['megas'][$i]['owner_contact_bcc_emails'] = (isset($mega_profile["profile"][0]["owner_contact_bcc_emails"])) ? $mega_profile["profile"][0]["owner_contact_bcc_emails"] : "";
-                    if(isset($tempResult['megas'][$i]['photo'][0]['tags']))
-                    {
+                    if (isset($tempResult['megas'][$i]['photo'][0]['tags'])) {
                         $tempResult['megas'][$i]['photo'][0]['tags'] = array();
-                    }                    
+                    }
                 }
             }
         }
@@ -1502,7 +1503,6 @@ class Controller extends CController {
             }
         }
         $results .= ']}';
-
         return $results;
     }
 

@@ -94,6 +94,7 @@ class CollectionsController extends Controller {
                     $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] . "," . $id;
                      $oldRecordDeep['profile'][0]['collections'][$i]["cover"]=$request_arr["cover"];
                 }
+                $oldRecordDeep['profile'][0]['collections'][$i]["updated_at"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
                 $collectionItems = $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"];
             }
         }

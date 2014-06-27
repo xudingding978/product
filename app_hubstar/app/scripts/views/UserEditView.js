@@ -27,7 +27,7 @@ HubStar.UserEditView = Ember.View.extend({
                         autoScrollOnFocus: false,
                         normalizeMouseWheelDelta: false
                     },
-                    autoHideScrollbar: true,
+                    autoHideScrollbar: false,
                     mouseWheel: true,
                     theme: "dark-2",
                     set_height: 70
@@ -45,7 +45,7 @@ HubStar.UserEditView = Ember.View.extend({
                         autoScrollOnFocus: false,
                         normalizeMouseWheelDelta: false
                     },
-                    autoHideScrollbar: true,
+                    autoHideScrollbar: false,
                     mouseWheel: true,
                     theme: "dark-2",
                     set_height: 70
@@ -63,7 +63,7 @@ HubStar.UserEditView = Ember.View.extend({
                         autoScrollOnFocus: false,
                         normalizeMouseWheelDelta: false
                     },
-                    autoHideScrollbar: true,
+                    autoHideScrollbar: false,
                     mouseWheel: true,
                     theme: "dark-2",
                     set_height: 70

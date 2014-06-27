@@ -69,7 +69,7 @@ HubStar.UserRoute = Ember.Route.extend({
 
             for (var i = 0; i < user.get('collections').get("length"); i++) {
                 var data = user.get('collections').objectAt(i);
-                if (data.id === collection_id) {
+                if (data.get("id") === collection_id) {
                     break;
                 }
             }
@@ -91,10 +91,8 @@ HubStar.UserRoute = Ember.Route.extend({
 
     },
     deactivate: function() {
-
     },
     activate: function() {
-
 
         $(window).scrollTop(0);
         $('#discovery_search_bar_wrapper').css('display', "none");

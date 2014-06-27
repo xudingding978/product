@@ -44,17 +44,17 @@
 {{/if}}
 
 {{#if controller.countryDropdown}}
-<div id="countryDropdown" class="Dropdownstyle1"  style="width: 420px;text-align: center; left: 0;" {{action dropdown "country"}}>
+<div id="countryDropdown" class="Dropdownstyle1 locationDropdown" {{action dropdown "country"}}>
 </div>
 {{/if}}
 
 {{#if controller.regionDropdown}}
-<div id="regionDropdown" class="Dropdownstyle1" style="width: 420px;text-align: center; left: 0;" {{action dropdown "region"}}>
+<div id="regionDropdown" class="Dropdownstyle1 locationDropdown" {{action dropdown "region"}}>
 </div>
 {{/if}}
 
 {{#if controller.categoryDropdown}}
-<div id="categoryDropdown"  class="Dropdownstyle1"  style="width: 225px; left: 0;" {{action dropdown "category"}}>
+<div id="categoryDropdown"  class="Dropdownstyle1 categoryDropdown" {{action dropdown "category"}}>
      {{#each controller.categorys}}
      <div  class="ite " {{action topicSelection this}}>{{topic}}</div>
     {{/each}}
@@ -63,7 +63,7 @@
 {{/if}}
 
 {{#if controller.subcategoryDropdown}}
-<div id="subcategoryDropdown" class="Dropdownstyle1" style="width: 204px; left: 0;" {{action dropdown "subcategory"}}>
+<div id="subcategoryDropdown" class="Dropdownstyle1 subcategoryDropdown" style="" {{action dropdown "subcategory"}}>
 
      {{#each controller.subcate}}
      <div  class="ite " >{{category_topic}}</div>
@@ -73,7 +73,7 @@
 {{/if}}
 
 {{#if controller.isPackgetDropdown}}
-<div id="profilePackgetDropdown" class="Dropdownstyle1" style="width: 482px; margin: -1px -8px;text-align:center;" {{action dropdown controller.projectCategoryDropdownType}}>
+<div id="profilePackgetDropdown" class="Dropdownstyle1 profilepackageDropdown" {{action dropdown controller.projectCategoryDropdownType}}>
      <div  class="ite ">Platinum</div>
     <div  class="ite ">Gold</div>
     <div  class="ite ">Silver</div>
@@ -83,30 +83,30 @@
 
 {{#if controller.isGeoDropdown}}
 <div id="login_lightbox" class="blank-top-bar" {{action dropdown "geoLocation"}}>&nbsp;</div>
-{{#if HubStar.isLogin}}
-<div id="geoDropdown" class="edit-object-ul Dropdownstyle2" style="position: absolute;"{{action dropdown controller.applicationCategoryDropdownType}}>
+     {{#if HubStar.isLogin}}
+    <div id="geoDropdown" class="edit-object-ul Dropdownstyle2 isLogin1"{{action dropdown controller.applicationCategoryDropdownType}}>
      {{else}}
-     <div id="geoDropdown" class="edit-object-ul Dropdownstyle2" style="position: absolute;right:95px;"{{action dropdown controller.applicationCategoryDropdownType}}>
+     <div id="geoDropdown" class="edit-object-ul Dropdownstyle2 isLogin2"{{action dropdown controller.applicationCategoryDropdownType}}>
      {{/if}}
-     <div class="ite easing" style="">International</div>
-        <div class="ite easing" style="">Australia</div>
-        <div class="ite easing" style="">New Zealand</div>
-        <div class="ite easing" style="">United States</div>
-        <div class="ite easing" style="">India</div>
-        <div class="ite easing" style="">China</div>
-        <div class="ite easing" style="">Asia</div>
+     <div class="ite easing">International</div>
+        <div class="ite easing">Australia</div>
+        <div class="ite easing">New Zealand</div>
+        <div class="ite easing">United States</div>
+        <div class="ite easing">India</div>
+        <div class="ite easing">China</div>
+        <div class="ite easing">Asia</div>
     </div>
-    {{/if}}
+{{/if}}
 
     {{#if controller.isActiveDropdown}}
-    <div id="is_actvie" class="Dropdownstyle1" style="width: 482px; margin: -1px -8px;text-align:center;" {{action dropdown controller.projectActiveDropdownType}}>
+    <div id="is_actvie" class="Dropdownstyle1 statusDropdown" {{action dropdown controller.projectActiveDropdownType}}>
          <div  class="ite ">true</div>
         <div  class="ite ">false</div>
     </div>
     {{/if}}
 
     {{#if controller.isDeleteDropdown}}
-    <div id="is_delete" class="Dropdownstyle1" style="width: 482px; margin: -1px -8px;text-align:center;" {{action dropdown controller.projectDeleteDropdownType}}>
+    <div id="is_delete" class="Dropdownstyle1 statusDropdown" {{action dropdown controller.projectDeleteDropdownType}}>
          <div  class="ite ">true</div>
         <div  class="ite ">false</div>
     </div>
@@ -115,7 +115,7 @@
 
 
     {{#if controller.profileCategoryDropdown}}
-    <div id="profileCategoryDropdown" class="Dropdownstyle1" style="width: 230px; left: 0;" {{action dropdown "category"}}>
+    <div id="profileCategoryDropdown" class="Dropdownstyle1 profileDropdown"{{action dropdown "category"}}>
          {{#each controller.categorys}}
          <div  class="ite " {{action topicSelection this}}>{{topic}}</div>
         {{/each}}
@@ -124,10 +124,10 @@
     {{/if}}
 
     {{#if controller.profileSubcategoryDropdown}}
-    <div id="profileSubcategoryDropdown" class="Dropdownstyle1" style="width: 216px; left: 0;" {{action dropdown "subcategory"}}>
+    <div id="profileSubcategoryDropdown" class="Dropdownstyle1 profileDropdown"{{action dropdown "subcategory"}}>
 
          {{#each controller.subcate}}
-         <div  class="ite " >{{category_topic}}</div>
+         <div class="ite " >{{category_topic}}</div>
         {{/each}}
 
     </div>

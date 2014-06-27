@@ -11,7 +11,6 @@ HubStar.ConversationRoute = Ember.Route.extend({
         var conversation_id = address.split("#")[1].split("/")[5];
         
         var data = null;
-        
         if (conversation_id === "new")
         {
             this.transitionToRoute("newConversation");
@@ -21,7 +20,7 @@ HubStar.ConversationRoute = Ember.Route.extend({
             if (user.get('conversations').get("length") > 0)
             {
                 data = user.get('conversations').objectAt(0);
-                data.set("id", data.get("conversation_id"));            
+                data.set("id", data.get("conversation_id"));  
                 return data;
             }
             else

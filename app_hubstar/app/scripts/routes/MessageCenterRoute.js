@@ -24,18 +24,16 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             model = localStorage.loginStatus;
             this.controllerFor('notificationTop').set("notificationSeeAll", false);
         }
-
-        if (this.controllerFor('notificationTop').get("goConversation") === true)
-        {
-
-            model = localStorage.loginStatus;
-            this.controllerFor('notificationTop').set("goConversation", false);
-            this.controllerFor('messageCenter').getClientId(localStorage.loginStatus);
-        }
-        else if (address.split("#")[1].split("/").length === 6 && address.split("#")[1].split("/")[4] === "conversations") {
-
+        if (address.split("#")[1].split("/").length === 6 && address.split("#")[1].split("/")[4] === "conversations") {
             conversation_id = address.split("#")[1].split("/")[5];
             this.controllerFor('messageCenter').getClientId(localStorage.loginStatus, conversation_id);
+            this.controllerFor('notificationTop').set("goConversation", false);
+        }
+        else if (this.controllerFor('notificationTop').get("goConversation") === true)
+        {
+            model = localStorage.loginStatus;
+            this.controllerFor('notificationTop').set("goConversation", false);
+            //this.controllerFor('messageCenter').getClientId(localStorage.loginStatus);
         }
         else {
             this.controllerFor('messageCenter').getClientId(model);

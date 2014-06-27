@@ -9,7 +9,7 @@
 
 {{/if}}
 
-
+{{business_profile_pic}}
 {{#if getPhoto}}
 <div class="box col2 noStyle1" data-step="9" data-intro="This is an <b>image</b> result. Click the image to see a full screen view and to read the caption." data-position='right' {{action checkingLoginStatus target="view" on="click"}} >
 
@@ -64,10 +64,10 @@
 
             <div class="profilepic-on-masonry">
                 <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  
-                    <img   style="width:46px; height: 46px;"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                    <img style="width:{{unbound profile_width}}; height: {{unbound profile_height}};"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; word-break: break-word;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name" style="cursor: pointer; word-break: break-word;" href="#/profiles/{{unbound owner_id}}/collections" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
@@ -76,12 +76,12 @@
 
         <div class="masonry-object_text">
             <div class="masonry-object_text-container">
-                <div style="font-weight: bold;margin-bottom: 5px;font-size:16px;">{{#each photo}}{{photo_title}}{{/each}} </div>
+                <div style="font-weight: bold;margin-bottom: 5px;font-size:16px;word-break: break-word;">{{#each photo}}{{photo_title}}{{/each}} </div>
             </div>
 
             <div class="more_detail" style="margin:0;"{{bindAttr id="id"}} >
                 <div class="more_text-container" >
-                    <div style="display:block;text-">
+                    <div style="display:block;">
                         {{#each photo}}
                         {{{photo_caption}}}
                         {{/each}}
@@ -172,7 +172,7 @@
 
 
             <div class="profilepic-on-masonry">
-                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  style="width:46px; height: 46px;" {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  style="width:{{unbound profile_width}}; height: {{unbound profile_height}};" {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="cursor: pointer; word-break: break-word;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
@@ -185,7 +185,7 @@
 
         <div class="masonry-object_text">
             <div style="">
-                <p style="font-weight: bold;margin-bottom: 5px;font-size:16px;" {{action transitionToVideo id}}>{{object_title}}</p>
+                <p style="font-weight: bold;margin-bottom: 5px;font-size:16px;word-break: break-word;" {{action transitionToVideo id}}>{{object_title}}</p>
                 <p class="masonry-object_text-container" style="font-size: 13px; max-height: 50px;">{{object_description}}</p>
             </div>
 
@@ -274,7 +274,7 @@
 
         <div class="masonry-object_text">
             <div style="">
-                <p style="font-weight: bold;margin-bottom: 5px;font-size:16px;font-style:italic;" {{action transitionToPdf id}}>{{object_title}}</p>
+                <p style="font-weight: bold;margin-bottom: 5px;font-size:16px;font-style:italic;word-break: break-word;" {{action transitionToPdf id}}>{{object_title}}</p>
                 <p class="masonry-object_text-container" style="font-size: 13px; max-height: 50px;">{{object_description}}</p>
             </div>
             
@@ -338,7 +338,7 @@
 
         <div class="masonry-object_poster">
             <div class="profilepic-on-masonry">
-                <img   style="width:46px; height: 46px;"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+                <img   style="width:{{unbound profile_width}}; height: {{unbound profile_height}};"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="word-break: break-word;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{owner_title}}</a>
@@ -352,7 +352,7 @@
 
         <div class="masonry-object_text">
             <div class="masonry-object_text-container">
-                <a style="font-size: 16px; font-weight: bold;cursor: pointer;text-transform: capitalize;" {{action transitionToArticle id}}>{{object_title}}</a>
+                <a style="font-size: 16px; font-weight: bold;cursor: pointer;text-transform: capitalize; word-break: break-word;" {{action transitionToArticle id}}>{{object_title}}</a>
                 <p style="text-overflow: ellipsis"; {{action transitionToArticle id}}>{{{object_description}}}</p>
             </div>
 

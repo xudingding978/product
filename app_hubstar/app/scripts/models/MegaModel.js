@@ -2,6 +2,7 @@
 DS.RESTAdapter.map('HubStar.Mega', {
     photo: {embedded: 'always'},
     user: {embedded: 'always'},
+    group:  {embedded: 'always'},
     comments: {embedded: 'load'},
     reviews: {embedded: 'load'},
     profile: {embedded: 'load'},
@@ -64,6 +65,7 @@ HubStar.Mega = DS.Model.extend({
     //--------------------------
     photo: DS.hasMany('HubStar.Photo'),
     user: DS.hasMany('HubStar.User'),
+    group: DS.hasMany('HubStar.Group'),
     profile: DS.hasMany('HubStar.Profile'),
     comments: DS.hasMany('HubStar.Comment'),
     reviews: DS.hasMany('HubStar.Review'),
@@ -72,7 +74,27 @@ HubStar.Mega = DS.Model.extend({
     videoes: DS.hasMany('HubStar.Video'),
     isShowMoreComment: false,
     isLike: false,
-    pdf: DS.hasMany('HubStar.Pdf'),    
+    pdf: DS.hasMany('HubStar.Pdf'),
+    profile_width:"46px",
+    profile_height:"46px",
+    business_profile_pic: function() {
+        var url = this.get("owner_profile_pic").split("_");
+        var length = url.length;
+        var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
+        var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+        if (width > height)
+        {
+            this.set("profile_width", 46+"px");
+            this.set("profile_height", Math.ceil(height/width*46)+"px");
+        }
+        else
+        {
+            var heightNew = 46;
+            var widthNew = Math.ceil(width/height*heightNew);
+            this.set("profile_width", widthNew+"px");
+            this.set("profile_height", heightNew+"px");
+        }
+    }.property('owner_profile_pic'),
     keywordShow: function() {
         var a = [];
 

@@ -31,9 +31,6 @@
                 <span>Business Profiles ({{controller.total_profiels}})</span>
             </a>
     </li>
-
-
-
     {{else}}
     {{#if user.profileSave}}
     <li class="ite" >
@@ -45,6 +42,16 @@
         {{/if}}
     </li>
     {{/if}}
+    {{/if}}
+    {{#if HubStar.group_switch}}
+    <li class="ite" >
+        <a tabindex="-1"  href="" {{action userDisplaynone "newGroup" on="click"  target="view"}}>
+           <i class="fa fa-briefcase" style="">&nbsp;&nbsp;</i>
+            <span>Group</span>
+        </a>
+    </li>
+     {{render newGroupTopDisplay HubStar.groups}}
+   
     {{/if}}
 
     <li class='ite'><a tabindex="-1" href="http://about.trendsideas.com/" target="blank" {{action userDisplaynone "about" on="click"  target="view"}}>
@@ -59,7 +66,6 @@
             <i class="fa fa-power-off">&nbsp;&nbsp;</i>
             <span>Log out</span> 
         </a></li>
-
 </ul>
 {{/if}}
 

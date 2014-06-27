@@ -7,8 +7,45 @@ HubStar.ProfileView = Ember.View.extend({
         else {
             $('#starsize').attr("style", "width:100px");
         }
-
-        $(".navbar").css("box-shadow", "0 0 10px #333");
+       if (this.get('controller').get('about_us').objectAt(0) !== undefined && this.get('controller').get('about_us').objectAt(0).get('about_image').get('length'))
+        {
+            var count = 0;
+            for (var i = 0; i < this.get('controller').get('about_us').objectAt(0).get('about_image').get('length'); i++) {
+                if (this.get('controller').get('about_us').objectAt(0).get('about_image').objectAt(i).get("image_url") !== "") {
+                    count = count + 1;
+                }
+            }
+            $(document).ready(function() {
+                setTimeout(function() {
+                    if (count === 2) {
+                        $(".left-bottom-area").css("width", "530px");
+                    } else if (count === 1) {
+                        $(".left-bottom-area").css("width", "260px");
+                    }
+                }, 1000);
+            });
+        }
+       if (this.get('controller').get('about_us').objectAt(0) !== undefined) {
+            for (var i = 0; i < this.get('controller').get('about_us').objectAt(0).get('about_embeded_object').get('length'); i++) {
+                var about_embeded_object = this.get('controller').get('about_us').objectAt(0).get('about_embeded_object').objectAt(i);
+                if (about_embeded_object.get('embeded_object_code') !== null && about_embeded_object.get('embeded_object_code') !== '' && about_embeded_object.get('embeded_object_code') !== undefined) {
+                    if (about_embeded_object.get('embeded_object_url') !== null && about_embeded_object.get('embeded_object_url') !== '' && about_embeded_object.get('embeded_object_url') !== undefined) {
+                        $(document).ready(function() {
+                            setTimeout(function() {
+                                $(".getapp-btn").css("width", "380px");
+                            }, 1500);
+                        });
+                    } else {
+                        $(document).ready(function() {
+                            setTimeout(function() {
+                                $(".getapp-btn").css("width", "180px");
+                            }, 1500);
+                        });
+                    }
+                }
+            }
+        }
+       $(".navbar").css("box-shadow", "0 0 10px #333");
         $(document).ready(function() {
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
@@ -34,7 +71,6 @@ HubStar.ProfileView = Ember.View.extend({
                     $(".search-bar-on-small-screen").css('display', "block");
                 }
             });
-
         });
 
         var address = document.URL;

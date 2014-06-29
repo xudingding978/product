@@ -746,11 +746,11 @@ code .nd { color: #9FAD7E; } /* CSS pseudo selector */
 }
 
 .masonry-moreresult-btn{
-    width: 300px;
+    width: 300px !important;
     margin: 60px auto;
-    display: block; 
-    height: 35px; 
-    box-shadow: 0 0 10px #fff;
+    display: block !important; 
+    height: 35px !important; 
+    box-shadow: 0 0 10px #fff !important;
 }
 
 .masonry-moreresult-load{

@@ -47,12 +47,25 @@
                     <li class="ite" {{action  fbShare model}} >
                         <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
                     </li>
-                    <li class="ite" {{action tShare model}} >
+                    <li class='ite' {{action tShare model}} >
                         <i class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Twitter</span>
                     </li>
                     <li class="ite" {{action gpShare model}}>
                         <i class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Google+</span>
                     </li>
+
+                    <li class="ite" {{action eShare model}}>
+                        <img src="../../../images/sent.png" style="width: 16px;height: 16px">
+                        <i class="send_email" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 1.5em">E-mail</span>
+                    </li>
+                </ul>
+                {{#if model.getUser}}
+                <div class="new-btn" style="float: left; font-size: 13px;margin-right: 5px;"  {{action removeReview}}><i class="fa fa-trash-o"></i></div>                 
+                <div class="new-btn" style="float: left; font-size: 13px;" {{action editReview}}><i class="fa fa-pencil"></i></div>
+                {{/if}}
+            </div>
+        </div>  
+
                 </ul>
                 {{#if model.getUser}}
                 <div class="new-btn" style="float: left; font-size: 13px;margin-right: 5px;"  {{action removeReview}}><i class="fa fa-trash-o"></i></div>
@@ -61,15 +74,18 @@
             </div>
         </div>
 
+
         <!--the following comment-frame is used to show the reply box for the second level reply-->
         <div id="reviewReplyData_{{unbound model.review_id}}">
 
             <div class="reply-comment-frame"  style="" id="ReplyData_{{unbound model.review_id}}">
                 <div style="margin:0 auto; padding: 0 45px 15px 0;">
                     <a  href="#/users/{{unbound controller.currentUser.id}}">
+
                         <img class="profilepic_comment"  style="float: right; margin: 4px -10px 0 0; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url_large"}} />
                         <div class="user-reply-angle-before"></div>
                         <div class="user-reply-angle-after"></div>
+
                     </a>
 
                     <div class="reply-comment-container" style="width: 378px;height: 32px;">
@@ -79,6 +95,7 @@
                         <div style="float: right;height: 34px;position: relative;">
                             <div id="ok_{{unbound model.review_id}}" class="message-btn easing" style="width: 30px;"{{action addReviewReply model.review_id}}>
                                  <i  class="fa fa-check"></i>
+
                             </div>
 
                         </div>
@@ -87,11 +104,16 @@
             </div>
 
 
+<<<<<<< HEAD
+            <div id="view-comments_{{unbound model.review_id}}" {{action 'showOneReview' model.review_id "viewReply" target='view' on="click"}} class="hover-opacity" style="display:block; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;">
+=======
             <div id="view-comments_{{unbound model.review_id}}" {{action "showOneReview" model.review_id "viewReply" target="view" on="click"}} class="hover-opacity" style="display:block; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;">
+>>>>>>> c6c30777491e67c5b83b78208d9f61d5a7f12cb9
                  view comments {{this.model.reply_reviews.length}}
                  <i class="fa fa-caret-down">&nbsp;</i>
             </div>
             <div  id="reply_{{unbound model.review_id}}"  style="display:none; max-height:200px;height:auto;">
+
 
                 {{#each model.reply_reviews}}
                 {{render reviewReplyListSingle this}}
@@ -100,6 +122,7 @@
             </div>
 
             <div id="up-comments_{{unbound model.review_id}}" {{action "upComments" model.review_id target="view" on="click"}}  class="hover-opacity" style="display: none; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;">
+
                 collapse comments {{this.model.reply_reviews.length}}
                 <i class="fa fa-caret-up">&nbsp;</i>
             </div>

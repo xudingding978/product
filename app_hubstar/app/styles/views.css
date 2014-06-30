@@ -439,6 +439,16 @@ a:hover , a:focus {color: #aaa;}
     left: 25%;
 }
 
+.controlbtn-share-email{
+    text-align: left;
+    padding: 15px 0;
+    width: 200px;
+    display: block;
+    position: relative;
+    /* margin: auto; */
+    left: 32%;
+    bottom: -8%;
+}
 
 /*MANSONRY album OBJECT STYLE*/
 
@@ -2133,7 +2143,7 @@ div.album-description-bg{
     position: absolute; 
     border-radius: 3px;
     width: 530px;
-   height: auto;
+    height: auto;
 }
 
 .show-tag-title{
@@ -2675,7 +2685,7 @@ div.album-description-bg{
 .share-box{
     width: 150px; 
     margin: 0 auto; 
-    left: 70px;
+    left: -70px;
     padding: 0;
 }
 .share-box2a{
@@ -3523,7 +3533,7 @@ div.album-description-bg{
     top: 35%;
     left: 0;
     right: 0;
-     line-height: 18px;
+    line-height: 18px;
 }
 
 .deleted-icon{
@@ -3694,4 +3704,190 @@ div.album-description-bg{
     }
 
 
+}
+
+.black_overlay{
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index:1001;
+    -moz-opacity: 0.8;
+    opacity:.60;
+    //filter: alpha(opacity=80);
+}
+.white_content {
+    display: none;
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 25%;
+    padding: 16px;
+    //border: 16px solid orange;
+    background-color: white;
+    z-index:1002;
+    overflow: auto;
+}
+
+
+
+
+
+
+
+
+
+
+/*===============================2014.6.25 by Colin======================*/
+
+
+.share-email-lightbox{
+    z-index: 1000;
+    position: fixed;
+    width: 550px;
+    height: 350px;
+    margin: auto;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    top: 25%;
+    left: 0px;
+    display: block;
+    right: 0;
+    box-shadow: 0 0 5px #aaa;
+}
+
+.share-email-left-content-box{
+    width: 60%;
+    float: left;
+    padding: 25px 30px;
+}
+
+.share-email-left-content-box input{
+    height: 50px;
+    background-color: rgba(0,0,0,.2);
+    border-radius: 0;
+    margin-bottom: 10px;
+    box-shadow: none;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box input:hover{
+    background-color: transparent;
+    border:1px solid rgba(0,0,0,.2);
+}
+
+.share-email-left-content-box input::-webkit-input-placeholder {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box input::-moz-placeholder {  /* Firefox 19+ */
+    color: white; 
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box input:-ms-input-placeholder {  
+    color: white;  
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
+
+.share-email-left-content-box i{
+    font-size: 25px;
+    top: 38px;
+    position: absolute;
+    left: 260px;
+    color: white;
+}
+
+.share-email-left-content-box textarea{
+    height: 240px;
+    background-color: rgba(0,0,0,.2);
+    border-radius: 0;
+    box-shadow: none;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box textarea::-webkit-input-placeholder {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box textarea::-moz-placeholder {  /* Firefox 19+ */
+    color: white; 
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box textarea:-ms-input-placeholder {  
+    color: white;  
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
+.share-email-left-content-box textarea:hover{
+    background-color: transparent;
+    border:1px solid rgba(0,0,0,.2);
+}
+
+.share-email-profilepic{
+    position: absolute;
+    right: 42%;
+    bottom: 0;
+    width: 90px;
+    height: 90px;
+    border: 10px solid white;
+    border-radius: 50%;
+}
+
+
+.share-email-right-content-box{
+    width:40%;
+    float:right;
+}
+
+.share-email-right-content-box > img{
+
+    height: 350px;
+    position: absolute;
+}
+
+.sent-btn-hover{
+    width: 100%;
+    height: 350px;
+}
+
+.sent-btn{
+    height: 50px;
+    width: 100%;
+    background-color: rgba(0,0,0,.3);
+    position: relative;
+    margin: -25px auto;
+    top: 50%;
+    padding: 12px 50px;
+    font-weight: bold;
+    color:#fff;
+    font-size: 15px;
+
+    cursor:pointer;
+}
+
+.sent-btn:hover{background-color: rgba(0,0,0,.6);}
+
+.sent-btn img{
+    margin: 0 7px;
+    width: 25px;
 }

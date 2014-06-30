@@ -2,7 +2,7 @@
 
 HubStar.ItemFunctionController = Ember.Controller.extend({
     currentUser: null,
-    needs: ['checkingLoginStatus', 'addCollection', 'applicationFeedback'],
+    needs: ['checkingLoginStatus', 'addCollection', 'applicationFeedback', 'shareEmail'],
     init: function()
     {
         if (localStorage.loginStatus) {
@@ -133,15 +133,15 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         $('#share_' + id).children('ul').addClass("hideClass");
     },
     fbShare: function(model) {
-        
-          this.shareHide(model.id);
-           var that = this;
-            var currntUrl = '';
-            var caption = '';
-            var mega = model;
+
+        this.shareHide(model.id);
+        var that = this;
+        var currntUrl = '';
+        var caption = '';
+        var mega = model;
         if (this.get("controllers.checkingLoginStatus").popupLogin()) {
-            
-           
+
+
             mega.then(function() {
                 if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                 {
@@ -254,16 +254,16 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 return false;
             }
         }
-     
+
     },
     //share to social google plus
     gpShare: function(model) {
         this.shareHide(model.id);
-      var caption = '';
-            var currntUrl = '';
-            var url = '';
-            var mega = model;
-            if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+        var caption = '';
+        var currntUrl = '';
+        var url = '';
+        var mega = model;
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
             mega.then(function() {
                 if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                 {
@@ -357,16 +357,16 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 return false;
             }
         }
-       
+
     },
     //share to social twitter
     tShare: function(model) {
-        
-            this.shareHide(model.id);
-            var currntUrl = '';
-            var url = '';
-            var mega = model;
-            if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+
+        this.shareHide(model.id);
+        var currntUrl = '';
+        var url = '';
+        var mega = model;
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
             mega.then(function() {
                 if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                 {
@@ -412,15 +412,15 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 return false;
             }
         }
-        
+
     },
     pShare: function(model) {
-        
-            this.shareHide(model.id);
-            var currntUrl = '';
-            var url = '';
-            var mega = model;
-            if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+
+        this.shareHide(model.id);
+        var currntUrl = '';
+        var url = '';
+        var mega = model;
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
             mega.then(function() {
                 if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                 {
@@ -473,7 +473,87 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 return false;
             }
         }
-        
+
+    },
+    eShare: function(model) {
+        this.shareHide(model.id);
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            var photoObj;
+            var shareEmailController;
+            var mega = model;
+            var selectid = '';
+            var tempUrl = '';
+            var currentUrl = '';
+
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+            if (model.get("type") === "photo") {
+                photoObj = model.get("photo").objectAt(0);
+                shareEmailController = this.get('controllers.shareEmail');
+                selectid = model.id;
+                shareEmailController.setImageID(selectid);
+                tempUrl = photoObj.get('photo_image_original_url');
+                this.set("selectedPhoto", model.get("photo").objectAt(0));
+                currentUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
+                shareEmailController.setThumbnailUrl(tempUrl);
+                shareEmailController.setUrl(currentUrl);
+                shareEmailController.setUser();
+                shareEmailController.setRelatedController('itemFunction');
+                shareEmailController.setSelectedMega(selectid);
+                shareEmailController.setTitle(this.get('selectedPhoto').get('photo_title'));
+                $('#addEmail_' + model.id).attr('style', 'display: block');
+                this.set("isShareEmail", true);
+            }
+            else if (model.get("type") === "article")
+            {
+                photoObj = model.get("article").objectAt(0);
+                shareEmailController = this.get('controllers.shareEmail');
+                selectid = model.id;
+                shareEmailController.setImageID(selectid);
+                tempUrl = photoObj.get('article_image_url');
+                this.set("selectedArticle", model.get("article").objectAt(0));
+                currentUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedArticle').get('id');
+                shareEmailController.setThumbnailUrl(tempUrl);
+                shareEmailController.setUrl(currentUrl);
+                shareEmailController.setUser();
+                shareEmailController.setRelatedController('itemFunction');
+                shareEmailController.setTitle(this.get('selectedArticle').get('article_headline'));
+                shareEmailController.setSelectedMega(selectid);
+                $('#addEmail_' + model.id).attr('style', 'display: block');
+                this.set("isShareEmail", true);
+            }
+
+            else if (model.get("type") === "video")
+            {
+                shareEmailController = this.get('controllers.shareEmail');
+                selectid = model.id;
+                shareEmailController.setImageID(selectid);
+                tempUrl = model.get('object_image_url');
+                this.set("selectedVideo", model._data.videoes[0]);
+                currentUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo').id;
+                shareEmailController.setThumbnailUrl(this.get('selectedVideo').data.video_img);
+                shareEmailController.setUrl(currentUrl);
+                shareEmailController.setUser();
+                shareEmailController.setRelatedController('itemFunction');
+                shareEmailController.setTitle(this.get('selectedVideo').data.video_title);
+                shareEmailController.setSelectedMega(selectid);
+                $('#addEmail_' + model.id).attr('style', 'display: block');
+                this.set("isShareEmail", true);
+            }
+            $("#body_id").css("overflow", "hidden");
+        }
+
     }
+
 }
 );

@@ -11,7 +11,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     isUserself: false,
     isSelf: false,
     megaResouce: null,
-    needs: ['permission', 'applicationFeedback', 'profile', 'applicationFeedback', 'user', 'reviewList', 'review'],
+    needs: ['permission', 'applicationFeedback', 'profile', 'applicationFeedback', 'user', 'reviewList', 'review', 'shareEmail'],
     init: function()
     {
         if (localStorage.loginStatus !== null && localStorage.loginStatus !== 'undefined' && localStorage.loginStatus !== '') {
@@ -52,7 +52,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     },
     unLike: function()
     {
-        var review = this.get('model'); 
+        var review = this.get('model');
         var id = review.get("optional");
         var review_id = review.get("review_id");
         var review_people_like = review.get("review_people_like");
@@ -63,7 +63,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         {
             if (review_people_like.indexOf(localStorage.loginStatus) !== -1)
             {
-                var likeArray = [localStorage.loginStatus, id,review_id];
+                var likeArray = [localStorage.loginStatus, id, review_id];
                 likeArray = JSON.stringify(likeArray);
                 var that = this;
                 requiredBackEnd('reviews', 'Unlike', likeArray, 'POST', function(params) {
@@ -120,7 +120,8 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             {
                 review.deleteRecord();
                 this.get("controllers.profile").get('reviews').removeObject(review);
-                requiredBackEnd('reviews', 'Delete', review, 'POST', function(){});
+                requiredBackEnd('reviews', 'Delete', review, 'POST', function() {
+                });
                 break;
             }
         }
@@ -293,5 +294,34 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
                 'height=436,width=626'
                 ).focus();
         return false;
+    },
+    eShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+//            this.sendEventTracking('event', 'button', 'click', 'Contact us');
+//            var shareEmailController = this.get('controllers.shareEmail');
+//            shareEmailController.setSelectedMega(this.get('currentUserID'));
+//            document.getElementById('light').style.display = 'block';
+//            document.getElementById('fade').style.display = 'block';
+            this.set("isShareEmail", true);
+//        this.get("controllers.shareEmail").getClientId(this.get("Id"));
+
+
+//            this.set('contactChecking', !this.get('contactChecking'));
+            //return false;
+        }
     }
 });

@@ -135,7 +135,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
         $this->user->profile->description = (array_key_exists('bio', $data)) ? $data['bio'] : "";
         $this->user->profile->email = (array_key_exists('email', $data)) ? $data['email'] : "";
         $this->user->profile->emailVerified = (array_key_exists('email', $data)) ? $data['email'] : "";
-        $this->user->profile->region = (array_key_exists("hometown", $data) && array_key_exists("name", $data['hometown'])) ? $data['hometown']["name"] : "";
+        $this->user->profile->region = (array_key_exists("location", $data) && array_key_exists("name", $data['location'])) ? $data['location']["name"] : "";
 
         if (array_key_exists('birthday', $data)) {
             list($birthday_month, $birthday_day, $birthday_year) = explode("/", $data['birthday']);

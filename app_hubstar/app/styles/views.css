@@ -961,13 +961,13 @@ div.album-description-bg{
     right: 138px;
 }
 .previous-arrow-box{
-
+    cursor: url(../../images/previouscursor.png),auto;
     width: 50%; 
     height: 100%; 
     float: left;
 }
 .next-arrow-box{
-
+    cursor: url(../../images/nextcursor.png),auto;
     width: 50%; 
     height: 100%; 
     float: right;

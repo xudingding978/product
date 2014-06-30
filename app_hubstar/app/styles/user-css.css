@@ -61,6 +61,7 @@
     margin: 30px auto 20px;
     display: block; 
     text-align: center;
+    width: 100px;
 }
 
 .user-profilepic-container img{
@@ -697,10 +698,11 @@ textarea.add-interests{
     font-weight: bold;
 }
 
-.user-follow-style{
+.user-follow-style-top{
     margin: 15px auto;
-    width: 100px;
+    width: auto;
     display: block;
+     text-align: center;
 }
 
 .user-following-location-link{

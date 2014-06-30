@@ -1277,16 +1277,40 @@ div#appfeedback .fresh-message > i.fa-times{
 .Notification-Board > div:nth-child(odd){background-color: #fff}
 .Notification-Board > div:nth-child(even){background-color: #f4f6f8}
 
+#post-star{
+  overflow: auto; 
+  position: relative;
+  margin: 12px 0px 12px 20px; 
+  display: inline-block;  
+}
 
-#notititopbar > .mCustomScrollBox{
-
+#post-star-rating{
+    width: 35px; 
+    height: 35px;
+    line-height: 33px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+    border: 1px solid #ddd;
+    vertical-align: top;
+    margin: 6px;
+    box-shadow: initial;
+    background-color: #fff;
+    background-image: none;
+    cursor: default;
 }
 
 
 
 /*REVIEW PART STYLE*/
 
-.Add-review{
+.review-container{
+    margin:0 auto; 
+    padding: 0 0 15px 15px;
+}
+
+
+.review-wrapper{
     z-index: 11;
     background-color: white;  
     border-radius: 5px;
@@ -1301,7 +1325,69 @@ div#appfeedback .fresh-message > i.fa-times{
     overflow: hidden;
 }
 
-.Add-review .message-btn{
+.review-top{
+    width: 100%;
+    height: auto;
+    min-height: 50px;
+    padding: 10px 23px;
+}
+
+.review-middle{
+    background-color: #f4f6f8; 
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd; 
+    height: 50px; 
+    line-height: 50px; 
+    width: 100%
+}
+
+.review-textarea{
+    margin: 5px auto; 
+    padding: 0 15px;
+    height: 200px;
+}
+
+.review-buttons{
+  height: 41px;
+  position: absolute;
+  border-top: 1px solid #ddd;
+  bottom: 0;
+  width: 100%;  
+}
+
+
+
+.review-top > div{
+   font-size: 18px;
+   font-weight: bold;
+   color: #555; 
+   height: auto;
+   min-height: 50px;
+   vertical-align: middle;
+   display: inline-block;
+   width: 390px;
+}
+
+.review-top a{
+    display: inline-block; 
+    vertical-align: middle; 
+    float: left;
+}
+
+.review-top a img{
+    width: 45px;
+    height: 45px;
+    margin: 0 15px 0 0;
+    float: left;
+}
+
+.review-container .review-wrapper .message-btn{
+    height: 40px; 
+    line-height: 40px;
+    width: 50%;
+}
+
+ .review-wrapper .message-btn{
     height: 40px; 
     line-height: 40px;
     width: 33%;
@@ -2751,6 +2837,16 @@ div#appfeedback .fresh-message > i.fa-times{
 .selectfunction-container{
     height: auto;
     top:30%;
+    z-index: 11;
+    background-color: white;  
+    border-radius: 5px;
+    box-shadow: 0 0 20px #bbb;  
+    width: 500px;
+    margin: 0 auto; 
+    position: fixed; 
+    left: 0;
+    right: 0;
+    overflow: hidden;
 }
 
 .selectfunction-exit{
@@ -2811,3 +2907,4 @@ div#appfeedback .fresh-message > i.fa-times{
 .selectfunction-temp{
     width: 50% !important;
 }
+

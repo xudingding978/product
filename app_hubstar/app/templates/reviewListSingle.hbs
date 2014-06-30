@@ -126,7 +126,7 @@
     <img {{bindAttr src="model.review_user_photo_url"}} style=""/>
 </div>
 
-<div class="Add-review" style="overflow:hidden">
+<div class="review-wrapper">
 
     <div id="review_{{unbound model.review_id}}" style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
         <div {{action "showOneReview" model.review_id target="view" on="click"}} class="comment-namentime" style="display: block;position: relative;height: 35px;">

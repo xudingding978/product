@@ -1,7 +1,7 @@
 <div class="objectview-wrapper" >
     <div class="objectview-left">
         {{#if controller.collectable}}
-        {{render addCollection}}
+        {{render "addCollection" null}}
         {{/if}}
 
         <div class="top-controlbar easing">
@@ -69,7 +69,7 @@
             </div>
 
             {{#if controller.contact}}
-            {{render contact}}
+            {{render "contact" null}}
             {{/if}}
 
         </div>
@@ -235,7 +235,7 @@
                         </div>
                     </div>
                     {{else}}
-                    {{render editComment this}}   
+                    {{render "editComment" this}}   
                     {{/unless}}
 
                     {{/each}}

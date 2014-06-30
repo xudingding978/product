@@ -94,7 +94,7 @@
             <div  id="reply_{{unbound model.review_id}}"  style="display:none; max-height:200px;height:auto;">
 
                 {{#each model.reply_reviews}}
-                {{render reviewReplyListSingle this}}
+                {{render "reviewReplyListSingle" this}}
                 {{/each}}
 
             </div>

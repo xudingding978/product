@@ -1,7 +1,7 @@
 
 {{#if controller.loadingTime}}
 
-{{render loadingSpinner}}
+{{render "loadingSpinner" null}}
 
 {{/if}}
 <div style="width: 100%; margin: 100px auto; left: 0;right: 0;position: relative;display: block;">
@@ -75,43 +75,43 @@
         {{view HubStar.CollectionsView}}
         {{/if}} 
         {{#if videoTag}}
-        {{render profileVideos}}
+        {{render "profileVideos" null}}
         {{/if}} 
 
         {{#if pdfTag}}
-        {{render profilePdf}}
+        {{render "profilePdf" null}}
         {{/if}} 
 
         {{#if partnerTag}}
-        {{render profilePartners}}
+        {{render "profilePartners" null}}
         {{/if}} 
 
         {{#if followerProfileTag}}
-        {{render userFollowers}}
+        {{render "userFollowers" null}}
         {{/if}} 
 
         {{#if reviewTag}}
-        {{render reviewList}}
+        {{render "reviewList" null}}
         {{/if}} 
 
         {{#if followerTag}}
-        {{render userFollowers}}
+        {{render "userFollowers" null}}
         {{/if}} 
 
         {{#if followingTag}}
-        {{render userFollowings}}
+        {{render "userFollowings" null}}
         {{/if}} 
 
         {{#if messageTag}}
-        {{render messageCenter}}
+        {{render "messageCenter" null}}
         {{/if}}
 
         {{#if postTag}}
-        {{render userMessage}}
+        {{render "userMessage" null}}
         {{/if}}
         
         {{#if controller.groupNetwork}}
-        {{render groupNetwork}}
+        {{render "groupNetwork" null}}
         {{/if}}
     </div>
 

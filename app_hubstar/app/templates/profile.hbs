@@ -930,7 +930,7 @@
 
 
         {{#if editorAdd}}
-        {{render editEditors}}
+        {{render "editEditors" null}}
         {{/if}}
 
 
@@ -942,7 +942,7 @@
         {{else}}
 
 
-        {{render masonryCollectionItems}}
+        {{render "masonryCollectionItems" null}}
 
 
         {{/if}}
@@ -960,7 +960,7 @@
 
         {{#if controller.rateTime}}
 
-        {{render review this}}
+        {{render "review" this}}
 
 
         {{/if}}
@@ -986,5 +986,5 @@
 
 
         {{#if controller.contactChecking}}
-        {{render contact}}
+        {{render "contact" null}}
         {{/if}}

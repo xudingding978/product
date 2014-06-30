@@ -1,6 +1,6 @@
 
 {{#if controller.collectable}}
-{{render addCollection}}
+{{render "addCollection" null}}
 {{/if}}
 <div  id ="ssss" class="objectview-wrapper" >
 
@@ -384,7 +384,7 @@
                         </div>
                     </div>
                     {{else}}
-                    {{render editComment this}}
+                    {{render "editComment" this}}
                     {{/unless}}
 
                     {{/each}}
@@ -417,21 +417,21 @@
 
 {{/if}}
 {{#if controller.contact}}
-{{render contact}}
+{{render "contact" null}}
 {{/if}}
 <!--     show   tag's detail content  template-->
 <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->
 {{#if HubStar.tagging_display}}
 
 {{#if controller.enableEditTag}}
-{{render updateTag}}
+{{render "updateTag" null}}
 {{/if}}
 {{#if controller.makeSureActivateTag}}
 {{view HubStar.ActivateTagFunctionView}}
 {{/if}}
 {{#if  controller.enableTag}}
 {{#if controller.inImage}} <!--only when it within the image place can add the tag-->
-{{ render showTag }}
+{{ render "showTag" null}}
 {{/if}}
 {{/if}}
 

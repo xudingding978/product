@@ -4,7 +4,7 @@ HubStar.VideoController = Ember.Controller.extend({
     video_iframe_code: null,
     currentUser: null,
     enableToEdit: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'itemFunction'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'itemFunction', 'shareEmail'],
     getinitdata: function(videoObject)
     {
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
@@ -249,7 +249,11 @@ HubStar.VideoController = Ember.Controller.extend({
     closeContact: function() {
         this.set('contact', false);
     },
+    closeShareEmail: function() {
+        this.set('shareEmail', false);
+    },
     dropdownPhotoSetting: function(param) {
+        console.log("111");
         var tempUrl = this.get('megaResouce').get('object_image_url');
         this.set('sharePhotoUrl', tempUrl);
         this.set('sharePhotoName', "test");
@@ -396,6 +400,39 @@ HubStar.VideoController = Ember.Controller.extend({
                 'height=436,width=626'
                 ).focus();
         return false;
+    },
+    eShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            this.set('descript', this.get('videoObject').get("videoTitle"));
+            var currentUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
+            var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+
+            var shareEmailController = this.get('controllers.shareEmail');
+            var selectid = this.get('megaResouce').id;;
+            shareEmailController.setImageID(selectid);
+            var tempUrl = this.get('megaResouce').get('object_image_url');
+            shareEmailController.setThumbnailUrl(tempUrl);
+            shareEmailController.setUrl(currentUrl);
+            shareEmailController.setUser();
+            shareEmailController.setRelatedController('video');
+            shareEmailController.setSelectedMega(selectid);
+            shareEmailController.setTitle(this.get('descript'));
+            this.set("isShareEmail", true);
+//        this.get("controllers.shareEmail").getClientId(this.get("Id"));
+
+        }
     },
     editingPhotoMegaData: function() {
         this.set('enableToEdit', !this.get('enableToEdit'));

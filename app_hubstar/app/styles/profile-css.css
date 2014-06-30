@@ -386,9 +386,9 @@ input{
     max-width: 1260px;
     min-width: 1250px;
     overflow: hidden;
-/*    font-size: .8em; 
-    -webkit-perspective: 600px;
-    -moz-perspective: 600px;*/
+    /*    font-size: .8em; 
+        -webkit-perspective: 600px;
+        -moz-perspective: 600px;*/
 }
 
 .main-title{
@@ -1276,7 +1276,7 @@ div#appfeedback .fresh-message > i.fa-times{
 .Notification-Board > div:nth-child(even){background-color: #f4f6f8}
 
 
-#notititopbar > .mCustomScrollBox{
+#notifitopbar > .mCustomScrollBox{
 
 }
 
@@ -1695,7 +1695,7 @@ div#appfeedback .fresh-message > i.fa-times{
 
 /*  aboutUsTemplate   by Ally  */
 .cursor-pointer{
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .input-box{
@@ -2157,7 +2157,7 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .profile-row > .profile-col1{
-     display:table-cell;
+    display:table-cell;
     text-align: right; 
     width: 25%;
 }
@@ -2165,17 +2165,17 @@ div#appfeedback .fresh-message > i.fa-times{
 
 .profile-row > .profile-col2{
     display:table-cell;
-     
+
 }
 
 .profile-row > .profile-col3{
-     display:table-cell;
+    display:table-cell;
     text-align: right; 
     width: 31%;
 }
 
 .profile-row > .profile-col4{
-     display:table-cell;
+    display:table-cell;
     text-align: right; 
     width: 25%;
 }

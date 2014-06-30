@@ -1133,3 +1133,68 @@ textarea.add-interests{
     width:100%;
     z-index:-1;
 }
+
+/* notification */
+
+.notification-content{
+    padding: 15px 0 0 95px;
+    position: relative;
+}
+
+.notification-content a{
+    position: absolute; 
+    top: 18px;
+    left: 42px;
+}
+
+.notification-content a img{
+    border-radius: 50%; 
+    width: 40px; 
+    height: 40px; 
+    border: 1px solid #f3f3f3;
+}
+
+.notification-name{
+    display: inline-block; 
+    vertical-align: top; 
+    font-size: 13px;
+}
+
+notification-context{
+     width: 387px;
+     height: 35px;
+     text-overflow: ellipsis;
+}
+
+.notification-preview-tag{
+    left: 95px;
+    position: relative;
+    top: -20px; 
+    float: left;
+}
+
+.notification-buttons{
+    right: 60px;
+    position: relative;
+    top: -20px; 
+    float: right;
+}
+
+
+.notification-edit-buttons{
+    right: -135px;
+    position: relative;
+    float: right;
+    top: -60px;
+}
+
+.notification-edit-buttons-before{
+    right: 25px;
+    position: relative;
+    float: right;
+    top: -20px;
+}
+
+
+
+

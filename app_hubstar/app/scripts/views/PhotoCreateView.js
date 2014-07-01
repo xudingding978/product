@@ -1,9 +1,8 @@
 
 
-HubStar.PhotoCreateView = Ember.View.extend(HubStar.PhotoCreateController.Droppable, {
+HubStar.PhotoCreateView = Ember.View.extend(HubStar.SingleFileUploaderController.Droppable, {
 
     contentBinding: "photoCreate",
-  
     drop: function(event) {
         var dataTransfer = event.originalEvent.dataTransfer;
         var files = dataTransfer.files;

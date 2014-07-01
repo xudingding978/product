@@ -11,7 +11,7 @@ HubStar.AfterLoginView = Ember.View.extend({
         this.resetTopAd();
         localStorage.removeItem('loginStatus');
         document.cookie = 'Session=; path=/; domain=.trendsideas.com; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-        location.reload();       
+        location.reload();
     },
     resetTopAd: function() {
         var tempComment = [localStorage.loginStatus];
@@ -33,7 +33,7 @@ HubStar.AfterLoginView = Ember.View.extend({
     userDisplaynone: function(checking) {
         if (checking === "myUserProfile") {
             location.href = this.get("controller").get("myUserProfile");
-           // $("#user-dd-menu").attr("style", "display:none");
+            // $("#user-dd-menu").attr("style", "display:none");
             this.get("controller").set('userProfile', false);
             $("#cancel").css("display", "none");
             $(window).scrollTop(0);
@@ -46,15 +46,17 @@ HubStar.AfterLoginView = Ember.View.extend({
         } else if (checking === "about") {
 
             window.open('http://about.trendsideas.com/');
+            this.get("controller").set('userProfile', false);
             $("#user-dd-menu").attr("style", "display:none");
             $("#cancel").css("display", "none");
 
         } else if (checking === "new") {
-             $("#cancel").css("display", "none");
-              this.get("controller").set("newProfile", true);
+            $("#cancel").css("display", "none");
+            this.get("controller").set('userProfile', false);
+            this.get("controller").set("newProfile", true);
         }
         else if (checking === "newGroup") {
-            location.href = "#/groups/new";           
+            location.href = "#/groups/new";
             this.get("controller").set('userProfile', false);
             //$("#user-dd-menu").attr("style", "display:none");
             $("#cancel").css("display", "none");
@@ -66,10 +68,10 @@ HubStar.AfterLoginView = Ember.View.extend({
         $("#cancel").css("display", "none");
     },
     startTour: function() {
-
+        this.get("controller").set('userProfile', false);
         $("#user-dd-menu").attr("style", "display:none");
         $("#profileDashboard").attr("style", "display:none");
-       $("#profilePanel").removeClass("panel");
+        $("#profilePanel").removeClass("panel");
         $(".brand").addClass("tour-background");
         $(".Geo-Filter").addClass("tour-background");
         $("#login_detail").addClass("tour-background");

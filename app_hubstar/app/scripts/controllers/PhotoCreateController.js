@@ -163,6 +163,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             });
             var masonryCollectionItemsController = this.get('controllers.masonryCollectionItems');
             masonryCollectionItemsController.get("uploadImageContent").addObject(mega);
+            masonryCollectionItemsController.set("createTime", ""+new Date());
         }
         else
         {
@@ -209,8 +210,9 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                     else {
                         collection.set("collection_ids", params);
                     }
+                    collection.set("updated_at", new Date());
                     HubStar.get('selectedCollection').collection_ids = collection.get("collection_ids");
-                    collection.store.save();
+                    collection.save();
                 });
             }
             else {
@@ -222,8 +224,9 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                     else {
                         collection.set("collection_ids", params);
                     }
+                    collection.set("updated_at", new Date());
                     HubStar.get('selectedCollection').collection_ids = collection.get("collection_ids");
-                    collection.store.save();
+                    collection.save();
                 });
             }
         }
@@ -236,7 +239,8 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 else {
                     collection.set("collection_ids", params);
                 }
-                collection.store.save();
+                collection.set("updated_at", new Date());
+                collection.save();
             });
         }
     }

@@ -61,6 +61,7 @@
     margin: 30px auto 20px;
     display: block; 
     text-align: center;
+    width: 100px;
 }
 
 .user-profilepic-container img{
@@ -697,10 +698,11 @@ textarea.add-interests{
     font-weight: bold;
 }
 
-.user-follow-style{
+.user-follow-style-top{
     margin: 15px auto;
-    width: 100px;
+    width: auto;
     display: block;
+     text-align: center;
 }
 
 .user-following-location-link{
@@ -1169,14 +1171,14 @@ notification-context{
 .notification-preview-tag{
     left: 95px;
     position: relative;
-    top: -20px; 
+    top: 10px; 
     float: left;
 }
 
 .notification-buttons{
     right: 60px;
     position: relative;
-    top: -20px; 
+    top: 10px; 
     float: right;
 }
 
@@ -1185,14 +1187,14 @@ notification-context{
     right: -135px;
     position: relative;
     float: right;
-    top: -60px;
+    top: -25px;
 }
 
 .notification-edit-buttons-before{
     right: 25px;
     position: relative;
     float: right;
-    top: -20px;
+    top: -25px;
 }
 
 

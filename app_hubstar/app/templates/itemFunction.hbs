@@ -15,6 +15,7 @@
           <i class="fa fa-thumbs-up">&nbsp;<span class="itemfunction-font">{{model.likes_count}}</span>&nbsp;</i>
     </div>
 
+
     {{/if}}
 
     {{#if model.getArticle}}
@@ -33,7 +34,9 @@
     </div>
     {{/if}}
 
+
     <div id="share_{{unbound model.id}}" class="object-type easing" >
+
         {{#if model.getArticle}}
         <div data-hint="Share this article" class="hint--top hint--rounded" {{action shareDisplay model.id on="click"}}>
             <i class="fa fa-share itemfunction-icon" >&nbsp;<span class="itemfunction-font">{{model.share_count}}</span>&nbsp</i>
@@ -64,8 +67,16 @@
             <li class="ite" {{action gpShare model}}>
                 <i class="fa fa-google-plus share-type share-type-pos2" ></i><span class="share-type-txt2" >Google+</span>
             </li>
+
+            <li id="shareEmail" class="ite" {{action eShare model}}>
+                <img src="../../../images/sent.png" style="width: 16px;height: 16px">
+                <i class="send_email" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 1.5em">E-mail</span>
+            </li>
         </ul>
     </div>
 
 </div>
 {{/if}}
+<div id="addEmail_{{unbound model.id}}"  style="display: none">
+    {{render shareEmail}}
+</div>

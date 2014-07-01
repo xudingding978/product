@@ -143,29 +143,30 @@ HubStar.ArticleController = Ember.Controller.extend({
             var currentUser = HubStar.User.find(localStorage.loginStatus);
             var that = this;
             currentUser.then(function() {
-                var photo_owner_email = currentUser.get("email"); //photo owner contact email address
-                var endOfEmail = "";
-                if (photo_owner_email.search("@") !== -1)
-                {
-                    endOfEmail = photo_owner_email.split("@")[1];
-
-                    var trendsAccountEmail = "trendsideas.com"; //all trends account can have the edit right;
-                    if ((currentUser.get("profiles") !== null && currentUser.get("profiles") !== undefined && currentUser.get("profiles") !== "") || trendsAccountEmail === endOfEmail)
-                    {
-                        if (currentUser.get("profiles").get("length") > 0 || trendsAccountEmail === endOfEmail)
-                        {
-                            that.set("isBusinessProfile", true);
-                        }
-                        else
-                        {
-                            that.set("isBusinessProfile", false);
-                        }
-                    }
-                }
-                else
-                {
-                    that.set("isBusinessProfile", false);
-                }
+//                var photo_owner_email = currentUser.get("email"); //photo owner contact email address
+//                var endOfEmail = "";
+//                if (photo_owner_email.search("@") !== -1)
+//                {
+//                    endOfEmail = photo_owner_email.split("@")[1];
+//
+//                    var trendsAccountEmail = "trendsideas.com"; //all trends account can have the edit right;
+//                    if ((currentUser.get("profiles") !== null && currentUser.get("profiles") !== undefined && currentUser.get("profiles") !== "") || trendsAccountEmail === endOfEmail)
+//                    {
+//                        if (currentUser.get("profiles").get("length") > 0)
+//                        {
+//                            that.set("isBusinessProfile", true);
+//                        }
+//                        else
+//                        {
+//                            that.set("isBusinessProfile", false);
+//                        }
+//                    }
+//                }
+//                else
+//                {
+//                    that.set("isBusinessProfile", false);
+//                }
+                that.set("isBusinessProfile", currentUser.get("profileSave"));
             });
         }
     },

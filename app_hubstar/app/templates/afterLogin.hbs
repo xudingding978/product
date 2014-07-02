@@ -50,7 +50,7 @@
             <span>Group</span>
         </a>
     </li>
-     {{render newGroupTopDisplay HubStar.groups}}
+     {{render "newGroupTopDisplay" HubStar.groups}}
    
     {{/if}}
 
@@ -71,5 +71,5 @@
 
 
 {{#if controller.newProfile}} 
-{{render newProfileDisplay HubStar.profiles}} 
+{{render "newProfileDisplay" HubStar.profiles}} 
 {{/if}}

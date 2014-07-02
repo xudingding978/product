@@ -949,11 +949,11 @@
 
 
         {{#if editorAdd}}
-        {{render editEditors}}
+        {{render "editEditors" null}}
         {{/if}}
 
         {{#if isShareEmail}}
-        {{render shareEmail}}
+        {{render "shareEmail" null}}
         {{/if}}
         
         {{#if controller.switchPhoto}}
@@ -964,7 +964,7 @@
         {{else}}
 
 
-        {{render masonryCollectionItems}}
+        {{render "masonryCollectionItems" null}}
 
 
         {{/if}}
@@ -982,7 +982,7 @@
 
         {{#if controller.rateTime}}
 
-        {{render review this}}
+        {{render "review" this}}
 
 
         {{/if}}
@@ -1008,5 +1008,6 @@
 
 
         {{#if controller.contactChecking}}
-        {{render contact}}
+
+        {{render "contact" null}}
         {{/if}}

@@ -1,8 +1,9 @@
+
 HubStar.PdfUploaderView = Ember.View.extend( HubStar.SingleFileUploaderController.Droppable, {
+
     contentBinding: 'pdfUploader',
-    
-      didInsertElement: function() {
-         $(document).ready(function() {
+    didInsertElement: function() {
+        $(document).ready(function() {
             $('#pdfInformation').mCustomScrollbar({
                 scrollButtons: {
                     enable: false,
@@ -20,7 +21,7 @@ HubStar.PdfUploaderView = Ember.View.extend( HubStar.SingleFileUploaderControlle
                 set_height: 470
             });
         });
-        
+
 //          $( "#pdfUploaderData" )
 //  .hover(function() {
 //   this.get("controller").set("pdfInfromationEdit", false);
@@ -28,60 +29,60 @@ HubStar.PdfUploaderView = Ember.View.extend( HubStar.SingleFileUploaderControlle
 //   this.get("controller").set("pdfInfromationEdit", true);
 //  });
 
-$("#pdfUploaderData").hide();
+        $("#pdfUploaderData").hide();
         var dragTimer;
-        $(document).on('dragover', function (e) {
+        $(document).on('dragover', function(e) {
             var dt = e.originalEvent.dataTransfer;
             if (dt.types !== null && (dt.types.indexOf ? dt.types.indexOf('Files') !== -1 : dt.types.contains('application/x-moz-file'))) {
                 $("#pdfUploaderData").show();
                 window.clearTimeout(dragTimer);
             }
         });
-        $(document).on('dragleave', function (e) {
+        $(document).on('dragleave', function(e) {
             window.clearTimeout(dragTimer);
-            dragTimer = window.setTimeout(function () {
+            dragTimer = window.setTimeout(function() {
                 $("#pdfUploaderData").hide();
             }, 300);
         });
-        
-        
 
-     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
- 
-        
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //    drop: function(event) {
 //        var dataTransfer = event.originalEvent.dataTransfer;
 //        var files = dataTransfer.files;

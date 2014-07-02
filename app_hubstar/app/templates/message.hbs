@@ -139,7 +139,7 @@
                 </div>
             </div>
             {{else}}
-            {{render editReply this}}
+            {{render "editReply" this}}
             {{/unless}}
             {{/each}}     
         </div>
@@ -160,7 +160,7 @@
 
     {{else}}
 
-    {{render editMessage model}}
+    {{render "editMessage" model}}
     {{/unless}}
 </div>
 

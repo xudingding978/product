@@ -18,7 +18,7 @@
         <div  id="pdfInformation" >
             {{#if controller.loadingTime}}
 
-            {{render loadingSpinner}}
+            {{render "loadingSpinner" null}}
 
             {{/if}}
             {{#each pdfArray}}         

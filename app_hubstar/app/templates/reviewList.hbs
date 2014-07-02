@@ -1,13 +1,13 @@
 {{#if controller.loadingTime}}
 
-{{render loadingSpinner}}
+{{render "loadingSpinner" null}}
 
 {{/if}}
 
 
 <div class="review-list-container">
     {{#each model.reviews}} 
-    {{render reviewListSingle this}}
+    {{render "reviewListSingle" this}}
     {{/each}}
 </div>
 

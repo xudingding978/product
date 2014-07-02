@@ -1,7 +1,7 @@
 
 {{#if controller.loadingTime}}
 
-{{render "loadingSpinner" null}}
+{{render "loadingSpinner"}}
 
 {{/if}}
 {{#if controller.is_authentic_user}}
@@ -40,6 +40,6 @@
 {{/if}}
 
 {{#if controller.is_video_create_mode}}
-{{render "addVideo" null}}
+{{render "addVideo"}}
 {{/if}}
 

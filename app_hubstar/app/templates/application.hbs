@@ -40,7 +40,7 @@
         {{outlet "profileNew"}}
         {{outlet "groupsNew"}}
         {{#if controller.islogin}}
-        {{render "footer" null}}
+        {{render "footer"}}
         {{/if}}
     </div>
     {{outlet photos}}
@@ -49,11 +49,11 @@
 
 
     {{#if controller.loadingTime}}
-    {{render "loadingSpinner" null}}
+    {{render "loadingSpinner"}}
     {{/if}}
-    {{render "applicationFeedback" null}}
+    {{render "applicationFeedback"}}
     {{#if controller.loginTime}}
-    {{render "loadingSpinner" null}}
+    {{render "loadingSpinner"}}
     {{/if}}
     {{/if}}
 </div>
@@ -70,7 +70,7 @@
 
 {{#if HubStar.checkLoginStatus}}
 
-{{render "loginModal" null}}       
+{{render "loginModal"}}       
 
 {{/if}}
 

@@ -18,20 +18,20 @@
 
     <div class="Message-menu-messages-container" >
 
-        {{render "conversation" null}}
+        {{render "conversation"}}
 
     </div>
 </div>
 
 
 {{#if isNotification}}     
-{{render "notification" null}}
+{{render "notification"}}
 {{/if}}
 
 {{#if isNewConversation}}
-{{render "newConversation" null}}
+{{render "newConversation"}}
 {{/if}}
 
 {{#if isConversationItem}}
-{{render "conversationItem" null}}
+{{render "conversationItem"}}
 {{/if}}

@@ -1,7 +1,7 @@
 
 
 {{#if controller.collectable}}
-{{render "addCollection" null}}
+{{render "addCollection"}}
 {{/if}}
 <div class="objectview-wrapper this-is-an-article" >
 
@@ -363,25 +363,25 @@
 
 
 {{#if controller.contact}}
-{{render "contact" null}}
+{{render "contact"}}
 {{/if}}
 
 
 {{#if isShareEmail}}
-{{render "shareEmail" null}}
+{{render "shareEmail"}}
 {{/if}}
 
 <!--     show add new  tag template-->   
 {{#if HubStar.tagging_display}}
 {{#if controller.enableEditTag}}
-{{render "updateTag" null}}
+{{render "updateTag"}}
 {{/if}}
 {{#if controller.makeSureActivateTag}}
 {{view HubStar.ActivateTagFunctionView}}
 {{/if}}
 {{#if  controller.enableTag}}      
 {{#if controller.inImage}} <!--only when it within the image place can add the tag-->
-{{  render "showTag" null}}
+{{  render "showTag"}}
 {{/if}}
 {{/if}}
 <!--     show   tag's detail content  template-->   

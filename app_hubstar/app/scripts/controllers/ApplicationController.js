@@ -82,6 +82,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     total_profiels: 0,
     init: function() {
         HubStar.set("isTopAdDisplay", true);
+        HubStar.set("isAddCollection", false);
+        
         var that = this;
 
         this.set('categorys', HubStar.Cate.find({}));

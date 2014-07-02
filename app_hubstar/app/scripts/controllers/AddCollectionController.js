@@ -319,8 +319,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         else if (this.get('parentTController') === 'itemFunction')
         {
             var id = this.get("objectID");
-            //console.log(id);
-            $('#addCollection_' + id).attr('style', 'display: none');
+            HubStar.set("isAddCollection",false);
         }
 
         else if (this.get('parentTController') === 'video')

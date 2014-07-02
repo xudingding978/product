@@ -25,7 +25,6 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 addCollectionController.setThumbnailUrl(tempUrl);
                 addCollectionController.setUser();
                 addCollectionController.setRelatedController('itemFunction');
-                $('#addCollection_' + model.id).attr('style', 'display: block');
             }
             else if (model.get("type") === "article")
             {
@@ -37,7 +36,6 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 addCollectionController.setThumbnailUrl(tempUrl);
                 addCollectionController.setUser();
                 addCollectionController.setRelatedController('itemFunction');
-                $('#addCollection_' + model.id).attr('style', 'display: block');
             }
 
             else if (model.get("type") === "video")
@@ -49,8 +47,8 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 addCollectionController.setThumbnailUrl(tempUrl);
                 addCollectionController.setUser();
                 addCollectionController.setRelatedController('itemFunction');
-                $('#addCollection_' + model.id).attr('style', 'display: block');
-            }
+            }            
+            HubStar.set("isAddCollection",true);
             $("#body_id").css("overflow", "hidden");
         }
     },

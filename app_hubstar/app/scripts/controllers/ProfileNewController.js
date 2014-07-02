@@ -292,7 +292,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
 
 
 
-        this.set("profile_url", this.spaceChecking(this.get("profile_name").toLowerCase().replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')) + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase()) + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
+        this.set("profile_url", this.spaceChecking(this.get("profile_name").toLowerCase().replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')) + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase().replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')) + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase().replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')));
 
 
     },

@@ -960,9 +960,10 @@ div#appfeedback .fresh-message > i.fa-times{
 .mCSB_container > div:hover .reply-comment{opacity: .8}
 
 .Message-Board_comment-container .profilepic-comment-container{ left: 6.5%; top: 18px;}
+
 .your-relpy_profilepic{
     position:absolute;
-    right:6.5%;
+    left:6.5%;
     margin:3px 0 0;
 }
 
@@ -1275,16 +1276,40 @@ div#appfeedback .fresh-message > i.fa-times{
 .Notification-Board > div:nth-child(odd){background-color: #fff}
 .Notification-Board > div:nth-child(even){background-color: #f4f6f8}
 
+#post-star{
+    overflow: auto; 
+    position: relative;
+    margin: 12px 0px 12px 20px; 
+    display: inline-block;  
+}
 
-#notifitopbar > .mCustomScrollBox{
-
+#post-star-rating{
+    width: 35px; 
+    height: 35px;
+    line-height: 33px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+    border: 1px solid #ddd;
+    vertical-align: top;
+    margin: 6px;
+    box-shadow: initial;
+    background-color: #fff;
+    background-image: none;
+    cursor: default;
 }
 
 
 
 /*REVIEW PART STYLE*/
 
-.Add-review{
+.review-container{
+    margin:0 auto; 
+    padding: 0 0 15px 15px;
+}
+
+
+.review-wrapper{
     z-index: 11;
     background-color: white;  
     border-radius: 5px;
@@ -1293,13 +1318,75 @@ div#appfeedback .fresh-message > i.fa-times{
     height: 350px;
     margin: 0 auto; 
     position: fixed; 
-    top: 15%;
+    top: 20%;
     left: 0;
     right: 0;
     overflow: hidden;
 }
 
-.Add-review .message-btn{
+.review-top{
+    width: 100%;
+    height: auto;
+    min-height: 50px;
+    padding: 10px 23px;
+}
+
+.review-middle{
+    background-color: #f4f6f8; 
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd; 
+    height: 50px; 
+    line-height: 50px; 
+    width: 100%
+}
+
+.review-textarea{
+    margin: 5px auto; 
+    padding: 0 15px;
+    height: 200px;
+}
+
+.review-buttons{
+    height: 41px;
+    position: absolute;
+    border-top: 1px solid #ddd;
+    bottom: 0;
+    width: 100%;  
+}
+
+
+
+.review-top > div{
+    font-size: 18px;
+    font-weight: bold;
+    color: #555; 
+    height: auto;
+    min-height: 50px;
+    vertical-align: middle;
+    display: inline-block;
+    width: 390px;
+}
+
+.review-top a{
+    display: inline-block; 
+    vertical-align: middle; 
+    float: left;
+}
+
+.review-top a img{
+    width: 45px;
+    height: 45px;
+    margin: 0 15px 0 0;
+    float: left;
+}
+
+.review-container .review-wrapper .message-btn{
+    height: 40px; 
+    line-height: 40px;
+    width: 50%;
+}
+
+.review-wrapper .message-btn{
     height: 40px; 
     line-height: 40px;
     width: 33%;
@@ -1320,7 +1407,7 @@ div#appfeedback .fresh-message > i.fa-times{
 .review-list-profile-pic{
     height: 80px;
     width: 80px;
-    z-index: 22;
+    z-index: 9;
     position: relative; 
     border: 3px solid #f3f3f3; 
     border-radius: 50%;
@@ -1328,6 +1415,11 @@ div#appfeedback .fresh-message > i.fa-times{
     box-shadow: 0 0 5px #aaa;
     top: -5px;
     float:left;
+}
+
+.review-list-profile-pic a{
+    display: block;
+    position: relative;
 }
 
 .review-list-content{
@@ -1345,6 +1437,237 @@ div#appfeedback .fresh-message > i.fa-times{
 .review-list-content:hover, .review-list-content.active{
     opacity: 1!important;
 }
+
+.review-list-content-top{
+    background-color: #f3f3f3;
+    padding: 5px 5px 10px 70px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 3px 3px 0 0;  
+}
+
+.review-list-user-name{
+    display: block;
+    position: relative;
+    height: 35px;
+}
+
+.review-list-name-position{
+    margin: 0;float: left;
+    margin-right: 70px;
+}
+
+.review-list-star-position{
+    position: absolute; 
+    right: 0;
+    margin: 7px;
+}
+
+.review-list-content-middle{
+    background-color: #fff; 
+    padding: 10px 40px; 
+    font-size: 13px;  
+}
+
+.review-list-single-context{
+    width: 390px; 
+    max-height:100px;
+    line-height:20px; 
+    position: relative;
+    display: inline-block;
+    overflow: hidden; 
+}
+
+.review-list-button-more{
+    position: relative;  
+    font-size: 13px; 
+    color: #555;
+    margin: 10px 0; 
+    display:inline-block;
+}
+
+.review-list-button-collapse{
+    position: relative;  
+    font-size: 13px; 
+    color: #555;
+    margin: 10px 0; 
+    display:none;
+}
+
+.review-list-button-like-share{
+    position: relative; 
+    display: block;
+    margin: 15px 0 10px;
+    height: 20px;
+    width: 100%;
+}
+
+.review-list-share-button{
+    float: right; 
+    font-size: 13px;
+    margin-right: 5px;
+}
+
+.review-list-share-button-left{
+    float: left; 
+    font-size: 13px;
+    margin-right: 5px;
+}
+
+.review-drop-list{
+    width: 150px;  
+    padding: 0;
+    right: 0px;
+    left: 278px;
+    position:absolute;
+    top: 25px;
+}
+
+.review-reply-content{
+    margin:0 auto; 
+    padding: 0 45px 15px 0;
+}
+
+.review-reply-content img{
+    float: right; 
+    margin: 4px -10px 0 0; 
+    margin-top: 0; 
+}
+
+.review-reply-content-textarea{
+    width: 378px;
+    height: 32px;
+}
+
+.review-reply-content-textarea-size{
+    margin: 0;
+    width: 345px;
+    height: 30px;
+    float: left;
+}
+.review-reply-content-send{
+    float: right;
+    height: 34px;
+    position: relative;
+}
+
+.review-replay-view-comment{
+    display:block; 
+    background-color: #f3f3f3;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+    border-top: 1px solid #ddd;
+    border-radius: 0 0 3px 3px;
+}
+
+.review-replay-up-comment{
+    display:none; 
+    background-color: #f3f3f3;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+    border-top: 1px solid #ddd;
+    border-radius: 0 0 3px 3px;
+}
+
+.review-relay-replay{
+    display:none; 
+    max-height:200px;
+    height:auto;
+}
+
+
+.review-edit-user-picture{
+    height: 80px;
+    width: 80px;
+    position: fixed;
+    border: 3px solid #f3f3f3;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 5px #aaa;
+    top: 120px;
+    left: 0px;
+    right: 470px;
+    z-index: 12;
+    margin: 0 auto;
+    display: block;  
+}
+
+
+.review-edit-top{
+    background-color: #f3f3f3;
+    padding: 5px 5px 10px 70px;
+    border-bottom: 1px solid #ddd; 
+}
+
+
+.review-edit-content{
+    margin: 20px auto 5px;
+    padding: 0 15px;
+    height: 200px;
+}
+
+.review-edit-buttons{
+    height: 41px;
+    position: absolute;
+    border-top: 1px solid #ddd;
+    bottom: 0;
+    width: 100%;
+}
+
+.review-edit-width{
+    width: 50% !important;
+}
+
+
+.review-edit-reply{
+    padding: 10px 35px;
+    border-bottom: 1px solid #ddd;
+}
+
+.review-edit-reply > div{
+    margin:0 auto; padding: 0 40px 0 0;  
+}
+
+.review-edit-reply > div a img {
+    float: right; 
+    margin: 4px -40px 0 0; 
+    margin-top: 0;
+}
+
+.review-edit-reply-buttons{
+    float: right;
+    bottom: 50px;
+    position: relative;
+    left: 15px;
+    font-size: 12px;
+}
+
+.review-edit-reply-buttons-style-yours{
+    left: 40px;
+    top: 10px;
+}
+
+.review-edit-reply-buttons-style{
+    top: 10px;
+    right: 390px;
+}
+
+.review-your-reply{
+    padding: 10px 75px 10px 35px;
+}
+
+.review-your-reply-style{
+    right: 6.5%;
+    position: absolute; 
+    margin: 3px 0 0;
+}
+
+.review-text-align{
+    text-align: left;
+}
+
+
 
 
 .profilegb div.profile-wallpaper{
@@ -2753,6 +3076,16 @@ div#appfeedback .fresh-message > i.fa-times{
 .selectfunction-container{
     height: auto;
     top:30%;
+    z-index: 11;
+    background-color: white;  
+    border-radius: 5px;
+    box-shadow: 0 0 20px #bbb;  
+    width: 500px;
+    margin: 0 auto; 
+    position: fixed; 
+    left: 0;
+    right: 0;
+    overflow: hidden;
 }
 
 .selectfunction-exit{
@@ -2813,6 +3146,7 @@ div#appfeedback .fresh-message > i.fa-times{
 .selectfunction-temp{
     width: 50% !important;
 }
+
 
 /* itemprofiles.hbs */
 .itemprofiles-edit{
@@ -3087,6 +3421,7 @@ div#appfeedback .fresh-message > i.fa-times{
     display:inline-block;
 }
 
+
 .photocreateinfo-editinfo-des{
     top: -25px; 
     position: relative;
@@ -3172,7 +3507,7 @@ div#appfeedback .fresh-message > i.fa-times{
 
 /* profilePartners.hbs */
 .z-index-0{
-    z-index: 0
+    z-index: 0;
 }
 
 .float-left{
@@ -3182,3 +3517,4 @@ div#appfeedback .fresh-message > i.fa-times{
 .height-100{
     height: 100%;
 }
+

@@ -3672,6 +3672,15 @@ div.album-description-bg{
     position: absolute;
 }
 
+/*------show album --------*/
+
+.show-album-content{
+    margin: 15px;
+    overflow: auto;
+    height: 225px;
+    width: 100%;
+}
+
 
 
 

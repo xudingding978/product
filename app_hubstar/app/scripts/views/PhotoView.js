@@ -33,7 +33,7 @@ HubStar.PhotoView = Ember.View.extend({
                 {
                     var pic_w = HubStar.get("pic_current_width");
                     var pic_h = HubStar.get("pic_current_height");
-                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) && 
+                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) &&
                             (Math.ceil(event.clientY) > Math.ceil(top) && Math.ceil(event.clientY) < Math.ceil(top) + Math.ceil(pic_h))) {
                         that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
                     }
@@ -90,7 +90,7 @@ HubStar.PhotoView = Ember.View.extend({
                 {
                     var pic_w = HubStar.get("pic_current_width");
                     var pic_h = HubStar.get("pic_current_height");
-                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) && 
+                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) &&
                             (Math.ceil(event.clientY) > Math.ceil(top) && Math.ceil(event.clientY) < Math.ceil(top) + Math.ceil(pic_h))) {
                         that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
                     }
@@ -235,26 +235,28 @@ HubStar.PhotoView = Ember.View.extend({
                             adDiv.style.display = "block";
                             adDiv.style.height = height + "px";
                             adDiv.style.width = width + "px";
-                            photo.appendChild(adDiv);
-                            if (ad.isNew === true) {
-                                googletag.cmd.push(function() {
-                                    var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-                                    ad.slot1 = slot1;
-                                    googletag.pubads().enableSingleRequest();
-                                    googletag.enableServices();
-                                    googletag.display(ad.div);
-                                    googletag.pubads().refresh([slot1]);
-                                });
-                                ad.isNew = false;
-                            }
-                            else
-                            {
-                                googletag.cmd.push(function() {
-                                    googletag.pubads().enableSingleRequest();
-                                    googletag.enableServices();
-                                    googletag.display(ad.div);
-                                    googletag.pubads().refresh([ad.slot1]);
-                                });
+                            if (photo !== null) {
+                                photo.appendChild(adDiv);
+                                if (ad.isNew === true) {
+                                    googletag.cmd.push(function() {
+                                        var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                                        ad.slot1 = slot1;
+                                        googletag.pubads().enableSingleRequest();
+                                        googletag.enableServices();
+                                        googletag.display(ad.div);
+                                        googletag.pubads().refresh([slot1]);
+                                    });
+                                    ad.isNew = false;
+                                }
+                                else
+                                {
+                                    googletag.cmd.push(function() {
+                                        googletag.pubads().enableSingleRequest();
+                                        googletag.enableServices();
+                                        googletag.display(ad.div);
+                                        googletag.pubads().refresh([ad.slot1]);
+                                    });
+                                }
                             }
                         }
                     }

@@ -2748,6 +2748,11 @@ div.album-description-bg{
     margin-left: 2.5em;
 }
 
+.share-type-email{
+    width: 16px;
+    height: 16px;
+}
+
 .mainfeature_object2{
     z-index: 0;
     text-align: center;

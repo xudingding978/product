@@ -1615,7 +1615,7 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .review-edit-width{
-    width: 50%;
+    width: 50% !important;
 }
 
 

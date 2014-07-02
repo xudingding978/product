@@ -26,7 +26,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.set('content', []);
         this.set('type', "user");
         this.set('collection_id', collection_id);
-        this.set('');
         this.set("isUser", true);
         $(document).ready(function() {
             setTimeout(function() {
@@ -55,50 +54,52 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     this.set("createTime", date + "");
                 }
                 else
-                    {
-                        this.set("createTime",  "Wed Jan 01 2014 00:00:00 GMT+1200 (NZST)");
-                    }
+                {
+                    this.set("createTime", "Wed Jan 01 2014 00:00:00 GMT+1200 (NZST)");
+                }
             }
         }
         var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
         var that = this;
         this.set("loadingTime", true);
-        results.addObserver('isLoaded', function() {
-            if (results.get('isLoaded')) {
-                for (var i = 0; i < this.get("content").length; i++) {
-                    var tempObject = results.objectAt(i);
-                    that.get("content").pushObject(tempObject);
-                }
-                $(document).ready(function() {
-                    setTimeout(function() {
-                        for (var i = 0; i < results.get("length"); i++) {
-                            var tempmega = results.objectAt(i);
-                            if (tempmega.get("getPhoto") === true || tempmega.get("getArticle") === true)
-                            {
-                                if (tempmega.get("object_image_url") !== null) {
-                                    var url = tempmega.get("object_image_url").split("_");
-                                    var length = url.length;
-                                    var size = url[length - 1].split(".")[0].split("x")[1];
-                                    if (size !== undefined)
-                                    {
-                                        $("#init_photo_" + tempmega.get("id")).css({height: size});
-                                    }
+        results.then(function() {
+            for (var i = 0; i < results.get("length"); i++) {
+                var tempObject = results.objectAt(i);
+                that.get("content").pushObject(tempObject);
+            }
+            $(document).ready(function() {
+                setTimeout(function() {
+                    for (var i = 0; i < results.get("length"); i++) {
+                        var tempmega = results.objectAt(i);
+                        if (tempmega.get("getPhoto") === true || tempmega.get("getArticle") === true)
+                        {
+                            if (tempmega.get("object_image_url") !== null) {
+                                var url = tempmega.get("object_image_url").split("_");
+                                var length = url.length;
+                                var size = url[length - 1].split(".")[0].split("x")[1];
+                                if (size !== undefined)
+                                {
+                                    $("#init_photo_" + tempmega.get("id")).css({height: size});
                                 }
                             }
                         }
+                        else if (tempmega.get("getVideo") === true)
+                        {
+                            $("#init_photo_" + tempmega.get("id")).css({height: "263px"});
+                        }
+                    }
+                    setTimeout(function() {
+                        $('#masonry_photo_collection_container').masonry("reloadItems");
                         setTimeout(function() {
-                            $('#masonry_photo_collection_container').masonry("reloadItems");
-                            setTimeout(function() {
-                                $('#masonry_photo_collection_container').masonry();
-                                $('html,body').animate({
-                                    scrollTop: $("#profile_submenu_collection").offset().top - 100
-                                });
-                                that.set("loadingTime", false);
-                            }, 15);
+                            $('#masonry_photo_collection_container').masonry();
+                            $('html,body').animate({
+                                scrollTop: $("#profile_submenu_collection").offset().top - 100
+                            });
+                            that.set("loadingTime", false);
                         }, 15);
-                    }, 5);
-                });
-            }
+                    }, 15);
+                }, 5);
+            });
         });
         this.checkEditingMode();
     },

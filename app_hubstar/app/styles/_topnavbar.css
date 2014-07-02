@@ -1,6 +1,6 @@
 .blank-top-bar{
     background-color: transparent;
-    z-index: 10;
+    z-index: 11;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -170,6 +170,12 @@
     left: 23%;
 }
 
+.fourOhFour-searchbar-c{
+    width: 50%;
+    position: absolute;
+    left: 38%;
+}
+
 .search-bar-ontop{
     position: relative;
     margin: 6px auto;
@@ -200,6 +206,16 @@
 
 .Nav-btn:hover{opacity: 1}
 
+.fourOhFour-searchbtn{
+    width: 60px; 
+    position: relative;
+    float: right;
+    border-radius: 0 3px 3px 0;
+    top: -60px; 
+    right: -5px;
+    border-left: 1px solid #ddd;
+}
+
 .search-box{
     top: -5px;
     position: relative;
@@ -210,7 +226,9 @@
     width: 70%;
 }
 
-
+.fourOhFour-searchbar{
+    width: 450px;
+}
 
 .search-box > input {
     font-size: 20px;
@@ -901,7 +919,7 @@ div#forgot-password-container{
     position: relative;
     float: right; 
     top: 68px; 
-    z-index: 100;
+    z-index: 12;
     left: 40px;
 }
 .notification-triangle-after{
@@ -1015,6 +1033,42 @@ search-bar-on-small-screen #topResidentialCommerical{
 /*DEVICES FOR REGISTER PAGE*/
 
 
+/* header.hbs */
+.header-categoryicon{
+    font-size: 20px;
+}
+
+.header-category{
+    line-height: 0;
+    position: relative;
+    bottom: 5px;
+}
+
+.header-searchbtn{
+    position: relative;
+    float: right;
+    border-radius: 0 3px 3px 0;
+    top: -60px; 
+    right: -5px;
+    border-left: 1px solid #ddd;
+    width: 60px;
+}
+
+.header-searchicon{
+    font-size: 20px;
+    line-height: 3;
+}
+
+.header-searchicon2{
+    font-size: 20px;
+}
+
+.header-about{
+    width: 160px;
+    position: absolute;
+    top:80px;
+    left: 110px;
+}
 /*letop & tablet*/
 @media all and (max-width: 1800px){
 
@@ -1207,7 +1261,6 @@ search-bar-on-small-screen #topResidentialCommerical{
     .usersobject-hoverarea {width: 50px; height: 70px;}
 
     .interest-topic-name{font-size: 9px;}
-
     .tell-us-what-ur-interested-in{
         line-height: 20px;
         margin: 4px auto;

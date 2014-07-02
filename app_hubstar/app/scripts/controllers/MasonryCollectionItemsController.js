@@ -14,6 +14,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     isSearchBoard: true,
     itemID: "",
     profileId: "",
+    createTime: "",
     isSave: false,
     type: "",
     needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting', 'applicationFeedback'],
@@ -49,6 +50,14 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             if (this.get("collections").objectAt(i).get("id") === collection_id)
             {
                 this.set('title', this.get("collections").objectAt(i).get('title'));
+                if (this.get("collections").objectAt(i).get('updated_at') !== null) {
+                    var date = this.get("collections").objectAt(i).get('updated_at');
+                    this.set("createTime", date + "");
+                }
+                else
+                    {
+                        this.set("createTime",  "Wed Jan 01 2014 00:00:00 GMT+1200 (NZST)");
+                    }
             }
         }
         var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
@@ -81,8 +90,8 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                             $('#masonry_photo_collection_container').masonry("reloadItems");
                             setTimeout(function() {
                                 $('#masonry_photo_collection_container').masonry();
-                                  $('html,body').animate({
-                                    scrollTop: $("#profile_submenu_collection").offset().top-100
+                                $('html,body').animate({
+                                    scrollTop: $("#profile_submenu_collection").offset().top - 100
                                 });
                                 that.set("loadingTime", false);
                             }, 15);
@@ -344,7 +353,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         }
         for (var i = 0; i < userOrprofile.get('content').length; i++) {
 
-            if (userOrprofile.objectAt(i).id === collection_id) {
+            if (userOrprofile.objectAt(i).get("id") === collection_id) {
 
                 var currentCollection = userOrprofile.objectAt(i);
                 currentCollection.set('cover', coverImge);
@@ -406,7 +415,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                                 $('#masonry_photo_collection_container').masonry();
                                 that.set("loadingTime", false);
                                 $('html,body').animate({
-                                    scrollTop: $("#profile_submenu_collection").offset().top-100
+                                    scrollTop: $("#profile_submenu_collection").offset().top - 100
                                 });
                             }, 15);
                         }, 15);

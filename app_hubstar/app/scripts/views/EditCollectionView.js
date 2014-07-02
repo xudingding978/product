@@ -2,9 +2,9 @@ HubStar.EditCollectionView = Ember.View.extend({
     templateName: 'editCollection',
     didInsertElement: function() {
         // var container = document.querySelector('#masonry_user_container');
- 
 
-        $('#uploadObject').click(function() {           
+
+        $('#uploadObject').click(function() {
             $('.new-collection-name_insert').val("");
             $('.new-collection-area').val("");
             $(".Targeting_Object_front").attr("style", "display:inline-block");
@@ -39,7 +39,10 @@ HubStar.EditCollectionView = Ember.View.extend({
         var div_class = ".C" + id + "  #uploadArea";
         $(div_id).attr("style", "display:block");
         $(div_class).attr('style', "display:none");
-          this.get('controller').set('newTitle', '');
-        this.get('controller').set('newDesc', '');      
+        this.get('controller').set('newTitle', '');
+        this.get('controller').set('newDesc', '');
+        setTimeout(function() {
+            $('#masonry_user_container').masonry();
+        }, 5);
     }
 });

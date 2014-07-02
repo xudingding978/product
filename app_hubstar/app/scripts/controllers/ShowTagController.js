@@ -109,7 +109,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 that.set("product_name", "");
                 that.readTags(photo_id); //call the read method to show all tags
             });
-            this.get('controllers.applicationFeedback').statusObserver(null, "Great job! We are sent a message to the content owner requesting activation of your tag.", "warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Great job! A message to the content owner requesting activation of your tag.", "warnning");
         }
     },
     activateUserTag: function(tag_id, photo_id)
@@ -241,10 +241,12 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             {
                 if (HubStar.get("isArticleTag") === true)
                 {
+                    thatthat.get("controllers.article").set("contentTagsArticle", []);
                     thatthat.get("controllers.article").set("tagCount", 0);
                 }
                 else
                 {
+                    thatthat.get("controllers.mega").set("contentTags", []);
                     thatthat.get("controllers.mega").set("tagCount", 0);
                 }
             }

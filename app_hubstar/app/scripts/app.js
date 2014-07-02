@@ -14,7 +14,7 @@ var HubStar = window.HubStar = Ember.Application.create({
             HubStar.set('profile_manager', params[2]);
             HubStar.set('top_ad_display', params[3]);
             HubStar.set('object_ad_display', params[4]);
-
+            HubStar.set('group_switch', params[5]);
         });
         requiredBackEnd('tenantConfiguration', 'objectAdDisplay', null, 'post', function(callbck) {
             var array = $.map(callbck, function(value, index) {
@@ -32,7 +32,6 @@ var HubStar = window.HubStar = Ember.Application.create({
             }
             HubStar.set('objectAds', array);
         });
-
         if (Modernizr.touch) {
             HubStar.set('touchDevice', true);
         } else {
@@ -58,6 +57,8 @@ var HubStar = window.HubStar = Ember.Application.create({
             a.src = g;
             m.parentNode.insertBefore(a, m);
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-235915-17', {'name': 'Trends'});
+        ga('create', 'UA-46481605-1', {'name': 'HubStar'});
     }
 });
 

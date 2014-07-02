@@ -56,6 +56,10 @@
                 <li class="ite" {{action gpShare "1"}}>
                     <i class="fa fa-google-plus share-type share-type-pos2"></i><span class="share-type-txt2">Google+</span>
                 </li>
+                <li class="ite" {{action eShare "1"}}>
+                    <img src="../../../images/sent.png" style="width: 16px;height: 16px">
+                    <i class="send_email" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 1.5em">E-mail</span>
+                </li>
             </ul>
 
             <script type="text/javascript">
@@ -191,6 +195,10 @@
                     </li>
                     <li class="ite" {{action gpShare "2"}}>
                         <i class="fa fa-google-plus share-type share-type-pos2"></i><span class="share-type-txt2">Google+</span>
+                    </li>
+                    <li class="ite" {{action eShare "2"}}>
+                        <img src="../../../images/sent.png" style="width: 16px;height: 16px">
+                        <i class="send_email" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 1.5em">E-mail</span>
                     </li>
                 </ul>
 
@@ -357,6 +365,12 @@
 {{#if controller.contact}}
 {{render contact}}
 {{/if}}
+
+
+{{#if isShareEmail}}
+{{render shareEmail}}
+{{/if}}
+
 <!--     show add new  tag template-->   
 {{#if HubStar.tagging_display}}
 {{#if controller.enableEditTag}}
@@ -384,3 +398,4 @@
 {{/each}}
 {{/if}}
 {{/if}}
+

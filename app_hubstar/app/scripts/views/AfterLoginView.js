@@ -10,14 +10,13 @@ HubStar.AfterLoginView = Ember.View.extend({
     logout: function() {
         this.resetTopAd();
         localStorage.removeItem('loginStatus');
-        //this.get('controller').transitionTo("searchIndexTom");
         document.cookie = 'Session=; path=/; domain=.trendsideas.com; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-        location.reload();       
+        location.reload();
     },
     resetTopAd: function() {
         var tempComment = [localStorage.loginStatus];
         requiredBackEnd('users', 'ResetTopAds', tempComment, 'POST', function() {
-            HubStar.set("isTopAdDisplay", false);
+            HubStar.set("isTopAdDisplay", true);
         });
     },
     showUserDropDown: function() {
@@ -29,33 +28,39 @@ HubStar.AfterLoginView = Ember.View.extend({
             this.set("newProfile", false);
             $("#user-dd-menu").show();
             $("#cancel").css("display", "block");
-
         }
-        //this.loadProfile();
     },
     userDisplaynone: function(checking) {
         if (checking === "myUserProfile") {
             location.href = this.get("controller").get("myUserProfile");
-            $("#user-dd-menu").attr("style", "display:none");
+            // $("#user-dd-menu").attr("style", "display:none");
+            this.get("controller").set('userProfile', false);
             $("#cancel").css("display", "none");
             $(window).scrollTop(0);
         } else if (checking === "myMessageBoard") {
             location.href = this.get("controller").get("myMessageBoard");
-            $("#user-dd-menu").attr("style", "display:none");
+            //$("#user-dd-menu").attr("style", "display:none");
+            this.get("controller").set('userProfile', false);
             $("#cancel").css("display", "none");
 
         } else if (checking === "about") {
 
             window.open('http://about.trendsideas.com/');
+            this.get("controller").set('userProfile', false);
             $("#user-dd-menu").attr("style", "display:none");
             $("#cancel").css("display", "none");
 
         } else if (checking === "new") {
             $("#cancel").css("display", "none");
+            this.get("controller").set('userProfile', false);
             this.get("controller").set("newProfile", true);
-            // this.loadProfile();
         }
-
+        else if (checking === "newGroup") {
+            location.href = "#/groups/new";
+            this.get("controller").set('userProfile', false);
+            //$("#user-dd-menu").attr("style", "display:none");
+            $("#cancel").css("display", "none");
+        }
     },
     cancel: function() {
         this.set("newProfile", false);
@@ -63,7 +68,7 @@ HubStar.AfterLoginView = Ember.View.extend({
         $("#cancel").css("display", "none");
     },
     startTour: function() {
-
+        this.get("controller").set('userProfile', false);
         $("#user-dd-menu").attr("style", "display:none");
         $("#profileDashboard").attr("style", "display:none");
         $("#profilePanel").removeClass("panel");

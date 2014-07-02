@@ -60,8 +60,6 @@ a:hover , a:focus {color: #aaa;}
     -moz-perspective: 600px;
 }
 
-
-
 .square-button{
     width: 45PX;
     height: 45px;
@@ -441,6 +439,16 @@ a:hover , a:focus {color: #aaa;}
     left: 25%;
 }
 
+.controlbtn-share-email{
+    text-align: left;
+    padding: 15px 0;
+    width: 200px;
+    display: block;
+    position: relative;
+    /* margin: auto; */
+    left: 32%;
+    bottom: -8%;
+}
 
 /*MANSONRY album OBJECT STYLE*/
 
@@ -963,13 +971,13 @@ div.album-description-bg{
     right: 138px;
 }
 .previous-arrow-box{
-
+    cursor: url(../../images/previouscursor.png),auto;
     width: 50%; 
     height: 100%; 
     float: left;
 }
 .next-arrow-box{
-
+    cursor: url(../../images/nextcursor.png),auto;
     width: 50%; 
     height: 100%; 
     float: right;
@@ -1032,7 +1040,6 @@ div.album-description-bg{
     position:relative;
     width: auto;
     margin: 0 5px;
-
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
     -o-transition: all 0.8s ease;
@@ -1185,6 +1192,7 @@ div.album-description-bg{
     font-weight: bold;
     display: block;
     unicode-bidi: normal;
+    word-break: break-word;
 }
 .poster-name:hover, .poster-name:focus{color:#005580;}
 
@@ -1688,7 +1696,7 @@ div.album-description-bg{
     font-weight: bold;
     line-height: 30px;
     margin-bottom: 10px;
-    word-break: break-all;
+    word-break: break-word;
     text-transform: capitalize;
 
 }
@@ -1893,11 +1901,22 @@ div.album-description-bg{
     border: 1px solid #f3f3f3;
 }
 
+.profilepic-comment-img{
+    float: right; 
+    margin: 4px -45px 0 0; 
+    margin-top: 0;
+}
 .comment-item-img{
     width: 45px; 
     height: 45px;
     float: left; 
     margin: 4px 0 0 -50px; 
+    margin-top: 0;
+}
+
+.comment-item-img2{
+    float: right; 
+    margin: 4px -45px 0 0; 
     margin-top: 0;
 }
 
@@ -2124,7 +2143,7 @@ div.album-description-bg{
     position: absolute; 
     border-radius: 3px;
     width: 530px;
-    height: 430px;
+    height: auto;
 }
 
 .show-tag-title{
@@ -2591,11 +2610,12 @@ div.album-description-bg{
     height: auto;
     background-color: #000;
     color: #fff;
-    border-radius: 5px;
+    border-radius: 2px;
     text-align: center;
     padding: 5px 10px;
     font-weight: bold;
     word-wrap: break-word;
+    box-shadow: 0 0 10px #fff
 }
 
 .tag-content-arrow{
@@ -2665,7 +2685,7 @@ div.album-description-bg{
 .share-box{
     width: 150px; 
     margin: 0 auto; 
-    left: 70px;
+    left: -70px;
     padding: 0;
 }
 .share-box2a{
@@ -2687,6 +2707,13 @@ div.album-description-bg{
     margin: 0 auto;
     left: 45px;
     padding: 0;
+}
+
+.share-box4a{
+    width: 170px; 
+    right: 80px; 
+    position: absolute; 
+    top: 136px;
 }
 .share-type-fb{
     max-height:34px;
@@ -2797,7 +2824,7 @@ div.album-description-bg{
 
 
 
-.collapes-container_inner > .for-tooltip-position.hint--bottom:after{left: -65px!important}
+.collapes-container_inner > .for-tooltip-position.hint--bottom:after{left: -20px!important}
 
 .collapes-container_inner > .hint--bottom:before{left: 14px!important}
 
@@ -2980,6 +3007,672 @@ div.album-description-bg{
     color:#fff;
 }
 
+/* comment.hbs*/
+.show-all-comment-box{
+    height: 20px; 
+    width: 100%; 
+    background-color: #f3f3f3;
+    text-align: center;
+    color: #555; 
+    border-top: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.all-comment-show{
+    display: inline-block; 
+    cursor: pointer;
+}
+
+.all-comment-hide{
+    display: none;
+    cursor: pointer;
+}
+
+.all-comment-indicator-txt{
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* contact.hbs */
+.contact-top{
+    position: relative;
+    height: 35px; 
+    width: 100%;
+    background: #fff url('../../../images/contactbg.png') repeat; 
+    z-index: 11;
+}
+
+.contact-box{
+    width: 500px;
+    font-size:13px;
+    background-color: white;
+    z-index:11;
+    position: absolute;
+}
+
+.contact-navigateBar{
+    position: relative; 
+    text-align: center;
+}
+
+.contact-hide-step{
+    background-color: #aaa;
+}
+
+.contact-step-bar{
+    width: 300px; 
+    height: 2px; 
+    border-radius: 20%;
+    background-color:#ccc;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 19px;
+    z-index: 0;
+}
+
+.contact-step-title{
+    font-size: 18px; 
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+    position: relative;
+    top: 10px;    
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.contact-step-one{
+    right: 87px;
+}
+
+.contact-step-two{
+    left: 90px;
+}
+.contact-head{
+    padding-bottom: 0;
+}
+
+.user-detailBox{
+    width:390px;
+}
+
+.user-detailBox div{
+    display: block;
+}
+
+.user-detailBox div div{
+    display: inline-block;
+}
+
+.user-detailBox div span{
+    display: inline-block;
+}
+
+.user-detailBox div a{
+    display: inline-block;
+}
+
+.contact-title-box{   
+    font-size: 16px; 
+    font-weight: bold; 
+    margin-bottom: 5px;
+}
+
+.contact-title-txt{
+    margin-right: 5px;
+}
+
+.poster_user-title{
+    max-width: 240px; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    position:relative; 
+    top:5px;
+}
+
+.contact-title-marge{
+    margin-right: 5px;
+}
+
+.contact-edit{
+    cursor: pointer; 
+    color: #427fed;
+}
+
+.contact-email{
+    margin-bottom: 15px;
+}
+
+.contact-user-img{
+    float: right;
+    position: relative; 
+    display: inline-block; 
+    vertical-align: top;
+    margin: 5px 0;
+}
+
+.contact-subject{
+    display: inline-block; 
+    margin-right: 10px;
+}
+
+.contact-suject-txt{
+    display: inline-block; 
+    width: 378px; 
+    vertical-align: middle;
+}
+
+.contact-navigateBar-step2{
+    margin-bottom: 20px;
+}
+
+.contact-content-container{
+    border-radius: 0; 
+    padding: 15px 30px 0px;
+}
+
+.contact-content-inner{
+    text-align: center;
+}
+
+.contact-content-inner table{
+    padding: 0 20px; 
+    width: 100%;
+    font-size: 14px;  
+    display: table;
+    border-collapse: separate;
+    border-spacing: 4px;
+}
+
+.contact-content-inner table tbody{
+    display: table-row-group; 
+    vertical-align: middle; 
+    border-color: inherit;
+}
+
+.contact-content-inner table tr td div{
+    display: block;
+}
+
+.contact-category-indicator{
+    color: #555;
+    text-align: right;
+    cursor: default;
+    font-size: 15px;
+    float: left;
+    margin: 5px 0 0 55px;
+}
+
+.contact-category-list{
+    margin: 20px 0 10px 20px;
+    max-height: 170px;
+    overflow: auto;
+}
+
+.contact-middle-container{
+    display: block;
+    padding: 5px 0px;
+}
+
+.contact-middle-msg{
+    display: inline-block; 
+    margin-bottom: 5px;
+}
+
+.contact-msg-box{
+    width: 100%; 
+    height: 200px;
+    resize: none;
+}
+
+.contact-user-env{
+    position: relative;
+    float: left;
+}
+
+.contact-user-txt{
+    position: relative;
+    top:3px;
+}
+
+.contact-user-env-disp{
+    position: relative;
+    bottom: 1px;
+    overflow: hidden;
+    width: 66%;
+    left: 20px;
+    height: 24px;
+}
+
+.contact-pre-container{
+    float: left;
+    margin: 15px;
+    position: relative;
+    left: 15px;
+}
+
+.contact-rem-container{
+    float: left;
+    margin: 10px;
+    position: relative;
+    left: 15px;
+}
+
+/* conversation.hbs */
+
+.conversation-each-container{
+    padding: 15px 0 10px 95px;
+    position: relative;
+}
+
+.conversation-deletebtn{
+    position: absolute;
+    right: 35px;
+    top: 40px;
+    color: #888;
+}
+
+.conversation-img{
+    position: absolute; 
+    top: 20px;
+    margin: 0 0 0 -55px;
+    border: 1px solid #f3f3f3;
+    width: 45px;
+    height: 45px;
+    overflow: hidden;
+}
+
+.conversation-img1{
+    width: 45px;
+    height: 45px;
+    float: left;
+}
+
+.conversation-img2a{
+    width: 45px;
+    height: 45px;
+    float: left; 
+    margin-left: -22.5px;
+}
+
+.conversation-img2b{
+    width: 45px;
+    height: 45px;
+    float: left;
+    vertical-align: top;
+    margin-right: -22.5px;
+}
+
+.conversation-img3a{
+    width: 22.5px;
+    height: 22.5px;
+    float: left;
+}
+
+.conversation-img3b{
+    width: 45px;
+    height: 45px;
+    vertical-align: top;
+    margin-right: -22.5px;
+}
+
+.conversation-img4a{
+    width: 22.5px;
+    height: 22.5px;
+    position: absolute;
+}
+
+.conversation-img4b{
+    top: 22.5px;
+}
+.conversation-comment{
+    width: 400px; 
+    height: 35px; 
+    text-overflow: ellipsis;
+}
+
+/* conversationItem.hbs */
+.conversation-msg-title-box{
+    background-color: #f3f3f3; 
+    width:100%;
+    height: 70px; 
+    border-bottom: 1px solid #ddd;
+    padding: 0 20px;
+}
+
+.conversation-msg-title{
+    color: #555;
+    font-size: 18px;
+    line-height: 70px;
+    font-weight: bold;
+    float: left;
+}
+
+.conversation-msg-img{
+    float: left; 
+    margin: 12px; 
+    box-shadow: 0 0 3px #888;
+    border: 1px solid #f3f3f3;
+    width: 45px;
+    height: 45px;  
+}
+
+.conversation-msg-img2{
+    overflow: hidden;
+}
+
+.conversation-msg-img img{
+    width: 45px;
+    height: 45px;
+    float: left;
+}
+
+.conversation-add{
+    position: relative;
+}
+
+.conversation-plus{
+    position: absolute;
+    font-size: 8px;
+    top: 8px;
+    left: 10px;
+    color: white;
+    background-color: #888;
+    height: 12px;
+    width: 12px;
+    line-height: 11px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+}
+
+
+
+.show-more-icon{
+    line-height: 45px;
+    display:none;
+}
+
+.show-close{
+    line-height: 45px;
+    display: inline-block;
+}
+
+.comment-follower-containers{
+    position: relative; 
+    width: 100%; 
+    border-bottom: 1px solid #ddd;
+}
+
+.comment-follower-contatiners2{
+    position: relative; 
+    width: 100%;
+    min-height: 100px;
+    padding: 10px  15px;
+}
+.message-data{
+    padding: 5px  15px;
+    margin-left: 10px; 
+    display: inline-block;
+}
+
+.message-profile-img{
+    box-shadow: 0 0 3px #888;
+    border: 1px solid #f3f3f3;
+    width: 45px;
+    height: 45px;
+}
+
+.message-profile-img2{
+    margin:10px 5px;
+}
+
+.message-newppl{
+    padding:5px 15px;
+    background-color: #f4f6f8;
+}
+
+.message-newppl-img{
+    margin:10px 5px;
+    margin-left: 10px;
+    position: relative;
+    width: 45px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.message-newppl-img img{
+    box-shadow: 0 0 3px #888;
+    border: 1px solid #f3f3f3;
+    width: 45px;
+    height: 45px;
+}
+
+.message-comment-container{
+    width: 100%;
+    padding: 20px 6.5%;
+    margin: 0 auto;
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+}
+
+.message-input-box{
+    margin:0 auto; 
+    padding: 0 0 0 45px;
+}
+
+.message-input-img{
+    float: left; 
+    margin: 4px 0 0 -45px; 
+    margin-top: 0;
+}
+
+.post-input{
+    margin: 0;
+    width: 100%; 
+    height:80px;
+}
+
+.post-upload{
+    background-color: rgba(0,0,0,.2);
+    max-width: 100%;
+    max-height: 100px;
+    padding: 10px 12px;
+    text-align: center;
+}
+
+.post-upload img{
+    max-width: 100%; 
+    max-height: 80px;
+}
+
+.post-action-container{
+    height: 30px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    top: -1px;
+}
+
+.post-addphoto{
+    border-right: 1px solid #ddd;
+}
+
+.post-addphoto-txt{
+    opacity:0;
+    position: relative;
+    height:30px;
+    top:-30px;
+    overflow: hidden;
+}
+
+.comment-img-container{
+    margin: 5px auto;
+    max-width: 300px;
+    max-height: 300px;
+    float: left;
+}
+
+.comment-img-container img{
+    border: 4px solid #fff;
+}
+
+/* deletedFunction.hbs */
+.deleted-z{
+    z-index:13;
+}
+
+.delete-container{
+    z-index: 14;
+    background-color: white; 
+    border: 1px rgba(0,0,0,.6); 
+    border-radius: 3px;
+    box-shadow: 0 0 20px 5px #aaa;  
+    width: 450px;
+    margin: 0 auto; 
+    padding: 20px 30px;
+    position: fixed; 
+    top: 35%;
+    left: 0;
+    right: 0;
+    line-height: 18px;
+}
+
+.deleted-icon{
+    color: #333; 
+    font-size: 35px;
+    margin: auto;
+    width: 40px;
+    position: relative;
+    left: 0;
+    right: 0;
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.deleted-reask{
+    color: #333; 
+    font-size: 18px; 
+    font-weight: bold;  
+    text-align: center; 
+    margin: 10px 0;
+}
+
+.deleted-warning{
+    color: #333; 
+    font-weight: normal; 
+    font-size: 15px;
+    text-align: center;
+}
+
+.deleted-action{
+    width:200px; 
+    margin: 20px auto 5px;
+    text-align: center;
+}
+
+
+/* discoveryBar.hbs */
+.searchbar-wrapper{
+    z-index: auto;
+}
+
+.search-wrapper-container{
+    position: absolute; 
+    top: 140px; 
+    width: 880px;
+    left:0; 
+    right: 0; 
+    margin: auto;
+    text-align: center;
+    height:400px;
+}
+
+.searchbar-title{
+    position:relative;
+    font-size: 50px;
+    color: white;
+    font-weight: bold;
+    height: 50px;
+}
+
+.searchbar-title1{
+    display:block;
+}
+.searchbar-title2{
+    display:none;
+    text-align: center; 
+}
+
+.searchbar-maintopic{
+    position:relative; 
+    height:100px;
+}
+
+.searchbar-listIcon{
+    font-size: 20px;
+}
+
+.searchbar-listtxt{
+    line-height: 0;
+    position: relative;
+    bottom: 5px;
+}
+
+.searchbar-searchicon-container{
+    position: relative !important;
+    float: right !important;
+    border-radius: 0 3px 3px 0 !important;
+    top: -60px !important; 
+    right: -5px;
+    border-left: 1px solid #ddd;
+    width: 60px !important;
+}
+
+.searchcar-searchicon{
+    font-size: 20px;
+    line-height: 3;
+}
+
+.searchbar-populartopic{
+    float: left;
+    color: white;
+    font-family: Georgia, serif;
+    font-style: italic;
+    margin: 5px 10px;
+}
+
+/* footer.hbs */
+.footer-container{
+    text-align: center; 
+    padding: 55px 0; 
+    margin: 0 auto; 
+    font-size: 13px; 
+    width: 200px; 
+}
+
+.footer-logo{
+    height: auto !important; 
+    position: relative; 
+    top: 0; 
+    margin:0;
+    width: 160px;
+}
+
+.footer-twitter{
+    padding: 0 27px;
+}
+
+/* dropdown list */
+.isLogin1{
+    position: absolute;
+}
+
+
+
+
+
+
+
 @media (max-width: 1280px){
     #cta-popup{
         right: 10%;
@@ -3011,4 +3704,190 @@ div.album-description-bg{
     }
 
 
+}
+
+.black_overlay{
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index:1001;
+    -moz-opacity: 0.8;
+    opacity:.60;
+    //filter: alpha(opacity=80);
+}
+.white_content {
+    display: none;
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 25%;
+    padding: 16px;
+    //border: 16px solid orange;
+    background-color: white;
+    z-index:1002;
+    overflow: auto;
+}
+
+
+
+
+
+
+
+
+
+
+/*===============================2014.6.25 by Colin======================*/
+
+
+.share-email-lightbox{
+    z-index: 1000;
+    position: fixed;
+    width: 550px;
+    height: 350px;
+    margin: auto;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    top: 25%;
+    left: 0px;
+    display: block;
+    right: 0;
+    box-shadow: 0 0 5px #aaa;
+}
+
+.share-email-left-content-box{
+    width: 60%;
+    float: left;
+    padding: 25px 30px;
+}
+
+.share-email-left-content-box input{
+    height: 50px;
+    background-color: rgba(0,0,0,.2);
+    border-radius: 0;
+    margin-bottom: 10px;
+    box-shadow: none;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box input:hover{
+    background-color: transparent;
+    border:1px solid rgba(0,0,0,.2);
+}
+
+.share-email-left-content-box input::-webkit-input-placeholder {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box input::-moz-placeholder {  /* Firefox 19+ */
+    color: white; 
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box input:-ms-input-placeholder {  
+    color: white;  
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
+
+.share-email-left-content-box i{
+    font-size: 25px;
+    top: 38px;
+    position: absolute;
+    left: 260px;
+    color: white;
+}
+
+.share-email-left-content-box textarea{
+    height: 240px;
+    background-color: rgba(0,0,0,.2);
+    border-radius: 0;
+    box-shadow: none;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box textarea::-webkit-input-placeholder {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box textarea::-moz-placeholder {  /* Firefox 19+ */
+    color: white; 
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box textarea:-ms-input-placeholder {  
+    color: white;  
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
+.share-email-left-content-box textarea:hover{
+    background-color: transparent;
+    border:1px solid rgba(0,0,0,.2);
+}
+
+.share-email-profilepic{
+    position: absolute;
+    right: 42%;
+    bottom: 0;
+    width: 90px;
+    height: 90px;
+    border: 10px solid white;
+    border-radius: 50%;
+}
+
+
+.share-email-right-content-box{
+    width:40%;
+    float:right;
+}
+
+.share-email-right-content-box > img{
+
+    height: 350px;
+    position: absolute;
+}
+
+.sent-btn-hover{
+    width: 100%;
+    height: 350px;
+}
+
+.sent-btn{
+    height: 50px;
+    width: 100%;
+    background-color: rgba(0,0,0,.3);
+    position: relative;
+    margin: -25px auto;
+    top: 50%;
+    padding: 12px 50px;
+    font-weight: bold;
+    color:#fff;
+    font-size: 15px;
+
+    cursor:pointer;
+}
+
+.sent-btn:hover{background-color: rgba(0,0,0,.6);}
+
+.sent-btn img{
+    margin: 0 7px;
+    width: 25px;
 }

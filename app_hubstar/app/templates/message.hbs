@@ -44,38 +44,38 @@
     <div class="comment-content" style="font-size: 12px;margin: 10px 20px;">
         {{{model.msg}}}
         {{#if model.isUrl }}
-        <div style='margin: 5px auto;max-width: 300px;max-height: 300px;'>
+        <div style="margin: 5px auto;max-width: 300px;max-height: 300px;">
             <img {{bindAttr src= model.url}} style="border: 4px solid #fff;"/>
         </div>
         {{/if}}
     </div>
     {{#if model.replyEdit}}
-    <div class="reply-comment-frame"  style="padding: 15px;">
-        <div style="margin:0 auto; padding: 0 45px 0 0;">
+    <div class="reply-comment-frame message-replyedit-container">
+        <div class="editreply-innercontainer">
             <a  href="#/users/{{unbound model.user_id}}">
-                <img class="profilepic_comment" style="float: right; margin: 4px -45px 0 0; margin-top: 0;" {{bindAttr src="controller.commenter_photo_url"}} /> 
-                <div class='user-reply-angle-before' style="right: 47px;"></div>
-                <div class='user-reply-angle-after' style="right: 45px;"></div>
+                <img class="profilepic_comment profilepic-comment-img" {{bindAttr src="controller.commenter_photo_url"}} /> 
+                <div class="user-reply-angle-before user-reply-angle-before4"></div>
+                <div class="user-reply-angle-after user-reply-angle-after4"></div>
             </a>
 
-            <div class="reply-comment-container" style="width: 100%;height: 32px;">
-                <div id ="reply_{{unbound model.message_id}}"style="margin: 0;width: 210px; height: 30px;float: left;">
+            <div class="reply-comment-container editreply-reply">
+                <div id ="reply_{{unbound model.message_id}}" class="editreply-input">
                     {{view HubStar.SearchRequireTextFieldView valueBinding="replyContent" class="no-resize" placeholder="Add a comment..." }}                                          
                 </div>
-                <div style="float: right;height: 34px;position: relative;">
-                    <div  class="message-btn easing hint--bottom hint--rounded" style="width:30px; border-right: 1px solid #ddd; border-left: 1px solid #ddd;" data-hint="Add Photo"><i class='fa fa-picture-o'></i>
-                        <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
+                <div class="editreply-edit">
+                    <div  class="message-btn easing hint--bottom hint--rounded editreply-addimg" data-hint="Add Photo"><i class="fa fa-picture-o"></i>
+                        <div class="editreply-imgbtn"> 
                             {{view HubStar.SingleImageInputButtonView }}
 
                         </div>
                     </div>
                     {{#if controller.isReply}}
-                    <div class="message-btn easing hint--bottom hint--rounded" style='width: 30px;' data-hint="Post" {{action addReply model.message_id}}>
-                         <i class='fa fa-check' ></i>
+                    <div class="message-btn easing hint--bottom hint--rounded editreply-reply-w" data-hint="Post" {{action addReply model.message_id}}>
+                         <i class="fa fa-check" ></i>
                     </div>
                     {{else}}
 
-                    <div class="message-btn easing" style='width: 30px;'>
+                    <div class="message-btn easing editreply-reply-w" >
                         <i class="spinner spinner-sml"></i>
                     </div>
                     {{/if}}
@@ -84,15 +84,15 @@
                 </div>
             </div>
 
-            <!--please disable the following div when it's got not content-->
+            <!--please disable the following div when it"s got not content-->
             {{#if controller.isUploadPhoto}}
-            <div style='max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;border:1px solid #ddd;'>
-                <div class='remove-comment-photo easing' {{action removePic}}><i class="fa fa-times"></i></div>
-                <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;">
+            <div class="upload-img">
+                <div class="remove-comment-photo easing" {{action removePic}}><i class="fa fa-times"></i></div>
+                <img  {{bindAttr src= "newStyleImageSource"}} >
             </div>
             {{/if}}
         </div>
-    </div>
+    </div> 
     {{/if}}
 
 
@@ -131,7 +131,7 @@
                     <div class="comment-content">
                         {{this.msg}}<br>
                         {{#if this.isUrl }}   <!-- if the isUrl is not null which mean it has the picture url, so it can show the image-->
-                        <div style='margin: 5px auto;max-width: 300px;max-height: 300px;float: right;'>
+                        <div style="margin: 5px auto;max-width: 300px;max-height: 300px;float: right;">
                             <img {{bindAttr src= this.url}} style="border: 4px solid #fff;"/>
                         </div>
                         {{/if}}

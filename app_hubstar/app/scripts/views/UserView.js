@@ -1,7 +1,7 @@
 HubStar.UserView = Ember.View.extend({
     templateName: 'user',
     didInsertElement: function() {
-
+        console.log("Aaaaaaaaaaaaaaa");
         $(".navbar").css("box-shadow", "0 0 10px #333");
         var container = document.querySelector('#masonry_user_container');
         var msnry = new Masonry(container, {

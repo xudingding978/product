@@ -64,10 +64,10 @@ var HubStar = window.HubStar = Ember.Application.create({
 
 /* Order and include as you please. */
 require('scripts/helper');
+require('scripts/models/*');
 require('scripts/controllers/*');
 require('scripts/store');
 require('scripts/router');
-require('scripts/models/*');
 require('scripts/routes/*');
 require('scripts/views/*');
 

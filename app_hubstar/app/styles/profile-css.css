@@ -960,9 +960,10 @@ div#appfeedback .fresh-message > i.fa-times{
 .mCSB_container > div:hover .reply-comment{opacity: .8}
 
 .Message-Board_comment-container .profilepic-comment-container{ left: 6.5%; top: 18px;}
+
 .your-relpy_profilepic{
     position:absolute;
-    right:6.5%;
+    left:6.5%;
     margin:3px 0 0;
 }
 
@@ -1276,10 +1277,10 @@ div#appfeedback .fresh-message > i.fa-times{
 .Notification-Board > div:nth-child(even){background-color: #f4f6f8}
 
 #post-star{
-  overflow: auto; 
-  position: relative;
-  margin: 12px 0px 12px 20px; 
-  display: inline-block;  
+    overflow: auto; 
+    position: relative;
+    margin: 12px 0px 12px 20px; 
+    display: inline-block;  
 }
 
 #post-star-rating{
@@ -1317,7 +1318,7 @@ div#appfeedback .fresh-message > i.fa-times{
     height: 350px;
     margin: 0 auto; 
     position: fixed; 
-    top: 15%;
+    top: 20%;
     left: 0;
     right: 0;
     overflow: hidden;
@@ -1346,24 +1347,24 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .review-buttons{
-  height: 41px;
-  position: absolute;
-  border-top: 1px solid #ddd;
-  bottom: 0;
-  width: 100%;  
+    height: 41px;
+    position: absolute;
+    border-top: 1px solid #ddd;
+    bottom: 0;
+    width: 100%;  
 }
 
 
 
 .review-top > div{
-   font-size: 18px;
-   font-weight: bold;
-   color: #555; 
-   height: auto;
-   min-height: 50px;
-   vertical-align: middle;
-   display: inline-block;
-   width: 390px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #555; 
+    height: auto;
+    min-height: 50px;
+    vertical-align: middle;
+    display: inline-block;
+    width: 390px;
 }
 
 .review-top a{
@@ -1385,7 +1386,7 @@ div#appfeedback .fresh-message > i.fa-times{
     width: 50%;
 }
 
- .review-wrapper .message-btn{
+.review-wrapper .message-btn{
     height: 40px; 
     line-height: 40px;
     width: 33%;
@@ -1438,10 +1439,10 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .review-list-content-top{
-  background-color: #f3f3f3;
-  padding: 5px 5px 10px 70px;
-  border-bottom: 1px solid #ddd;
-  border-radius: 3px 3px 0 0;  
+    background-color: #f3f3f3;
+    padding: 5px 5px 10px 70px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 3px 3px 0 0;  
 }
 
 .review-list-user-name{
@@ -1462,9 +1463,9 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .review-list-content-middle{
-  background-color: #fff; 
-  padding: 10px 40px; 
-  font-size: 13px;  
+    background-color: #fff; 
+    padding: 10px 40px; 
+    font-size: 13px;  
 }
 
 .review-list-single-context{
@@ -1527,9 +1528,9 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .review-reply-content img{
-   float: right; 
-   margin: 4px -10px 0 0; 
-   margin-top: 0; 
+    float: right; 
+    margin: 4px -10px 0 0; 
+    margin-top: 0; 
 }
 
 .review-reply-content-textarea{
@@ -1577,33 +1578,33 @@ div#appfeedback .fresh-message > i.fa-times{
 
 
 .review-edit-user-picture{
-  height: 80px;
-  width: 80px;
-  position: fixed;
-  border: 3px solid #f3f3f3;
-  border-radius: 50%;
-  overflow: hidden;
-  box-shadow: 0 0 5px #aaa;
-  top: 120px;
-  left: 0px;
-  right: 470px;
-  z-index: 12;
-  margin: 0 auto;
-  display: block;  
+    height: 80px;
+    width: 80px;
+    position: fixed;
+    border: 3px solid #f3f3f3;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 5px #aaa;
+    top: 120px;
+    left: 0px;
+    right: 470px;
+    z-index: 12;
+    margin: 0 auto;
+    display: block;  
 }
 
 
 .review-edit-top{
-   background-color: #f3f3f3;
-   padding: 5px 5px 10px 70px;
-   border-bottom: 1px solid #ddd; 
+    background-color: #f3f3f3;
+    padding: 5px 5px 10px 70px;
+    border-bottom: 1px solid #ddd; 
 }
 
 
 .review-edit-content{
-   margin: 20px auto 5px;
-   padding: 0 15px;
-   height: 200px;
+    margin: 20px auto 5px;
+    padding: 0 15px;
+    height: 200px;
 }
 
 .review-edit-buttons{
@@ -1625,7 +1626,7 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .review-edit-reply > div{
-  margin:0 auto; padding: 0 40px 0 0;  
+    margin:0 auto; padding: 0 40px 0 0;  
 }
 
 .review-edit-reply > div a img {
@@ -1642,9 +1643,14 @@ div#appfeedback .fresh-message > i.fa-times{
     font-size: 12px;
 }
 
+.review-edit-reply-buttons-style-yours{
+    left: 40px;
+    top: 10px;
+}
+
 .review-edit-reply-buttons-style{
-  left: 40px;
-  right: initial;  
+    top: 10px;
+    right: 390px;
 }
 
 .review-your-reply{
@@ -1652,7 +1658,9 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .review-your-reply-style{
-   left: 6.5%; right: initial; 
+    right: 6.5%;
+    position: absolute; 
+    margin: 3px 0 0;
 }
 
 .review-text-align{

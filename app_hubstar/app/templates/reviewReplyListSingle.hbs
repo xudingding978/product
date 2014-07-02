@@ -29,7 +29,7 @@
 <div id="reply_{{unbound model.review_reply_id}}" class="your-relpy review-your-reply" {{action 'replyView' model.review_reply_id target='view' on="click"}}>
 
     {{#if model.review_userself}}
-    <a class="your-relpy_profilepic" style="" href="#/users/{{unbound model.review_user_id}}">
+    <a class="your-relpy_profilepic" href="#/users/{{unbound model.review_user_id}}">
         <img class="profilepic_comment"  {{bindAttr src= model.review_photo_url_large}} />
     </a>
 
@@ -50,17 +50,17 @@
         </div>
         {{#if model.getUser}}
         <div class="review-edit-reply-buttons">
-            <div class="hint--bottom hint--rounded review-edit-reply-buttons-style"  data-hint="Delete"   {{action removeReviewReply}}><i class="fa fa-trash-o"></i></div>                 
-            <div class="hint--bottom hint--rounded review-edit-reply-buttons-style"  data-hint="Edit" {{action editReviewReply}}><i class="fa fa-pencil"></i></div>
+            <div class="hint--bottom hint--rounded review-edit-reply-buttons-style-yours"  data-hint="Delete"   {{action removeReviewReply}}><i class="fa fa-trash-o"></i></div>                 
+            <div class="hint--bottom hint--rounded review-edit-reply-buttons-style-yours"  data-hint="Edit" {{action editReviewReply}}><i class="fa fa-pencil"></i></div>
         </div>
         {{/if}}
     </div>
 
     {{else}}
-    <a class="your-relpy_profilepic" href="#/users/{{unbound model.review_user_id}}">
+    <a class="review-your-reply-style" href="#/users/{{unbound model.review_user_id}}">
         <img class="profilepic_comment"  {{bindAttr src= model.review_photo_url_large}} />
     </a> 
-    <div style="">
+    <div>
         <div class="comment-namentime">
             <div class="namentime_position">        
                 <a class="comment-username"  href="#/users/{{unbound model.review_user_id}}">
@@ -77,7 +77,7 @@
         </div>
         {{#if model.getUser}}
         <div class="review-edit-reply-buttons">
-            <div class="hint--bottom hint--rounded review-edit-reply-buttons-style"  data-hint="Delete" "  {{action removeReviewReply}}><i class="fa fa-trash-o"></i></div>                 
+            <div class="hint--bottom hint--rounded review-edit-reply-buttons-style"  data-hint="Delete" {{action removeReviewReply}}><i class="fa fa-trash-o"></i></div>                 
             <div class="hint--bottom hint--rounded review-edit-reply-buttons-style"  data-hint="Edit" {{action editReviewReply}}><i class="fa fa-pencil"></i></div>
         </div>
         {{/if}}

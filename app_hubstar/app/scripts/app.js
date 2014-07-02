@@ -1,6 +1,6 @@
 
 var HubStar = window.HubStar = Ember.Application.create({
-    LOG_TRANSITIONS: false,
+    LOG_TRANSITIONS: true,
     LOG_BINDINGS: false,
     ready: function() {
         HubStar.set("isLogin", false);
@@ -64,9 +64,10 @@ var HubStar = window.HubStar = Ember.Application.create({
 
 /* Order and include as you please. */
 require('scripts/helper');
+require('scripts/controllers/*');
+require('scripts/store');
+require('scripts/router');
 require('scripts/models/*');
 require('scripts/routes/*');
-require('scripts/store');
-require('scripts/controllers/*');
 require('scripts/views/*');
-require('scripts/router');
+

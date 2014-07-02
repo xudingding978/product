@@ -1083,11 +1083,20 @@ HubStar.UserController = Ember.Controller.extend({
                 'newStyleImageName': that.get('newStyleImageName'),
                 'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                 'id': that.get('model.id'), 'type': type};
-            requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function() {
+            requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function(params) {
 
                 that.set('isPhotoUploadMode', false);
                 var update_user_record = that.get('model');
-                update_user_record.store.save();
+                if (params.length === 2)
+                {
+                    update_user_record.set("cover_url", params[0]);
+                    update_user_record.set("cover_url_small", params[1]);
+                }
+                else if (params.length === 1)
+                {
+                    update_user_record.set("photo_url_large", params[0]);
+                }
+                update_user_record.save();
                 that.userPhotoEditBackButton();
                 that.userDashboardBackButton();
                 that.get('controllers.applicationFeedback').statusObserver(null, "Profile picture updated.");

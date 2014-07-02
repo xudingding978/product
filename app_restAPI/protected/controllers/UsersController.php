@@ -337,9 +337,8 @@ class UsersController extends Controller {
                     $oldRecord = CJSON::decode($tempRecord, true);
                     if (isset($oldRecord['groups'][0]['group_name']) && isset($oldRecord['groups'][0]['group_pic_url'])) {
                         $respone_user['user'][0]['groups'][$i]['group_name'] = $oldRecord['groups'][0]['group_name'];
-                         $respone_user['user'][0]['groups'][$i]['group_pic_url'] = $oldRecord['groups'][0]['group_pic_url'];
+                        $respone_user['user'][0]['groups'][$i]['group_pic_url'] = $oldRecord['groups'][0]['group_pic_url'];
                     }
-                   
                 }
             }
 
@@ -553,32 +552,35 @@ class UsersController extends Controller {
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/users/' . $user_id));
 
-
+        $photos = array();
         if ($mode == 'user_picture') {
 
             $oldRecord['user'][0]['photo_url_large'] = null;
             $oldRecord['user'][0]['photo_url_large'] = $url;
-        } elseif
-        ($mode == 'user_cover') {
+            $photos[0] = $url;
+        } elseif ($mode == 'user_cover') {
 
             $oldRecord['user'][0]['cover_url'] = null;
             $oldRecord['user'][0]['cover_url'] = $url;
+            $photos[0] = $url;
         }
 
         if ($mode == 'user_cover') {
             $smallimage = $photoController->savePhotoInTypes($orig_size, 'user_cover_small', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
             $oldRecord['user'][0]['cover_url_small'] = null;
             $oldRecord['user'][0]['cover_url_small'] = $smallimage;
+            $photos[1] = $url;
         }
 
         $url = $this->getDomain() . '/users/' . $user_id;
 
         $copy_of_oldRecord = unserialize(serialize($oldRecord));
         $tempUpdateResult = CJSON::encode($copy_of_oldRecord, true);
-
+        
+        
         if ($cb->delete($url)) {
             if ($cb->set($url, $tempUpdateResult)) {
-                $this->sendResponse(204);
+                $this->sendResponse(200,$photos);
             } else {
                 $this->sendResponse(500, 'something wrong');
             }

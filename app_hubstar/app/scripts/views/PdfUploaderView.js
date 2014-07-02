@@ -1,4 +1,4 @@
-HubStar.PdfUploaderView = Ember.View.extend( HubStar.PdfUploaderController.Droppable, {
+HubStar.PdfUploaderView = Ember.View.extend( HubStar.SingleFileUploaderController.Droppable, {
     contentBinding: 'pdfUploader',
     
       didInsertElement: function() {

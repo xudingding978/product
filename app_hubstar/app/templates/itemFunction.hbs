@@ -1,71 +1,82 @@
-<div id="addCollection_{{unbound model.id}}"  style="display: none">
+<div id="addCollection_{{unbound model.id}}"  class="itemfunction-add">
     {{render addCollection}}
 </div>       
 {{#if model.getProfile}}
 {{else}}
-<div class="item-function-control easing" style="">
+<div class="item-function-control easing" >
     {{model.photo_isLike}}
 
     {{#if model.isLike}}
-    <div  id="thumbUpBtn_{{unbound model.id}}" style="float: left;" class="object-type easing" {{action unLike model.id}}>
-          <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{model.likes_count}}</span>&nbsp;</i>
+    <div data-hint="Unlike" id="thumbUpBtn_{{unbound model.id}}" class="object-type easing hint--top hint--rounded itemfunction-icon-position" {{action unLike model.id}}>
+          <i class="fa fa-thumbs-up">&nbsp;<span class="itemfunction-font">{{model.likes_count}}</span>&nbsp;</i>
     </div>
     {{else}}
-    <div  id="thumbUpBtn_{{unbound model.id}}" style="float: left;" class="object-type easing" {{action addLike model.id}}>
-          <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{model.likes_count}}</span>&nbsp;</i>
+    <div data-hint="Like" id="thumbUpBtn_{{unbound model.id}}" class="object-type easing hint--top hint--rounded itemfunction-icon-position" {{action addLike model.id}}>
+          <i class="fa fa-thumbs-up">&nbsp;<span class="itemfunction-font">{{model.likes_count}}</span>&nbsp;</i>
     </div>
+
 
     {{/if}}
 
     {{#if model.getArticle}}
-    <div data-hint="Save this article to a collection" id="saveBtn_{{unbound model.id}}"  style="float: left;" class="object-type easing hint--top hint--rounded" {{action switchCollection model}}>
-         <i class="fa fa-folder" >&nbsp;<span style="font-size: 11px;">{{model.save_count}}</span>&nbsp</i>
+    <div data-hint="Save this article to a collection" id="saveBtn_{{unbound model.id}}" class="object-type easing hint--top hint--rounded itemfunction-icon-position" {{action switchCollection model}}>
+         <i class="fa fa-folder" >&nbsp;<span class="itemfunction-font">{{model.save_count}}</span>&nbsp</i>
     </div>
     {{/if}}
     {{#if model.getPhoto}}
-    <div data-hint="Save this image to a collection" id="saveBtn_{{unbound model.id}}"  style="float: left;" class="object-type easing hint--top hint--rounded" {{action switchCollection model}}>
-         <i class="fa fa-folder" >&nbsp;<span style="font-size: 11px;">{{model.save_count}}</span>&nbsp</i>
+    <div data-hint="Save this image to a collection" id="saveBtn_{{unbound model.id}}" class="object-type easing hint--top hint--rounded itemfunction-icon-position" {{action switchCollection model}}>
+         <i class="fa fa-folder" >&nbsp;<span class="itemfunction-font">{{model.save_count}}</span>&nbsp</i>
     </div>
     {{/if}}
     {{#if model.getVideo}}
-    <div data-hint="Save this video to a collection" id="saveBtn_{{unbound model.id}}"  style="float: left;" class="object-type easing hint--top hint--rounded" {{action switchCollection model}}>
-         <i class="fa fa-folder" >&nbsp;<span style="font-size: 11px;">{{model.save_count}}</span>&nbsp</i>
+    <div data-hint="Save this video to a collection" id="saveBtn_{{unbound model.id}}" class="object-type easing hint--top hint--rounded itemfunction-icon-position" {{action switchCollection model}}>
+         <i class="fa fa-folder" >&nbsp;<span class="itemfunction-font">{{model.save_count}}</span>&nbsp</i>
     </div>
     {{/if}}
 
-    <div id="share_{{unbound model.id}}" class="object-type easing"  style="">
+
+    <div id="share_{{unbound model.id}}" class="object-type easing" >
+
         {{#if model.getArticle}}
-        <div data-hint="Share this article" style="" class="hint--top hint--rounded" {{action shareDisplay model.id on="click"}}>
-            <i style="padding:10px" class="fa fa-share" >&nbsp;<span style="font-size: 11px;">{{model.share_count}}</span>&nbsp</i>
+        <div data-hint="Share this article" class="hint--top hint--rounded" {{action shareDisplay model.id on="click"}}>
+            <i class="fa fa-share itemfunction-icon" >&nbsp;<span class="itemfunction-font">{{model.share_count}}</span>&nbsp</i>
         </div>
         {{/if}}
         {{#if model.getPhoto}}
-        <div data-hint="Share this image" style="" class="hint--top hint--rounded" {{action shareDisplay model.id on="click"}}>
-            <i style="padding:10px" class="fa fa-share" >&nbsp;<span style="font-size: 11px;">{{model.share_count}}</span>&nbsp</i>
+        <div data-hint="Share this image" class="hint--top hint--rounded" {{action shareDisplay model.id on="click"}}>
+            <i class="fa fa-share itemfunction-icon" >&nbsp;<span class="itemfunction-font">{{model.share_count}}</span>&nbsp</i>
         </div>
-        {{/if}}
+        {{/if}} 
         {{#if model.getVideo}}
-        <div data-hint="Share this video" style="" class="hint--top hint--rounded" {{action shareDisplay model.id on="click"}}>
-            <i style="padding:10px" class="fa fa-share" >&nbsp;<span style="font-size: 11px;">{{model.share_count}}</span>&nbsp</i>
+        <div data-hint="Share this video" class="hint--top hint--rounded" {{action shareDisplay model.id on="click"}}>
+            <i class="fa fa-share itemfunction-icon" >&nbsp;<span class="itemfunction-font">{{model.share_count}}</span>&nbsp</i>
         </div>
         {{/if}}
 
-        <ul class="hideClass edit-object-ul" style="width: 150px; margin: 0 auto; top: 35px; left:30px; position: absolute; ">
-            <li style="position:fixed;top:0;left:0;height:100%;width:100%;z-index:-1;" {{action shareHide model.id on="click"}}></li>
+        <ul class="hideClass edit-object-ul itemfunction-share-container" >
+            <li class="itemfunction-clikearea" {{action shareHide model.id on="click"}}></li>
             <li class="ite" {{action  fbShare model}} >
-                <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
+                <i class="fa fa-facebook share-type share-type-pos2" ></i><span class="share-type-txt2" >Facebook</span>
             </li>
-            <li class='ite' {{action tShare model }} >
-                <i class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Twitter</span>
+            <li class="ite" {{action tShare model }} >
+                <i class="fa fa-twitter share-type share-type-pos2" ></i><span class="share-type-txt2" >Twitter</span>
             </li>
-            <li class='ite' {{action pShare model}} >
-                <i class="fa fa-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Pinterest</span>
+            <li class="ite" {{action pShare model}} >
+                <i class="fa fa-pinterest share-type share-type-pos2" ></i><span class="share-type-txt2" >Pinterest</span>
             </li>
             <li class="ite" {{action gpShare model}}>
-                <i class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Google+</span>
+                <i class="fa fa-google-plus share-type share-type-pos2" ></i><span class="share-type-txt2" >Google+</span>
+            </li>
+
+            <li id="shareEmail" class="ite" {{action eShare model}}>
+                <img src="../../../images/sent.png" style="width: 16px;height: 16px">
+                <i class="send_email" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 1.5em">E-mail</span>
             </li>
         </ul>
     </div>
 
 </div>
 {{/if}}
+<div id="addEmail_{{unbound model.id}}"  style="display: none">
+    {{render shareEmail}}
+</div>

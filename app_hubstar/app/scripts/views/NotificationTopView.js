@@ -2,7 +2,7 @@ HubStar.NotificationTopView = Ember.View.extend({
     templateName: 'notificationTop',
     didInsertElement: function() {
         $(document).ready(function() {
-            $("#notititopbar").mCustomScrollbar({
+            $("#notifitopbar").mCustomScrollbar({
                 scrollButtons: {
                     enable: false,
                     scrollSpeed: "auto"

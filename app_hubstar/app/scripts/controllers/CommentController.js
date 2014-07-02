@@ -8,7 +8,7 @@ HubStar.CommentController = Ember.Controller.extend({
     makeSureDelete: false,
     willDelete: false,
     objID: "",
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'shareEmail'],
     init: function()
     {
         if (localStorage.loginStatus) {
@@ -321,7 +321,7 @@ HubStar.CommentController = Ember.Controller.extend({
             {
                 caption = '';
             }
-             obj = {
+            obj = {
                 method: 'feed',
                 link: currntUrl,
                 picture: this.get('selectedPhoto').get('photo_image_thumbnail_url'),
@@ -354,7 +354,7 @@ HubStar.CommentController = Ember.Controller.extend({
             {
                 caption = '';
             }
-             obj = {
+            obj = {
                 method: 'feed',
                 link: currntUrl,
                 picture: this.get('selectedVideo').data.video_img,
@@ -387,7 +387,7 @@ HubStar.CommentController = Ember.Controller.extend({
             {
                 caption = '';
             }
-             obj = {
+            obj = {
                 method: 'feed',
                 link: currntUrl,
                 picture: this.get('selectedArticle').get('article_image_url'),
@@ -586,6 +586,49 @@ HubStar.CommentController = Ember.Controller.extend({
                     'height=436,width=626'
                     ).focus();
             return false;
+        }
+    },
+   eShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+            this.set('descript', this.get('selectedPhoto').get('photo_title'));
+            var currentUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
+            if (this.get('selectedPhoto').get("type") === "article")
+            {
+                this.set('descript', this.get('selectedPhoto').get('article').objectAt(0).get("article_headline"));
+                currentUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedPhoto').get('id');
+            }
+            else if (this.get('selectedPhoto').get("type") === "video")
+            {
+                this.set('descript', this.get('selectedPhoto').get('videoes').objectAt(0).get("videoTitle"));
+                currentUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedPhoto').get('id');
+            }
+
+            var shareEmailController = this.get('controllers.shareEmail');
+            var selectid = this.get('selectedPhoto').id;
+            shareEmailController.setImageID(selectid);
+            var tempUrl = this.get('selectedPhoto').get('photo_image_thumbnail_url');
+            shareEmailController.setThumbnailUrl(tempUrl);
+            shareEmailController.setUrl(currentUrl);
+            shareEmailController.setUser();
+            shareEmailController.setRelatedController('comment');
+            shareEmailController.setSelectedMega(selectid);
+            shareEmailController.setTitle(this.get('descript'));
+            this.set("isShareEmail", true);
+//        this.get("controllers.shareEmail").getClientId(this.get("Id"));
+
         }
     }
 });

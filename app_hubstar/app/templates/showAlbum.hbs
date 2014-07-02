@@ -15,7 +15,7 @@
         </div>
         <div style="margin: 15px;overflow: auto;height: 225px;width: 100%;"> 
             {{#each  content}}
-            <img class="photo_original_style" id="showalbum_{{unbound id}}"{{bindAttr src="photo_image_thumbnail_url"}}  {{action selectImage id on="click" target="controller"}}/>
+            <img class="photo_original_style" id="showalbum_{{unbound id}}"{{bind-attr src="photo_image_thumbnail_url"}}  {{action selectImage id on="click" target="controller"}}/>
             {{/each}}
         </div>
     </div>

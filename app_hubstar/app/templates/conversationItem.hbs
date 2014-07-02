@@ -6,7 +6,7 @@
     <div class="conversation-msg-title-box">
         <div class="conversation-msg-title">
             <div class="radius-circle conversation-msg-img conversation-msg-img2">
-                <img {{bindAttr src= controller.commenter_photo_url}} />
+                <img {{bind-attr src= controller.commenter_photo_url}} />
             </div>
             &nbsp;Conversation
         </div>
@@ -30,7 +30,7 @@
         <div id="messageData"  class="message-data" >
             {{#each  contentFollowerPhotoOld }}     
             <div  class="hint--rounded hint--bottom" data-hint="{{unbound this.name}}">
-                <img class="profilepic_comment radius-circle message-profile-img message-profile-img2" {{bindAttr src= this.photo_url}} />                
+                <img class="profilepic_comment radius-circle message-profile-img message-profile-img2" {{bind-attr src= this.photo_url}} />                
             </div>
             {{/each}}
         </div>
@@ -40,7 +40,7 @@
             {{#if this.isAdd}}
             <div class="message-newppl-img" data-hint="{{unbound this.name}}" {{action addToList id}} >            
                  <div class="invite-this-friend radius-circle easing message-newppl-minus"><i class="fa fa-minus" ></i></div>
-                <img class="profilepic_comment radius-circle" {{bindAttr src= this.photo_url}} />                         
+                <img class="profilepic_comment radius-circle" {{bind-attr src= this.photo_url}} />                         
             </div>
             {{/if}}
             {{/each}}
@@ -51,7 +51,7 @@
     <div  class="message-comment-container">
         <div class="message-input-box">
             <a>
-                <img class="profilepic_comment message-input-img" {{bindAttr src= controller.commenter_photo_url}} /> 
+                <img class="profilepic_comment message-input-img" {{bind-attr src= controller.commenter_photo_url}} /> 
                 <div class='user-says-angle-before'></div>
                 <div class='user-says-angle-after'></div>
             </a>
@@ -63,7 +63,7 @@
                 {{#if controller.isUploadPhoto}}
                 <div class="post-upload">
                     <div class='remove-comment-photo easing' {{action removePic }}><i class="fa fa-times"></i></div>
-                    <img  {{bindAttr src= "newStyleImageSource"}}>
+                    <img  {{bind-attr src= "newStyleImageSource"}}>
                 </div>
                 {{/if}}
                 <div class="post-action-container">
@@ -90,7 +90,7 @@
         <div class="Message-Board_comment-item">         
             <div class="comment-position">   
                 <a class="profilepic-comment-container"   href="#/users/{{unbound this.sender_id}}">
-                    <img class="profilepic_comment" {{bindAttr src= this.sender_photo_url_large}} />
+                    <img class="profilepic_comment" {{bind-attr src= this.sender_photo_url_large}} />
                 </a>
                 <div style="">
                     <div class="comment-namentime">
@@ -107,7 +107,7 @@
                         {{{this.msg}}}<br>
                         {{#if this.isUrl }}
                         <div class="comment-img-container">
-                            <img {{bindAttr src= this.url}}/>
+                            <img {{bind-attr src= this.url}}/>
                         </div>
                         {{/if}}
                     </div>

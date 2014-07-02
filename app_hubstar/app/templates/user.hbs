@@ -9,7 +9,7 @@
                      <i class="fa fa-pencil-square-o"></i>         
                 </div>  
                 {{/if}}
-                <img {{bindAttr src="controller.model.photo_url_large"}} />
+                <img {{bind-attr src="controller.model.photo_url_large"}} />
             </div>
             {{#if controller.followDisplay}}
             <div class="user-follow-style-top">
@@ -95,7 +95,7 @@
     <div  class="user-board_right style-box" >
         <div id="user-board_right_front" >
             <div class="user-cover" data-step="3" data-intro="Hover over your <b>Cover Image</b> to access your profile Dashboard, where you can change the cover image and manage your Profile Settings." data-position='bottom'>
-                <img {{bindAttr src= "controller.cover_url"}} />
+                <img {{bind-attr src= "controller.cover_url"}} />
 
                 {{#if controller.is_authentic_user}}
                 <div  id="flip-front" class='blue-btn new-btn hint--left hint--rounded edit-dashboard-btn' data-hint="Dashboard"{{action userDashboardButton "User Cover"}}>  

@@ -25,7 +25,7 @@
 
         <div id="afterLogin">
             <div class="profilepic-container" style="margin:0 0 10px;">
-                <a {{bindAttr href="controller.myUserProfile"}} ><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user" style="box-shadow: 0 1px 2px #555;"/></a>                              
+                <a {{bind-attr href="controller.myUserProfile"}} ><img {{bind-attr src="controller.user.photo_url_large"}} class="profilepic_user" style="box-shadow: 0 1px 2px #555;"/></a>                              
             </div>
             <p> Hi <b>{{controller.user.display_name}}</b> </p>
             <h4>{{controller.response}}</h4>

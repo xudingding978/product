@@ -43,7 +43,7 @@
 
             {{getCoverSize}}
             <div style ="height:{{unbound cover_height}}; width:{{unbound cover_width}};top:{{unbound cover_top}};left:{{unbound cover_left}}">
-                <img class="albumcover" {{bindAttr src="cover"}} />
+                <img class="albumcover" {{bind-attr src="cover"}} />
             </div>
 
         </div>
@@ -63,7 +63,7 @@
             </div>
         </div>
     </div>
-    <div id="Targeting_Object_back"{{bindAttr class="getCollectionId"}}>
+    <div id="Targeting_Object_back"{{bind-attr class="getCollectionId"}}>
         {{view HubStar.EditCollectionView}}
     </div>
 </div>

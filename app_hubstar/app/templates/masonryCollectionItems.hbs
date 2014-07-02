@@ -71,9 +71,9 @@
                         <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
                             <div> 
                                 {{#each photo}}
-                                <img  {{bindAttr src= "photo_image_original_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;">
+                                <img  {{bind-attr src= "photo_image_original_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;">
 
-                                <div {{bindAttr class="photo_source_id"}} style="display: none;">
+                                <div {{bind-attr class="photo_source_id"}} style="display: none;">
                                     <img style="width: 25px; height: 25px;position: absolute;top: 40%;left: 62px;" src="../../../images/uploadphotos_spinner.gif"/>
                                 </div>
                                 {{/each}}

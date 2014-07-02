@@ -16,8 +16,8 @@
 
         <div class="each-conversation easing">
             <div style="  padding: 15px 0 10px 95px;position: relative;" {{action go this.notification_id}}>
-                 <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;"  {{bindAttr href="controller.photo_url"}}>
-                    <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.photo_url}} /> 
+                 <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;"  {{bind-attr href="controller.photo_url"}}>
+                    <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bind-attr src= this.photo_url}} /> 
                 </a>
                 <div style="">
                     <div class="comment-namentime">
@@ -77,8 +77,8 @@
         {{else}}
         <div class="each-conversation easing unread-style">
             <div style="  padding: 15px 0 10px 95px;position: relative;" {{action go this.notification_id}}>
-                 <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;"  {{bindAttr href="controller.photo_url"}}>
-                    <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.photo_url}} /> 
+                 <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;"  {{bind-attr href="controller.photo_url"}}>
+                    <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bind-attr src= this.photo_url}} /> 
                 </a>
                 <div style="">
                     <div class="comment-namentime">

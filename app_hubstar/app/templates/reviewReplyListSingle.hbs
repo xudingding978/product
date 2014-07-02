@@ -5,7 +5,7 @@
 <div class="reply-comment-frame"  style="padding: 10px 35px;border-bottom: 1px solid #ddd;">
     <div style="margin:0 auto; padding: 0 40px 0 0;">
         <a  href="#/users/{{unbound model.review_user_id}}">
-            <img class="profilepic_comment" style="float: right; margin: 4px -40px 0 0; margin-top: 0;" {{bindAttr src="model.review_photo_url_large"}} /> 
+            <img class="profilepic_comment" style="float: right; margin: 4px -40px 0 0; margin-top: 0;" {{bind-attr src="model.review_photo_url_large"}} /> 
             <div class='user-reply-angle-before'></div>
             <div class='user-reply-angle-after'></div>
         </a>
@@ -30,7 +30,7 @@
 
     {{#if model.review_userself}}
     <a class="your-relpy_profilepic" style="left: 6.5%; right: initial;" href="#/users/{{unbound model.review_user_id}}">
-        <img class="profilepic_comment"  {{bindAttr src= model.review_photo_url_large}} />
+        <img class="profilepic_comment"  {{bind-attr src= model.review_photo_url_large}} />
     </a>
 
     <div style="">
@@ -58,7 +58,7 @@
 
     {{else}}
     <a class="your-relpy_profilepic" href="#/users/{{unbound model.review_user_id}}">
-        <img class="profilepic_comment"  {{bindAttr src= model.review_photo_url_large}} />
+        <img class="profilepic_comment"  {{bind-attr src= model.review_photo_url_large}} />
     </a> 
     <div style="">
         <div class="comment-namentime">

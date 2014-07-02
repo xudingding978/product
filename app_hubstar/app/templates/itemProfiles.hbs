@@ -5,11 +5,11 @@
 
     {{#if profile_hero_cover_url}}
     <div class="masonry-object_cover-wapper">
-        <img {{bindAttr src="profile_hero_cover_url"}} style="width: 100%";/>
+        <img {{bind-attr src="profile_hero_cover_url"}} style="width: 100%";/>
     </div>
     {{else}}
     <div class="masonry-object_cover-wapper">
-        <img {{bindAttr src="profile_hero_url"}} style="width: 100%;"/>
+        <img {{bind-attr src="profile_hero_url"}} style="width: 100%;"/>
     </div>
     {{/if}}
 
@@ -38,7 +38,7 @@
 
 <div class="masonry-object_profilepic" style="cursor:pointer;" {{action toProfilePage this}}>
 <div id="init_photo_{{unbound getID}}">
-     <a  href="#/profiles/{{unbound this.id}}/collections"> <img class="easing" {{bindAttr src="profile_pic_url"}}  />   </a>
+     <a  href="#/profiles/{{unbound this.id}}/collections"> <img class="easing" {{bind-attr src="profile_pic_url"}}  />   </a>
 </div>
 </div>
 
@@ -85,7 +85,7 @@
     <div class="masonry-object_text">
 
 
-        <div class="more_detail" {{bindAttr id="id"}}>          
+        <div class="more_detail" {{bind-attr id="id"}}>          
             {{profile_cover_text}}
 
         </div>

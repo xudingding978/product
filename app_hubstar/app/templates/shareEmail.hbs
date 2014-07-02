@@ -9,14 +9,14 @@
 
 
         <div class="share-email-profilepic" >
-            <img {{bindAttr src="controller.currentUser.photo_url_large"}} class="profilepic_user  easing" style = "width: 100%; height: 100%"/>
+            <img {{bind-attr src="controller.currentUser.photo_url_large"}} class="profilepic_user  easing" style = "width: 100%; height: 100%"/>
         </div>
 
     </div>
 
 
     <div id="showpic" class="share-email-right-content-box" style="">
-        <img {{bindAttr src="controller.selectedPhotoThumbnailUrl"}} />
+        <img {{bind-attr src="controller.selectedPhotoThumbnailUrl"}} />
         <div class="closeview" {{action exit }}>
              <i class="fa fa-times"></i>
         </div> 

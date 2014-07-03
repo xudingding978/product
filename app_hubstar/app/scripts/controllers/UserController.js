@@ -62,7 +62,7 @@ HubStar.UserController = Ember.Controller.extend({
     about_me: "",
     first_name: "",
     last_name: "",
-    subcateMethod: [{list_id: 0, isSelection: false, category_topic: "email"}],
+    subcateMethod: [{list_id: 4, isSelection: false, category_topic: "email"}],
     subcate: [{list_id: 0, isSelection: false, category_topic: "message"}, {list_id: 1, isSelection: false, category_topic: "follow"}, {list_id: 2, isSelection: false, category_topic: "conversation"}],
     is_Photoclick: false,
     is_click: false,
@@ -93,7 +93,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     checkedMethodAction: function(checkedboxselection) {
         $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
-        this.get("subcateMethod").objectAt(checkedboxselection).isSelection = !this.get("subcateMethod").objectAt(checkedboxselection).isSelection;
+        this.get("subcateMethod").objectAt(0).isSelection = !this.get("subcateMethod").objectAt(0).isSelection;
     },
     saveNotification: function()
     {

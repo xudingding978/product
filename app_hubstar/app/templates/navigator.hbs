@@ -1,15 +1,15 @@
 
 
-<div class="blur_black" style="background-color: initial"  {{action closeDropdownNavigator on="click" target="controller"}}>&nbsp;</div>
-<div class="Navigator-box" style="z-index: 10000000; display:none;">
-    <div style="background-color: #f3f3f3; height: 45px; line-height: 45px;width: 100%; border-bottom: 1px solid #ddd;padding: 0 15px;border-radius: 3px 3px 0 0;">
-        <span style="font-size: 18px;font-weight: bold;color: #555;">Navigator</span>
+<div class="blur_black navigator-blurblack" {{action closeDropdownNavigator on="click" target="controller"}}>&nbsp;</div>
+<div class="Navigator-box navigator-container" >
+    <div class="navigator-titleContainer">
+        <span class="navigator-title">Navigator</span>
 
     </div>
      
-    <div class="Navigator-content" style="">
-        <div class="" style="width: 33%;height: 100%;float: left;padding: 8px 0;overflow: auto">
-            <ul style="margin:0">
+    <div class="Navigator-content">
+        <div class="navigator-topic" >
+            <ul class="navigator-topic-content">
                 {{#each controller.categorys}}
                 {{type1}}
                 {{#if display}}
@@ -21,22 +21,22 @@
 
 
 
-        <div id ="category_topic" style="width: 33.5%;height: 100%;border-left: 1px solid #ddd; border-right: 1px solid #ddd;float: left;padding: 8px 0;overflow: auto">
+        <div id ="category_topic" class="navigator-topic3 navigator-topic2">
 
 
             {{#each  controller.subcate}}
 
-            <ul style="margin:0">
+            <ul class="navigator-topic-content">
                 <li id="navigator_id1_{{unbound this.ids}}" {{action searchTopicSelection subcategories ids}}> {{category_topic}}<i class="fa fa-search" {{action topicSearch category_topic}} ></i></li>
 
             </ul>
             {{/each}}
         </div>
 
-        <div id="search_topic" style="width: 33.5%;height: 100%;float: left;padding: 8px 0;overflow: auto">
+        <div id="search_topic" class="navigator-topic navigator-topic2" >
             {{#each  controller.subcategories}}
 
-            <ul style="margin:0">
+            <ul class="navigator-topic-content">
                 <li {{action topicSearch search_topic}} > {{search_topic}} </li>
 
             </ul>
@@ -46,14 +46,14 @@
 
     </div>
 
-    <div class="Navigator_links" style="">
-        <div style="float: left">
+    <div class="Navigator_links" >
+        <div class="navigator-footer-left">
             <span><a target="blank" href="http://about.trendsideas.com/">About</a></span>
             <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span>
             <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span>
             <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span>
         </div>
-        <div style="float: right">
+        <div class="navigator-footer-right">
              v.<span id="lastidentifie">103</span>            
             <span><a target="blank" href="http://about.trendsideas.com/terms-of-use-agreement/">Terms of Use</a></span>
             <span><a target="blank" href="http://about.trendsideas.com/privacy-policy/">Privacy Policy</a></span>

@@ -94,7 +94,9 @@ HubStar.UserController = Ember.Controller.extend({
     },
     checkedMethodAction: function(checkedboxselection) {
         $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
-        this.get("subcateMethod").objectAt(0).isSelection = !this.get("subcateMethod").objectAt(checkedboxselection).isSelection;
+
+        this.get("subcateMethod").objectAt(0).isSelection = !this.get("subcateMethod").objectAt(0).isSelection;
+
     },
     saveNotification: function()
     {
@@ -827,7 +829,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
             var tempCollection = this.get("selectedCollection");
-            var delInfo = [tempCollection.id, this.get('model').get('id'), 'user'];
+            var delInfo = [tempCollection.get("id"), this.get('model').get('id'), 'user'];
             delInfo = JSON.stringify(delInfo);
             requiredBackEnd('collections', 'delete', delInfo, 'POST', function() {
             });

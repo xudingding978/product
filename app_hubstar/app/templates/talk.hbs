@@ -1,48 +1,48 @@
 
 <div  class="blur_black"  {{action reviewCancel on="click" target="controller"}}>&nbsp;</div>
 
-<div  style="z-index: 11; position: fixed; width: 545px; margin: 10px auto; border-radius:5px; overflow: hidden; background-color: rgb(255, 255, 255); top: 25%; left: 0px;display: block;right: 0;box-shadow: 0 0 5px #fff;">
-    <div style="background-color: #f3f3f3; width:100%;height: 70px; border-bottom: 1px solid #ddd;padding: 0 20px;">
-        <div style="line-height: 70px;float: left;">
-            <a><img class="profilepic_comment"  style="float: left; margin: 12px; box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bind-attr src= controller.owner_photo_url}} /> </a>
+
+<div  class="user-talk-main-container">
+    <div class="user-talk-main-top">
+        <div class="user-talk-main-top-img">
+           <img {{bind-attr src= controller.owner_photo_url}} />
+
         </div>       
-        <div style="padding: 16px; float: left">
-            <div style="color: #555;font-size: 18px;line-height: 20px;font-weight: bold;">Message to: {{displayName}} </div>
-            <div style="font-size: 12px;color: #555;line-height: 20px;">This conversation will be stored in your message centre.</div>
+        <div class="user-talk-main-top-name">
+            <div class="user-talk-display-name">Message to: {{displayName}} </div>
+            <div class="user-talk-desc">This conversation will be stored in your message centre.</div>
         </div>
     </div>
 
 
-
-
-
-
-    <div style="width: 100%;padding: 20px 6.5%;margin: 0 auto;overflow: hidden;">
-        <div   style="margin: 0;width: 100%; height:200px;">
+    <div class="user-talk-textarea">
+        <div>
             {{view Ember.TextArea valueBinding="messageContent" class="no-resize no-effect" placeholder="Write something..." }}                                          
         </div>         
     </div>
 
     {{#if controller.isUploadPhoto}}
-    <div style='background-color: rgba(0,0,0,.2);max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;'>
+    <div class="user-talk-upload-photo">
         <div class='remove-comment-photo easing' {{action removePic }}><i class="fa fa-times"></i></div>
-        <img  {{bind-attr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;;">
+
+        <img  {{bind-attr src= "newStyleImageSource"}} >
+
     </div>
     {{/if}}  
 
 
 
-    <div class="" style="height: 41px;position: relative;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-        <div  class="message-btn easing"  style="width: 33%;height: 40px;line-height: 40px;" {{action cancelTalk on="click" target="controller"}}><i class="fa fa-times">&nbsp;</i>Cancel</div>
-        <div  class="message-btn easing" style=" border-right: 1px solid #ddd; border-left: 1px solid #ddd; width: 34%; height: 40px; line-height: 40px;"><i class='fa fa-picture-o'>&nbsp;</i>Add Photo
-            <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
+    <div class="user-talk-buttons">
+        <div  class="message-btn easing user-talk-cancel" {{action cancelTalk on="click" target="controller"}}><i class="fa fa-times">&nbsp;</i>Cancel</div>
+        <div  class="message-btn easing user-talk-add-photo"><i class='fa fa-picture-o'>&nbsp;</i>Add Photo
+            <div> 
                 {{view HubStar.SingleImageInputButtonView }}
             </div>
         </div>
         {{#if controller.isPosting}}
-        <div class="message-btn easing" style="width: 33%;height: 40px;line-height: 40px;" {{action addComment}}><i class='fa fa-check'>&nbsp;</i>Send</div>
+        <div class="message-btn easing user-talk-send" {{action addComment}}><i class='fa fa-check'>&nbsp;</i>Send</div>
         {{else}}
-        <div class="message-btn-x easing" style='width: 33%;height: 40px;line-height: 40px;'><i class="spinner" style='top: 12px';>&nbsp;</i>Posting </div>
+        <div class="message-btn-x easing user-talk-send"><i class="spinner" style='top: 12px';>&nbsp;</i>Posting </div>
         {{/if}}
     </div>
 

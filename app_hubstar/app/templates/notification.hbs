@@ -3,38 +3,39 @@
 {{render "loadingSpinner"}}
 
 {{/if}}
-<div class="Notification-Board box Message-Board" style="">
-    <div style="background-color: #f3f3f3; width:100%;height: 70px; border-bottom: 1px solid #ddd;padding: 0 20px;">
-        <div style="color: #555;font-size: 18px;line-height: 70px;font-weight: bold;float: left;"><i class="fa fa-bell">&nbsp;&nbsp;&nbsp;</i>Notifications</div>
-        <div class="create-conversation easing hint--left hint--rounded" data-hint="Set all as read" style=""{{action markAllRead}}>
+<div class="Notification-Board box Message-Board" >
+    <div class="messagecenter-container">
+        <div class="messagecenter-title"><i class="fa fa-bell">&nbsp;&nbsp;&nbsp;</i>Notifications</div>
+        <div class="create-conversation easing hint--left hint--rounded" data-hint="Set all as read" {{action markAllRead}}>
              <i class="fa fa-th-list"></i>
         </div>
     </div>
-    <div  id="content_notification" style="">
+    <div  id="content_notification" >
         {{#each controller.notificationContent}}
         {{#if this.isRead}}
 
         <div class="each-conversation easing">
-            <div style="  padding: 15px 0 10px 95px;position: relative;" {{action go this.notification_id}}>
-                 <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;"  {{bind-attr href="controller.photo_url"}}>
-                    <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bind-attr src= this.photo_url}} /> 
+
+            <div class="notification-content" {{action go this.notification_id}}>
+                 <a {{bind-attr href="controller.photo_url"}}>
+                    <img {{bind-attr src= this.photo_url}} /> 
+
                 </a>
-                <div style="">
+                <div>
                     <div class="comment-namentime">
                         <div class="namentime_position">
                             <span class="comment-username" >
                                 {{this.name}}
                             </span>
-                            <span style="display: inline-block; vertical-align: top; font-size: 13px;"> {{this.typeDisplay}}</span>
+                            <span class="notification-name"> {{this.typeDisplay}}</span>
                             <div class="posttime-container">
                                 <span class="posttime">{{date this.time}}</span>
                             </div>
-
                         </div>
                     </div>
 
-                    <div class="comment-content" style=" width: 387px; height: 35px; text-overflow: ellipsis;">
-                        <span style="text-overflow: ellipsis">
+                    <div class="comment-content notification-context">
+                        <span>
                             {{#unless this.isTag}}
                             {{this.content}}
                             {{/unless}}
@@ -45,29 +46,29 @@
            
             {{#if this.isButton}}
              {{#if this.isTag}}
-            <div class="reply-comment easing" style="left: 95px;position: relative;top: -30px; float: left;">                 
+            <div class="reply-comment easing notification-preview-tag" >                 
                 <span class="new-btn blue-btn" {{action viewPhoto this.action_id}}><i class="fa fa-picture-o"> &nbsp;</i>Preivew Tag</span>
             </div>
             {{/if}}
-            <div class="reply-comment easing" style="right: 60px;position: relative;top: -30px; float: right;">  
+            <div class="reply-comment easing notification-buttons" >  
                 <span class="new-btn green-btn "  {{action accept this.notification_id this.type}}><i class="fa fa-check"> &nbsp;</i>Accept</span>
                 <span class="new-btn" {{action decline this.notification_id this.type}}><i class="fa fa-times"> &nbsp;</i>Decline</span>
 
 
             </div>
-            <div class="reply-comment easing" style="right: -135px;position: relative;float: right;top: -60px;">  
+            <div class="reply-comment easing notification-edit-buttons">  
                 <i class="fa fa-check-circle" ></i>                 
                 <i class="fa fa-times-circle"{{action deleteNotification this.notification_id}}></i>
             </div>
             {{else}}
             {{#if this.isTag}}
 
-            <div class="reply-comment easing" style="left: 95px;position: relative;top: -30px; float: left;">                 
+            <div class="reply-comment easing notification-preview-tag" >                 
                 <span class="new-btn blue-btn" {{action viewPhoto this.action_id}}><i class="fa fa-picture-o"> &nbsp;</i>Preivew Tag</span>
 
             </div>
             {{/if}}
-            <div class="reply-comment easing" style="right: 25px;position: relative;float: right;top: -60px;">  
+            <div class="reply-comment easing notification-edit-buttons-before" >  
                 <i class="fa fa-check-circle" ></i>                 
                 <i class="fa fa-times-circle"{{action deleteNotification this.notification_id}}></i>
             </div>
@@ -76,25 +77,27 @@
 
         {{else}}
         <div class="each-conversation easing unread-style">
-            <div style="  padding: 15px 0 10px 95px;position: relative;" {{action go this.notification_id}}>
-                 <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;"  {{bind-attr href="controller.photo_url"}}>
-                    <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bind-attr src= this.photo_url}} /> 
+
+            <div class="notification-content" {{action go this.notification_id}}>
+                 <a  {{bind-attr href="controller.photo_url"}}>
+                    <img  {{bind-attr src= this.photo_url}} /> 
+
                 </a>
-                <div style="">
+                <div>
                     <div class="comment-namentime">
                         <div class="namentime_position">
                             <span class="comment-username" >
                                 {{this.name}}
                             </span>
-                            <span style="display: inline-block; vertical-align: top; font-size: 13px;"> {{this.typeDisplay}}</span>
+                            <span class="notification-name"> {{this.typeDisplay}}</span>
                             <div class="posttime-container">
                                 <span class="posttime">{{date this.time}}</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="comment-content" style=" width: 387px; height: 35px; text-overflow: ellipsis;">
-                        <span style="text-overflow: ellipsis">
+                    <div class="comment-content notification-context">
+                        <span >
                             {{#unless this.isTag}}
                             {{this.content}}
                             {{/unless}}
@@ -106,25 +109,25 @@
             {{#if this.isButton}}
             {{#if this.isTag}}
 
-            <div class="reply-comment easing" style="left: 95px;position: relative;top: -30px; float: left;">                 
+            <div class="reply-comment easing notification-preview-tag" >                 
                 <span class="new-btn blue-btn" {{action viewPhoto this.action_id}}><i class="fa fa-picture-o"> &nbsp;</i>Preivew Tag</span>
             </div>
             {{/if}}
-            <div class="reply-comment easing" style="right: 60px;position: relative;top: -30px; float: right;">                 
+            <div class="reply-comment easing notification-buttons" >                 
                 <span class="new-btn green-btn "  {{action accept this.notification_id this.type}}><i class="fa fa-check"> &nbsp;</i>Accept</span>
                 <span class="new-btn" {{action decline this.notification_id this.type}}><i class="fa fa-times"> &nbsp;</i>Decline</span>                
             </div>
-            <div class="reply-comment easing" style="right: -135px;position: relative;float: right;top: -60px;">  
+            <div class="reply-comment easing notification-edit-buttons" >  
                 <i class="fa fa-check-circle" {{action markRead this.notification_id}}></i>                 
                 <i class="fa fa-times-circle"{{action deleteNotification this.notification_id}}></i>
             </div>
             {{else}}
             {{#if this.isTag}}
-            <div class="reply-comment easing" style="left: 95px;position: relative;top: -30px; float: left;">                 
+            <div class="reply-comment easing notification-preview-tag" >                 
                 <span class="new-btn blue-btn" {{action viewPhoto this.action_id}}><i class="fa fa-picture-o"> &nbsp;</i>Preivew Tag</span>
             </div>
             {{/if}}
-            <div class="reply-comment easing" style="right: 25px;position: relative;float: right;top: -60px;">  
+            <div class="reply-comment easing notification-edit-buttons-before" >  
                 <i class="fa fa-check-circle" {{action markRead this.notification_id}}></i>                 
                 <i class="fa fa-times-circle"{{action deleteNotification this.notification_id}}></i>
             </div>

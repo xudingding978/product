@@ -1,4 +1,4 @@
-<div id="masonry_wrapper" style="top: 10px; position: relative; display: block;">
+<div id="masonry_wrapper" class="masonry-searchwall-container">
     <div id="masonry_container" class=" centered clearfix noStyle1">
         <div class="box col2 noStyle1">
             {{render "status"}}
@@ -7,14 +7,14 @@
     </div> <!-- #container -->
 </div><!-- #wrapper -->
 
-<div id ="show_more" style="width:100%;clear:both;display: block;background-color: white; opacity: 0; height: 10px;position: absolute;bottom: 800px;">
+<div id ="show_more" class="masonry-showmore">
 
 </div>
 {{#if controller.nextPageSpinner}}
-<div id ="show_more_button"style="width:100%;float:left;clear:both;display: block;">
-    <div id="more-result-button" class="new-btn" style=" width: 300px;margin: 60px auto;display: block; height: 35px; box-shadow: 0 0 10px #fff;">
-        <div class="loader2" style="left:10px"></div>
-        <div style="position: relative;line-height: 21px;padding-left: 35px;font-size:20px"{{action scrollDownAction}}>Loading more results...</div>
+<div id ="show_more_button" class="masonry-showmorebtn">
+    <div id="more-result-button" class="new-btn masonry-moreresult-btn" >
+        <div class="loader2 masonry-moreresult-load" ></div>
+        <div class="masonry-moreresult-txt" {{action scrollDownAction}}>Loading more results...</div>
     </div>
 </div>
 {{/if}}

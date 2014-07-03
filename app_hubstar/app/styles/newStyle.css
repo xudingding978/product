@@ -149,3 +149,100 @@ and open the template in the editor.
 
 
 
+
+/*call to action style by Charis*/
+
+#cta-popup{
+
+    min-width:740px;
+    margin:0 auto;
+    height:100px;
+    position: fixed;
+    top: 10%;
+    right: 25%;
+    left:25%;
+    z-index: 12;
+    text-align:center;
+    background:rgba(255,255,255,0.9);
+}
+
+#cta-popup > .inner > .left{
+    display: inline-block;
+    width: 20%;
+    margin: 20px 10px;
+    text-align: right;
+    position: relative;
+
+
+}
+
+#cta-popup > .inner > .left > span{
+    font-size:32px;
+    font-weight:bolder;
+
+}
+
+#cta-popup > .inner > .left > .my{
+    color:#000;
+}
+#cta-popup > .inner > .left > .trends{
+    color:#00b3ee;
+}
+
+#cta-popup > .inner > .middle{
+    display: inline-block;
+    width: 40%;
+    margin: 20px 10px;
+    padding-left: 20px;
+    position: relative;
+    text-align: left;
+    border-left: 1px solid #ccc;
+    vertical-align: bottom;
+    font-size: 13px;
+    line-height: 15px;
+
+}
+
+#cta-popup > .inner > .right{
+    display: inline-block;
+    width: 20%;
+    margin: 0px 10px;
+    position: relative;
+    top: 17px;
+
+}
+
+.inner{
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    padding: 5px;
+    height: 100%;
+}
+
+.registerbtn {
+    display: inline-block;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 10px;
+    height: 35px;
+    width: 140px;
+    text-align: center;
+    background-color: #00b3ee;
+    line-height: 15px;
+}
+
+.loginbtn {
+    text-align:center;
+    font-size:10px;
+    color:#00b3ee;
+
+
+}
+
+
+
+
+
+

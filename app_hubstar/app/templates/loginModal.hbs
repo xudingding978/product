@@ -1,29 +1,5 @@
 <div  id="loginModal" class="blur_black" style="" {{action closePane on="click"  target="view"}}></div>
-
-<div id="cta-popup" style="display:block;">
-    <div class="inner">
-        <div class="left">
-            <img src="../../../images/trends_logo.png" alt="trends logo">
-            <div id="cta_register" class="registerbtn" {{action ctaregister on="click"  target="view"}}>Register</div>
-            <div id="cta_login" class="loginbtn" {{action ctalogin on="click"  target="view"}}>Log in</div>
-            <div class="learnmore" >
-                <a href="http://about.trendsideas.com" target="_blank">Learn more</a>
-            </div>
-        </div><!-- end .left -->
-        <div class="right">
-            <img src="../../../images/cta-diagram.png" alt="Connect, Collect and Collaborate">
-        </div><!-- end .right -->
-
-    </div><!-- end .inner -->
-    <div class="closeview" style="right: 50px;color: #fff;"{{action closePane on="click"  target="view"}}>
-        <i class="fa fa-times"></i>
-        <span id="close_text" class="close_text">close</span>
-    </div>
-
-</div><!-- end #cta-popup -->
-
-
-<div id="profiles-main-container" class="Login-box" style="background-color: transparent;position: fixed; top: 30%; z-index: 10; margin: auto; left: 0px; right: 0px; width: 300px;height: 565px;border: 0;text-align: center; display:none;">   
+<div id="profiles-main-container" class="Login-box" style="background-color: transparent;position: fixed; top: 30%; z-index: 10; margin: auto; left: 0px; right: 0px; width: 300px;height: 565px;border: 0;text-align: center; display:block;">   
 
     <div id="click-register-social" class="register-with easing social-active" style="border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;">
         <i class="fa fa-facebook">&nbsp</i><a style="color: #888"> Register with social account</a>

@@ -1,30 +1,27 @@
 <div class="blur_black"  {{action reviewCancel }}></div>
 
-<div style="margin:0 auto; padding: 0 0 15px 15px;">
+<div class="review-container">
 
 
-    <div class="Add-review" style="">
-        <div style="width: 100%;height: auto; min-height: 50px;padding: 10px 23px;">
-            <a style="display: inline-block; vertical-align: middle; float: left;">
-                <img class="profilepic_comment"  style="width: 45px;height: 45px;margin: 0 15px 0 0;float: left;"{{bindAttr src="this.review_user_photo_url"}} /> 
-            </a>
-            <div style="font-size: 18px;font-weight: bold;color: #555; height: auto; min-height: 50px;vertical-align: middle;display: inline-block;width: 390px;"><span>Review on:  {{this.profileName}}</span></div>
+    <div class="review-wrapper">
+        <div class="review-top">
+            <a><img class="profilepic_comment" {{bindAttr src="this.review_user_photo_url"}} /></a>
+            <div ><span>Review on:  {{this.profileName}}</span></div>
         </div>
 
-        <div style="background-color: #f4f6f8; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; height: 50px; line-height: 50px; width: 100%">
-
-            <span id="post-star" style="overflow: auto; position: relative; margin: 12px 0px 12px 20px; display: inline-block;"></span>
-            <div id="post-star-rating" class="contactmeicon easing" style="width: 35px; height: 35px;line-height: 33px;text-align: center;font-weight: bold;font-size: 13px;border: 1px solid #ddd;vertical-align: top;margin: 6px;box-shadow: initial;background-color: #fff;background-image: none;cursor: default;"></div>
+        <div class="review-middle">
+            <span id="post-star"></span>
+            <div id="post-star-rating" class="contactmeicon easing"></div>
 
         </div>
 
-        <div style="margin: 5px auto; padding: 0 15px;height: 200px;">
+        <div class="review-textarea">
             {{view Ember.TextArea  valueBinding="review_content"  class="no-resize no-effect"  placeholder="review time" }}
         </div>
 
-        <div class="" style="height: 41px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-            <div  class="message-btn easing"  style="width: 50%;" {{action reviewCancel }}><i class="fa fa-times">&nbsp;</i>Cancel</div>
-            <div class="message-btn easing" style="width: 50%;" {{action  reviewPost model.id}}><i class="fa fa-check">&nbsp;</i>Post</div>
+        <div class="review-buttons">
+            <div  class="message-btn easing" {{action reviewCancel }}><i class="fa fa-times">&nbsp;</i>Cancel</div>
+            <div class="message-btn easing" {{action  reviewPost model.id}}><i class="fa fa-check">&nbsp;</i>Post</div>
         </div>
 
 

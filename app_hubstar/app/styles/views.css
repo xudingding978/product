@@ -2713,7 +2713,7 @@ div.album-description-bg{
     width: 170px; 
     right: 80px; 
     position: absolute; 
-    top: 136px;
+    top: 156px;
 }
 .share-type-fb{
     max-height:34px;
@@ -2746,6 +2746,11 @@ div.album-description-bg{
 
 .share-type-txt2{
     margin-left: 2.5em;
+}
+
+.share-type-email{
+    width: 16px;
+    height: 16px;
 }
 
 .mainfeature_object2{
@@ -3665,6 +3670,15 @@ div.album-description-bg{
 /* dropdown list */
 .isLogin1{
     position: absolute;
+}
+
+/*------show album --------*/
+
+.show-album-content{
+    margin: 15px;
+    overflow: auto;
+    height: 225px;
+    width: 100%;
 }
 
 

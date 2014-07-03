@@ -4,60 +4,60 @@
 {{render loadingSpinner}}
 
 {{/if}}
-<div style="width: 100%; margin: 100px auto; left: 0;right: 0;position: relative;display: block;">
+<div class="masonry-container">
 
     {{#if controller.groupPage}}
-      <div class="new-masonry-bar"  >
+      <div class="new-masonry-bar" >
         <ul  id="new-user-stats">
-          <li id="networkGroup"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position='top' {{action selectPartner}}>Network <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>
-          <li id="networkGroup1"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position='top' {{action selectPartner1}}>Collections <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>
+          <li id="networkGroup"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position="top" {{action selectPartner}}>Network <span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>
+          <li id="networkGroup1"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position="top" {{action selectPartner1}}>Collections <span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>
           </ul>
       </div>
     
     {{else}}
 
-    <div id="profile_submenu" class="style-box t-style-box" style="width: 87%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
+    <div id="profile_submenu" class="style-box t-style-box masonry-profilesubmenu" >
 
         <div class="profile-selection-status"  >{{controller.profileSelectionStatus}}</div>
         {{#if partnerTag}}
-        <div style="height: 35px; border-radius: 25px;border: 1px solid #ddd;float: left;margin: 7px 5px;">
+        <div class="masonry-search">
             <div class="partner-searchbox">
                 {{view HubStar.SearchRequireTextFieldView valueBinding="partnerSearchString"  id="search_business" placeholder="Search for Partners" class="no-effect" }}
             </div>
-            <div class="hover-opacity" style="line-height: 34px;   float: right; font-size: 13px;  margin: 0 15px 0 0;" {{action partnerSearch}}>
+            <div class="hover-opacity masonry-searchicon" {{action partnerSearch}}>
                  <i class="fa fa-search"></i>
             </div>
         </div>
-        <div class="clear-all hover-opacity" style="" class="hover-opacity"{{action partnerSearchReset this}}><i class="fa fa-times" style="color: #fff"></i></div>
+        <div class="clear-all hover-opacity" style="" class="hover-opacity"{{action partnerSearchReset this}}><i class="fa fa-times masonry-clean-search" ></i></div>
         {{/if}} 
         {{#if controller.partnerPage}}
         <ul class="user-stats" id="user-stats">
 
 
-            <li id="defualt"  data-step="8" data-intro="Click here to view the profile’s <b>Collections</b>." data-position="top"><a {{action selectCollection}}> Collections <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileCollectionStatistics}}</a></li>
-            <li id="video"   data-step="9" data-intro="Click here to view the profile’s <b>Videos</b>." data-position="top"><a {{action selectVideo this}}> Videos <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileVideoStatistics}}</a></li>
+            <li id="defualt"  data-step="8" data-intro="Click here to view the profile’s <b>Collections</b>." data-position="top"><a {{action selectCollection}}> Collections <span class="masonry-submenu-txt">&nbsp; • &nbsp;</span> {{controller.profileCollectionStatistics}}</a></li>
+            <li id="video"   data-step="9" data-intro="Click here to view the profile’s <b>Videos</b>." data-position="top"><a {{action selectVideo this}}> Videos <span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.profileVideoStatistics}}</a></li>
             {{#if HubStar.pdf_display}}   
-            <li id="pdf" data-step="10" data-intro="Click here to view the profile’s <b>PDFs</b>." data-position="top"><a {{action selectPdf this}}> PDF <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span>{{controller.profilePdfStatistics}}</a></li>
+            <li id="pdf" data-step="10" data-intro="Click here to view the profile’s <b>PDFs</b>." data-position="top"><a {{action selectPdf this}}> PDF <span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span>{{controller.profilePdfStatistics}}</a></li>
             {{/if}}
-            <li id="network"  data-step="11" data-intro="Click here to see the profile’s <b>Network Partners</b>." data-position="top"><a {{action selectPartner this}}>Network <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profilePartnerStatistics}}</a></li>
-            <li id="follow"  data-step="12" data-intro="Click here to see who is <b>Following</b> this profile." data-position="top"><a {{action selectFollower this}}>Followers <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileFollowerStatistics}}</a></li>  
-            <li id="reviewList"  data-step="13" data-intro="Click here to read <b>Reviews</b> of this profile. Thanks for taking time on the tour, have a good trip on our website." data-position="top"><a {{action selectReview this}}>Reviews <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileReviewStatistics}}</a></li> 
+            <li id="network"  data-step="11" data-intro="Click here to see the profile’s <b>Network Partners</b>." data-position="top"><a {{action selectPartner this}}>Network <span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.profilePartnerStatistics}}</a></li>
+            <li id="follow"  data-step="12" data-intro="Click here to see who is <b>Following</b> this profile." data-position="top"><a {{action selectFollower this}}>Followers <span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.profileFollowerStatistics}}</a></li>  
+            <li id="reviewList"  data-step="13" data-intro="Click here to read <b>Reviews</b> of this profile. Thanks for taking time on the tour, have a good trip on our website." data-position="top"><a {{action selectReview this}}>Reviews <span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.profileReviewStatistics}}</a></li> 
 
         </ul>
         {{/if}}
 
         {{#if controller.userTage}}
         <ul class="user-stats" id="user-stats">
-            <li id="defualt" data-step="5" data-intro="The <b>Collections</b> tab is where you"ll find your collections of saved images, articles and videos." data-position="top"><a {{action selectCollection}}> Collections<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userCollectionStatistics}}</a></li>
-            <li id ="ufollowing"data-step="6" data-intro="Click the <b>Following</b> tab to see who you are following." data-position="top"><a {{action selectFollowing this}}> Following<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowingStatistics}}</a></li>
-            <li id ="ufollower" data-step="7" data-intro="Click the <b>Followers</b> tab to see who is following you." data-position="top"><a {{action selectFollower this}}> Followers<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowerStatistics}}</a></li>
+            <li id="defualt" data-step="5" data-intro="The <b>Collections</b> tab is where you"ll find your collections of saved images, articles and videos." data-position="top"><a {{action selectCollection}}> Collections<span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.userCollectionStatistics}}</a></li>
+            <li id ="ufollowing"data-step="6" data-intro="Click the <b>Following</b> tab to see who you are following." data-position="top"><a {{action selectFollowing this}}> Following<span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.userFollowingStatistics}}</a></li>
+            <li id ="ufollower" data-step="7" data-intro="Click the <b>Followers</b> tab to see who is following you." data-position="top"><a {{action selectFollower this}}> Followers<span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.userFollowerStatistics}}</a></li>
             {{#if controller.isUserSelf}}
-            <li id ="message" data-step="8" data-intro="Click the <b>Message</b> tab to access your Message Centre. Next will jump to your <b>Business Profile</b>" data-position="top"><a {{action selectMessage this}}> Messages<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp;</span></a></li>
+            <li id ="message" data-step="8" data-intro="Click the <b>Message</b> tab to access your Message Centre. Next will jump to your <b>Business Profile</b>" data-position="top"><a {{action selectMessage this}}> Messages<span class="masonry-submenu-txt" >&nbsp;</span></a></li>
 
 
             {{/if}}
 
-            <li id ="post" data-step="9" data-intro="Click the <b>Post</b> tab to access your Post Wall." data-position="top"><a {{action selectPost this}}> Posts<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp;</span></a></li>
+            <li id ="post" data-step="9" data-intro="Click the <b>Post</b> tab to access your Post Wall." data-position="top"><a {{action selectPost this}}> Posts<span class="masonry-submenu-txt" >&nbsp;</span></a></li>
 
 
         </ul>

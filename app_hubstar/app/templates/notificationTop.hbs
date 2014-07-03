@@ -1,74 +1,74 @@
 <div class="blank-top-bar" {{action notificationCancel on="click" target="controller"}}>&nbsp;</div>
-<div  class="Notification-Board Notification-top" style="z-index: 11;height: 440px;top: 85px;position: absolute;">
+<div  class="Notification-Board Notification-top notificationtop-container" >
 
     {{#if controller.loadingTime}}
-    <div style="position: absolute; margin-top: 175px;text-align: center;width: 100%;background-color: rgba(255,255,255,0);">
+    <div class="notificationtop-loading">
         <i class="spinner">&nbsp;</i>
     </div>
-    {{/if}}
-    <div style="background-color: #f3f3f3; width:100%;height: 35px; border-bottom: 1px solid #ddd;padding: 0 20px;position: relative;display: block;clear: both;">
-        <div style="color: #666;font-size: 13px;line-height: 38px;font-weight: bold;float: left;"><i class="fa fa-bell">&nbsp;&nbsp;&nbsp;</i>Notifications</div>
-        <div class="create-conversation easing hint--left hint--rounded" data-hint="Set all as read" style="height: 34px; width: 34px; line-height: 36px; font-size: 13px;"{{action markAllRead}}>
+    {{/if}} 
+    <div class="notificationtop-titleContainer">
+        <div class="notificationtop-title"><i class="fa fa-bell">&nbsp;&nbsp;&nbsp;</i>Notifications</div>
+        <div class="create-conversation easing hint--left hint--rounded notificationtop-makeRead" data-hint="Set all as read" {{action markAllRead}}>
              <i class="fa fa-th-list"></i>
         </div>
     </div>
 
-    <div id="notititopbar" style="position: absolute">
+    <div id="notifitopbar" class="notificationtop-txtContainer">
         {{#each controller.notificationTopContent}}
         {{#if this.isRead}}
-        <div class='each-conversation easing' style="min-height: 0;">
-            <div style="padding: 10px 10px 10px 70px;position: relative;"{{action go this.notification_id}}>
-                 <a class="" style="position: absolute; top: 15px;margin: 0 0 0 -50px;" >
-                    <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.photo_url}} /> 
+        <div class="each-conversation easing notificationtop-txt-height" >
+            <div class="notificationtop-innertxt"{{action go this.notification_id}}>
+                 <a class="notificationtop-imgbox" >
+                    <img {{bindAttr src= this.photo_url}} /> 
                 </a>
-                <div style="">
+                <div>
                     <div class="comment-namentime">
-                        <div class="" style="color: #555">
+                        <div class="notificationtop-txt-title" >
                             <span class="comment-username" >
                                 {{this.name}}
                             </span>
-                            <span style="display: inline-block; vertical-align: bottom; font-size: 11px;"> {{this.typeDisplay}}</span>               
+                            <span class="notificationtop-txt-type"> {{this.typeDisplay}}</span>               
 
                         </div>
                     </div>
 
-                     <div class="comment-content" style=" width: 330px; height: 15px; font-size: 11px;">
-                        <span style="text-overflow: ellipsis">
+                     <div class="comment-content notificationtop-txtbox" >
+                        <span class="notificationtop-txt">
                             {{#unless this.isTag}}
                             {{this.content}}
                             {{/unless}}
                         </span>
                     </div>
-                    <div class="posttime-container">
-                        <span class="posttime" style="font-size: 9px; line-height: 10px;">{{date this.time}}</span>
+                    <div class="posttime-container"> 
+                        <span class="posttime notificationtop-txt-time" >{{date this.time}}</span>
                     </div>
 
                 </div>
             </div>
-            <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;font-size: 10px;">  
+            <div class="reply-comment easing notificationtop-reply">  
                 <i class="fa fa-check-circle"></i>                 
                 <i class="fa fa-times-circle" {{action removeNotificationItem this.notification_id}}></i>
             </div>
         </div>
         {{else}}
 
-        <div class='each-conversation easing unread-style' style="min-height: 0;">
-            <div style="padding: 10px 10px 10px 70px;position: relative;" {{action go this.notification_id}}>
-                 <a class="" style="position: absolute; top: 15px;margin: 0 0 0 -50px;"  {{bindAttr href="controller.photo_url"}}>
-                    <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.photo_url}} /> 
+        <div class="each-conversation easing unread-style notificationtop-txt-height" >
+            <div class="notificationtop-innertxt" {{action go this.notification_id}}>
+                 <a class="notificationtop-imgbox" {{bindAttr href="controller.photo_url"}}>
+                    <img {{bindAttr src= this.photo_url}} /> 
                 </a>
-                <div style="">
+                <div>
                     <div class="comment-namentime">
-                        <div class="" style="color: #555">
+                        <div class="notificationtop-txt-title" >
                             <span class="comment-username" >
                                 {{this.name}}
                             </span>
-                            <span style="display: inline-block; vertical-align: bottom; font-size: 11px;"> {{this.typeDisplay}}</span>               
+                            <span class="notificationtop-txt-type"> {{this.typeDisplay}}</span>               
                         </div>
                     </div>
 
-                    <div class="comment-content" style=" width: 330px; height: 15px; font-size: 11px;">
-                        <span style="text-overflow: ellipsis">
+                    <div class="comment-content notificationtop-txtbox" >
+                        <span class="notificationtop-txt">
                             {{#unless this.isTag}}
                             {{this.content}}
                             {{/unless}}
@@ -76,12 +76,12 @@
                     </div>
 
                     <div class="posttime-container">
-                        <span class="posttime" style="font-size: 9px; line-height: 10px;" >{{date this.time}}</span>
+                        <span class="posttime notificationtop-txt-time" >{{date this.time}}</span>
                     </div>
 
                 </div>
             </div>
-            <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;font-size: 10px;">  
+            <div class="reply-comment easing notificationtop-reply" > 
                 <i class="fa fa-check-circle  " {{action markRead this.notification_id}}></i>                 
                 <i class="fa fa-times-circle" {{action removeNotificationItem this.notification_id}}></i>
             </div>
@@ -89,13 +89,12 @@
         {{/if}}
         {{/each}}
     </div>
-    <div style="background-color: #f3f3f3; width:100%;height: 35px; border-top: 1px solid #ddd;padding: 0 20px; text-align: center;position: absolute;top: 405px;">
-        <div style="color: #666;font-size: 13px;line-height: 38px;font-weight: bold;">   <i  style="cursor: pointer" {{action seeAll}}>  See all</i>  </div>
+    <div class="notificationtop-moreContainer">
+        <div class="notificationtop-more">   <i class="cursor-pointer" {{action seeAll}}>  See all</i>  </div>
     </div>
-</div>
-{{#if controller.makeSureDelete}}
+</div> 
+{{#if controller.makeSureDelete}} 
 
 {{view HubStar.DeleteFunctionView}}
-
 
 {{/if}}

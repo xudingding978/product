@@ -154,16 +154,15 @@ and open the template in the editor.
 
 #cta-popup{
 
-    min-width:740px;
-    margin:0 auto;
-    height:100px;
+    min-width: 740px;
+    height: 100px;
     position: fixed;
-    top: 10%;
-    right: 25%;
-    left:25%;
+    top: 100px;
     z-index: 12;
-    text-align:center;
-    background:rgba(255,255,255,0.9);
+    left:25%;
+    right:25%;      
+    text-align: center;
+    background: rgba(255,255,255,0.9);
 }
 
 #cta-popup > .inner > .left{

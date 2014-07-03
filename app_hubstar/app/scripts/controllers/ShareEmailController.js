@@ -55,7 +55,6 @@ HubStar.ShareEmailController = Ember.Controller.extend({
             }
         });
     },
-
     emailSend: function()
     {
         var tempEmail = [this.get("emailDestination"), this.get("emailBody"), this.get('displayName'), this.get('displayEmail'), this.get("currentUser").get('photo_url_large'), this.get("owner_profile_pic"), this.get("selectedPhotoThumbnailUrl"), this.get("selectedUrl"), this.get('contentTitle'), this.get("selectedMega").get("owner_title"), this.get("selectedMega").get("owner_profile_pic")];
@@ -77,7 +76,7 @@ HubStar.ShareEmailController = Ember.Controller.extend({
     setImageID: function(id) {
         this.set("objectID", id);
     },
-    setUrl: function(url){
+    setUrl: function(url) {
         this.set("selectedUrl", url);
     },
     setThumbnailUrl: function(photo_image_original_url) {
@@ -98,14 +97,13 @@ HubStar.ShareEmailController = Ember.Controller.extend({
     setDesc: function(desc) {
         this.set("selectedDesc", desc);
     },
-
     exit: function() {
         var that = this;
         this.get("controllers.profile").set("isShareEmail", false);
         this.get("controllers.article").set("isShareEmail", false);
         this.get("controllers.mega").set("isShareEmail", false);
         this.get("controllers.video").set("isShareEmail", false);
-
+        HubStar.set("isShareEmail", false);
 //        if (this.get('parentTController') === 'article')
 //        {
 //            this.get("controllers.article").eShare();

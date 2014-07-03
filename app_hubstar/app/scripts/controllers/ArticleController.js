@@ -1079,10 +1079,10 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     addLike: function() {
         var controller = this.get('controllers.itemFunction');
-        controller.addLike(this.get('megaResouce').get('id'));
+        controller.addLike(this.get('article').get('id'));
     },
     unLike: function() {
         var controller = this.get('controllers.itemFunction');
-        controller.unLike(this.get('megaResouce').get('id'));
+        controller.unLike(this.get('article').get('id'));
     }
 });

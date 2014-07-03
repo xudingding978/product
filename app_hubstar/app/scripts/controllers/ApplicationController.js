@@ -83,6 +83,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     init: function() {
         HubStar.set("isTopAdDisplay", true);
         HubStar.set("isAddCollection", false);
+        HubStar.set("isShareEmail", false);
         
         var that = this;
 

@@ -77,6 +77,11 @@
 {{#if HubStar.isAddCollection}}
 {{render "addCollection"}}
 {{/if}}
+
+{{#if HubStar.isShareEmail}}
+{{render "shareEmail"}}
+{{/if}}
+
 <script type="text/javascript">
 
     function DropDown(el) {

@@ -119,6 +119,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 "photo_source_id": photoName.toLowerCase().replace(/\./g, "_"),
                 "photo_image_original_url": src,
                 "photo_file_name": photoName.toLowerCase(),
+                "photo_caption":"",
                 "photo_type": type,
                 "photo_keywords": keywords});
             mega.get("photo").pushObject(file);

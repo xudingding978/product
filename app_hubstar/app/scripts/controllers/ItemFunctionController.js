@@ -509,8 +509,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 shareEmailController.setRelatedController('itemFunction');
                 shareEmailController.setSelectedMega(selectid);
                 shareEmailController.setTitle(this.get('selectedPhoto').get('photo_title'));
-                $('#addEmail_' + model.id).attr('style', 'display: block');
-                this.set("isShareEmail", true);
+//                this.set("isShareEmail", true);
             }
             else if (model.get("type") === "article")
             {
@@ -527,8 +526,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 shareEmailController.setRelatedController('itemFunction');
                 shareEmailController.setTitle(this.get('selectedArticle').get('article_headline'));
                 shareEmailController.setSelectedMega(selectid);
-                $('#addEmail_' + model.id).attr('style', 'display: block');
-                this.set("isShareEmail", true);
+//                this.set("isShareEmail", true);
             }
 
             else if (model.get("type") === "video")
@@ -545,9 +543,9 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 shareEmailController.setRelatedController('itemFunction');
                 shareEmailController.setTitle(this.get('selectedVideo').data.video_title);
                 shareEmailController.setSelectedMega(selectid);
-                $('#addEmail_' + model.id).attr('style', 'display: block');
-                this.set("isShareEmail", true);
+//                this.set("isShareEmail", true);
             }
+            HubStar.set("isShareEmail",true);
             $("#body_id").css("overflow", "hidden");
         }
 

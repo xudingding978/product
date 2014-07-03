@@ -39,6 +39,7 @@ HubStar.UserController = Ember.Controller.extend({
     pinterest: "",
     linkedin: "",
     youtube: "",
+    instagram: "",
     location: "",
     email: "",
     password: "",
@@ -62,7 +63,7 @@ HubStar.UserController = Ember.Controller.extend({
     about_me: "",
     first_name: "",
     last_name: "",
-    subcateMethod: [{list_id: 0, isSelection: false, category_topic: "email"}],
+    subcateMethod: [{list_id: 4, isSelection: false, category_topic: "email"}],
     subcate: [{list_id: 0, isSelection: false, category_topic: "message"}, {list_id: 1, isSelection: false, category_topic: "follow"}, {list_id: 2, isSelection: false, category_topic: "conversation"}],
     is_Photoclick: false,
     is_click: false,
@@ -93,7 +94,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     checkedMethodAction: function(checkedboxselection) {
         $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
-        this.get("subcateMethod").objectAt(checkedboxselection).isSelection = !this.get("subcateMethod").objectAt(checkedboxselection).isSelection;
+        this.get("subcateMethod").objectAt(0).isSelection = !this.get("subcateMethod").objectAt(checkedboxselection).isSelection;
     },
     saveNotification: function()
     {
@@ -182,11 +183,11 @@ HubStar.UserController = Ember.Controller.extend({
         else if (this.get("notification_setting") === null)
         {
 
-            this.get("subcateMethod").objectAt(0)["isSelection"] = true;
-            this.get("subcate").objectAt(0)["isSelection"] = true;
-            this.get("subcate").objectAt(1)["isSelection"] = true;
-            this.get("subcate").objectAt(2)["isSelection"] = true;
-//            this.get("subcate").objectAt(3)["isSelection"] = true;
+            this.get("subcateMethod").objectAt(0).isSelection = true;
+            this.get("subcate").objectAt(0).isSelection = true;
+            this.get("subcate").objectAt(1).isSelection = true;
+            this.get("subcate").objectAt(2).isSelection = true;
+
         }
     },
     setUser: function()
@@ -227,6 +228,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("pinterest", user.get("pinterest_link"));
         this.set("linkedin", user.get("linkedin_link"));
         this.set("youtube", user.get("youtube_link"));
+        this.set("instagram", user.get("instagram_link"));
         this.set("location", user.get("region"));
         this.set("email", user.get("email"));
         this.set("oldpassword", "");
@@ -547,6 +549,9 @@ HubStar.UserController = Ember.Controller.extend({
         else if (link === 'linkedin') {
             window.open(this.get("linkedin"));
         }
+        else if (link === 'instagram') {
+            window.open(this.get("instagram"));
+        }
     },
     savePassword: function() {
 
@@ -657,6 +662,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.saveLink('pinterest_link', 'pinterest');
             this.saveLink('linkedin_link', 'linkedin');
             this.saveLink('youtube_link', 'youtube');
+            this.saveLink('instagram_link', 'instagram');
             this.get('controllers.applicationFeedback').statusObserver(null, "Social Links updated.");
             this.get('model').store.save();
         }
@@ -688,6 +694,8 @@ HubStar.UserController = Ember.Controller.extend({
         checkList.push(linkedin);
         var youtube = new CheckObject("youtube", this.get('youtube'), 128, true, "youtube");
         checkList.push(youtube);
+        var instagram = new CheckObject("instagram", this.get('instagram'), 128, true, "instagram");
+        checkList.push(instagram);
         for (var i = 0; i < checkList.length; i++)
         {
             document.getElementById(checkList[i].id).setAttribute("class", "");

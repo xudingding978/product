@@ -384,6 +384,7 @@ class UsersController extends Controller {
             $oldRecord['user'][0]['googleplus_link'] = $newRecord['googleplus_link'];
             $oldRecord['user'][0]['pinterest_link'] = $newRecord['pinterest_link'];
             $oldRecord['user'][0]['youtube_link'] = $newRecord['youtube_link'];
+            $oldRecord['user'][0]['instagram_link'] = $newRecord['instagram_link'];
             $oldRecord['user'][0]['region'] = $request_arr['user']['region'];
             $oldRecord['user'][0]['email'] = $request_arr['user']['email'];
             $oldRecord['user'][0]['password'] = $request_arr['user']['password'];

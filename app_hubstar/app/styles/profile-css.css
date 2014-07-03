@@ -1214,7 +1214,7 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .each-conversation{
-    min-height: 100px; 
+    min-height: 110px; 
     width: 100%; 
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #fff;
@@ -1585,11 +1585,8 @@ div#appfeedback .fresh-message > i.fa-times{
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 0 0 5px #aaa;
-    top: 120px;
-    left: 0px;
-    right: 470px;
+    top: 170px;
     z-index: 12;
-    margin: 0 auto;
     display: block;  
 }
 
@@ -2944,6 +2941,7 @@ div#appfeedback .fresh-message > i.fa-times{
 
 .profile-editors-btn-span{
     position: relative;
+    float:none;
 }
 .profile-editors-button .fa-plus{
     position: absolute;

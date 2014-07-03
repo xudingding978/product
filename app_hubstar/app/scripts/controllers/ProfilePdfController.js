@@ -6,6 +6,7 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     newPdfCover: '',
     newPdfDesc: '',
     loadingTime: false,
+    is_profile_editing_mode:false,
     getVideo: true,
     pdfContent: [],
     isRenderDeleteItemTemplate: false,
@@ -43,7 +44,42 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
             }, 250);
         });
 
-//        this.checkEditingMode();
+        this.checkEditingMode();
+    },
+    checkEditingMode: function()
+    {
+        this.set('is_profile_editing_mode', false);
+        this.set('is_user_editing_mode', false);
+
+        if (HubStar.get('editingMode') === 'profile') {
+            this.set('is_profile_editing_mode', true);
+            var proController = this.get('controllers.profile');
+            this.set('pageModel', proController.get('model'));
+            this.checkAuthenticUser();
+        }
+        else if (HubStar.get('editingMode') === 'user') {
+            this.set('is_user_editing_mode', true);
+            var userController = this.get('controllers.user');
+            this.set('is_authentic_user', userController.get('is_authentic_user'));
+        }
+        else {
+            this.set('is_profile_editing_mode', false);
+            this.set('is_user_editing_mode', false);
+        }
+        this.relayout();
+        console.log(this.get('is_profile_editing_mode'));
+    },
+    relayout: function()
+    {
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+                 $('html,body').animate({
+                    scrollTop: $("#profile_submenu").offset().top-100
+                });
+            }, 100);
+        }, 200);
     },
             
     transitionToPdf: function(id) {

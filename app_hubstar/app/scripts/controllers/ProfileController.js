@@ -1203,7 +1203,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
             this.sendEventTracking('event', 'button', 'click', 'PDF');
-            this.set('profileSelectionStatus', 'Pdf');
+            this.set('profileSelectionStatus', 'Resource');
             this.get('controllers.profilePdf').getClientId(model);
             this.set('videoTag', false);
             this.set('pdfTag', true);

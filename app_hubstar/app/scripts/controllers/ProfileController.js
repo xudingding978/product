@@ -896,7 +896,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
             var tempCollection = this.get("selectedCollection");
-            var delInfo = [tempCollection.id, this.get('model').get('id'), 'profile'];
+            var delInfo = [tempCollection.get("id"), this.get('model').get('id'), 'profile'];
             delInfo = JSON.stringify(delInfo);
             requiredBackEnd('collections', 'delete', delInfo, 'POST', function() {
             });

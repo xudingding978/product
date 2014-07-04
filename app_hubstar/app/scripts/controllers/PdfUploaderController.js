@@ -24,7 +24,7 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         this.set('pdfInfromationEdit', false);
         this.reset();
         this.controllerFor('profilePdf').init();
-        this.transitionTo("profilePdf");
+        this.transitionToRoute("profilePdf");
     },
     modifyDetail: function(pdf_id) {
         var pdf = this.seekCurrentPdf(pdf_id);

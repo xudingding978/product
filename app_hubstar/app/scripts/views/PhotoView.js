@@ -193,7 +193,7 @@ HubStar.PhotoView = Ember.View.extend({
     keyUp: function(event) {
         if (event.which === 27)
         { // pressed 'esc'
-            //this.get("controller").transitionTo("search");
+            //this.get("controller").transitionToRoute("search");
             this.get("controller").set("enableTag", false);  //close the showTag template
             var address = document.URL;
             var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 

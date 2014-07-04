@@ -1281,7 +1281,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.createGooglemap();
         this.set('toAddress', update_profile_record.get('profile_physical_address') + ", " + update_profile_record.get('profile_suburb') + ", " + update_profile_record.get('profile_regoin') + ", " + update_profile_record.get('profile_country'));
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
-            update_profile_record.get('stateManager').transitionTo('loaded.saved');
+            update_profile_record.get('stateManager').transitionToRoute('loaded.saved');
         }
         $('#errorMessage2').attr('style', 'display:none');
         if (this.checkKeywordNum(this.get('projectCategoryDropdownContent'), update_profile_record.get('profile_package_name')) && this.getKeywordsNum(this.get('projectCategoryDropdownContent')) - update_profile_record.get('keywords').get('length') < 0) {

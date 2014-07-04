@@ -5,7 +5,7 @@ HubStar.ProfileNewView = Ember.View.extend({
         if (localStorage.loginStatus === null || (localStorage.loginStatus === ""))
         {
             HubStar.set("isLogin", false);
-            this.get("controller").transitionTo("index");
+            this.get("controller").transitionToRoute("index");
         } else {
             HubStar.set("isLogin", true);
 
@@ -16,7 +16,7 @@ HubStar.ProfileNewView = Ember.View.extend({
                 this.get("controller").get('controllers.application').set("is_trends_user", true);
             } else {
                 this.get("controller").get('controllers.application').set("is_trends_user", false);
-                this.get("controller").transitionTo("searchIndexTom");
+                this.get("controller").transitionToRoute("searchIndexTom");
             }
         }
     },

@@ -295,12 +295,12 @@ HubStar.ArticleController = Ember.Controller.extend({
                 if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
                 {
 
-                    this.transitionTo("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
+                    this.transitionToRoute("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
 
                 }
                 else
                 {
-                    this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    this.transitionToRoute("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
             }
             else
@@ -312,22 +312,22 @@ HubStar.ArticleController = Ember.Controller.extend({
                 {
                     if (id === "default")
                     {
-                        this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                        this.transitionToRoute("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
 
                     }
                     else
                     {
-                        this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                        this.transitionToRoute("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                     }
 
                 }
                 else if (search_type === "profiles")
                 {
-                    this.transitionTo("profileArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    this.transitionToRoute("profileArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
                 else if (search_type === "users")
                 {
-                    this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    this.transitionToRoute("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
             }
             this.set("photo_album_id", "album_" + this.get('selectedPhoto').get("id"));
@@ -390,12 +390,12 @@ HubStar.ArticleController = Ember.Controller.extend({
                 if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
                 {
 
-                    this.transitionTo("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
+                    this.transitionToRoute("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
 
                 }
                 else
                 {
-                    this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    this.transitionToRoute("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
             }
             else
@@ -408,24 +408,24 @@ HubStar.ArticleController = Ember.Controller.extend({
                     if (id === "default")
                     {
 
-                        this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                        this.transitionToRoute("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
 
 
                     }
                     else
                     {
-                        this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                        this.transitionToRoute("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                     }
 
                 }
                 else if (search_type === "profiles")
                 {
-                    this.transitionTo("profileArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    this.transitionToRoute("profileArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
                 else if (search_type === "users")
                 {
 
-                    this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    this.transitionToRoute("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
 
 
@@ -501,11 +501,11 @@ HubStar.ArticleController = Ember.Controller.extend({
         {
             if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
             {
-                this.transitionTo("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
+                this.transitionToRoute("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
             }
             else
             {
-                this.transitionTo("articlePhoto", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
+                this.transitionToRoute("articlePhoto", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
             }
 
         }
@@ -516,16 +516,16 @@ HubStar.ArticleController = Ember.Controller.extend({
             var search_type = address.split("#")[1].split("/")[1];
             if (search_type === "articles")
             {
-                this.transitionTo("searchsArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                this.transitionToRoute("searchsArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
             }
             else {
                 if (id === "default") //it is the search index
                 {
-                    this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    this.transitionToRoute("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
                 else
                 {
-                    this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    this.transitionToRoute("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
             }
         }
@@ -665,12 +665,12 @@ HubStar.ArticleController = Ember.Controller.extend({
                         {
                             if (that.get("controllers.masonryCollectionItems").get("type") === "profile")
                             {
-                                that.transitionTo("profileArticlePhoto", that.get('content').objectAt(0));
+                                that.transitionToRoute("profileArticlePhoto", that.get('content').objectAt(0));
                             }
                             else
                             {
 
-                                that.transitionTo("articlePhoto", that.get('content').objectAt(0));
+                                that.transitionToRoute("articlePhoto", that.get('content').objectAt(0));
                             }
                             this.set("isShowPhotoUrl", false);
                         }
@@ -690,23 +690,23 @@ HubStar.ArticleController = Ember.Controller.extend({
 
                                 if (search_id === "default")
                                 {
-                                    that.transitionTo("searchDefaultArticlePhoto", that.get("content").objectAt(0));
+                                    that.transitionToRoute("searchDefaultArticlePhoto", that.get("content").objectAt(0));
                                 } else
                                 {
-                                    that.transitionTo("searchIndexArticlePhoto", that.get("content").objectAt(0));
+                                    that.transitionToRoute("searchIndexArticlePhoto", that.get("content").objectAt(0));
                                 }
 
                             } else if (search_type === "profiles")
                             {
-                                that.transitionTo("profileArticlePhoto", that.get('content').objectAt(0));
+                                that.transitionToRoute("profileArticlePhoto", that.get('content').objectAt(0));
                             }
                             else if (search_type === "users")
                             {
-                                that.transitionTo("articlePhoto", that.get('content').objectAt(0));
+                                that.transitionToRoute("articlePhoto", that.get('content').objectAt(0));
                             }
                             else if (search_type === "articles")
                             {
-                                that.transitionTo("searchsArticlePhoto", that.get('content').objectAt(0));
+                                that.transitionToRoute("searchsArticlePhoto", that.get('content').objectAt(0));
                             }
                             this.set("isShowPhotoUrl", false);
                         }
@@ -787,12 +787,12 @@ HubStar.ArticleController = Ember.Controller.extend({
         {
             if (user_id === "default") //it is the search index
             {
-                this.transitionTo("searchIndexTom");
+                this.transitionToRoute("searchIndexTom");
             }
             else
             {
                 HubStar.set("escVideo", true);
-                this.transitionTo("search", {id: user_id}); // go to search page, this can  work, but it is too slowlly.
+                this.transitionToRoute("search", {id: user_id}); // go to search page, this can  work, but it is too slowlly.
             }
         }
         else
@@ -802,19 +802,19 @@ HubStar.ArticleController = Ember.Controller.extend({
             {
                 photoObject = HubStar.Mega.find(collection_id);
 
-                this.transitionTo("userPhoto", photoObject); //user photo
+                this.transitionToRoute("userPhoto", photoObject); //user photo
             }
             else if (type === "profiles")
             {
                 photoObject = HubStar.Mega.find(collection_id);
 
-                this.transitionTo("profilePhoto", photoObject); // profile photo
+                this.transitionToRoute("profilePhoto", photoObject); // profile photo
             }
             else if (type === "photos" || type === "articles" || type === "videos")
             {
                 var m = HubStar.Mega.find(user_id);
                 HubStar.set("closeArticlePhoto", true);
-                this.transitionTo("search", {id: m.get("owner_title")});
+                this.transitionToRoute("search", {id: m.get("owner_title")});
             }
         }
         HubStar.set('ctaView', true);

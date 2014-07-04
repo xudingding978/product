@@ -58,7 +58,7 @@ HubStar.VideoController = Ember.Controller.extend({
                 });
                 that.checkAuthenticUser();
             }, function() {
-                that.transitionTo('fourOhFour', "404");
+                that.transitionToRoute('fourOhFour', "404");
             });
         }
 
@@ -147,39 +147,39 @@ HubStar.VideoController = Ember.Controller.extend({
         if (object_type === "photos" || object_type === "articles" || object_type === "videos")
         {
             var m = HubStar.Mega.find(search_id);
-            this.transitionTo("search", {id: m.get("owner_title")});
+            this.transitionToRoute("search", {id: m.get("owner_title")});
         }
         else if (object_type === "search") //search from the seach board
         {
             if (search_id === "default") //it is the search index
             {
-                this.transitionTo("searchIndexTom");
+                this.transitionToRoute("searchIndexTom");
             }
             else
             {
                 HubStar.set("escVideo", true);
-                this.transitionTo("search", {id: search_id}); // go to search page, this can  work, but it is too slowlly.
+                this.transitionToRoute("search", {id: search_id}); // go to search page, this can  work, but it is too slowlly.
             }
         }
         else if (object_type === "users")
         {
             var photoObject = HubStar.Mega.find(collection_id);
 
-            this.transitionTo("userPhoto", photoObject); //user photo
+            this.transitionToRoute("userPhoto", photoObject); //user photo
         }
         else if (object_type === "profiles")
         {
             if (address.split("#")[1].split("/")[4] === "videos")
             {
                 var that = this;
-                that.transitionTo("profile");
+                that.transitionToRoute("profile");
                 setTimeout(function() {
-                    that.transitionTo("profileVideos");
+                    that.transitionToRoute("profileVideos");
                 }, 30);
             } else {
                 var photoObject = HubStar.Mega.find(collection_id);
 
-                this.transitionTo("profilePhoto", photoObject); // profile photo
+                this.transitionToRoute("profilePhoto", photoObject); // profile photo
             }
         }
         else {

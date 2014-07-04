@@ -207,7 +207,7 @@ HubStar.ArticleView = Ember.View.extend({
         if (event.which === 27)
         { // pressed 'esc'
 
-            //this.get("controller").transitionTo("search");
+            //this.get("controller").transitionToRoute("search");
             this.get("controller").get("controllers.article").set("contentTagsArticle", "");
             var address = document.URL;
             var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
@@ -222,7 +222,7 @@ HubStar.ArticleView = Ember.View.extend({
 
                     var data = HubStar.Mega.find(colectionPhoto);
 
-                    this.get("controller").transitionTo("userPhoto", data); //user
+                    this.get("controller").transitionToRoute("userPhoto", data); //user
                 }
                 else
                 {
@@ -241,16 +241,16 @@ HubStar.ArticleView = Ember.View.extend({
                 HubStar.set("escVideo", true);
                 if (type === "profiles")
                 {
-                    this.get("controller").transitionTo("search", {id: id});
+                    this.get("controller").transitionToRoute("search", {id: id});
                 }
                 else if (id === "default") //it is the search index
                 {
-                    this.get("controller").transitionTo("searchIndexTom");
+                    this.get("controller").transitionToRoute("searchIndexTom");
                 }
                 else
                 {
 
-                    this.get("controller").transitionTo("search", {id: id});
+                    this.get("controller").transitionToRoute("search", {id: id});
                 }
                 $('#masonry_wrapper').attr('style', "top:100px;position:relative");
                 setTimeout(function() {

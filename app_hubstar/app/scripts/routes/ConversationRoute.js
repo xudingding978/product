@@ -13,7 +13,7 @@ HubStar.ConversationRoute = Ember.Route.extend({
         var data = null;
         if (conversation_id === "new")
         {
-            this.transitionToRoute("newConversation");
+            this.transitionTo("newConversation");
         }
         else if (conversation_id === "null" || conversation_id === undefined)
         {
@@ -25,7 +25,7 @@ HubStar.ConversationRoute = Ember.Route.extend({
             }
             else
             {
-                this.transitionToRoute("newConversation");
+                this.transitionTo("newConversation");
             }
         }
         else {

@@ -65,7 +65,7 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     {
         console.log('switch');
         this.set('is_pdf_create_mode', true);
-        this.transitionTo("pdfUploader");
+        this.transitionToRoute("pdfUploader");
     },
 
     checkAuthenticUser: function() {

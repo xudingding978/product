@@ -4,9 +4,6 @@
     {{else}}
     {{view HubStar.HeaderView}}
     {{outlet "welcome"}}
-    {{#if HubStar.checkLoginStatus}}
-    {{render callToAction}}       
-    {{/if}}
     {{#unless controller.isotherpage}}
     {{#if HubStar.showDiscoveryBar}}
     {{view HubStar.DiscoveryView}}
@@ -20,6 +17,9 @@
     </div>
     {{/if}}
     {{/if}}
+    {{#if HubStar.checkLoginStatus}}
+    {{render callToAction}}       
+    {{/if}}
     {{view HubStar.MasonryView}}
     {{else}}
     {{#if HubStar.top_ad_display}}
@@ -30,6 +30,9 @@
         </div>
     </div>
     {{/if}}
+    {{/if}}
+    {{#if HubStar.checkLoginStatus}}
+    {{render callToAction}}       
     {{/if}}
     {{/unless}}
 

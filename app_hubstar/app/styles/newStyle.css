@@ -207,20 +207,29 @@ and open the template in the editor.
 
 /*call to action style by Charis*/
 
-#cta-popup{
+.cta-popup{
 
-    min-width: 740px;
+    width: 740px;
     height: 100px;
-    position: fixed;
-    top: 100px;
     z-index: 12;
-    left:25%;
-    right:25%;      
+    margin :10px auto;
     text-align: center;
     background: rgba(255,255,255,0.9);
 }
 
-#cta-popup > .inner > .left{
+.cta-popup-non-discovery{
+    left:25%;
+    right:25%; 
+    position: fixed;
+    top: 100px;
+}
+
+.cta-popup-discovery{
+    position: relative;
+    top: 10px;
+}
+
+.cta-popup > .inner > .left{
     display: inline-block;
     width: 20%;
     margin: 20px 10px;
@@ -230,20 +239,20 @@ and open the template in the editor.
 
 }
 
-#cta-popup > .inner > .left > span{
+.cta-popup > .inner > .left > span{
     font-size:32px;
     font-weight:bolder;
 
 }
 
-#cta-popup > .inner > .left > .my{
+.cta-popup > .inner > .left > .my{
     color:#000;
 }
-#cta-popup > .inner > .left > .trends{
+.cta-popup > .inner > .left > .trends{
     color:#00b3ee;
 }
 
-#cta-popup > .inner > .middle{
+.cta-popup > .inner > .middle{
     display: inline-block;
     width: 40%;
     margin: 20px 10px;
@@ -257,7 +266,7 @@ and open the template in the editor.
 
 }
 
-#cta-popup > .inner > .right{
+.cta-popup > .inner > .right{
     display: inline-block;
     width: 20%;
     margin: 0px 10px;

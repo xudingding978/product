@@ -7,6 +7,8 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     newPdfDesc: '',
     loadingTime: false,
     is_profile_editing_mode:false,
+    makeSureDelete: false,
+    message: "",
     getVideo: true,
     pdfContent: [],
     isRenderDeleteItemTemplate: false,
@@ -81,6 +83,69 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
             }, 100);
         }, 200);
     },
+    dropdownPhotoSetting: function(id)
+    {
+        this.set('delete_id', id);
+        var ids = '#dropdown_id_' + id;
+        $(ids).toggleClass('hideClass');
+        $(ids).click(function() {
+            $(this).removeClass('hideClass');
+        }).mouseleave(function() {
+            $(this).addClass('hideClass');
+        });
+
+
+    },
+    removeCollectedItem: function(type)
+    {
+        this.set('message', "Remove this pdf?");
+        this.set('makeSureDelete', !this.get('makeSureDelete'));
+
+    },
+    deleteConfirm: function()
+    {
+        var id = this.get('delete_id');
+        this.deleteSelectedCollection(id);
+        this.cancelDelete();
+    },
+    deleteSelectedCollection: function(id)
+    {
+        for (var i = 0; i < this.get('pdfContent').get('length'); i++) {
+            var tempmega = this.get('pdfContent').objectAt(i);
+            if (tempmega.get('id') === id)
+            {
+                console.log(tempmega.get("save_count"));
+                this.get('pdfContent').removeObject(tempmega);
+                if (tempmega.get("save_count") > 0)
+                {
+                    tempmega.set("is_deleted", true);
+                    tempmega.store.save();
+                } else {
+                    console.log(tempmega);
+                    tempmega.deleteRecord();
+                    tempmega.store.save();
+                }
+                                
+//                var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
+
+//                profile.set("profile_video_num", this.get('videoesContent').get("length"));
+
+//                profile.store.save();
+//                this.get("controllers.profile").set("profileVideoStatistics", this.get('videoesContent').get("length"));
+                break;
+            }
+        }
+
+
+    },
+    cancelDelete: function() {
+        this.set('makeSureDelete', !this.get('makeSureDelete'));
+        this.set('message', "");
+        HubStar.set('data', null);
+        $('#dropdown_id_' + this.get('delete_id')).toggleClass('hideClass');
+        this.set('delete_id', null);
+        this.relayout();
+    },
             
     transitionToPdf: function(id) {
     console.log(id);
@@ -118,42 +183,6 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
             }
         });
         return is_authentic_user;
-    },
-    removeCollectedItem: function()
-    {
-        this.set('message', "Remove this video?");
-        this.set('makeSureDelete', !this.get('makeSureDelete'));
-
-    },
-    deleteConfirm: function()
-    {
-
-        this.deleteSelectedCollection();
-        this.cancelDelete();
-    },
-    deleteSelectedCollection: function()
-    {
-        for (var i = 0; i < this.get('videoesContent').get('length'); i++) {
-            var tempmega = this.get('videoesContent').objectAt(i);
-            if (tempmega.get('id') === this.get('delete_id'))
-            {
-                tempmega.deleteRecord();
-                tempmega.store.save();
-                this.get('videoesContent').removeObject(tempmega);
-                this.get("controllers.profile").set("profileVideoStatistics",this.get('videoesContent').get("length"));
-                break;
-            }
-        }
-
-
-    },
-    cancelDelete: function() {
-        this.set('makeSureDelete', !this.get('makeSureDelete'));
-        this.set('message', "");
-        HubStar.set('data', null);
-        $('#dropdown_id_' + this.get('delete_id')).toggleClass('hideClass');
-        this.set('delete_id', null);
-        this.relayout();
     }
     
 });

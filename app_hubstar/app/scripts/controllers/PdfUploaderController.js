@@ -1,5 +1,5 @@
 
-HubStar.PdfUploaderController = Ember.ObjectController.extend({
+HubStar.PdfUploaderController = Ember.ArrayController.extend({
     needs: ["profilePdf", "applicationFeedback", 'profile', 'megaCreate'],
     pdfArray: [],
 //    newPdfName: null,
@@ -34,6 +34,9 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
             $('#pdf_id_' + pdf_id).slideToggle(200);
             $('#' + pdf_id).slideToggle(1000);
         }
+    },
+    deletePdf: function(id) {
+        this.get('controllers.profilePdf').deleteSelectedCollection(id);
     },
     saveDetail: function(pdf_id) {
         var pdf = this.seekCurrentPdf(pdf_id);
@@ -123,6 +126,26 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
 
 
     },
+    commitFiles: function(evt) {
+        $('#dragAndDroppArea').attr('style', "display:block");
+        var input = evt.target;
+        var files = input.files;
+        var that = this;
+//        this.fileChecking(files.length);
+//        this.checkingCleanBeforeUpload();
+        for (var i = 0; i < files.length; i++) {
+            (function(file) {
+                var name = file.name;
+                var type = file.type;
+                var fileSize = file.size;
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    that.profileStyleImageDrop(e, name);
+                }, reader.readAsDataURL(files[i]);
+            })(files[i]);
+            evt.preventDefault();
+        }
+    },
     reset: function() {
         this.set('pdfArray', []);
     },
@@ -148,3 +171,13 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         }
     }
 });
+
+HubStar.PdfUploaderController.cancel = function(event) {
+    event.preventDefault();
+    return false;
+};
+
+//HubStar.PdfUploaderController.Droppable = Ember.Mixin.create(HubStar.PdfUploaderController, {
+//    dragEnter: HubStar.PdfUploaderController.cancel,
+//    dragOver: HubStar.PdfUploaderController.cancel
+//});

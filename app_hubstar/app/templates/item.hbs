@@ -244,7 +244,7 @@
                 </div>
                 <ul class="hideClass edit-object-ul" style="right: 40px;" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
+                    <li class="ite" {{action  removeCollectedItem "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
                     {{/if}}
                     {{#if controller.is_user_editing_mode}}
                     <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Remove</li>

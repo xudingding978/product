@@ -1570,6 +1570,8 @@ class Controller extends CController {
             $docID = $this->getDomain() . "/" . $id;
         } elseif ($type == "video") {
             $docID = $this->getDomain() . "/" . $id;
+        } elseif ($type == "pdf") {
+            $docID = $this->getDomain() . "/" . $id;
         }
         return $docID;
     }

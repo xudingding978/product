@@ -817,7 +817,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                 this.transitionTo("search", {id: m.get("owner_title")});
             }
         }
-        HubStar.set('ctaView', true);
+      //  HubStar.set('ctaView', true);
     },
     switchCollection: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

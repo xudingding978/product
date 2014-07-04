@@ -50,19 +50,19 @@ HubStar.SearchsRoute = Ember.Route.extend({
         transitionToPhoto: function(id) {
             this.controllerFor('article').set("accessFromSearchBoard", true);
             this.transitionTo("searchDefaultPhoto", HubStar.Mega.find(id)); //it will got to default search without go to the new search
-            if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
-            }
+//            if (HubStar.get('ctaView') === true) {
+//                this.controllerFor("checkingLoginStatus").popupLogin();
+//                HubStar.set('ctaView', false);
+//            }
 
         },
         transitionToVideo: function(id) {
             this.controllerFor('article').set("accessFromSearchBoard", true);
             this.transitionTo("searchDefaultVideo", HubStar.Mega.find(id)); //it will got to default search without go to the new search
-            if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
-            }
+//            if (HubStar.get('ctaView') === true) {
+//                this.controllerFor("checkingLoginStatus").popupLogin();
+//                HubStar.set('ctaView', false);
+//            }
 
         },
         transitionToProfile: function(id) {
@@ -71,10 +71,10 @@ HubStar.SearchsRoute = Ember.Route.extend({
         transitionToArticle: function(id) {
             this.controllerFor('article').set("accessFromSearchBoard", true);
             this.transitionTo("searchDefaultArticle", HubStar.Article.find(id)); //it will got to default search without go to the new search
-            if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
-            }
+//            if (HubStar.get('ctaView') === true) {
+//                this.controllerFor("checkingLoginStatus").popupLogin();
+//                HubStar.set('ctaView', false);
+//            }
 
         }
     },

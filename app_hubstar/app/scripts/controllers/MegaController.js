@@ -507,11 +507,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 HubStar.set("pic_current_width", Math.round(width / height * max_height));
             }
         }
-        
+
 //         if (HubStar.get('ctaView') === true) {
 //                this.get("controllers.checkingLoginStatus").popupLogin();
 //                HubStar.set('ctaView', false);
 //            }
+        
 
     },
     getInitData: function(megaObject) {
@@ -1243,7 +1244,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         } else {
             this.transitionTo("searchIndexTom");
         }
-        HubStar.set('ctaView', true);
+        //  HubStar.set('ctaView', true);
     },
     editingContactForm: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

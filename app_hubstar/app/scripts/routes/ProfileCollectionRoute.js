@@ -75,10 +75,13 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
                     break;
                 }
             }
-            if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
-            }
+//            if (HubStar.get('ctaView') === true) {
+//                this.controllerFor("checkingLoginStatus").popupLogin();
+//                HubStar.set('ctaView', false);
+//            }
+if (HubStar.get("checkLoginStatus") === false) {
+            $("#cta-popup").addClass("cta-popup-view");
+        }
 
 //            this.transitionTo("profileCollection", data);
             this.transitionTo("profilePhoto", obj);
@@ -87,10 +90,13 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
             this.transitionTo("profile", HubStar.Profile.find(id));
         },
         transitionToArticle: function(id) {
-            if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
-            }
+//            if (HubStar.get('ctaView') === true) {
+//                this.controllerFor("checkingLoginStatus").popupLogin();
+//                HubStar.set('ctaView', false);
+//            }
+if (HubStar.get("checkLoginStatus") === false) {
+            $("#cta-popup").addClass("cta-popup-view");
+        }
             this.controllerFor("article").set("collectionArticleId", id);
             var obj = HubStar.Mega.find(id);
 
@@ -99,10 +105,14 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
 
         },
         transitionToVideo: function(video_id) {
-            if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
-            }
+    if (HubStar.get("checkLoginStatus") === false) {
+            $("#cta-popup").addClass("cta-popup-view");
+        }
+//            if (HubStar.get('ctaView') === true) {
+//                this.controllerFor("checkingLoginStatus").popupLogin();
+//                HubStar.set('ctaView', false);
+//            }
+//            
 //            var address = document.URL;
 //            var owner_id = address.split("#")[1].split("/")[2];
 //

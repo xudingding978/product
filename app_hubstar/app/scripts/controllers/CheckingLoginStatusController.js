@@ -11,11 +11,12 @@ HubStar.CheckingLoginStatusController = Ember.Controller.extend({
     popupLogin: function() {
 
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-            HubStar.set('checkLoginStatus', true);
+            
            
             return false;
         }
         else {
+            HubStar.set('checkLoginStatus', true);
             return true;
         }
     

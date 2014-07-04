@@ -208,26 +208,37 @@ and open the template in the editor.
 /*call to action style by Charis*/
 
 .cta-popup{
-
     width: 740px;
     height: 100px;
     z-index: 12;
     margin :10px auto;
     text-align: center;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,1);
+    box-shadow: 2px 2px 6px #ccc;
 }
 
-.cta-popup-non-discovery{
-    left:25%;
-    right:25%; 
-    position: fixed;
-    top: 100px;
+
+/*-for video, photo, video --*/
+.cta-popup-view{
+    position: relative !important;
+    top: 60px !important;
+    margin: 0 auto !important;
 }
 
+/*-for discovery bar--*/
 .cta-popup-discovery{
     position: relative;
     top: 10px;
+    margin: 0 auto;
 }
+
+/*-for profile, user --*/
+.cta-popup-profile{
+    position: fixed;
+    top: 100px;
+    margin: 0 30%;
+}
+
 
 .cta-popup > .inner > .left{
     display: inline-block;
@@ -281,6 +292,7 @@ and open the template in the editor.
     position: relative;
     padding: 5px;
     height: 100%;
+    top:6px;
 }
 
 .registerbtn {

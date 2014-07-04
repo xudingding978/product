@@ -6,6 +6,8 @@
 <div class="objectview-wrapper this-is-an-article" >
 
     <div class="objectview-left article-objectview-left" >
+       
+
         <div class="top-controlbar easing" >
             {{#unless controller.enableTag}}
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this article to a collection" {{action switchCollection on="click" target="controller"}}>
@@ -72,6 +74,10 @@
                 }(document));
             </script>
         </div>
+        
+         {{#unless HubStar.checkLoginStatus}}
+           {{render callToAction}}
+        {{/unless}}
 
         <div id="close_article_wrapper" class="closeview" {{action closeWindow on="click" target="controller"}} >
             <i class="fa fa-times"></i>

@@ -41,10 +41,10 @@ HubStar.UserRoute = Ember.Route.extend({
         $(window).scrollTop(0);
         this.controllerFor('user').set("model", model);
         this.controllerFor('user').setUser();
-         if (HubStar.get('ctaView') === true) {
-            this.controllerFor("checkingLoginStatus").popupLogin();
-            HubStar.set('ctaView', false);
-        }
+//         if (HubStar.get('ctaView') === true) {
+//            this.controllerFor("checkingLoginStatus").popupLogin();
+//            HubStar.set('ctaView', false);
+//        }
        
     },
     model: function(params) {

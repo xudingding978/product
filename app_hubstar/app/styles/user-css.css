@@ -887,7 +887,7 @@ textarea.add-interests{
 
 .status-message div{
     margin: 10px auto;
-    width: auto;
+    width: 160px;
     background-color: #000;
     font-weight: bold;
     border-radius: 5px;

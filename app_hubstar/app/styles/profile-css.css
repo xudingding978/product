@@ -3607,10 +3607,58 @@ div#appfeedback .fresh-message > i.fa-times{
     border-color: inherit;
 }
 
-.profilenew-row{
+.table-row{
     display:table-row;
 }
 
-.profilenew-cell{
+.table-cell{
     display:table-cell;
+}
+
+.align-right{
+    text-align: right;
+}
+
+.display-block{
+    display: block;
+}
+
+.profilenew-inputarea{
+    margin: 10px 30px 5px 10px;
+    width: 70%;
+}
+
+.profilenew-inputarea2{
+    margin: 10px 10px 5px 10px;
+    width: 70%;
+}
+
+.profilenew-input-halfarea{
+    margin: 10px 10px 0;
+    width: 34%;
+}
+
+.profilenew-input-halfarea2{
+    margin: 10px -1px 0;
+    width: 34%;
+}
+
+.align-center{
+    text-align: center;
+}
+
+.display-inline{
+    display: inline-block;
+}
+
+.profileNew-create{
+    margin: auto;  
+    padding-bottom: 30px;
+}
+
+.profileNew-format-error{
+    display:block; 
+    text-align: left;
+    margin-left: 150px;
+    color: red;
 }

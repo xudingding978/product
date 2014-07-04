@@ -1,57 +1,50 @@
-<div class="profilemain" style="">
+<div class="profilemain">
 
-    <div class="profile-main-content" style="margin: 20px 0;width: 95%;">
+    <div class="profile-main-content profile-main-container" >
 
-        <div class="main_aboutus" style="">
-            <p style="display: inline-block; font-size: 18px; margin: 0">
-                <i class="fa fa-group" style="margin-right: 10px;display: inline-block;"></i>About Us
+        <div class="main_aboutus" >
+            <p class="profileaboutus-title">
+                <i class="fa fa-group profileaboutus-icon" ></i>About Us
             </p>
-            <div class="editor-content" style="margin-top: -20px;">
-                <div style="display: inline-block;">
+            <div class="editor-content profileaboutus-maintxt" >
+                <div class="profileaboutus-display">
                     {{#if controller.editingAbout}}
 
-                    <div style="right: 45px; position: absolute;top: 45px;">
+                    <div class="profileaboutus-yesno">
                         <div class="new-btn blue-btn" {{action yesAbout controller.aboutMe}}><i class="fa fa-check fa fa-white"></i></div>
                         <div class="new-btn" {{action no controller.aboutMe}}><i class="fa fa-times"></i></div>
                     </div>
-
-                    <div style="height: 300px;margin-top: 35px;">
+                    <div class="profileaboutus-txt">
                         {{#if controller.isAboutUsObjectExist}}
                         {{view HubStar.AboutUsView1}}
                         {{else}}
                         {{view HubStar.HtmlEditorView}}
                         {{/if}}
                     </div>
-
-
                 </div>
-                <div style="right: 40px;bottom: 25px;position: absolute;">
+                <div class="profileaboutus-yesno2">
                     <div class="new-btn blue-btn" {{action yesAbout controller.aboutMe}}><i class="fa fa-check fa fa-white"></i></div>
                     <div class="new-btn" {{action no controller.aboutMe}}><i class="fa fa-times"></i></div>
                 </div>
                 {{else}}
                 {{#if controller.is_authentic_user}}
 
-                <div class="edit-btn hint--rounded hint--bottom" style="margin: 0 0 15px 120px;" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
+                <div class="edit-btn hint--rounded hint--bottom profileaboutus-edit" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
                      <i class="fa fa-pencil-square-o"></i>
                 </div>
-
                 {{/if}}
             </div>
             {{#if model.show_template}}
-            <div style="display: block; width: 100%" >{{view HubStar.AboutUsView1}}</div>
+            <div class="profileaboutus-displaycontent" >{{view HubStar.AboutUsView1}}</div>
             {{else}}
-            <div style="display: block; width: 100%" >{{{model.profile_about_us}}}</div>
+            <div class="profileaboutus-displaycontent" >{{{model.profile_about_us}}}</div>
             {{/if}}
             {{/if}}
         </div>
 
 
-
-
-        <div style="height: 40px; bottom: 0;width: 700px;position: absolute;margin-bottom: 15px;">
+        <div class="profileaboutus-sociallink">
             <ul class="locationandlinks">
-
                 {{#if facebook}}
                 <li class="location_li">
                     <a href="#" target="_blank" {{action socialLink 'facebook'}}>&nbsp;&nbsp; <i class="fa fa-facebook"> </i></a>
@@ -87,11 +80,8 @@
                 <li class="location_li">
                     <a href="#" target="_blank" {{action socialLink 'instagram'}}>&nbsp;&nbsp;<i class="fa fa-instagram"> </i></a>
                 </li>
-                {{/if}}
-                
+                {{/if}}             
             </ul>
         </div>
-
     </div>
-
 </div>

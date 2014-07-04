@@ -172,8 +172,8 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             $('#reply_' + reviewID).attr('style', 'display: block;max-height:0;');
             $('#view-comments_' + reviewID).attr('style', 'display:none; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px');
             $('#view-comments_' + reviewID).animate({display: 'none'}, 500);
-            $('#up-comments_' + reviewID).attr('style', 'background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
-            $('#up-comments_' + reviewID).animate({display: 'none'}, 500);
+            $('#up-comments_' + reviewID).attr('style', 'display: block;background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
+            $('#up-comments_' + reviewID).animate({display: 'block'}, 500);
             $('#reply_' + reviewID).animate({maxHeight: '200px'}, 10);
 
             for (var i = 0; i < this.get("controllers.profile").get('reviews').get('length'); i++) {

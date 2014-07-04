@@ -367,7 +367,7 @@ class ConversationsController extends Controller {
                             if ($userInfo['user'][0]['notifications'][$j]["isRead"] === false) {
                                 if ($userInfo['user'][0]['notifications'][$j]["type"] === "follow" || $userInfo['user'][0]['notifications'][$j]["type"] === "unFollow") {
                                     $notificationCountFollow++;
-                                } else if ($userInfo['user'][0]['notifications'][$i]["type"] === "authority") {
+                                } else if ($userInfo['user'][0]['notifications'][$j]["type"] === "authority") {
                                     $notificationCountAuthority++;
                                 } else {
                                     $notificationCountMessage++;

@@ -226,7 +226,7 @@ header > ul.commands li.fore-color ul li {
 [data-wysihtml5-dialog] input {
     color: #333;
     border: 1px solid #ccc;
-    padding: 3px 8px;
+    padding: 0 8px;
     width: 300px;
     text-align: left;
 }

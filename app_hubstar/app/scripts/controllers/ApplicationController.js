@@ -16,25 +16,26 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     headerAbout: false,
     userProfile: false,
     contentTopicResidential: [
-        {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
-        {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
-        {id: "3", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/kitchen.png', topic: 'Kitchens'},
-        {id: "4", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/bathroom.png', topic: 'Bathrooms'},
-        {id: "5", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/interiordesign.png', topic: 'Interior design'},
-        {id: "6", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/outdoorliving.png', topic: 'Outdoor Living'},
-        {id: "13", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/hometheatre.png', topic: 'Home theatre'}
+        {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment Design'},
+        {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/bathroom.png', topic: 'Bathrooms'},
+        {id: "3", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/hometheatre.png', topic: 'Home Theatre'},
+        {id: "4", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/interiordesign.png', topic: 'Interior design'},
+        {id: "5", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/kitchen.png', topic: 'Kitchens'},
+        {id: "6", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
+        {id: "7", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/outdoorliving.png', topic: 'Outdoor Living'},
+        {id: "8", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'}
     ],
     contentTopicCommercial: [
-        {id: "7", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/office.png', topic: 'Office'},
-        {id: "8", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/civic.png', topic: 'Civic'},
-        {id: "9", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/education.png', topic: 'Education'},
-        {id: "10", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/hospitality.png', topic: 'Hospitality'},
-        {id: "11", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/retail.png', topic: 'Retail'},
-        {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment'},
-        {id: "14", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/refurbishment.png', topic: 'Refurbishment'}
+        {id: "9", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment Design'},
+        {id: "10", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/civic.png', topic: 'Civic Design'},
+        {id: "11", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/education.png', topic: 'Educational Design'},
+        {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/hospitality.png', topic: 'Hospitality Desgin'},
+        {id: "13", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/office.png', topic: 'Office Design'},
+        {id: "14", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/refurbishment.png', topic: 'Refurbishment'},
+        {id: "15", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/retail.png', topic: 'Retail Design'}
     ],
     classification: "All",
-    //commercial: "1",
+    loginModal:false,
     needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection', 'search'],
     content: [],
     loginInfo: "",
@@ -127,14 +128,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('loginUsername', localStorage.userName);
     },
     popupModal: function() {
-        HubStar.set('checkLoginStatus', true);
+        HubStar.set("loginModal", false);
     },
     ctaregister: function() {
-        HubStar.set('checkLoginStatus', true);
+        HubStar.set("loginModal", true);
         $(document).ready(function() {
             setTimeout(function() {
-                $("#cta-popup").css("display", "none");
-                $("#profiles-main-container").css("display", "block");
                 localStorage.loginState = "register";
 
                 $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
@@ -161,14 +160,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         });
     },
     ctalogin: function() {
-        HubStar.set('checkLoginStatus', true);
+        HubStar.set("loginModal", true);
         $(document).ready(function() {
             setTimeout(function() {
-
-
-                $("#cta-popup").css("display", "none");
-                $("#profiles-main-container").css("display", "block");
                 localStorage.loginState = "login";
+                console.log("status");
                 if (localStorage.userType === "email") {
                     $('.Login-box #login-btn').text('Sign up for a new account!');
                     $('.Login-box .black-tool-tip').css('display', 'none');

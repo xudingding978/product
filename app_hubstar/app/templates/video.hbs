@@ -44,9 +44,9 @@
 
         </div>
         
-        {{#unless HubStar.checkLoginStatus}}
+        {{#if HubStar.checkLoginStatus}}
         {{render callToAction}}
-        {{/unless}}
+        {{/if}}
 
         <div id="close_video_wrapper" class="closeview" {{action closeWindow on="click" target="controller"}} >
             <i class="fa fa-times"></i>

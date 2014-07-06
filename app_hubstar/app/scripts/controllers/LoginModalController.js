@@ -26,7 +26,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         this.set('loginUsername', localStorage.userName);
     },
     closePopupLogin: function() {
-        HubStar.set('checkLoginStatus', false);
+         HubStar.set("loginModal", false);
     },
     validateEmail: function(email)
     {

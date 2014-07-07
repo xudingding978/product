@@ -164,7 +164,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $(document).ready(function() {
             setTimeout(function() {
                 localStorage.loginState = "login";
-                console.log("status");
                 if (localStorage.userType === "email") {
                     $('.Login-box #login-btn').text('Sign up for a new account!');
                     $('.Login-box .black-tool-tip').css('display', 'none');

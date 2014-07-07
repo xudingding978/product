@@ -138,6 +138,7 @@ HubStar.VideoController = Ember.Controller.extend({
         }
     },
     closeWindow: function() {
+        HubStar.set('ctaView', false);
         this.set('collectable', false);
         this.set('contact', false);
         var address = document.URL;
@@ -420,7 +421,8 @@ HubStar.VideoController = Ember.Controller.extend({
             });
 
             var shareEmailController = this.get('controllers.shareEmail');
-            var selectid = this.get('megaResouce').id;;
+            var selectid = this.get('megaResouce').id;
+            ;
             shareEmailController.setImageID(selectid);
             var tempUrl = this.get('megaResouce').get('object_image_url');
             shareEmailController.setThumbnailUrl(tempUrl);

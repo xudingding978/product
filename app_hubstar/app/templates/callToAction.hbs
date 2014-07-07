@@ -8,12 +8,28 @@
                 <div>Access the greatest collection of ideas,</div><div>products and services for your home.</div>       
             </div>
             <div class="right">
-                <div id="cta_register" class="registerbtn" {{action ctaregister}}>Sign up</div>
-                <div id="cta_login" class="loginbtn" {{action ctalogin}}>Log in &nbsp; - &nbsp; What is myTrends?</div>
+                <div id="cta_register" class="registerbtn" {{action ctaregister on="click" target="view"}}>Sign up</div>
+                <div id="cta_login" class="loginbtn" {{action ctalogin on="click" target="view"}}>Log in &nbsp; - &nbsp; What is myTrends?</div>
             </div>
         </div>
     </div> 
 
+{{else}}
+{{#if HubStar.ctaView}}
+<div id="cta-popup-view" class="cta-popup cta-popup-view">
+    <div class="inner">
+        <div class="left">
+            <span class="my">my</span><span class="trends">Trends</span>
+        </div>
+        <div class="middle">
+            <div>Access the greatest collection of ideas,</div><div>products and services for your home.</div>       
+        </div>
+        <div class="right">
+            <div id="cta_register" class="registerbtn" {{action ctaregister on="click" target="view"}}>Sign up</div>
+            <div id="cta_login" class="loginbtn" {{action ctalogin on="click" target="view"}}>Log in &nbsp;-&nbsp; What is myTrends?</div>
+        </div>
+    </div>
+</div> 
 {{else}}
 <div id="cta-popup" class="cta-popup cta-popup-profile">
     <div class="inner">
@@ -24,11 +40,11 @@
             <div>Access the greatest collection of ideas,</div><div>products and services for your home.</div>       
         </div>
         <div class="right">
-            <div id="cta_register" class="registerbtn" {{action ctaregister}}>Sign up{{controller}}</div>
-            <div id="cta_login" class="loginbtn" {{action ctalogin}}>Log in &nbsp;-&nbsp; What is myTrends?</div>
+            <div id="cta_register" class="registerbtn" {{action ctaregister on="click" target="view"}}>Sign up</div>
+            <div id="cta_login" class="loginbtn" {{action ctalogin on="click" target="view"}}>Log in &nbsp;-&nbsp; What is myTrends?</div>
         </div>
     </div>
 </div> 
 {{/if}}
-
+{{/if}}
 

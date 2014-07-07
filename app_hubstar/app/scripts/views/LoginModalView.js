@@ -416,13 +416,6 @@ HubStar.LoginModalView = Ember.View.extend({
             }
         }
     },
-    closePane: function() {
-        //   this.get("controller").get("controllers.mega").closeWindow();
-        //    $("#body_id").css("overflow","auto");
-     //   HubStar.set('checkLoginStatus', false);
-    //    HubStar.set('ctaView', true);
-    }
-    ,
     Facebook: function() {
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);

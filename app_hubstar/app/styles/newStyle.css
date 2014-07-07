@@ -221,7 +221,7 @@ and open the template in the editor.
 /*-for video, photo, video --*/
 .cta-popup-view{
     position: relative !important;
-    top: 60px !important;
+    top: 10px !important;
     margin: 0 auto !important;
 }
 
@@ -306,14 +306,14 @@ and open the template in the editor.
     text-align: center;
     background-color: #00b3ee;
     line-height: 15px;
+    cursor: pointer;
 }
 
 .loginbtn {
     text-align:center;
     font-size:10px;
     color:#00b3ee;
-
-
+    cursor: pointer;
 }
 
 

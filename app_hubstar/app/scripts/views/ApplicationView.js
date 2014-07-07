@@ -35,7 +35,7 @@ HubStar.ApplicationView = Ember.View.extend({
                             if (HubStar.get("isTopAdDisplay")) {
                                 $("#top_bar_ads").css({"position": "relative", "top": "10px"});
                             }
-                            if (HubStar.get("checkLoginStatus")===false) {
+                            if (HubStar.get("checkLoginStatus")) {
                                 $("#cta-popup-discovery").removeClass("cta-popup-profile");
                             }
                         } else {
@@ -45,7 +45,7 @@ HubStar.ApplicationView = Ember.View.extend({
                             if (HubStar.get("isTopAdDisplay")) {
                                 $("#top_bar_ads").css({"position": "relative", "top": "10px"});
                             }
-                            if (HubStar.get("checkLoginStatus")===false) {
+                            if (HubStar.get("checkLoginStatus")) {
                                 $("#cta-popup-discovery").removeClass("cta-popup-profile");
                             }
                         }
@@ -57,7 +57,7 @@ HubStar.ApplicationView = Ember.View.extend({
                         $("#search-bar").css('display', "none");
                         $("#topResidentialCommerical").css('display', "none");
                         $(".search-bar-on-small-screen").css('display', "none");
-                         if (HubStar.get("checkLoginStatus")===false) {
+                         if (HubStar.get("checkLoginStatus")) {
                                 $("#cta-popup-discovery").removeClass("cta-popup-profile");
                             }
                     }
@@ -74,7 +74,7 @@ HubStar.ApplicationView = Ember.View.extend({
                         {
                             $('#masonry_wrapper').css('top', "100px");
                         }
-                         if (HubStar.get("checkLoginStatus")===false) {
+                         if (HubStar.get("checkLoginStatus")) {
                                 $("#cta-popup-discovery").addClass("cta-popup-profile");
                             }
                     } else {
@@ -89,7 +89,7 @@ HubStar.ApplicationView = Ember.View.extend({
                         {
                             $('#masonry_wrapper').css('top', "150px");
                         }
-                         if (HubStar.get("checkLoginStatus")===false) {
+                         if (HubStar.get("checkLoginStatus")) {
                                 $("#cta-popup-discovery").addClass("cta-popup-profile");
                             }
                     }
@@ -116,7 +116,7 @@ HubStar.ApplicationView = Ember.View.extend({
                                 $("#topResidentialCommerical").css('display', "none");
                                 $(".search-bar-on-small-screen").fadeIn(320);
                             }
-                             if (HubStar.get("checkLoginStatus")===false) {
+                             if (HubStar.get("checkLoginStatus")) {
                                 $("#cta-popup-discovery").addClass("cta-popup-profile");
                             }
                         }
@@ -137,7 +137,7 @@ HubStar.ApplicationView = Ember.View.extend({
                                 $("#topResidentialCommerical").css('display', "none");
                                 $(".search-bar-on-small-screen").fadeOut(320);
                             }
-                             if (HubStar.get("checkLoginStatus")===false) {
+                             if (HubStar.get("checkLoginStatus")) {
                                 $("#cta-popup-discovery").removeClass("cta-popup-profile");
                             }
 

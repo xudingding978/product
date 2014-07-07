@@ -776,6 +776,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     }
     ,
     closeWindow: function() {
+         HubStar.set('ctaView', false);
         this.set('collectable', false);
         this.set('contact', false);
         this.set("contentTagsArticle", []);
@@ -817,7 +818,6 @@ HubStar.ArticleController = Ember.Controller.extend({
                 this.transitionTo("search", {id: m.get("owner_title")});
             }
         }
-      //  HubStar.set('ctaView', true);
     },
     switchCollection: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

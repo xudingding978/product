@@ -506,14 +506,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 HubStar.set("pic_current_height", Math.round(max_height));
                 HubStar.set("pic_current_width", Math.round(width / height * max_height));
             }
-        }
-
-//         if (HubStar.get('ctaView') === true) {
-//                this.get("controllers.checkingLoginStatus").popupLogin();
-//                HubStar.set('ctaView', false);
-//            }
-        
-
+        }        
     },
     getInitData: function(megaObject) {
 
@@ -1166,11 +1159,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
     },
     closeWindow: function() {
+       HubStar.set('ctaView', false);
         this.set('image_no', 1);
         this.set('collectable', false);
         this.set('contact', false);
         this.set("selectPhoto", false);
-
+        
         this.set("enableTag", false);  //close the showTag template
         this.set("contentTags", []);
         this.set("isRead", false);
@@ -1244,7 +1238,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         } else {
             this.transitionTo("searchIndexTom");
         }
-        //  HubStar.set('ctaView', true);
     },
     editingContactForm: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

@@ -202,14 +202,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             $("#search-bar").css('display', "block");
                             $("#topResidentialCommerical").css('display', "block");
                             $(".search-bar-on-small-screen").css('display', "none");
-                            if (HubStar.get("isTopAdDisplay")) {  
-                                $('.profile-top').css('height', "180px");
-                            }
-                            
-                            else
-                            {
-                                $('.profile-top').css('height', "150px");
-                            }
                         } else {
                             $("#search-bar").css('display', "none");
                             $("#topResidentialCommerical").css('display', "none");
@@ -219,7 +211,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             }
                             else
                             {
-                                $('.profile-top').css('height', "150px");
+                                $('.profile-top').css('height', "180px");
                             }
 
                         }

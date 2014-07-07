@@ -2619,6 +2619,7 @@ div#appfeedback .fresh-message > i.fa-times{
 
 .profile-editors-btn-span{
     position: relative;
+    float: none;
 }
 .profile-editors-button .fa-plus{
     position: absolute;

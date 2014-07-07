@@ -67,6 +67,10 @@
                 <li class="ite" {{action gpShare "1"}}>
                     <i class="fa fa-google-plus share-type share-type-pos2"></i><span class="share-type-txt2">Google+</span>
                 </li>
+                <li class="ite" {{action eShare "1"}}>
+                    <img src="../../../images/sent.png" class="share-type-email" >
+                    <i class="send_email share-type share-type-pos2" ></i><span class="share-type-txt1">E-mail</span>
+                </li>
             </ul>
 
             <script type="text/javascript">
@@ -208,6 +212,10 @@
                     </li>
                     <li class="ite" {{action gpShare "2"}}>
                         <i class="fa fa-google-plus share-type share-type-pos2"></i><span class="share-type-txt2">Google+</span>
+                    </li>
+                    <li class="ite" {{action eShare "2"}}>
+                        <img src="../../../images/sent.png" class="share-type-email">
+                        <i class="send_email share-type share-type-pos2" ></i><span class="share-type-txt1" >E-mail</span>
                     </li>
                 </ul>
             </div>
@@ -419,7 +427,13 @@
 {{#if controller.contact}}
 {{render contact}}
 {{/if}}
-<!--     show   tag's detail content  template-->
+
+
+{{#if isShareEmail}}
+{{render shareEmail}}
+{{/if}}
+
+<!--     show   tag's detail content  template-->   
 <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->
 {{#if HubStar.tagging_display}}
 
@@ -446,4 +460,7 @@
 {{view HubStar.TagMouseView}}
 {{/each}}
 {{/if}}
+
 {{/if}}
+
+

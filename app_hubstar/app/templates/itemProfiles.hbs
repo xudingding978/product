@@ -5,62 +5,55 @@
 
     {{#if profile_hero_cover_url}}
     <div class="masonry-object_cover-wapper">
-        <img {{bindAttr src="profile_hero_cover_url"}} style="width: 100%";/>
+        <img {{bindAttr src="profile_hero_cover_url"}} class="width-100"/>
     </div>
     {{else}}
     <div class="masonry-object_cover-wapper">
-        <img {{bindAttr src="profile_hero_url"}} style="width: 100%;"/>
+        <img {{bindAttr src="profile_hero_url"}} class="width-100"/>
     </div>
     {{/if}}
 
-    <span class="edit-object easing" style="position: absolute;margin: 10px; top:0;z-index: 2;">
-
+    <span class="edit-object easing itemprofiles-edit" >
         {{#if controller.is_authentic_user}}
-        <div class="new-btn blue-btn hint--right hint--rounded" style="margin: 4px 0px;" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
-             <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
+        <div class="new-btn blue-btn hint--right hint--rounded itemprofiles-edit-icon" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
+             <i class="fa fa-cog itemprofile-edit-delete" ></i>
             <i class="fa fa-caret-down"></i>
         </div>
-
         <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
             {{#if controller.is_profile_editing_mode}}
-            <li class="ite" {{action  removeCollectedItem this.id}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>       
+            <li class="ite" {{action  removeCollectedItem this.id}}><i class="fa fa-trash-o itemprofile-edit-delete" ></i>Delete</li>       
             {{/if}}
         </ul>
         {{/if}}
-
     </span>
 
 </div>
 
+<div class="itemprofile-click-area"></div>
 
-<div style="position: relative; width: 100%; height: 70px; display: block; z-index: 1"></div>
-
-
-<div class="masonry-object_profilepic" style="cursor:pointer;" {{action toProfilePage this}}>
+<div class="masonry-object_profilepic cursor-pointer" {{action toProfilePage this}}>
 <div id="init_photo_{{unbound getID}}">
      <a  href="#/profiles/{{unbound this.id}}/collections"> <img class="easing" {{bindAttr src="profile_pic_url"}}  />   </a>
 </div>
 </div>
 
-
 <br>
 
 {{#if isFollowCurrentUser}}
 
-<div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 5px auto 15px;width: 100px;display: block;"{{action followThisUser this}}><i class="fa fa-circle-o" >&nbsp; </i> Following</div>
+<div href="#question_modal" role="button" class="disabled-btn disabled-green itemprofiles-follow" data-toggle="modal" {{action followThisUser this}}><i class="fa fa-circle-o" >&nbsp; </i> Following</div>
 
 {{else}}
 
-
-<div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 5px auto 15px;width: 100px;display: block;"{{action followThisUser this}}><i class="fa fa-plus" >&nbsp; </i> Follow</div>
+<div href="#question_modal" role="button" class="new-btn green-btn itemprofiles-follow" data-toggle="modal" {{action followThisUser this}}><i class="fa fa-plus" >&nbsp; </i> Follow</div>
 
 {{/if}}
 
-<div class="masonry-object_name-position" style="margin-bottom: 5px;"> 
-    <a  href="#/profiles/{{unbound this.id}}/collections" class="comment-username" style="cursor:pointer; font-size:18px;"{{action toProfilePage this}}>{{profile_name}} </a>
+<div class="masonry-object_name-position itemprofiles-profilename-container" > 
+    <a  href="#/profiles/{{unbound this.id}}/collections" class="comment-username itemprofiles-profilename" {{action toProfilePage this}}>{{profile_name}} </a>
 </div>
 
-<div style="width:100%; text-align:center; margin-bottom: 10px;">
+<div class="itemprofiles-info">
     <ul class="itemprofile">
         <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
             <div><i class="fa fa-eye"> &nbsp{{ this.collections.length}} </i></div>
@@ -74,24 +67,15 @@
         <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
             <div><i class="fa fa-book">&nbsp {{ ebooklength this.profile_about_us}}</i></div>  
         </li>
-
-    </ul>
-
+    </ul> 
 </div>
 
-
-<div class="masonry-object_mainfeature" style="">
-
+<div class="masonry-object_mainfeature">
     <div class="masonry-object_text">
-
-
         <div class="more_detail" {{bindAttr id="id"}}>          
             {{profile_cover_text}}
-
         </div>
-
     </div>
-
 </div>
 
 {{/each}}

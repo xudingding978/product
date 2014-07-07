@@ -25,6 +25,10 @@
                 <li class="ite" {{action gpShare "1"}}>
                     <i class="fa fa-google-plus share-type share-type-pos2"></i><span class="share-type-txt2">Google+</span>
                 </li>
+                <li class="ite" {{action eShare "1"}}>
+                    <img src="../../../images/sent.png" class="share-type-email">
+                    <i class="send_email share-type share-type-pos2" ></i><span class="share-type-txt1" >E-mail</span>
+                </li>
             </ul>
 
             <script type="text/javascript">
@@ -96,7 +100,9 @@
                      <i class="fa fa-share" >&nbsp;<span class="view-stats-font">{{megaResouce.share_count}}</span>&nbsp;</i>
                 </div>
 
+
                 <ul class="hideClass edit-object-ul share-box4a" id="dropdown_id_2">
+
                     <li class="ite" {{action  fbShare "2"}} >
                         <i class="fa fa-facebook share-type share-type-pos2"></i><span class="share-type-txt2">Facebook</span>
                     </li>
@@ -108,6 +114,10 @@
                     </li>
                     <li class="ite" {{action gpShare "2"}}>
                         <i class="fa fa-google-plus share-type share-type-pos2"></i><span class="share-type-txt2">Google+</span>
+                    </li>
+                    <li class="ite" {{action eShare "2"}}>
+                        <img src="../../../images/sent.png" class="share-type-email">
+                        <i class="send_email share-type share-type-pos2" ></i><span class="share-type-txt1" >E-mail</span>
                     </li>
                 </ul>
             </div>
@@ -244,3 +254,8 @@
         </div>
     </div>
 </div>
+
+{{#if isShareEmail}}
+{{render shareEmail}}
+{{/if}}
+

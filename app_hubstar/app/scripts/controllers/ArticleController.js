@@ -29,7 +29,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     enableEditTag: false, //enable  photo owner to edit the tag after activate the tag
     showRequestTag: false, //show the tag after save and sent the request
     showTagAfterSave: false, // show the tag icon afte approve
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems', 'showTag', 'mega', 'updateTag', 'permission'],
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems', 'showTag', 'mega', 'updateTag', 'permission', 'shareEmail'],
     init: function() {
         HubStar.set("readCaption", true);
     },
@@ -54,11 +54,11 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("showRequestTag", false);
         this.set("showTagAfterSave", false);
         this.set("showEachTagContent", false);
-        
-        this.set("tempShowTags",this.get("showAllTags"));
-        this.set("showAllTags",true);  
-        
-        this.set("enableTag", true);      
+
+        this.set("tempShowTags", this.get("showAllTags"));
+        this.set("showAllTags", true);
+
+        this.set("enableTag", true);
         $("#previousarticlephoto").addClass("touch-cursor");
         $("#nextarticlephoto").addClass("touch-cursor");
     },
@@ -73,7 +73,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("enableTag", false);
         this.set("showTagAfterSave", false);
         this.set("inImage", false);  //click the end tag recove the value
-        this.set("showAllTags",this.get("tempShowTags"));
+        this.set("showAllTags", this.get("tempShowTags"));
         $("#previousarticlephoto").removeClass("touch-cursor");
         $("#nextarticlephoto").removeClass("touch-cursor");
     },
@@ -850,6 +850,9 @@ HubStar.ArticleController = Ember.Controller.extend({
     closeContact: function() {
         this.set('contact', false);
     },
+    closeShareEmail: function() {
+        this.set('shareEmail', false);
+    },
     setCaption: function()
     {
         if (HubStar.get("readCaption"))
@@ -1032,6 +1035,47 @@ HubStar.ArticleController = Ember.Controller.extend({
                     'height=436,width=626'
                     ).focus();
             return false;
+        }
+    },
+    eShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            this.set('descript', this.get('selectedPhoto').get('photo_title'));
+            var currentUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedPhoto').get('id');
+            if (this.get('selectedPhoto').get("type") === "article")
+            {
+                this.set('descript', this.get('selectedPhoto').get('article').objectAt(0).get("article_headline"));
+            }
+            else if (this.get('selectedPhoto').get("type") === "video")
+            {
+                this.set('descript', this.get('selectedPhoto').get('videoes').objectAt(0).get("videoTitle"));
+            }
+            var mega = HubStar.Mega.find(this.get('articleID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+
+            var shareEmailController = this.get('controllers.shareEmail');
+            var selectid = this.get('selectedPhoto').id;
+            shareEmailController.setImageID(selectid);
+            var tempUrl = this.get('selectedPhoto').get('photo_image_original_url');
+            shareEmailController.setThumbnailUrl(tempUrl);
+            shareEmailController.setUrl(currentUrl);
+            shareEmailController.setUser();
+            shareEmailController.setRelatedController('article');
+            shareEmailController.setSelectedMega(selectid);
+            shareEmailController.setTitle(this.get('descript'));
+            this.set("isShareEmail", true);
+//        this.get("controllers.shareEmail").getClientId(this.get("Id"));
+
         }
     },
     addLike: function() {

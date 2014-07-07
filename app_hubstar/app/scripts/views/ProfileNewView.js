@@ -19,6 +19,18 @@ HubStar.ProfileNewView = Ember.View.extend({
                 this.get("controller").transitionTo("searchIndexTom");
             }
         }
+        var that = this;
+        $(document).ready(function() {
+            setTimeout(function() {
+                if (that.get("controller").get("regionSelection") === "Region/State") {
+                   $("#regionChecking").css("display","none");
+                }
+                else {
+                     $("#regionChecking").css("display","inline-block");
+                }
+            }, 1);
+
+        });
     },
     addSecond: function() {
         $("#secondEmail").css("display", "table-row");

@@ -85,15 +85,13 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 && $('#categorySelection').text() !== "Category"
                 && $('#subcategorySelection').text() !== "Subcategory"
                 && $('#countrySelection').text() !== "Country"
-//                && $('#regionSelection').text() !== "Region/State"
+                //  && $('#regionSelection').text() !== "Region/State"
                 && $('#contactEmail').val() !== ""
                 && $('#admins_1').val() !== ""
                 && this.get("classification") !== ""
                 && this.validateEmail($('.contactEmail').val())
                 && this.validateEmail($('.admins').val())
                 && this.validateEmail($('.clientEmail').val())
-
-                //   && this.numberChecking("#numberFormat", $('.contactNumber').val())
                 )
 
         {
@@ -165,17 +163,14 @@ HubStar.ProfileNewController = Ember.Controller.extend({
             $('#errorMessage4').attr('style', 'display:none');
             $('#countrySelectionCheck').removeClass("error-textfield");
         }
-        if ($('#regionSelection').text() === "Region/State") {
-            
-            $('.dashdiv').attr('style','display:none');
-            $('#errorMessage4').attr('style', 'display:block');
- //           $('#regionSelectionCheck').addClass("error-textfield");
-
-        } else { 
-            $('.dashdiv').attr('style','display:block');
-            $('#errorMessage4').attr('style', 'display:none');
-            $('#regionSelectionCheck').removeClass("error-textfield");
-        }
+//        if ($('#regionSelection').text() === "Region/State") {
+//            $('#errorMessage4').attr('style', 'display:block');
+//            document.getElementById('regionSelectionCheck').setAttribute("class", "error-textfield new-btn");
+//
+//        } else {
+//            $('#errorMessage4').attr('style', 'display:none');
+//            document.getElementById('regionSelectionCheck').setAttribute("class", "new-btn");
+//        }
         if ($('#contactEmail').val() === "") {
             $('#errorMessage5').attr('style', 'display:block');
             $('#contactEmailFormat').attr('style', 'display:none');
@@ -297,12 +292,12 @@ HubStar.ProfileNewController = Ember.Controller.extend({
         }
 
         if ($('#regionSelection').text() === "Region/State") {
-            this.set("profile_url", this.spaceChecking(this.get("profile_name").toLowerCase().replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')) + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
-
+            this.set("profile_url", this.spaceChecking(this.get("profile_name").toLowerCase().replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')) 
+                    + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
         } else {
-
-            this.set("profile_url", this.spaceChecking(this.get("profile_name").toLowerCase().replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')) + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase()) + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
-
+            this.set("profile_url", this.spaceChecking(this.get("profile_name").toLowerCase().replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')) 
+                    + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase()) 
+                    + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
         }
     },
     setTopicModel: function(model) {

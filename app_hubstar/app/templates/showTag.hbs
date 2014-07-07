@@ -43,7 +43,7 @@
                         </div>                      
                         {{else}}
                         <div class="new-btn show-tag-select"> 
-                            <div class="show-tag-loading"> Loading <i class="spinner" style="">&nbsp;</i></div>                       
+                            <div class="show-tag-loading"> Loading <i class="spinner" >&nbsp;</i></div>                       
                         </div>
                         {{/unless}}
                         {{else}}
@@ -54,7 +54,7 @@
                                 </div> 
                         {{else}}
                         <div class="new-btn show-tag-select"> 
-                            <div class="show-tag-loading"> Loading <i class="spinner" style="">&nbsp;</i></div>                       
+                            <div class="show-tag-loading"> Loading <i class="spinner" >&nbsp;</i></div>                       
                         </div>
                         {{/unless}}
                         {{/if}}
@@ -63,7 +63,7 @@
                         <div class="select-profile-save">
                             <div class="show-tag-profile-content" >         
                                 {{#each controller.profiles}}
-                                <div class="choose-exist-collection easing" style="" {{action chooseProfile profile_name profile_id}}>
+                                <div class="choose-exist-collection easing"  {{action chooseProfile profile_name profile_id}}>
                                      <a class="exist-name easing"> {{profile_name}}</a>
                                 </div>
                                 {{/each}}

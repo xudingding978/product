@@ -3518,8 +3518,8 @@ div#appfeedback .fresh-message > i.fa-times{
 
 /* profileNew.hbs */
 .profilenewgb{
-    top: 110px;
-    position: relative;
+    top: 100px;
+    position: relative;    
 }
 
 .height-auto{

@@ -12,7 +12,7 @@
                 <div>
                     <img  {{bindAttr src= "newStyleImageSource"}}>
                     <div id='uploadStyleImg'>
-                        <img style="" src="../../../images/uploadphotos_spinner.gif"/>
+                        <img  src="../../../images/uploadphotos_spinner.gif"/>
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
     <div class="user-picture-img-button">
         <div class="new-btn blue-btn user-picture-img-button-choose">
             <i class='fa fa-arrow-circle-o-up'> &nbsp;Choose </i>
-            <div style=""> {{view HubStar.SingleImageInputButtonView }}</div>
+            <div > {{view HubStar.SingleImageInputButtonView }}</div>
         </div>
         <div class="user-picture-img-button-crop">
             {{#if controller.isCrop}}

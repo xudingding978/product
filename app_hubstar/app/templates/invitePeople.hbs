@@ -18,7 +18,7 @@
         {{/if}}
 
         {{#each  contentFollowerPhoto}}
-        <div class="invite-friend hint--rounded hint--bottom" data-hint="{{unbound this.name}}" style="" {{action addToList id}}>
+        <div class="invite-friend hint--rounded hint--bottom" data-hint="{{unbound this.name}}"  {{action addToList id}}>
              {{#if this.isAdd}}
              <div class="invite-this-friend radius-circle easing invitepeople-isadded" ><i class="fa fa-minus" ></i></div>
             {{else}}

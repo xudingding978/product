@@ -1,4 +1,4 @@
-<div  id="loginModal" class="blur_black" style="" {{action closePane on="click"  target="view"}}></div>
+<div  id="loginModal" class="blur_black"  {{action closePane on="click"  target="view"}}></div>
 
 <div id="cta-popup" style="display:block;">
     <div class="inner">
@@ -72,16 +72,16 @@
                     </div>
                 </div>
 
-                <div  id="email" class="login-textfield" style="">
+                <div  id="email" class="login-textfield" >
                     {{view Ember.TextField valueBinding="email" placeholder="Your Email" }}
                 </div>
 
-                <div id="password" class="login-textfield"  style="">
+                <div id="password" class="login-textfield"  >
                     {{view Ember.TextField type="password" valueBinding="password" placeholder="Password" }}
                 </div>
             </div>
 
-            <div id="register-btn" class="register-btn easing" style="" {{action signUp}} > Register</div>
+            <div id="register-btn" class="register-btn easing"  {{action signUp}} > Register</div>
         </div>
 
 
@@ -93,11 +93,11 @@
                 </div>
 
                 <div style="border-bottom: 1px solid #e3e3e3;">
-                    <div class="login-select easing" style=""{{action setmale}}>
+                    <div class="login-select easing" {{action setmale}}>
                          Male
                 </div>
 
-                <div class="login-select easing" style=""{{action setfemale}}>
+                <div class="login-select easing" {{action setfemale}}>
                      Female
             </div>
         </div>
@@ -106,7 +106,7 @@
             {{view Ember.TextField valueBinding="age" placeholder="How old are you?" }}
         </div>
     </div>
-    <div class="back-btn easing" style="" >Back</div>
+    <div class="back-btn easing"  >Back</div>
     {{#if controller.isRegistering}}
     <div class="register-btn easing register-btn-small"  {{action next}}>Next</div>
     {{else}}
@@ -253,7 +253,7 @@
 </div>
 </div>
 
-<div id="register-with-email-step-4" style="overflow: hidden; z-index: 11; background-color: white; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; box-shadow: rgb(187, 187, 187) 0px 0px 20px; width: 430px; height: 320px; margin: 0px auto; position: fixed; top: 40%; left: 0px; right: 0px; display: none;">
+<div id="register-with-email-step-4" style="overflow: hidden; z-index: 11; background-color: white; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; box-shadow: rgb(187, 187, 187) 0px 0px 20px; width: 430px; height: 320px; margin: 0px auto; position: fixed; top: 20%; left: 0px; right: 0px; display: none;">
     <div  style="background-color: #f3f3f3;padding: 10px;border-bottom: 1px solid #ddd;text-align: center;">
         <div  class="comment-namentime" style="display: block;position: relative;height: 35px; margin: 0 auto;">
             <div style="position: relative;  line-height: 35px;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
@@ -327,11 +327,11 @@
         <div style="padding: 0 8px;position: relative;">
 
 
-            <div id="loginUsername" class="login-textfield" style="">
+            <div id="loginUsername" class="login-textfield" >
                 {{view HubStar.LoginEnterKeyTextFieldView valueBinding="loginUsername" placeholder="Your Email" }}
             </div>
 
-            <div id="loginPassword" class="login-textfield"  style="">
+            <div id="loginPassword" class="login-textfield"  >
                 {{view HubStar.LoginEnterKeyTextFieldView type="password" valueBinding="loginPassword" placeholder="Password" }}
                 <div class="hint--right hint--rounded" data-hint="Forgot password?" style="cursor:pointer;float: right;margin-top: -40px;height: 30px;color:#888;">
                     <i class="fa fa-question-circle">&nbsp</i>
@@ -339,14 +339,23 @@
             </div>
         </div>
 
-        <div id="register-btn" class="register-btn easing" style="" {{action login}}> Log in</div>
+        <div id="register-btn" class="register-btn easing"  {{action login}}> Log in</div>
     </div>
     <div id="user-forgot-password-pane" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
         <div  id="resetPasswordEmail"class="login-textfield" style="padding: 0 10px">
             {{view Ember.TextField valueBinding="resetPasswordEmail" placeholder="Your Email" }}
         </div>
-        <div class="back-btn easing" style="" >Back</div>
-        <div id="reset-btn" class="register-btn easing register-btn-small" {{action emailSend}}>Reset password</div>
+        <div class="back-btn easing"  >Back</div>
+        
+        
+        
+         {{#if controller.isEmailsend}}
+    <div id="reset-btn" class="register-btn easing register-btn-small" {{action emailSend}}>Reset password</div>
+    {{else}}
+    <div class="easing register-btn-small" ><i class="spinner" style="top:4px">&nbsp;</i></div>
+    {{/if}}
+
+        
     </div>
 
     <div class="black-tool-tip"id="forgot-message-container" style="display:none;">
@@ -392,7 +401,7 @@
 </div>
 
 <a href="http://about.trendsideas.com" target="blank">
-    <div class="learnmore-btn easing" style="">Learn more</div>
+    <div class="learnmore-btn easing" >Learn more</div>
 </a>
 
 <div style="margin: 15px 0;cursor:pointer;color: #fff; font-size: 12px;"  id="login-btn" class="hover-opacity easing" {{action loginPane on="click"  target="view"}}>Already have an account? Click here to Log in!</div>

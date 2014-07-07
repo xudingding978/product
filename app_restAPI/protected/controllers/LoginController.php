@@ -200,11 +200,16 @@ class LoginController extends Controller {
                 $cb = $this->couchBaseConnection();
                 $oldDeep = $cb->get($docIDDeep);
                 $oldRecordDeep = CJSON::decode($oldDeep, true);
-                if($oldRecordDeep['user'][0]["email_activate"] === false)
+                
+                if (isset($oldRecordDeep['user'][0]["email_activate"])) {
+                      if($oldRecordDeep['user'][0]["email_activate"] === false)
                 {
                 $oldRecordDeep['user'][0]["email_activate"] = true;
                 $cb->set($docIDDeep, CJSON::encode($oldRecordDeep));
                 }
+                }
+                
+              
                 
 
                 $currentUser->save(false);

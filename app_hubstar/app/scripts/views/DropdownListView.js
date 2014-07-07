@@ -44,10 +44,9 @@ HubStar.DropdownListView = Ember.View.extend({
         });
         $('#regionDropdown > .ite').click(function() {
             that.get('controller').set('regionSelection', $(this).text());
-          setTimeout(function(){
-                  $('.dashdiv').css('display','inline-block');
-             },100);
-            
+             setTimeout(function() {
+                     $("#regionChecking").css("display","inline-block");
+            }, 1);
         });
 
         $('#categoryDropdown > .ite').click(function() {

@@ -19,24 +19,16 @@ HubStar.ProfileNewView = Ember.View.extend({
                 this.get("controller").transitionTo("searchIndexTom");
             }
         }
-        
-          
         var that = this;
-        $(document).ready(function(){
-             console.log(that.get("controller").get("regionSelection"));
-             if (that.get("controller").get("regionSelection") === "Region/State") {
-            
-             setTimeout(function(){
-                  $('.dashdiv').css('display','none');
-             },1);
-
-        } else { 
-//            console.log("Ally is big");
-//            setTimeout(function(){
-//                  $('.dashdiv').css('display','inline-block');
-//             },1);
-        }
-            
+        $(document).ready(function() {
+            setTimeout(function() {
+                if (that.get("controller").get("regionSelection") === "Region/State") {
+                   $("#regionChecking").css("display","none");
+                }
+                else {
+                     $("#regionChecking").css("display","inline-block");
+                }
+            }, 1);
         });
     },
     addSecond: function() {
@@ -57,12 +49,7 @@ HubStar.ProfileNewView = Ember.View.extend({
     deleteThird: function() {
         $("#thirdEmail").css("display", "none");
         this.set("added", true);
-
     }
-
-
-
-
 });
 
 

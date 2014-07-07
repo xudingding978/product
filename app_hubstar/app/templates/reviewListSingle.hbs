@@ -1,14 +1,14 @@
 
-<div class="review-list box" style="">
-    <div class="" style="height: 80px;width: 80px;position: relative;border: 3px solid #f3f3f3;border-radius: 50%;overflow: hidden;box-shadow: 0 0 5px #aaa;top: -5px;float: left;z-index: 1">
-        <a class="comment-username" href="#/users/{{unbound model.review_user_id}}"  >
-            <img {{bindAttr src="model.review_user_photo_url"}} style=""/>
+<div class="review-list box">
+    <div class="review-list-profile-pic" >
+        <a href="#/users/{{unbound model.review_user_id}}"  >
+            <img {{bindAttr src="model.review_user_photo_url"}} />
         </a>
     </div>
-    <div  id="review_{{unbound model.review_id}}"class="review-list-content easing" style="">
-        <div style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;border-radius: 3px 3px 0 0;">
-            <div {{action "showOneReview" model.review_id "content" target="view" on="click"}} class="comment-namentime" style="display: block;position: relative;height: 35px;">
-                <div class="namentime_position" style="margin: 0;float: left;">
+    <div id="review_{{unbound model.review_id}}" class="review-list-content easing" >
+        <div class="review-list-content-top">
+            <div class="review-list-user-name" {{action "showOneReview" model.review_id "content" target="view" on="click"}}>
+                <div class="review-list-name-position" >
 
                     {{model.review_user_name}}
 
@@ -17,81 +17,89 @@
                     </div>
                 </div>
 
-                <div style="position: absolute; right: 0; margin: 7px;"><span class="starsview" ><span style="width:{{unbound model.review_length}}px;"></span></span></div>
+                 <div class="review-list-star-position"><span class="starsview" > <span style="width:{{unbound model.review_length}}px;"></span</span></div>
             </div>
         </div>
 
-        <div  style="background-color: #fff; padding: 10px 40px; font-size: 13px;">
+        <div  class="review-list-content-middle">
 
-            <div id="review_content_{{unbound model.review_id}}" {{action "upContent" model.review_id target="view" on="click"}} style="width: 390px; max-height:100px;line-height:20px; position: relative; display: inline-block; overflow: hidden; ">{{model.review_content}}  </div>
+            <div id="review_content_{{unbound model.review_id}}" class="review-list-single-context" {{action "upContent" model.review_id target="view" on="click"}}>{{model.review_content}}  </div>
 
-            <span {{action "showOneReview" model.review_id "content" target="view" on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;"  id="down_button_{{unbound model.review_id}}"  ><i class="fa fa-caret-down">&nbsp;</i>more</span>
-            <span {{action "upContent" model.review_id target="view" on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:none;"  id="up_button_{{unbound model.review_id}}" ><i class="fa fa-caret-up">&nbsp;</i>collapse</span>
+            <span {{action "showOneReview" model.review_id "content" target="view" on="click"}} class="hover-opacity review-list-button-more" id="down_button_{{unbound model.review_id}}"  ><i class="fa fa-caret-down">&nbsp;</i>more</span>
+            <span {{action "upContent" model.review_id target="view" on="click"}}  class="hover-opacity review-list-button-collapse"  id="up_button_{{unbound model.review_id}}" ><i class="fa fa-caret-up">&nbsp;</i>collapse</span>
 
 
-            <div style="position: relative; display: block;margin: 15px 0 10px;height: 20px;width: 100%;">
+            <div class="review-list-button-like-share">
                 {{model.review_isLike}}
                 {{#if model.isLike}}
-                <div id="review_like_{{unbound model.review_id}}"  style="float: right; font-size: 13px;" class="new-btn" data-hint="unLike!" {{action unLike}}>
+                <div id="review_like_{{unbound model.review_id}}"  class="new-btn review-list-share-button" data-hint="unLike!" {{action unLike}}>
                      <i class="fa fa-thumbs-up" {{action unLike model}}>&nbsp</i>
                     {{model.review_like_count}}</div>
                 {{else}}
-                <div id="review_like_{{unbound model.review_id}}"  style="float: right; font-size: 13px;" class="new-btn" data-hint="Like!" {{action addLike}}>
+                <div id="review_like_{{unbound model.review_id}}"  class="new-btn review-list-share-button" data-hint="Like!" {{action addLike}}>
                      <i class="fa fa-thumbs-up" {{action addLike model}}>&nbsp</i>
                     {{model.review_like_count}}</div>
                 {{/if}}
 
-                <div id="review_share_{{unbound model.review_id}}"  style="float: right; font-size: 13px;margin-right: 5px;" class="new-btn" {{action dropdownPhotoSetting model.review_id}}>
+                <div id="review_share_{{unbound model.review_id}}"  class="new-btn review-list-share-button" class="new-btn" {{action dropdownPhotoSetting model.review_id}}>
                      <i class="fa fa-share" >&nbsp</i></div>
-                <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound model.review_id}}" style="width: 150px;  padding: 0;right: 0px;left: 278px;position:absolute;top: 25px;">
+                <ul class="hideClass edit-object-ul review-drop-list" id="dropdown_id_{{unbound model.review_id}}">
                     <li class="ite" {{action  fbShare model}} >
-                        <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
+                        <i class="fa fa-facebook share-type share-type-pos2" ></i><span class="share-type-txt2">Facebook</span>
                     </li>
-                    <li class="ite" {{action tShare model}} >
-                        <i class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Twitter</span>
+                    <li class='ite' {{action tShare model}} >
+                        <i class="fa fa-twitter share-type share-type-pos2" ></i><span class="share-type-txt2">Twitter</span>
                     </li>
                     <li class="ite" {{action gpShare model}}>
-                        <i class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Google+</span>
+                        <i class="fa fa-google-plus share-type share-type-pos2" ></i><span class="share-type-txt2">Google+</span>
+                    </li>
+
+                    <li class="ite" {{action eShare model}}>
+                        <img src="../../../images/sent.png" style="width: 16px;height: 16px">
+                            <i class="send_email share-type share-type-pos2" ></i><span class="share-type-txt1">E-mail</span>
                     </li>
                 </ul>
                 {{#if model.getUser}}
-                <div class="new-btn" style="float: left; font-size: 13px;margin-right: 5px;"  {{action removeReview}}><i class="fa fa-trash-o"></i></div>
-                <div class="new-btn" style="float: left; font-size: 13px;" {{action editReview}}><i class="fa fa-pencil"></i></div>
+                <div class="new-btn review-list-share-button-left"   {{action removeReview}}><i class="fa fa-trash-o"></i></div>                 
+                <div class="new-btn review-list-share-button-left"   {{action editReview}}><i class="fa fa-pencil"></i></div>
                 {{/if}}
             </div>
-        </div>
+        </div>  
+
 
         <!--the following comment-frame is used to show the reply box for the second level reply-->
         <div id="reviewReplyData_{{unbound model.review_id}}">
 
-            <div class="reply-comment-frame"  style="" id="ReplyData_{{unbound model.review_id}}">
-                <div style="margin:0 auto; padding: 0 45px 15px 0;">
+            <div class="reply-comment-frame" id="ReplyData_{{unbound model.review_id}}">
+                <div class="review-reply-content">
                     <a  href="#/users/{{unbound controller.currentUser.id}}">
-                        <img class="profilepic_comment"  style="float: right; margin: 4px -10px 0 0; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url_large"}} />
+
+                        <img class="profilepic_comment" {{bindAttr src="controller.currentUser.photo_url_large"}} />
                         <div class="user-reply-angle-before"></div>
                         <div class="user-reply-angle-after"></div>
+
                     </a>
 
-                    <div class="reply-comment-container" style="width: 378px;height: 32px;">
-                        <div id="addReply_{{unbound model.review_id}}" style="margin: 0;width: 345px; height: 30px;float: left;">
+                    <div class="reply-comment-container review-reply-content-textarea">
+                        <div id="addReply_{{unbound model.review_id}}" class="review-reply-content-textarea-size">
                             {{view HubStar.SearchRequireTextFieldView valueBinding="controller.replyReviewContent"  class="no-resize"  placeholder="Write a comment..." }}
                         </div>
-                        <div style="float: right;height: 34px;position: relative;">
-                            <div id="ok_{{unbound model.review_id}}" class="message-btn easing" style="width: 30px;"{{action addReviewReply model.review_id}}>
+                        <div class="review-reply-content-send">
+                            <div id="ok_{{unbound model.review_id}}" class="message-btn easing message-btn-w" {{action addReviewReply model.review_id}}>
                                  <i  class="fa fa-check"></i>
+
                             </div>
 
                         </div>
                     </div>
                 </div>
             </div>
-
-
-            <div id="view-comments_{{unbound model.review_id}}" {{action "showOneReview" model.review_id "viewReply" target="view" on="click"}} class="hover-opacity" style="display:block; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;">
+            <div id="view-comments_{{unbound model.review_id}}" class="hover-opacity review-replay-view-comment" {{action 'showOneReview' model.review_id "viewReply" target='view' on="click"}} >
                  view comments {{this.model.reply_reviews.length}}
                  <i class="fa fa-caret-down">&nbsp;</i>
             </div>
-            <div  id="reply_{{unbound model.review_id}}"  style="display:none; max-height:200px;height:auto;">
+            <div  id="reply_{{unbound model.review_id}}"  class="review-relay-replay">
+
 
                 {{#each model.reply_reviews}}
                 {{render reviewReplyListSingle this}}
@@ -99,14 +107,12 @@
 
             </div>
 
-            <div id="up-comments_{{unbound model.review_id}}" {{action "upComments" model.review_id target="view" on="click"}}  class="hover-opacity" style="display: none; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;">
+            <div id="up-comments_{{unbound model.review_id}}" {{action "upComments" model.review_id target="view" on="click"}}  class="hover-opacity review-replay-up-comment" >
+
                 collapse comments {{this.model.reply_reviews.length}}
                 <i class="fa fa-caret-up">&nbsp;</i>
             </div>
-
         </div>
-
-
     </div>
 </div>
 
@@ -122,15 +128,14 @@
 
 <div class="blur_black"></div>
 
-<div class="" style="height: 80px;width: 80px;position: fixed;border: 3px solid #f3f3f3;border-radius: 50%;overflow: hidden;box-shadow: 0 0 5px #aaa;top: 120px;left: 0px;right: 470px;z-index: 12;margin: 0 auto;display: block;">
-    <img {{bindAttr src="model.review_user_photo_url"}} style=""/>
+<div class="review-edit-user-picture">
+    <img {{bindAttr src="model.review_user_photo_url"}} />
 </div>
 
-<div class="Add-review" style="overflow:hidden">
-
-    <div id="review_{{unbound model.review_id}}" style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
-        <div {{action "showOneReview" model.review_id target="view" on="click"}} class="comment-namentime" style="display: block;position: relative;height: 35px;">
-            <div class="namentime_position" style="margin: 0;float: left;">
+<div class="review-wrapper">
+    <div id="review_{{unbound model.review_id}}" class="review-edit-top">
+        <div {{action "showOneReview" model.review_id target="view" on="click"}} class="review-list-user-name">
+            <div class="review-list-name-position">
                 <a class="comment-username" href="#/users/{{unbound model.review_user_id}}"  >
                     {{model.review_user_name}}
                 </a>
@@ -139,16 +144,16 @@
                 </div>
             </div>
 
-            <div style="position: absolute; right: 0; margin: 7px;"><span class="starsview" ><span style="width:{{unbound model.review_length}}px;"></span></span></div>
+            <div class="review-list-star-position"><span class="starsview" ><span style="width:{{unbound model.review_length}}px;"></span></span></div>
         </div>
     </div>
-    <div id ="editReview_{{unbound model.review_id}}" style="margin: 20px auto 5px; padding: 0 15px;height: 200px;">
+    <div id ="editReview_{{unbound model.review_id}}" class="review-edit-content">
         {{view HubStar.SearchRequireTextFieldView valueBinding="controller.review_content"  class="no-resize no-effect"  placeholder="Please edit review here" }}
     </div>
 
-    <div class="" style="height: 41px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-        <div  class="message-btn easing"  style="width: 50%;border-right: 1px solid #ddd;" {{action cancelReview }}><i class="fa fa-times">&nbsp;</i>Cancel</div>
-        <div class="message-btn easing" style="width: 50%;" {{action  saveReview }}><i class="fa fa-check">&nbsp;</i>Post</div>
+    <div class="review-edit-buttons" >
+        <div  class="message-btn easing border-right review-edit-width" {{action cancelReview }}><i class="fa fa-times">&nbsp;</i>Cancel</div>
+        <div class="message-btn easing review-edit-width" {{action  saveReview }}><i class="fa fa-check">&nbsp;</i>Post</div>
     </div>
 </div>
 

@@ -94,26 +94,25 @@
     </div> 
     {{/if}}
 
-
     <div id="messageData_{{unbound model.message_id}}"  class="display-none">
         <div id="messageScrollBar_{{unbound model.message_id}}">
             {{#each  model.replyMessageCollection}} 
             {{#unless this.enableToEdit}}
-            <div class="your-reply" style="padding: 10px 60px 10px 0;">
-                <a class="your-relpy_profilepic" style="right: 15px;" href="#/users/{{unbound this.user_id}}">
+            <div class="your-reply message-post-reply" >
+                <a class="your-relpy_profilepic" href="#/users/{{unbound this.user_id}}">
                     <img class="profilepic_comment"  {{bindAttr src= this.photo_url_large}} />
                 </a>
-                <div style="">
+                <div class="message-replytimename">
                     <div class="comment-namentime">
                         <div class="namentime_position">
                             {{#if this.isUserself}}
-                            <div class="reply-comment" style="left: 40px;right: initial;">
+                            <div class="reply-comment message-post-action" >
                                 <span class="hint--bottom hint--rounded" data-hint="Delete"><i class="fa fa-trash-o"  {{action removeReplyItem this.reply_id}}></i></span>
                                 <span class="hint--bottom hint--rounded" data-hint="Edit"><i class="fa fa-pencil" {{action editingReplyData this.reply_id this.msg}}></i></span>
                             </div>
                             {{else}}
                             {{#if controller.isUserself}}
-                            <div class="reply-comment" style="left: 40px;right: initial;">   
+                            <div class="reply-comment message-post-action" >   
                                 <span class="hint--bottom hint--rounded" data-hint="Delete"><i class="fa fa-trash-o"  {{action removeReplyItem this.reply_id}}></i></span>
                                 <!--                            <span class="hint--bottom hint--rounded" data-hint="Edit"><i class="fa fa-pencil" {{action editingReplyData this.reply_id this.msg}}></i></span>-->
                             </div>
@@ -130,8 +129,8 @@
                     <div class="comment-content">
                         {{this.msg}}<br>
                         {{#if this.isUrl }}   <!-- if the isUrl is not null which mean it has the picture url, so it can show the image-->
-                        <div style="margin: 5px auto;max-width: 300px;max-height: 300px;float: right;">
-                            <img {{bindAttr src= this.url}} style="border: 4px solid #fff;"/>
+                        <div class="message-post-img">
+                            <img {{bindAttr src= this.url}}/>
                         </div>
                         {{/if}}
                     </div>
@@ -143,15 +142,14 @@
             {{/each}}     
         </div>
     </div>
-
      {{#if model.replayCountZero }}
-    <div class="hover-opacity easing" style="height: 20px; width: 100%; background-color: #f3f3f3;text-align: center;color: #555; border-top: 1px solid #ddd">  
-        <div id="showMoreComment_{{unbound model.message_id}}" style="display: inline-block; cursor: pointer"  {{action seeMore model.message_id target="controller" on="click"}}>
-            <span style="font-size: 11px;font-weight: bold">view comment &nbsp; {{model.replyCount}}</span>
+    <div class="hover-opacity easing show-all-comment-box" >  
+        <div id="showMoreComment_{{unbound model.message_id}}" class="all-comment-show" {{action seeMore model.message_id target="controller" on="click"}}>
+            <span class="all-comment-indicator-txt" >view comment &nbsp; {{model.replyCount}}</span>
             <i class="fa fa-caret-down show-comment_inner" ></i>   
         </div>
-        <div id="closeComment_{{unbound model.message_id}}"   style="display: none;cursor: pointer" {{action closeMore model.message_id  target="controller" on="click"}}>
-            <span style="font-size: 11px;font-weight: bold">Hide comment &nbsp; {{model.replyCount}}</span>
+        <div id="closeComment_{{unbound model.message_id}}" class="all-comment-hide" {{action closeMore model.message_id  target="controller" on="click"}}>
+            <span class="all-comment-indicator-txt" >Hide comment &nbsp; {{model.replyCount}}</span>
             <i class="fa fa-caret-up show-comment_inner" ></i>
         </div>
     </div>

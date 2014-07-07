@@ -410,17 +410,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 $("#topResidentialCommerical").css('display', "none");
             } else {
-                if (HubStar.get("isTopAdDisplay")) {
+                console.log(HubStar.get("isTopAdDisplay"));
+;                if (HubStar.get("isTopAdDisplay")) {
                     $('#masonry_wrapper').css('top', "240px");
-                    if (HubStar.get("isTopAdDisplay")) {
-                        $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
-
-                    }
+                    console.log("3");
+                        $("#top_bar_ads").css({"position": "fixed", "top": "90px"});       
                 }
                 else
                 {
                     $('#masonry_wrapper').css('top', "100px");
                 }
+                HubStar.set("ctaView", false);
                 $("#search-bar").css('display', "block");
                 $("#topResidentialCommerical").css('display', "block");
             }

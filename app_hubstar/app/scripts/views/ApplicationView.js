@@ -67,6 +67,7 @@ HubStar.ApplicationView = Ember.View.extend({
                         $("#topResidentialCommerical").css('display', "block");
                         $(".search-bar-on-small-screen").css('display', "none");
                         if (HubStar.get("isTopAdDisplay")) {
+                            console.log("1");
                             $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
                             $('#masonry_wrapper').css('top', "240px");
                         }

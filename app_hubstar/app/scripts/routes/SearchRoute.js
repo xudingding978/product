@@ -168,6 +168,7 @@ HubStar.SearchRoute = Ember.Route.extend({
                     if (HubStar.get("isTopAdDisplay")) {
                         $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
                         $('#masonry_wrapper').css('top', "240px");
+                        console.log("2");
                     }
                     else
                     {

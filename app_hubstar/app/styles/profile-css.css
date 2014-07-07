@@ -3158,8 +3158,8 @@ div#appfeedback .fresh-message > i.fa-times{
     margin: 4px 0px;
 }
 
-.itemprofile-edit-delete{
-    font-size: 16px; 
+.itemprofile-edit-action{
+    font-size: 16px !important; 
     margin: 0px 5px;
 }
 
@@ -3517,6 +3517,11 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 /* profileNew.hbs */
+.profilenewgb{
+    top: 110px;
+    position: relative;
+}
+
 .height-auto{
     height: auto;
 }
@@ -3526,7 +3531,6 @@ div#appfeedback .fresh-message > i.fa-times{
     height: 210px;
     width: 715px; 
     margin: auto;
-    top: 100px;
 }
 
 .profilenew-title-txt{
@@ -3548,7 +3552,6 @@ div#appfeedback .fresh-message > i.fa-times{
     box-shadow: 0px 0px 13px; 
     border-radius: 3px; 
     bottom: 10px;
-    top: 100px;
 }
 
 .profilenewbanner{

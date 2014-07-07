@@ -1,6 +1,6 @@
 
  
-<div class="profilegb width-100 height-auto" >
+<div class="profilegb width-100 height-auto profilenewgb" > 
     <div class="landing-page"> 
     <img src="../../../images/landingpagebg.jpg">
 </div>
@@ -89,9 +89,8 @@
                     <div class="table-cell align-right" >Profile URL*:</div>
                     <div class="table-cell" > 
                         <div class="profilenew-inputarea align-center" >
-                            {{form controller.profile_name}}-{{form controller.countrySelection}}
-                        </div>
-                  
+                            {{form controller.profile_name}}<div class="dashdiv">-{{form controller.regionSelection}}</div>-{{form controller.countrySelection}}
+                        </div>                    
                     </div> 
                 </div>
 
@@ -109,18 +108,13 @@
                         <div  class="table-cell">
                      
                                 <div id="residential" class="classfication profilenew-input-halfarea display-inline" {{action classSelection "Residential"}}>
-                                     <span id="">Residential</span>
-                                    
+                                     <span id="">Residential</span>                                  
                                 </div>
                                 <div id="commercial" class="classfication profilenew-input-halfarea2 display-inline" {{action classSelection "Commercial"}}>
-                                     <span id="">Commercial</span>
-                                   
-                                   
-                                </div>                              
-                         
+                                     <span id="">Commercial</span>                                   
+                                </div>                                                     
                         </div>
                     </div>
-
 
                     <div class="table-row">
                         <div class="table-cell align-right" >Profile Category*:</div> 
@@ -172,7 +166,7 @@
                         <div class="table-cell" > 
                             <div class="display-block">
                                 <div class="profilenew-inputarea" >
-                                    {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
+                                    {{view Ember.TextField valueBinding="suburb" placeholder="Suburb"}}
                                 </div>
                             </div>
                        </div>

@@ -1993,7 +1993,7 @@ div.album-description-bg{
     -webkit-transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
     transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
     margin: 15px 0 0 0;
-    max-width: 5%;
+    max-width: 0%;
     position: absolute;
     right: 0;
     top: 0;

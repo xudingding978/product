@@ -22,7 +22,6 @@
                 <div class="corpbanner_mask">
                     <div class="corpbanner_content">
                         <div class="main_title main-title">
-
                             <div>
                                 {{#if controller.editing}}
                                 <div style="margin-bottom: 10px;">
@@ -46,11 +45,9 @@
                                 {{/if}}
                             </div>
 
-
-
                             <!--STAR RATING-->
                             <div style="position: absolute;width: 100%;">
-                                <div style=";width: 50%; float: left;" data-step="1" data-intro="Click here to <b>Rate and Review</b> a profile." data-position="right">
+                                <div style="width: 50%; float: left;" data-step="1" data-intro="Click here to <b>Rate and Review</b> a profile." data-position="right">
 
                                     <span class="stars" style="float: left;margin: 5px 15px 5px 0;" ><span id="starsize" ></span></span>
                                     <div class="hint--right hint--rounded" data-hint="Review this profile!"  {{action rateEditing model.id}} >
@@ -176,9 +173,6 @@
                                                 </ul>
                                             </div>
                                         </div>
-
-
-
 
                                         <!--PROFILE CONTACT SECTION-->
 
@@ -454,7 +448,6 @@
                     <div class="profile-tab-save1">
                         <span class="new-btn blue-btn flip-back"{{action flipFrontBack }}><i class="fa fa-group"> &nbsp;</i>Back</span>
                     </div>
-
                 </div>
 
                 <div class="tab-pane" id="tab2">
@@ -485,8 +478,6 @@
                                 <div class="profile-tab-row2b">
                                     {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
                                 </div>
-
-
                             </div>
                         </div>
 
@@ -509,8 +500,6 @@
                                     {{#if controller.profileSubcategoryDropdown}}
                                     {{view HubStar.DropdownListView}}
                                     {{/if}}
-
-
                                 </div>
 
                             </div>
@@ -526,8 +515,6 @@
                                 <div class="profile-tab-row2b">
                                     {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
                                 </div>
-
-
                             </div>
                         </div>
                         <div class="profile-row">
@@ -536,7 +523,6 @@
                                 <div class="profile-tab-row1">
                                     {{view Ember.TextField valueBinding="profile_contact_number" placeholder=""}}
                                 </div>
-
                             </div>
                         </div>
                         <div class="profile-row">
@@ -554,7 +540,6 @@
                                 <div class="profile-tab-row1">
                                     {{view Ember.TextField valueBinding="website_url" placeholder="http://www.yourdomain.com"}}
                                 </div>
-
                             </div>
                         </div>
                         <div class="profile-row">
@@ -571,7 +556,6 @@
                                 <div class="profile-tab-row1">
                                     {{view Ember.TextField valueBinding="profile_analytics_code" placeholder=""}}
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -580,9 +564,7 @@
                         <span class="new-btn blue-btn flip-back" {{action flipFrontBack}}><i class="fa fa-group"> &nbsp;</i>Back</span>
                     </div>
                 </div>
-
                 <div class="tab-pane" id="tab3">
-
                     <div class="profile-tab-title">Account Settings</div>
                     <div class="profile-tab-table">
                         <div class="profile-row">

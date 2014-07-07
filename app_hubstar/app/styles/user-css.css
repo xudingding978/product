@@ -1257,11 +1257,6 @@ textarea.add-interests{
     overflow: hidden;
 }
 
-/* message.hbs */
-.message-replyedit-container{
-    padding: 15px;
-}
-
 /* itemFunction.hbs */
 .itemfunction-add{
     display: none;
@@ -1357,6 +1352,153 @@ notification-context{
     top: -25px;
 }
 
+/* item.hbs */
+.item-authentic-block{
+    position: absolute;
+    margin: 10px; 
+    top: 11px;
+    left: 150px;
+}
 
+.item-edit-box{
+    right: 40px;
+}
 
+.item-title{
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size:16px;
+    word-break: break-word;
+    text-transform: capitalize;
+}
 
+.reset-margin{
+    margin:0;
+}
+
+.item-hoverarea{
+    cursor: pointer;
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border: 2px solid #fff;
+    line-height: 66px;
+    text-align: center;
+    color: #fff;
+    font-size: 25px;
+    margin: 90px auto;
+    left: 136px;
+    right: 0;
+    box-shadow: 0 0 10px #f3f3f3;
+    z-index: 1;
+}
+
+.item-videoplay{
+    margin-left: 5px;
+    text-shadow: 0 0 10px #f3f3f3;
+}
+
+.item-edit-area{
+    position: absolute;
+    margin: 10px; 
+    top: 11px;
+    left: 150px;
+}
+
+.item-edit-action{
+    font-size: 16px; 
+    margin: 0px 5px;
+}
+
+.item-edit-delete{
+    right: 40px;
+}
+
+.item-wordbreak{
+    word-break: break-word;
+}
+
+.item-article{
+    font-size: 13px; 
+    max-height: 50px;
+}
+
+.item-pdf-icon{
+    margin-left: 5px;
+    text-shadow: 0 0 10px #f3f3f3; 
+    color:#fff; 
+    font-size:50px;
+}
+
+.item-pdf-title{
+    font-style:italic;
+}
+
+.item-article-overflow{
+    text-overflow: ellipsis;
+}
+
+.item-txt-auto{
+    width: auto;
+}
+
+/* message.hbs */
+.message-replyedit-container{
+    padding: 15px;
+}
+
+.message-topreply{
+    padding: 10px 0 10px 70px;
+    position: relative;  
+    background-color: #f3f3f3;  
+    border-bottom: 1px solid #ddd;
+}
+
+.message-modify{
+    float: right;
+    color: #888;
+    margin: 18px 20px;
+    font-size: 13px; 
+    position: relative;
+    z-index: 1;
+}
+
+.message-deleteicon{
+    margin: 0 10px; 
+    cursor: pointer;
+}
+
+.message-profileimg{
+    position: absolute; 
+    top: 15px;
+    margin: 0 0 0 -55px;
+    border: 1px solid #f3f3f3;
+    width: 45px;
+    height: 45px;
+    overflow: hidden;
+}
+
+.message-profileimg img{
+    width: 45px; 
+    height: 45px;
+}
+
+.message-title{
+    margin: 8px 0; 
+    z-index: 0;
+}
+
+.message-content-imgContainer{
+    font-size: 12px;
+    margin: 10px 20px;
+}
+
+.message-content-imgbox{
+    margin: 5px auto;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.message-content-imgbox img{
+    border: 4px solid #fff;
+}

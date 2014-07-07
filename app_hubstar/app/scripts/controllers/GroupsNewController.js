@@ -346,7 +346,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         {
 
             var that = this;
-            var id = createMessageid();
+            var id = "g"+createMessageid();
             var newMegaModel = HubStar.Mega.createRecord({
                 "id": id + "",
                 "type": "group",

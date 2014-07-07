@@ -97,9 +97,10 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         this.transitionToRoute('user', user);
         this.set("notificationSeeAll", true);
         var that = this;
+        this.notificationCancel();
         setTimeout(function() {
             that.transitionToRoute('messageCenter');
-            that.transitionToRoute("notifications");
+            that.transitionToRoute("notification");
         }, 20);
         //this.reviewCancel();
     },
@@ -259,7 +260,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             }
             that.transitionToRoute('user', user);
             setTimeout(function() {
-                that.transitionToRoute('conversation', data);
+                that.transitionToRoute('conversationSingle', data);
                 //that.transitionToRoute('messageCenter');
                 setTimeout(function() {
                     that.get('controllers.messageCenter').getClientId(localStorage.loginStatus, conversationID);

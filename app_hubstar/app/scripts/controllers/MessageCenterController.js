@@ -57,7 +57,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         $('#notificationselected').addClass('selected-conversation');
         this.get("controllers.notification").getClientId(id);
         //if (b !== true) {
-        this.transitionToRoute("notifications");
+        this.transitionToRoute("notification");
         //}
 
 
@@ -78,7 +78,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         this.set("isNotification", false);
         this.set("isMessageBoard", false);
 
-        this.transitionToRoute("conversation");
+        this.transitionToRoute("conversationSingle");
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {

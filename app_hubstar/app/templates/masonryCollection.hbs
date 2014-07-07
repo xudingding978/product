@@ -75,11 +75,11 @@
         {{view HubStar.CollectionsView}}
         {{/if}} 
         {{#if videoTag}}
-        {{render "profileVideos"}}
+        {{outlet profileVideos}}
         {{/if}} 
 
         {{#if pdfTag}}
-        {{render "profilePdf"}}
+        {{outlet profilePdf}}
         {{/if}} 
 
         {{#if partnerTag}}
@@ -102,13 +102,13 @@
         {{render "userFollowings"}}
         {{/if}} 
 
-        {{#if messageTag}}
-        {{render "messageCenter"}}
-        {{/if}}
 
-        {{#if postTag}}
-        {{render "userMessage"}}
-        {{/if}}
+        {{outlet messageCenter}}
+        
+
+
+        {{outlet userMessage}}
+
         
         {{#if controller.groupNetwork}}
         {{render "groupNetwork"}}

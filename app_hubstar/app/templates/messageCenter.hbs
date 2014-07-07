@@ -22,14 +22,11 @@
 
     </div>
 </div>
-
-
-{{#if isNotification}}     
-{{render "notification"}}
+{{#if isNotification}}   
+{{outlet "notification"}}
 {{/if}}
-
 {{#if isNewConversation}}
-{{render "newConversation"}}
+{{outlet "newConversation"}}
 {{/if}}
 
 {{#if isConversationItem}}

@@ -93,6 +93,13 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             this.controllerFor("conversation").selectConversation(data.get("id"));
             this.transitionTo("conversation", data);
         }
+    },
+    renderTemplate: function() {
+
+        this.render("messageCenter", {
+            outlet: "messageCenter",
+            into: "user"
+        });
     }
 });
 

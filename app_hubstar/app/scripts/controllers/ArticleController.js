@@ -30,6 +30,93 @@ HubStar.ArticleController = Ember.Controller.extend({
     showRequestTag: false, //show the tag after save and sent the request
     showTagAfterSave: false, // show the tag icon afte approve
     needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems', 'showTag', 'mega', 'updateTag', 'permission', 'shareEmail'],
+    actions: {
+        closeWindow: function() {
+            this.set('collectable', false);
+            this.set('contact', false);
+            this.set("contentTagsArticle", []);
+            var address = document.URL;
+            var collection_id = address.split("#")[1].split("/")[6];
+            var user_id = address.split("#")[1].split("/")[2];
+            var type = address.split("#")[1].split("/")[1];
+            if (type === "search") //search from the seach board
+            {
+                if (user_id === "default") //it is the search index
+                {
+                    this.transitionToRoute("searchIndexTom");
+                }
+                else
+                {
+                    HubStar.set("escVideo", true);
+                    this.transitionToRoute("search", {id: user_id}); // go to search page, this can  work, but it is too slowlly.
+                }
+            }
+            else
+            {
+                var photoObject;
+                if (type === "users")
+                {
+                    photoObject = HubStar.Mega.find(collection_id);
+
+                    this.transitionToRoute("userPhoto", photoObject); //user photo
+                }
+                else if (type === "profiles")
+                {
+                    photoObject = HubStar.Mega.find(collection_id);
+
+                    this.transitionToRoute("profilePhoto", photoObject); // profile photo
+                }
+                else if (type === "photos" || type === "articles" || type === "videos")
+                {
+                    var m = HubStar.Mega.find(user_id);
+                    HubStar.set("closeArticlePhoto", true);
+                    this.transitionToRoute("search", {id: m.get("owner_title")});
+                }
+            }
+            HubStar.set('ctaView', true);
+        },
+        /******* function name: enableTag
+         * parameter:
+         *  aim: it is to enable user to tag in the photo and can edit the photo
+         ***********************/
+        activateTag: function()
+        {
+            $("#pa").addClass("hideClass");
+            $("#na").addClass("hideClass");
+            this.get("controllers.showTag").set("photo_id", this.get('selectedPhoto').id); //set the selected photo's id, it also contain the first photo
+            this.set("showRequestTag", false);
+            this.set("showTagAfterSave", false);
+            this.set("showEachTagContent", false);
+
+            this.set("tempShowTags", this.get("showAllTags"));
+            this.set("showAllTags", true);
+
+            this.set("enableTag", true);
+            $("#previousarticlephoto").addClass("touch-cursor");
+            $("#nextarticlephoto").addClass("touch-cursor");
+        },
+        deleteTag: function(tag_id) {
+            var message = "Are you sure to delete  this tag?";
+            this.set("message", message);
+            this.set("tag_id", tag_id);
+            this.set("type", false); //type is false mean delete other it mean activate
+            this.set('makeSureActivateTag', true);
+            if (this.get('willDelTag') === true) {
+                this.sureDelTag(tag_id);
+                this.cancelDelTag();
+            } else {
+                this.set("s", tag_id);
+                this.set('willDelTag', true);
+            }
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 200);
+        },
+        cancelActivate: function() {
+            this.set('willActivate', false);
+            this.set('makeSureActivateTag', false);
+        }
+    },
     init: function() {
         HubStar.set("readCaption", true);
     },
@@ -41,26 +128,6 @@ HubStar.ArticleController = Ember.Controller.extend({
             }
         }
         return 0;
-    },
-    /******* function name: enableTag
-     * parameter:
-     *  aim: it is to enable user to tag in the photo and can edit the photo
-     ***********************/
-    activateTag: function()
-    {
-        $("#pa").addClass("hideClass");
-        $("#na").addClass("hideClass");
-        this.get("controllers.showTag").set("photo_id", this.get('selectedPhoto').id); //set the selected photo's id, it also contain the first photo
-        this.set("showRequestTag", false);
-        this.set("showTagAfterSave", false);
-        this.set("showEachTagContent", false);
-
-        this.set("tempShowTags", this.get("showAllTags"));
-        this.set("showAllTags", true);
-
-        this.set("enableTag", true);
-        $("#previousarticlephoto").addClass("touch-cursor");
-        $("#nextarticlephoto").addClass("touch-cursor");
     },
     /******* function name: enableTag
      * parameter:
@@ -205,7 +272,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("type", true);
         if (this.get('willActivate') === true) {
             this.activateUserTag(tag_id);
-            this.cancelActivate();
+            this.send("cancelActivate");
         } else {
             this.set("s", tag_id);
             this.set('willActivate', true);
@@ -214,30 +281,9 @@ HubStar.ArticleController = Ember.Controller.extend({
             $('#masonry_user_container').masonry("reload");
         }, 200);
     },
-    cancelActivate: function() {
-        this.set('willActivate', false);
-        this.set('makeSureActivateTag', false);
-    },
     sureDelTag: function(tag_id)
     {
         this.get("controllers.showTag").deleteTag(tag_id, this.get('selectedPhoto').id);
-    },
-    deleteTag: function(tag_id) {
-        var message = "Are you sure to delete  this tag?";
-        this.set("message", message);
-        this.set("tag_id", tag_id);
-        this.set("type", false); //type is false mean delete other it mean activate
-        this.set('makeSureActivateTag', true);
-        if (this.get('willDelTag') === true) {
-            this.sureDelTag(tag_id);
-            this.cancelDelTag();
-        } else {
-            this.set("s", tag_id);
-            this.set('willDelTag', true);
-        }
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
     },
     cancelDelTag: function()
     {
@@ -775,50 +821,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         return result;
     }
     ,
-    closeWindow: function() {
-        this.set('collectable', false);
-        this.set('contact', false);
-        this.set("contentTagsArticle", []);
-        var address = document.URL;
-        var collection_id = address.split("#")[1].split("/")[6];
-        var user_id = address.split("#")[1].split("/")[2];
-        var type = address.split("#")[1].split("/")[1];
-        if (type === "search") //search from the seach board
-        {
-            if (user_id === "default") //it is the search index
-            {
-                this.transitionToRoute("searchIndexTom");
-            }
-            else
-            {
-                HubStar.set("escVideo", true);
-                this.transitionToRoute("search", {id: user_id}); // go to search page, this can  work, but it is too slowlly.
-            }
-        }
-        else
-        {
-            var photoObject;
-            if (type === "users")
-            {
-                photoObject = HubStar.Mega.find(collection_id);
-
-                this.transitionToRoute("userPhoto", photoObject); //user photo
-            }
-            else if (type === "profiles")
-            {
-                photoObject = HubStar.Mega.find(collection_id);
-
-                this.transitionToRoute("profilePhoto", photoObject); // profile photo
-            }
-            else if (type === "photos" || type === "articles" || type === "videos")
-            {
-                var m = HubStar.Mega.find(user_id);
-                HubStar.set("closeArticlePhoto", true);
-                this.transitionToRoute("search", {id: m.get("owner_title")});
-            }
-        }
-        HubStar.set('ctaView', true);
-    },
     switchCollection: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {

@@ -83,7 +83,7 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
             if (this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_id"] === tag_id)
             {
                 this.get("controllers.showTag").get("contentTags").objectAt(i)["desc"] = this.get("description");
-                this.get("controllers.showTag").get("contentTags").objectAt(i)["product_name"] = this.get("product_name");
+                HubStar.set(this.get("controllers.showTag").get("contentTags").objectAt(i)["product_name"], this.get("product_name"));
                 this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_time"] = time_stamp;
                 break;
             }

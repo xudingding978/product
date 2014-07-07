@@ -69,7 +69,7 @@ HubStar.PhotoView = Ember.View.extend({
                     //$("#showTagSavePhoto").css("left", "0px");
                     that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
                 }
-                that.get("controller").nextImage(e, mouseX, mouseY);
+                that.get("controller").send("nextImage", e, mouseX, mouseY);
             }
         });
         $('#previousphoto').mousedown(function(event) {
@@ -126,7 +126,7 @@ HubStar.PhotoView = Ember.View.extend({
                     //$("#showTagSavePhoto").css("left", "0px");
                     that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
                 }
-                that.get("controller").previesImage(event, mouseX, mouseY);
+                that.get("controller").send("previesImage", event, mouseX, mouseY);
             }
         });
 
@@ -203,15 +203,15 @@ HubStar.PhotoView = Ember.View.extend({
             var user_photo_id = address.split("#")[1].split("/")[8];
             if (type === "users")
             {
-                this.get("controller").closeWindow();
+                this.get("controller").send("closeWindow");
             }
             else if (type !== "search")
             {
-                this.get("controller").closeWindow();
+                this.get("controller").send("closeWindow");
             }
             else
             {
-                this.get("controller").closeWindow();
+                this.get("controller").send("closeWindow");
                 this.get("controller").set("selectPhoto", false);
                 $('#masonry_wrapper').attr('style', "top:100px;position:relative");
             }

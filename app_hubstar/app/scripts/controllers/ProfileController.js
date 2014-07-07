@@ -156,6 +156,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     backgroundImage: "",
     editorAdd: false,
     isShareEmail: false,
+    actions: {
+        getVideoURL: function() {
+            var video_url = this.get('about_us').objectAt(0).get('about_video').objectAt(0).get('video_url').split('?');
+            if (video_url.get('length') > 1) {
+                var VideoURL = '//www.youtube.com/embed/' + video_url[1].split('=')[1];
+                this.set('embeded_url', VideoURL);
+            } else {
+                this.set('embeded_url', '');
+            }
+        }
+    },
     init: function() {
 
         this.set('is_authentic_user', false);
@@ -203,10 +214,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             $("#search-bar").css('display', "block");
                             $("#topResidentialCommerical").css('display', "block");
                             $(".search-bar-on-small-screen").css('display', "none");
-                            if (HubStar.get("isTopAdDisplay")) {  
+                            if (HubStar.get("isTopAdDisplay")) {
                                 $('.profile-top').css('height', "180px");
                             }
-                            
+
                             else
                             {
                                 $('.profile-top').css('height', "150px");
@@ -352,7 +363,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setAboutUsObject: function() {
         if (this.get('model').get('about_us') !== null && this.get('model').get('about_us') !== 'undefined' && this.get('model').get('about_us').get('length') > 0) {
             this.set("about_us", this.get('model').get("about_us"));
-            this.getVideoURL();
+            this.send("getVideoURL");
             this.set("isAboutUsObjectExist", true);
         } else {
             this.set('about_us', []);
@@ -708,11 +719,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 var count = 0;
                 for (var i = 0; i < this.get('about_us').objectAt(0).get('about_image').get('length'); i++) {
                     var img_url = this.get('about_us').objectAt(0).get('about_image').objectAt(i).get("image_url");
-                    if (img_url !== "" && img_url !== null && img_url !== undefined) {              
+                    if (img_url !== "" && img_url !== null && img_url !== undefined) {
                         count = count + 1;
-                    }         
+                    }
                 }
-            
+
                 if (count === 2) {
                     setTimeout(function() {
                         $(".left-bottom-area").css("width", "530px");
@@ -810,21 +821,21 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.updateWorkingHourData(this.get('model.profile_hours'));
             this.set('editingTime', !this.get('editingTime'));
         }
-        
+
         for (var i = 0; i < this.get('about_us').objectAt(0).get('about_embeded_object').get('length'); i++) {
-                var about_embeded_object = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i);
-                if (about_embeded_object.get('embeded_object_code') !== null && about_embeded_object.get('embeded_object_code') !== '' && about_embeded_object.get('embeded_object_code') !== undefined) {
-                    if (about_embeded_object.get('embeded_object_url') !== null && about_embeded_object.get('embeded_object_url') !== '' && about_embeded_object.get('embeded_object_url') !== undefined) {
-                        setTimeout(function() {
-                            $(".getapp-btn").css("width", "380px");
-                        },500);
-                    } else {
-                        setTimeout(function() {
-                            $(".getapp-btn").css("width", "180px");
-                        }, 500);
-                    }
+            var about_embeded_object = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i);
+            if (about_embeded_object.get('embeded_object_code') !== null && about_embeded_object.get('embeded_object_code') !== '' && about_embeded_object.get('embeded_object_code') !== undefined) {
+                if (about_embeded_object.get('embeded_object_url') !== null && about_embeded_object.get('embeded_object_url') !== '' && about_embeded_object.get('embeded_object_url') !== undefined) {
+                    setTimeout(function() {
+                        $(".getapp-btn").css("width", "380px");
+                    }, 500);
+                } else {
+                    setTimeout(function() {
+                        $(".getapp-btn").css("width", "180px");
+                    }, 500);
                 }
             }
+        }
         if (this.get('about_us').objectAt(0).get('about_image'))
         {
             var count = 0;
@@ -834,17 +845,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     count = count + 1;
                 }
             }
-                    if (count === 2) {
-                        setTimeout(function() {
-                        $(".left-bottom-area").css("width", "530px");
-                        }, 500);
-                    } else if (count === 1) {
-                        setTimeout(function() {
-                        $(".left-bottom-area").css("width", "260px");
-                        }, 500);
-                    }
-                
-           
+            if (count === 2) {
+                setTimeout(function() {
+                    $(".left-bottom-area").css("width", "530px");
+                }, 500);
+            } else if (count === 1) {
+                setTimeout(function() {
+                    $(".left-bottom-area").css("width", "260px");
+                }, 500);
+            }
+
+
         }
     },
     updateWorkingHourData: function(times) {
@@ -1848,16 +1859,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var profilePartnersController = this.get("controllers.profilePartners");
         this.set('partnerSearchString', '');
         profilePartnersController.getClientId(model);
-    },
-    getVideoURL: function() {
-        var video_url = this.get('about_us').objectAt(0).get('about_video').objectAt(0).get('video_url').split('?');
-        if (video_url.get('length') > 1) {
-            var VideoURL = '//www.youtube.com/embed/' + video_url[1].split('=')[1];
-            this.set('embeded_url', VideoURL);
-        } else {
-            this.set('embeded_url', '');
-        }
     }
+
 }
 );
 

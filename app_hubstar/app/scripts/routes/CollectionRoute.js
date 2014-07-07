@@ -15,7 +15,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
         this.controllerFor('masonryCollectionItems').set('canEdit', true);
 
     },
-    events: {
+    actions: {
         transitionToPhoto: function(id) {
 
             this.controllerFor('mega').set("selectPhoto", false);

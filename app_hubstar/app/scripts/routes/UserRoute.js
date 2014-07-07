@@ -60,7 +60,7 @@ HubStar.UserRoute = Ember.Route.extend({
             that.transitionTo('fourOhFour', "404");
         });
     },
-    events: {
+    actions: {
         transitionToCollectionPhoto: function(collection_id) {
 
             var address = document.URL;

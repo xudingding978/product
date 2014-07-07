@@ -84,7 +84,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
             that.transitionTo('fourOhFour', "404");
         });
     },
-    events: {
+    actions: {
         transitionToCollectionPhoto: function(collection_id) {
             HubStar.set("scrollCollectionPosition", $(window).scrollTop());
             var address = document.URL;

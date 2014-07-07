@@ -59,7 +59,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
 
         return model;
     },
-    events: {
+    actions: {
         transitionToPhoto: function(id) {
             //      this.transitionTo("profile",HubStar.)
             this.controllerFor('mega').set("type", "profile");

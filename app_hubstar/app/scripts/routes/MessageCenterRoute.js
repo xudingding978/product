@@ -62,7 +62,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             }
         }
     },
-    events: {
+    actions: {
         transitionToConversation: function(conversation_id) {
             var address = document.URL;
 //            var user_id = address.split("#")[1].split("/")[2];

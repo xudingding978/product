@@ -33,7 +33,7 @@ HubStar.SearchIndexTom = Ember.Route.extend({
         // $('#masonry_wrapper').attr('style', "top:100px;position:relative");
 
     },
-    events: {
+    actions: {
     },
     redirect: function() {
     },

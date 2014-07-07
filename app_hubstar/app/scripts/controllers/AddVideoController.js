@@ -7,34 +7,74 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
     videoDesc: null,
     videoid: null,
     profileMega: null,
+    actions: {
+        canel: function() {
+            this.reset();
+            var profileVideoController = this.get('controllers.profileVideos');
+            profileVideoController.videoCreateModeSwitch();
+        },
+        getVideoFromYoutube: function()
+        {
+            this.set('videoid', this.getVideoId());
+            var that = this;
+
+            if (this.get('videoid') !== null) {
+                $.ajax({
+                    url: "http://gdata.youtube.com/feeds/api/videos/" + this.get('videoid') + "?v=2&alt=jsonc",
+                    type: 'get',
+                    success: function(feedback) {
+                        that.set('videoImg', feedback.data.thumbnail.hqDefault);
+                        that.set('videoTitle', feedback.data.title);
+                        that.set('videoDesc', feedback.data.description);
+                    }, error: function() {
+                        that.set('videoid', null);
+//                  console.log("some wrong with youtube id");
+                        that.get('controllers.applicationFeedback').statusObserver(null, "something wrong with youtube link");
+                    }
+                });
+            }
+        },
+        videoCreate: function() {
+            var testID = createGuid();
+            var MegaCreateController = this.get('controllers.megaCreate');
+            var tempMega = this.get("profileMega");
+            tempMega.set("object_title", this.get('videoTitle'));
+            tempMega.set("object_description", this.get('videoDesc'));
+            tempMega.set("object_image_url", this.get('videoImg'));
+            var video = HubStar.Video.createRecord({
+                videoImg: this.get('videoImg'),
+                videoTitle: this.get('videoTitle'),
+                videoDesc: this.get('videoDesc'),
+                videoIframeCode: this.getIframeCode(480, 360, this.getVideoId())
+            });
+            var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, null, 'video');
+            mega.get('videoes').pushObject(video);
+
+            var profileVideosController = this.get('controllers.profileVideos');
+            profileVideosController.get("videoesContent").insertAt(0, mega);
+            var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
+
+            this.get("controllers.profile").set("profileVideoStatistics", profileVideosController.get("videoesContent").get("length"));
+            mega.store.save();
+
+            profile.set("profile_video_num", profileVideosController.get("videoesContent").get("length"));
+
+            profile.store.save();
+            profileVideosController.set("loadingTime", true);
+            mega.then(function() {
+                profile.then(function() {
+                    setTimeout(function() {
+                        profileVideosController.getClientId(profile);
+                    }, 2000);
+                });
+            });
+
+
+            this.canel();
+        }
+    },
     init: function() {
         this.setMega();
-    },
-    canel: function() {
-        this.reset();
-        var profileVideoController = this.get('controllers.profileVideos');
-        profileVideoController.videoCreateModeSwitch();
-    },
-    getVideoFromYoutube: function()
-    {
-        this.set('videoid', this.getVideoId());
-        var that = this;
-
-        if (this.get('videoid') !== null) {
-            $.ajax({
-                url: "http://gdata.youtube.com/feeds/api/videos/" + this.get('videoid') + "?v=2&alt=jsonc",
-                type: 'get',
-                success: function(feedback) {
-                    that.set('videoImg', feedback.data.thumbnail.hqDefault);
-                    that.set('videoTitle', feedback.data.title);
-                    that.set('videoDesc', feedback.data.description);
-                }, error: function() {
-                    that.set('videoid', null);
-//                  console.log("some wrong with youtube id");
-                    that.get('controllers.applicationFeedback').statusObserver(null, "something wrong with youtube link");
-                }
-            });
-        }
     },
     reset: function() {
         this.set('videoImg', null);
@@ -44,47 +84,9 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
         this.set('videoid', null);
 
     },
-    videoCreate: function() {
-        var testID = createGuid();
-        var MegaCreateController = this.get('controllers.megaCreate');
-        var tempMega = this.get("profileMega");
-        tempMega.set("object_title", this.get('videoTitle'));
-        tempMega.set("object_description", this.get('videoDesc'));
-        tempMega.set("object_image_url", this.get('videoImg'));
-        var video = HubStar.Video.createRecord({
-            videoImg: this.get('videoImg'),
-            videoTitle: this.get('videoTitle'),
-            videoDesc: this.get('videoDesc'),
-            videoIframeCode: this.getIframeCode(480, 360, this.getVideoId())
-        });
-        var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, null, 'video');
-        mega.get('videoes').pushObject(video);
-
-        var profileVideosController = this.get('controllers.profileVideos');
-        profileVideosController.get("videoesContent").insertAt(0, mega);
-        var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
-
-        this.get("controllers.profile").set("profileVideoStatistics", profileVideosController.get("videoesContent").get("length"));
-        mega.store.save();
-
-        profile.set("profile_video_num", profileVideosController.get("videoesContent").get("length"));
-
-        profile.store.save();
-        profileVideosController.set("loadingTime", true);
-        mega.then(function() {
-            profile.then(function() {
-                setTimeout(function() {
-                    profileVideosController.getClientId(profile);
-                }, 2000);
-            });
-        });
-
-
-        this.canel();
-    },
     getVideoId: function() {
         var videoid = null;
-        var tmpId=[];
+        var tmpId = [];
         var videoUrl = this.get("videoUrl");
         var videoUrlObjects = videoUrl.split("&");
         videoUrl = videoUrlObjects[0];

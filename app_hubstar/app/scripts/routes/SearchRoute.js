@@ -45,7 +45,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         HubStar.set("escVideo", false);
         return {id: search_id};
     },
-    events: {
+    actions: {
         transitionToPhoto: function(id) {
 
             this.controllerFor('masonryCollectionItems').set("type", "profile");

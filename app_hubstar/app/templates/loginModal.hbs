@@ -229,7 +229,7 @@
 </div>
 </div>
 
-<div id="register-with-email-step-4" style="overflow: hidden; z-index: 11; background-color: white; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; box-shadow: rgb(187, 187, 187) 0px 0px 20px; width: 430px; height: 320px; margin: 0px auto; position: fixed; top: 40%; left: 0px; right: 0px; display: none;">
+<div id="register-with-email-step-4" style="overflow: hidden; z-index: 11; background-color: white; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; box-shadow: rgb(187, 187, 187) 0px 0px 20px; width: 430px; height: 320px; margin: 0px auto; position: fixed; top: 20%; left: 0px; right: 0px; display: none;">
     <div  style="background-color: #f3f3f3;padding: 10px;border-bottom: 1px solid #ddd;text-align: center;">
         <div  class="comment-namentime" style="display: block;position: relative;height: 35px; margin: 0 auto;">
             <div style="position: relative;  line-height: 35px;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
@@ -322,7 +322,16 @@
             {{view Ember.TextField valueBinding="resetPasswordEmail" placeholder="Your Email" }}
         </div>
         <div class="back-btn easing" style="" >Back</div>
-        <div id="reset-btn" class="register-btn easing register-btn-small" {{action emailSend}}>Reset password</div>
+        
+        
+        
+         {{#if controller.isEmailsend}}
+    <div id="reset-btn" class="register-btn easing register-btn-small" {{action emailSend}}>Reset password</div>
+    {{else}}
+    <div class="easing register-btn-small" ><i class="spinner" style="top:4px">&nbsp;</i></div>
+    {{/if}}
+
+        
     </div>
 
     <div class="black-tool-tip"id="forgot-message-container" style="display:none;">

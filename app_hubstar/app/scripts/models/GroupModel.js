@@ -4,7 +4,6 @@ DS.RESTAdapter.map('HubStar.Group', {
     keywords: {embedded: 'load'}
 });
 HubStar.Group = DS.Model.extend({
-    id: DS.attr('string'),
     group_step: DS.attr('string'),
     group_classification: DS.attr('string'),
     group_budget: DS.attr('string'),

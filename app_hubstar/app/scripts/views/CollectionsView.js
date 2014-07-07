@@ -1,7 +1,15 @@
 HubStar.CollectionsView = Ember.View.extend({
     templateName: 'collections',
-    didInsertElement: function() {          
+    didInsertElement: function() {
         $(document).ready(function() {
+            $(function() {
+                $('#masonry_user_container').masonry({
+                    itemSelector: '.box',
+                    columnWidth: 185,
+                    isFitWidth: true,
+                    transitionDuration: 0
+                });
+            });
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
                 setTimeout(function() {

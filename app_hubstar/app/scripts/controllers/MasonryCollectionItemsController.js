@@ -145,7 +145,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     }
     ,
     goBack: function() {
-        var lastposition = HubStar.get("scrollCollectionPosition");
+//        var lastposition = HubStar.get("scrollCollectionPosition");
         //window.history.back();
 
         var address = document.URL;
@@ -159,6 +159,13 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         {
             this.get('controllers.user').goToUserRoute();
         }
+
+        setTimeout(function() {
+            $('#masonry_user_container').masonry();
+            $('html,body').animate({
+                scrollTop: $("#profile_submenu").offset().top - 100
+            });
+        }, 100);
     },
     newUpload: function() {
 

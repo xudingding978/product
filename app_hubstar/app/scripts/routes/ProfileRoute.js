@@ -125,7 +125,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
     activate: function() {
 
         $(window).scrollTop(0);
-
+        
         $('#discovery_search_bar_wrapper').attr('style', "display:none");
         $('#masonry_wrapper').attr('style', "display:none");
         $(function() {

@@ -1,14 +1,16 @@
 HubStar.UserView = Ember.View.extend({
     templateName: 'user',
     didInsertElement: function() {
-        $(".navbar").css("box-shadow", "0 0 10px #333");
-        var container = document.querySelector('#masonry_user_container');
-        var msnry = new Masonry(container, {
-            itemSelector: '.box',
-            columnWidth: 185,
-            //isInitLayout: false,
-            isFitWidth: true
+        $(function() {
+            $('#masonry_user_container').masonry({
+                itemSelector: '.box',
+                columnWidth: 185,
+                isFitWidth: true,
+                transitionDuration: 0
+            });
         });
+        $(".navbar").css("box-shadow", "0 0 10px #333");
+
 
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[3];

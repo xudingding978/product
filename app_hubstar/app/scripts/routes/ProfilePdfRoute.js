@@ -45,6 +45,13 @@ HubStar.ProfilePdfRoute = Ember.Route.extend({
         var profile_id = address.split("#")[1].split("/")[2];
         var model = HubStar.Profile.find(profile_id);
         return model;
+    },
+    renderTemplate: function() {
+
+        this.render("profilePdf", {
+            outlet: "profilePdf",
+            into: "profile"
+        });
     }
 });
 

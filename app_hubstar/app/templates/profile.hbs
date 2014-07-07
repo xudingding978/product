@@ -68,7 +68,7 @@
                                 <!--Share profile-->
                                 <div class="contactmebtn hint--left hint--rounded easing" style="position: relative; right: 30px;"  data-step="2" data-intro="Click here to <b>Share</b> a link to this profile through social media." data-position="left">
                                     <a class="contactmeicon easing" {{action dropdownPhotoSetting}}><i class="fa fa-share easing" style="font-size: 19px;"></i></a>
-                                    <div class="btn-description" style="margin: 8px;">SHARE</div>
+                                    <div class="btn-description" style="margin: 8px;">SHARE{{controller.is_editor}}</div>
                                 </div>
                                 <!--is_editor-->
                                 {{#if HubStar.profile_manager}}
@@ -802,7 +802,7 @@
 
                         <div class="keyword-pool">
                             {{#each controller.keywords_array}}
-                            {{#view HubStar.KeywordView elementIdBinding="keyword_id"}}
+                            {{#view HubStar.KeywordView }}
                             <div class="hashtags profile-tab5-keyword">{{keyword_name}}{{#if controller.is_authentic_user}}<i class="remove-hashtages" {{action deleteKeywords keyword_id "all"}}>x</i>{{/if}}</div>
                             {{/view}}
                             {{/each}}
@@ -959,7 +959,7 @@
         {{#if controller.switchPhoto}}
 
 
-        {{view HubStar.MasonryCollectionView}}
+        {{partial "masonryCollection"}}
 
         {{else}}
 

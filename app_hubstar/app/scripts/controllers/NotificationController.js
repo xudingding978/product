@@ -131,9 +131,14 @@ HubStar.NotificationController = Ember.Controller.extend({
             }
             //that.unReadCount();
             that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
-            }, 200);
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry("reloadItems");
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry();
+                    }, 20);
+                }, 200);
+            });
             that.set('loadingTime', false);
         });
     },
@@ -154,7 +159,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                         break;
                     }
                 }
-                that.get('controllers.applicationFeedback').statusObserver(null, params,"warnning");
+                that.get('controllers.applicationFeedback').statusObserver(null, params, "warnning");
                 that.markRead(id);
             });
         }
@@ -169,7 +174,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                         break;
                     }
                 }
-                that.get('controllers.applicationFeedback').statusObserver(null, params,"warnning");
+                that.get('controllers.applicationFeedback').statusObserver(null, params, "warnning");
                 that.markRead(id);
             });
         }
@@ -249,7 +254,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                         });
                     });
                 }
-                that.get('controllers.applicationFeedback').statusObserver(null, params,"warnning");
+                that.get('controllers.applicationFeedback').statusObserver(null, params, "warnning");
                 that.markRead(id);
             });
         }
@@ -264,7 +269,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                         break;
                     }
                 }
-                that.get('controllers.applicationFeedback').statusObserver(null, params,"warnning");
+                that.get('controllers.applicationFeedback').statusObserver(null, params, "warnning");
                 that.markRead(id);
             });
         }

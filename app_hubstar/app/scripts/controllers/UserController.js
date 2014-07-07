@@ -973,7 +973,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('followerTag', false);
             this.set('messageTag', false);
             this.set('postTag', true);
-            this.transitionToRoute('userPost');
+            this.transitionToRoute('userMessage');
         }
 
     },

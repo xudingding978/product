@@ -87,7 +87,7 @@ HubStar.ConversationController = Ember.Controller.extend({
             }
         });
     },
-    getClientId: function(id, conversation_id) {
+    getClientId: function(id, conversation_id) {                          
         this.set("routerFlag", false);
         this.set('clientID', id);
         var data = this.get('clientID');
@@ -164,7 +164,7 @@ HubStar.ConversationController = Ember.Controller.extend({
                         conversationItem.time_stamp = params[i].ConversationCollection[j].time_stamp;
                         if (params[i].ConversationCollection[j].msg !== null) {
                             conversationItem.msg = multiRow(params[i].ConversationCollection[j].msg);
-                        }                        
+                        }
                         conversationItem.name = params[i].ConversationCollection[j].name;
                         conversationItem.sender_photo_url_large = params[i].ConversationCollection[j].sender_photo_url_large;
                         if (params[i].ConversationCollection[j].url === null)
@@ -195,19 +195,18 @@ HubStar.ConversationController = Ember.Controller.extend({
                 var user_id = address.split("#")[1].split("/")[4];
                 if (user_id === "notifications")
                 {
-                    that.transitionToRoute("notifications");
+                    that.transitionToRoute("notification");
                     that.get('controllers.notificationTop').set("notificationSeeAll", false);
                 }
                 else {
                     if (that.get("conversationContent").length > 0) {
                         if (that.get('controllers.notificationTop').get("notificationSeeAll") === true)
                         {
-                            that.transitionToRoute("notifications");
+                            that.transitionToRoute("notification");
                             that.get('controllers.notificationTop').set("notificationSeeAll", false);
                         }
                         else
                         {
-
                             that.selectConversation(that.get("conversationContent").objectAt(0).conversationID);
                         }
                     }
@@ -215,7 +214,7 @@ HubStar.ConversationController = Ember.Controller.extend({
                     {
                         if (that.get('controllers.notificationTop').get("notificationSeeAll") === true)
                         {
-                            that.transitionToRoute("notifications");
+                            that.transitionToRoute("notification");
                             that.get('controllers.notificationTop').set("notificationSeeAll", false);
                         }
                         else

@@ -702,7 +702,7 @@ textarea.add-interests{
     margin: 15px auto;
     width: auto;
     display: block;
-     text-align: center;
+    text-align: center;
 }
 
 .user-following-location-link{
@@ -741,15 +741,15 @@ textarea.add-interests{
 }
 
 .user-following-user-name{
-    position:relative;
-    height:35px; 
-    line-height: 35px;
+    position: relative;
+    line-height: 15px;
     margin: -40px auto 5px;
+    overflow: hidden;
+    width: 150px;
 }
 
 .user-following-user-name span{
-    font-size: 13px;
-    line-height: 15px; 
+    font-size: 15px;
     text-shadow: 0 1px 0 rgba(255,255,255,0.8); 
     font-weight: bold;
 }

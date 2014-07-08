@@ -50,7 +50,142 @@ HubStar.GroupController = Ember.Controller.extend({
             this.set("groupNetwork", true);
             this.set('profileSelectionStatus', 'Network');
             this.transitionToRoute('groupNetwork');
-        }
+        },
+        goToGroupDashboard: function() {
+            this.set("editGroup", true);
+            this.set("name", this.get("model").get("group_name"));
+            this.set("description", this.get("model").get("group_description"));
+            this.set("group_pic_url", this.get("model").get("group_pic_url"));
+            this.set("group_bg_url", this.get("model").get("group_bg_url"));
+            this.set("group_hero_url", this.get("model").get("group_hero_url"));
+            this.set("group_expertise", this.get("model").get("group_expertise"));
+            this.set("group_budget", this.get("model").get("group_budget"));
+            this.set("group_timeframe", this.get("model").get("group_timeframe"));
+            this.send("groupStep", "1");
+            var that = this;
+            this.setTopicModel();
+            $(document).ready(function() {
+                setTimeout(function() {
+                    that.refreshCate();
+                    $(".subcategory-box").css("padding", "10px");
+                    $(".group-top").css("top", "20px");
+                    $(".group-wallpaper").css("max-height", "850px");
+                    $(".new-masonry-bar").parent().css("bottom", "100px");
+
+                }, 2);
+            });
+        },
+        chooseResidential: function() {
+            this.set('isResidential', true);
+            this.set('isCommercial', false);
+            this.set('subcate', null);
+            if (this.get("topic").get("length") !== 0)
+            {
+                if (this.get("topic").get("type").indexOf("residential") !== -1) {
+                    this.topicSelection(this.get("topic"));
+                }
+            }
+            $("#group-res").addClass("group-button-active");
+            $("#group-com").removeClass("group-button-active");
+            $(".subcategory-box").css("padding", "10px");
+        },
+        chooseCommercial: function() {
+            this.set('isResidential', false);
+            this.set('isCommercial', true);
+            this.set('subcate', null);
+            if (this.get("topic").get("length") !== 0)
+            {
+                if (this.get("topic").get("type").indexOf("commercial") !== -1) {
+                    this.topicSelection(this.get("topic"));
+                }
+            }
+            $("#group-com").addClass("group-button-active");
+            $("#group-res").removeClass("group-button-active");
+            $(".subcategory-box").css("padding", "10px");
+        },
+        groupStep: function(number) {
+            var that = this;
+            if (this.get("name")) {
+                if (number === "1") {
+                    this.set("groupStepOne", true);
+                    this.set("groupStepTwo", false);
+                    this.set("groupStepThree", false);
+                    $(document).ready(function() {
+                        setTimeout(function() {
+                            if (that.get("model").get("group_classification") === "residential")
+                            {
+                                that.send("chooseResidential");
+                            }
+                            else if (that.get("model").get("group_classification") === "commercial") {
+                                that.send("chooseCommercial");
+                            }
+                            $("#Categories").addClass("group-selected");
+                            $("#Info").removeClass("group-selected");
+                            $("#Style").removeClass("group-selected");
+                            $(".subcategory-box").css("padding", "10px");
+                        }, 1);
+                    });
+                } else if (number === "2") {
+                    if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
+                        $(document).ready(function() {
+                            setTimeout(function() {
+                                that.refreshPage();
+                                $("#Categories").removeClass("group-selected");
+                                $("#Info").addClass("group-selected");
+                                $("#Style").removeClass("group-selected");
+                            }, 1);
+                        });
+                        this.set("groupStepOne", false);
+                        this.set("groupStepTwo", true);
+                        this.set("groupStepThree", false);
+                    }
+                    else
+                    {
+                        this.get('controllers.applicationFeedback').statusObserver(null, "Please select a cateory");
+                    }
+                } else if (number === "3") {
+                    if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
+                        this.set("groupStepOne", false);
+                        this.set("groupStepTwo", false);
+                        this.set("groupStepThree", true);
+                        $(document).ready(function() {
+                            setTimeout(function() {
+                                $("#Categories").removeClass("group-selected");
+                                $("#Info").removeClass("group-selected");
+                                $("#Style").addClass("group-selected");
+                            }, 1);
+                        });
+                    } else
+                    {
+                        this.get('controllers.applicationFeedback').statusObserver(null, "Please select a cateory");
+                    }
+                }
+            }
+            else
+            {
+                this.get('controllers.applicationFeedback').statusObserver(null, "Please type in group name");
+            }
+        },
+        delToSeclection: function(item) {
+            item.set('isSelected', false);
+            for (var i = 0; i < this.get('selected_cate').get('length'); i++)
+            {
+                if (this.get('selected_cate')[i].id === item.get('ids'))
+                {
+                    this.get('selected_cate').splice(i, 1);
+                }
+            }
+            this.get('topic').set("chooseNumber", this.get('topic').get("chooseNumber") - 1);
+        },
+        addToSeclection: function(item) {
+            item.set("isSelected", true);
+            var s = [];
+            s.id = item.get("ids");
+            s.parentId = this.get('topic').get('ids');
+            s.category_topic = this.get('topic').get('topic') + '•' + item.get('category_topic');
+            this.get('topic').set("chooseNumber", this.get('topic').get("chooseNumber") + 1);
+            this.get('selected_cate').push(s);
+        },
     },
     init: function()
     {
@@ -108,66 +243,14 @@ HubStar.GroupController = Ember.Controller.extend({
             }, 2);
         });
     },
-    goToGroupDashboard: function() {
-        this.set("editGroup", true);
-        this.set("name", this.get("model").get("group_name"));
-        this.set("description", this.get("model").get("group_description"));
-        this.set("group_pic_url", this.get("model").get("group_pic_url"));
-        this.set("group_bg_url", this.get("model").get("group_bg_url"));
-        this.set("group_hero_url", this.get("model").get("group_hero_url"));
-        this.set("group_expertise", this.get("model").get("group_expertise"));
-        this.set("group_budget", this.get("model").get("group_budget"));
-        this.set("group_timeframe", this.get("model").get("group_timeframe"));
-        this.groupStep("1");
-        var that = this;
-        this.setTopicModel();
-        $(document).ready(function() {
-            setTimeout(function() {
-                that.refreshCate();
-                $(".subcategory-box").css("padding", "10px");
-                $(".group-top").css("top", "20px");
-                $(".group-wallpaper").css("max-height", "850px");
-                $(".new-masonry-bar").parent().css("bottom", "100px");
-
-            }, 2);
-        });
-    },
-    chooseResidential: function() {
-        this.set('isResidential', true);
-        this.set('isCommercial', false);
-        this.set('subcate', null);
-        if (this.get("topic").get("length") !== 0)
-        {
-            if (this.get("topic").get("type").indexOf("residential") !== -1) {
-                this.topicSelection(this.get("topic"));
-            }
-        }
-        $("#group-res").addClass("group-button-active");
-        $("#group-com").removeClass("group-button-active");
-        $(".subcategory-box").css("padding", "10px");
-    },
-    chooseCommercial: function() {
-        this.set('isResidential', false);
-        this.set('isCommercial', true);
-        this.set('subcate', null);
-        if (this.get("topic").get("length") !== 0)
-        {
-            if (this.get("topic").get("type").indexOf("commercial") !== -1) {
-                this.topicSelection(this.get("topic"));
-            }
-        }
-        $("#group-com").addClass("group-button-active");
-        $("#group-res").removeClass("group-button-active");
-        $(".subcategory-box").css("padding", "10px");
-    },
     refreshCate: function() {
         this.set("selected_cate", []);
         if (this.get("model").get("group_classification") === "residential")
         {
-            this.chooseResidential();
+            this.send("chooseResidential");
         }
         else if (this.get("model").get("group_classification") === "commercial") {
-            this.chooseCommercial();
+            this.send("chooseCommercial");
         }
         var cates = this.get("model").get("group_category").split(",");
         for (var m = 0; m < cates.get("length"); m++) {
@@ -192,7 +275,7 @@ HubStar.GroupController = Ember.Controller.extend({
 
                         if (sub === this.get('subcate').objectAt(i).get("category_topic"))
                         {
-                            this.addToSeclection(this.get('subcate').objectAt(i));
+                            this.send("addToSeclection", this.get('subcate').objectAt(i));
                         }
                     }
                 }
@@ -230,26 +313,6 @@ HubStar.GroupController = Ember.Controller.extend({
                 }
             }
         }
-    },
-    addToSeclection: function(item) {
-        item.set("isSelected", true);
-        var s = [];
-        s.id = item.get("ids");
-        s.parentId = this.get('topic').get('ids');
-        s.category_topic = this.get('topic').get('topic') + '•' + item.get('category_topic');
-        this.get('topic').set("chooseNumber", this.get('topic').get("chooseNumber") + 1);
-        this.get('selected_cate').push(s);
-    },
-    delToSeclection: function(item) {
-        item.set('isSelected', false);
-        for (var i = 0; i < this.get('selected_cate').get('length'); i++)
-        {
-            if (this.get('selected_cate')[i].id === item.get('ids'))
-            {
-                this.get('selected_cate').splice(i, 1);
-            }
-        }
-        this.get('topic').set("chooseNumber", this.get('topic').get("chooseNumber") - 1);
     },
     backToFront: function() {
         this.set("group_budget", "");
@@ -340,69 +403,6 @@ HubStar.GroupController = Ember.Controller.extend({
         else if (this.get('group_timeframe') === "Within 3 years")
         {
             this.chooseTime("5", this.get('group_timeframe'));
-        }
-    },
-    groupStep: function(number) {
-        var that = this;
-        if (this.get("name")) {
-            if (number === "1") {
-                this.set("groupStepOne", true);
-                this.set("groupStepTwo", false);
-                this.set("groupStepThree", false);
-                $(document).ready(function() {
-                    setTimeout(function() {
-                        if (that.get("model").get("group_classification") === "residential")
-                        {
-                            that.chooseResidential();
-                        }
-                        else if (that.get("model").get("group_classification") === "commercial") {
-                            that.chooseCommercial();
-                        }
-                        $("#Categories").addClass("group-selected");
-                        $("#Info").removeClass("group-selected");
-                        $("#Style").removeClass("group-selected");
-                        $(".subcategory-box").css("padding", "10px");
-                    }, 1);
-                });
-            } else if (number === "2") {
-                if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
-                    $(document).ready(function() {
-                        setTimeout(function() {
-                            that.refreshPage();
-                            $("#Categories").removeClass("group-selected");
-                            $("#Info").addClass("group-selected");
-                            $("#Style").removeClass("group-selected");
-                        }, 1);
-                    });
-                    this.set("groupStepOne", false);
-                    this.set("groupStepTwo", true);
-                    this.set("groupStepThree", false);
-                }
-                else
-                {
-                    this.get('controllers.applicationFeedback').statusObserver(null, "Please select a cateory");
-                }
-            } else if (number === "3") {
-                if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
-                    this.set("groupStepOne", false);
-                    this.set("groupStepTwo", false);
-                    this.set("groupStepThree", true);
-                    $(document).ready(function() {
-                        setTimeout(function() {
-                            $("#Categories").removeClass("group-selected");
-                            $("#Info").removeClass("group-selected");
-                            $("#Style").addClass("group-selected");
-                        }, 1);
-                    });
-                } else
-                {
-                    this.get('controllers.applicationFeedback').statusObserver(null, "Please select a cateory");
-                }
-            }
-        }
-        else
-        {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please type in group name");
         }
     },
     chooseBudget: function(n, s) {

@@ -527,6 +527,10 @@ HubStar.UserController = Ember.Controller.extend({
                     $('#masonry_user_container').masonry();
                 }, 100);
             }, 250);
+        },
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
         }
     },
     init: function()
@@ -820,7 +824,6 @@ HubStar.UserController = Ember.Controller.extend({
         this.saveUpdateInterest();
         $(".limit_about_us").attr('style', 'display: block');
     },
-
     isInputValid: function() {
 
         function CheckObject(id, input, length, isEmailValid)
@@ -1019,10 +1022,6 @@ HubStar.UserController = Ember.Controller.extend({
             }
         }
         return isContainsTitle;
-    },
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
     },
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {

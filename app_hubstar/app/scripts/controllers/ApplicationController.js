@@ -80,11 +80,66 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     localStorage: "",
     applicationCategoryDropdownType: 'geoLocation',
     total_profiels: 0,
+    actions: {
+        dropdown: function(checking) {
+            if (checking === "geoLocation") {
+                this.set("isNotification", false);
+                this.set('headerAbout', false);
+                this.set('userProfile', false);
+                this.set('isGeoDropdown', !this.get('isGeoDropdown'));
+                $('#geo-filter').toggleClass('Geo-Filter-active');
+                $('#notification-filter').removeClass('Geo-Filter-active');
+                $('#top-about-menu').removeClass('Geo-Filter-active');
+                //     $('#user-header-menu').removeClass('Geo-Filter-active');
+
+            } else if (checking === "notification") {
+                this.set("isNotification", !this.get("isNotification"));
+                this.set('headerAbout', false);
+                this.set('isGeoDropdown', false);
+                this.set('userProfile', false);
+                $('#notification-filter').addClass('Geo-Filter-active');
+                this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
+                $('#geo-filter').removeClass('Geo-Filter-active');
+                $('#top-about-menu').removeClass('Geo-Filter-active');
+                //      $('#user-header-menu').removeClass('Geo-Filter-active');
+            }
+            else if (checking === "about") {
+                this.set("isNotification", false);
+                this.set('isGeoDropdown', false);
+                this.set('headerAbout', !this.get('headerAbout'));
+                this.set('userProfile', false);
+                $('#geo-filter').removeClass('Geo-Filter-active');
+                $('#notification-filter').removeClass('Geo-Filter-active');
+                $('#top-about-menu').toggleClass('Geo-Filter-active');
+                //    $('#user-header-menu').removeClass('Geo-Filter-active');
+            }
+            else if (checking === "user") {
+                this.set("isNotification", false);
+                this.set('isGeoDropdown', false);
+                this.set('headerAbout', false);
+                this.set('userProfile', !this.get('userProfile'));
+                $('#geo-filter').removeClass('Geo-Filter-active');
+                $('#notification-filter').removeClass('Geo-Filter-active');
+                $('#top-about-menu').removeClass('Geo-Filter-active');
+            }
+        },
+        closeTopAd: function() {
+            $(".user-top").css("height", "120px");
+            $("#group-top").css("top", "70px");
+            this.searchSmallScreen();
+            var tempComment = [this.get("user").get("id")];
+            var that = this;
+            requiredBackEnd('users', 'SetTopAds', tempComment, 'POST', function() {
+                HubStar.set("isTopAdDisplay", false);
+                that.get("user").set("is_top_ad_display", false);
+            });
+        }
+    },
     init: function() {
         HubStar.set("isTopAdDisplay", true);
         HubStar.set("isAddCollection", false);
         HubStar.set("isShareEmail", false);
-        
+
         var that = this;
 
         this.set('categorys', HubStar.Cate.find({}));
@@ -221,17 +276,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     email_login: function() {
         this.set('mail', !this.get('mail'));
-    },
-    closeTopAd: function() {
-        $(".user-top").css("height", "120px");
-        $("#group-top").css("top", "70px");
-        this.searchSmallScreen();
-        var tempComment = [this.get("user").get("id")];
-        var that = this;
-        requiredBackEnd('users', 'SetTopAds', tempComment, 'POST', function() {
-            HubStar.set("isTopAdDisplay", false);
-            that.get("user").set("is_top_ad_display", false);
-        });
     },
     displayTopAds: function() {
         $(document).ready(function() {
@@ -960,48 +1004,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     setfemale: function() {
         this.set('gender', "female");
-    },
-    dropdown: function(checking) {
-        if (checking === "geoLocation") {
-            this.set("isNotification", false);
-            this.set('headerAbout', false);
-            this.set('userProfile', false);
-            this.set('isGeoDropdown', !this.get('isGeoDropdown'));
-            $('#geo-filter').toggleClass('Geo-Filter-active');
-            $('#notification-filter').removeClass('Geo-Filter-active');
-            $('#top-about-menu').removeClass('Geo-Filter-active');
-            //     $('#user-header-menu').removeClass('Geo-Filter-active');
-
-        } else if (checking === "notification") {
-            this.set("isNotification", !this.get("isNotification"));
-            this.set('headerAbout', false);
-            this.set('isGeoDropdown', false);
-            this.set('userProfile', false);
-            $('#notification-filter').addClass('Geo-Filter-active');
-            this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
-            $('#geo-filter').removeClass('Geo-Filter-active');
-            $('#top-about-menu').removeClass('Geo-Filter-active');
-            //      $('#user-header-menu').removeClass('Geo-Filter-active');
-        }
-        else if (checking === "about") {
-            this.set("isNotification", false);
-            this.set('isGeoDropdown', false);
-            this.set('headerAbout', !this.get('headerAbout'));
-            this.set('userProfile', false);
-            $('#geo-filter').removeClass('Geo-Filter-active');
-            $('#notification-filter').removeClass('Geo-Filter-active');
-            $('#top-about-menu').toggleClass('Geo-Filter-active');
-            //    $('#user-header-menu').removeClass('Geo-Filter-active');
-        }
-        else if (checking === "user") {
-            this.set("isNotification", false);
-            this.set('isGeoDropdown', false);
-            this.set('headerAbout', false);
-            this.set('userProfile', !this.get('userProfile'));
-            $('#geo-filter').removeClass('Geo-Filter-active');
-            $('#notification-filter').removeClass('Geo-Filter-active');
-            $('#top-about-menu').removeClass('Geo-Filter-active');
-        }
     },
     dropdownNavigator: function() {
         this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));

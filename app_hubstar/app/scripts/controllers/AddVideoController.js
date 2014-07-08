@@ -70,7 +70,7 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
             });
 
 
-            this.canel();
+            this.send("canel");
         }
     },
     init: function() {

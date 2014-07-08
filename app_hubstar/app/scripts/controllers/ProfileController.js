@@ -165,6 +165,30 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             } else {
                 this.set('embeded_url', '');
             }
+        },
+        noSelection: function() {
+            this.set('editing', false);
+            this.set('makeSelection', false);
+        },
+        rateEditing: function() {
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+
+                if (this.get('model').get('reviews').get('length') === 0) {
+                    this.set("rateTime", true);
+                }
+                else if (this.get('model').get('reviews').get('length') > 0) {
+                    if (this.get('model').get('reviews').objectAt(0).get("review_user_id").indexOf(localStorage.loginStatus) !== -1)
+                    {
+                        this.set("rateTime", false);
+                        this.transitionToRoute('reviews');
+                        $(window).scrollTop(2500);
+                        this.get('controllers.applicationFeedback').statusObserver(null, "You have already reviewed this profile, thank you!", "warnning");
+                    } else {
+                        this.set("rateTime", true);
+                    }
+                }
+            }
         }
     },
     init: function() {
@@ -776,10 +800,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingTime', !this.get('editingTime'));
             this.saveUpdate();
         }
-    },
-    noSelection: function() {
-        this.set('editing', false);
-        this.set('makeSelection', false);
     },
     no: function(checkingInfo) {
         $(window).scrollTop(650);
@@ -1587,26 +1607,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         else if (checking === "subcategory") {
             this.set('profileCategoryDropdown', false);
             this.set('profileSubcategoryDropdown', !this.get('profileSubcategoryDropdown'));
-        }
-    },
-    rateEditing: function() {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-
-            if (this.get('model').get('reviews').get('length') === 0) {
-                this.set("rateTime", true);
-            }
-            else if (this.get('model').get('reviews').get('length') > 0) {
-                if (this.get('model').get('reviews').objectAt(0).get("review_user_id").indexOf(localStorage.loginStatus) !== -1)
-                {
-                    this.set("rateTime", false);
-                    this.transitionToRoute('reviews');
-                    $(window).scrollTop(2500);
-                    this.get('controllers.applicationFeedback').statusObserver(null, "You have already reviewed this profile, thank you!", "warnning");
-                } else {
-                    this.set("rateTime", true);
-                }
-            }
         }
     },
     setCollectionAttr: function() {

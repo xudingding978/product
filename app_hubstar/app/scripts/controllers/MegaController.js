@@ -624,13 +624,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
         },
         addLike: function() {
             var controller = this.get('controllers.itemFunction');
-             controller.send("addLike", this.get('megaResouce').get('id'));
+            controller.send("addLike", this.get('megaResouce').get('id'));
             //controller.addLike(this.get('megaResouce').get('id'));
         },
         unLike: function() {
             var controller = this.get('controllers.itemFunction');
-             controller.send("addLike", this.get('megaResouce').get('id'));
-           // controller.unLike(this.get('megaResouce').get('id'));
+            controller.send("addLike", this.get('megaResouce').get('id'));
+            // controller.unLike(this.get('megaResouce').get('id'));
         },
         editingPhotoMegaData: function() {
             this.set('enableToEdit', !this.get('enableToEdit'));
@@ -720,6 +720,100 @@ HubStar.MegaController = Ember.ArrayController.extend({
         cancelActivate: function() {
             this.set('willActivate', false);
             this.set('makeSureActivateTag', false);
+        },
+        selectImage: function(e) {
+            this.set("selectPhoto", true);
+            this.set("contentTags", "");
+            this.set('megaResouce', HubStar.Mega.find(e));
+            if (this.get('megaResouce').get("type") === "photo")
+            {
+                this.set('selectedPhoto', this.get('megaResouce').get('photo').objectAt(0));
+                if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+                {
+                    this.transitionToRoute("userPhoto", this.get("megaResouce").get('photo').objectAt(0));
+                }
+                else if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
+                {
+                    var address = document.URL;
+                    var type = address.split("#")[1].split("/")[1];
+                    var owner_id = address.split("#")[1].split("/")[2];
+                    var collection_id = address.split("#")[1].split("/")[4];
+                    if (type === "search")
+                    {
+                        if (owner_id === "default") {
+                            this.transitionToRoute("searchDefaultPhoto", this.get("megaResouce").get('photo').objectAt(0));
+                        }
+                        else
+                        {
+                            this.transitionToRoute("newSearchPhoto", this.get("megaResouce").get('photo').objectAt(0));
+                        }
+                    }
+                    else if (type === "photos")
+                    {
+                        this.transitionToRoute("photo", this.get("megaResouce").get('id'));
+                    }
+                    else
+                    {
+                        var profile = HubStar.Profile.find(owner_id);
+                        for (var i = 0; i < profile.get('collections').get("length"); i++) {
+                            var data = profile.get('collections').objectAt(i);
+                            if (data.get("id") === collection_id) {
+                                break;
+                            }
+                        }
+                        this.transitionToRoute("profileCollection", data);
+                        this.transitionToRoute("profilePhoto", this.get("megaResouce").get('photo').objectAt(0));
+                    }
+                }
+            }
+            else if (this.get('megaResouce').get("type") === "article") //different types of photo in mega
+            {
+                this.set('selectedPhoto', this.get('megaResouce'));
+                if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+                {
+                    this.transitionToRoute("userPhoto", this.get("megaResouce"));
+                }
+                else if (this.get('megaResouce').get("type") === "article") //different types of photo in mega
+                {
+                    this.set('selectedPhoto', this.get('megaResouce'));
+                    if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+                    {
+                        this.transitionToRoute("userPhoto", this.get("megaResouce"));
+                    }
+                    else if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
+                    {
+
+                        this.transitionToRoute("profilePhoto", this.get("megaResouce").get('photo').objectAt(0));
+                    }
+                }
+                else if (this.get('megaResouce').get("type") === "video")
+                {
+                    this.set('selectedPhoto', this.get('megaResouce'));
+                    if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+                    {
+                        this.transitionToRoute("userPhoto", this.get("megaResouce"));
+                    }
+                    else if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
+                    {
+
+                        this.transitionToRoute("profilePhoto", this.get("megaResouce").get('photo').objectAt(0));
+                    }
+                }
+            }
+            this.set("selectedPhoto", this.get('selectedPhoto'));
+            var contents = this.get('content');
+            var selectedIndex = 1;
+            for (var index = 0; index <= contents.get('length') - 1; index++) {
+                if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id) {
+                    selectedIndex = index + 1;
+                }
+            }
+            if (selectedIndex >= (this.get('content').get('length') + 1)) {
+                this.set('image_no', 1);
+                selectedIndex = 1;
+            }
+            this.set('image_no', selectedIndex);
+            this.selectedImage(e);
         }
     },
     init: function()
@@ -1436,100 +1530,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
 
         this.set("clickOrRoute", false);
-    },
-    selectImage: function(e) {
-        this.set("selectPhoto", true);
-        this.set("contentTags", "");
-        this.set('megaResouce', HubStar.Mega.find(e));
-        if (this.get('megaResouce').get("type") === "photo")
-        {
-            this.set('selectedPhoto', this.get('megaResouce').get('photo').objectAt(0));
-            if (this.get("controllers.masonryCollectionItems").get("type") === "user")
-            {
-                this.transitionToRoute("userPhoto", this.get("megaResouce").get('photo').objectAt(0));
-            }
-            else if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
-            {
-                var address = document.URL;
-                var type = address.split("#")[1].split("/")[1];
-                var owner_id = address.split("#")[1].split("/")[2];
-                var collection_id = address.split("#")[1].split("/")[4];
-                if (type === "search")
-                {
-                    if (owner_id === "default") {
-                        this.transitionToRoute("searchDefaultPhoto", this.get("megaResouce").get('photo').objectAt(0));
-                    }
-                    else
-                    {
-                        this.transitionToRoute("newSearchPhoto", this.get("megaResouce").get('photo').objectAt(0));
-                    }
-                }
-                else if (type === "photos")
-                {
-                    this.transitionToRoute("photo", this.get("megaResouce").get('id'));
-                }
-                else
-                {
-                    var profile = HubStar.Profile.find(owner_id);
-                    for (var i = 0; i < profile.get('collections').get("length"); i++) {
-                        var data = profile.get('collections').objectAt(i);
-                        if (data.get("id") === collection_id) {
-                            break;
-                        }
-                    }
-                    this.transitionToRoute("profileCollection", data);
-                    this.transitionToRoute("profilePhoto", this.get("megaResouce").get('photo').objectAt(0));
-                }
-            }
-        }
-        else if (this.get('megaResouce').get("type") === "article") //different types of photo in mega
-        {
-            this.set('selectedPhoto', this.get('megaResouce'));
-            if (this.get("controllers.masonryCollectionItems").get("type") === "user")
-            {
-                this.transitionToRoute("userPhoto", this.get("megaResouce"));
-            }
-            else if (this.get('megaResouce').get("type") === "article") //different types of photo in mega
-            {
-                this.set('selectedPhoto', this.get('megaResouce'));
-                if (this.get("controllers.masonryCollectionItems").get("type") === "user")
-                {
-                    this.transitionToRoute("userPhoto", this.get("megaResouce"));
-                }
-                else if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
-                {
-
-                    this.transitionToRoute("profilePhoto", this.get("megaResouce").get('photo').objectAt(0));
-                }
-            }
-            else if (this.get('megaResouce').get("type") === "video")
-            {
-                this.set('selectedPhoto', this.get('megaResouce'));
-                if (this.get("controllers.masonryCollectionItems").get("type") === "user")
-                {
-                    this.transitionToRoute("userPhoto", this.get("megaResouce"));
-                }
-                else if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
-                {
-
-                    this.transitionToRoute("profilePhoto", this.get("megaResouce").get('photo').objectAt(0));
-                }
-            }
-        }
-        this.set("selectedPhoto", this.get('selectedPhoto'));
-        var contents = this.get('content');
-        var selectedIndex = 1;
-        for (var index = 0; index <= contents.get('length') - 1; index++) {
-            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id) {
-                selectedIndex = index + 1;
-            }
-        }
-        if (selectedIndex >= (this.get('content').get('length') + 1)) {
-            this.set('image_no', 1);
-            selectedIndex = 1;
-        }
-        this.set('image_no', selectedIndex);
-        this.selectedImage(e);
     },
     selectedImage: function(id) {
         var selectedImage_id = "#showalbum_" + id;

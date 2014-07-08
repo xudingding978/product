@@ -645,9 +645,11 @@ HubStar.ArticleController = Ember.Controller.extend({
             }
             var msg = object.get("content");
             HubStar.set("updateCommentmsg", msg);
+        },
+        closeContact: function() {
+            this.set('contact', false);
         }
     },
-    
     init: function() {
         HubStar.set("readCaption", true);
     },
@@ -1078,9 +1080,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         return result;
     }
     ,
-    closeContact: function() {
-        this.set('contact', false);
-    },
     closeShareEmail: function() {
         this.set('shareEmail', false);
     },

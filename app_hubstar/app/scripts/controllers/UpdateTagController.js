@@ -5,7 +5,7 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
     photo_id: "",
     profiles: [],
     collections: [],
-    selectedCollection:[],
+    selectedCollection: [],
     profileCollection: [],
     product_name: "",
     selectedDesc: "",
@@ -18,15 +18,15 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
     photo_id:"",
             chooseProfileItem: false,
     selectedID: "",
-    selectedCollectionID:"",
-            contentTags: "",
+            selectedCollectionID: "",
+    contentTags: "",
     profile_name: "",
     currentPhoto: "",
     linkTo: "", //the content link address
     photo_owner_user: [],
     //isUpdateTag: false,
     selectedPhotoThumbnailUrl: "",
-    selectedCollectionName:"",
+    selectedCollectionName: "",
     isReadProfile: false,
     selectedTitle: "Choose your Collection",
     //selectedCollection: "",
@@ -40,6 +40,63 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
     userName: '',
     chosenProfile: '',
     needs: ["mega", "article", "collection", "applicationFeedback", "comment", "video", "showTag"],
+    actions: {
+        cancelUpdateTag: function()
+        {
+            if (HubStar.get("isArticleTag") === true)
+            {
+                this.get("controllers.article").set("enableEditTag", false);
+            }
+            else
+            {
+                this.get("controllers.mega").set("enableEditTag", false);
+            }
+            //this.set("isUpdateTag", false);
+            this.cancelTag();
+        },
+        saveUpdateTag: function(profile_id)
+        {
+            var tag_id = this.get("tag_id");
+            var photo_id = this.get("photo_id");
+            var time_stamp = new Date();
+            time_stamp = time_stamp.toString();
+//        for (var i = 0; i < this.get("controllers.showTag").get("contentTags").get("length"); i++)
+//        {
+//            if (this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_id"] === tag_id)
+//            {
+//                this.get("controllers.showTag").get("contentTags").objectAt(i)["desc"] = this.get("description");
+//                this.get("controllers.showTag").get("contentTags").objectAt(i)["product_name"] = this.get("product_name");
+//                this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_time"] = time_stamp;
+//                break;
+//            }
+//        }
+            if (HubStar.get("isArticleTag") === true)
+            {
+                this.get("controllers.article").set("contentTagsArticle", this.get("controllers.showTag").get("contentTags"));
+            }
+            else
+            {
+                this.get("controllers.mega").set("contentTags", this.get("controllers.showTag").get("contentTags"));
+            }
+            var tagInfo = [tag_id, this.get("product_name"), this.get("description"), time_stamp, photo_id];
+            tagInfo = JSON.stringify(tagInfo);
+            var that = this;
+            requiredBackEnd('showTag', 'updateTag', tagInfo, 'POST', function(params) {
+                //that.set("isUpdateTag", false);
+                if (HubStar.get("isArticleTag") === true)
+                {
+                    that.get("controllers.article").set("enableEditTag", false);
+                    that.get("controllers.article").set("contentTagsArticle", params);
+                }
+                else
+                {
+                    that.get("controllers.mega").set("enableEditTag", false);
+                    that.get("controllers.mega").set("contentTags", params);
+                }
+                that.get("controllers.showTag").readTags(photo_id);
+            });
+        }
+    },
     init: function()
     {
         HubStar.set("isProfile", false);
@@ -71,64 +128,9 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
         this.set("tag_id", tag_id);
         this.set("photo_id", photo_id);
     },
-    saveUpdateTag: function(profile_id)
-    {
-        var tag_id = this.get("tag_id");
-        var photo_id = this.get("photo_id");
-        var time_stamp = new Date();
-        time_stamp = time_stamp.toString();
-//        for (var i = 0; i < this.get("controllers.showTag").get("contentTags").get("length"); i++)
-//        {
-//            if (this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_id"] === tag_id)
-//            {
-//                this.get("controllers.showTag").get("contentTags").objectAt(i)["desc"] = this.get("description");
-//                this.get("controllers.showTag").get("contentTags").objectAt(i)["product_name"] = this.get("product_name");
-//                this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_time"] = time_stamp;
-//                break;
-//            }
-//        }
-        if (HubStar.get("isArticleTag") === true)
-        {
-            this.get("controllers.article").set("contentTagsArticle", this.get("controllers.showTag").get("contentTags"));
-        }
-        else
-        {
-            this.get("controllers.mega").set("contentTags", this.get("controllers.showTag").get("contentTags"));
-        }
-        var tagInfo = [tag_id, this.get("product_name"), this.get("description"), time_stamp, photo_id];
-        tagInfo = JSON.stringify(tagInfo);
-        var that = this;
-        requiredBackEnd('showTag', 'updateTag', tagInfo, 'POST', function(params) {
-            //that.set("isUpdateTag", false);
-            if (HubStar.get("isArticleTag") === true)
-            {
-                that.get("controllers.article").set("enableEditTag", false);
-                that.get("controllers.article").set("contentTagsArticle", params);
-            }
-            else
-            {
-                that.get("controllers.mega").set("enableEditTag", false);
-                that.get("controllers.mega").set("contentTags", params);
-            }
-            that.get("controllers.showTag").readTags(photo_id);
-        });
-    },
     collectionSwitch: function() {
         this.set('selectionPop', !this.get("selectionPop"));
         this.set('selectTagProfile', false);
-    },
-    cancelUpdateTag: function()
-    {
-        if (HubStar.get("isArticleTag") === true)
-        {
-            this.get("controllers.article").set("enableEditTag", false);
-        }
-        else
-        {
-            this.get("controllers.mega").set("enableEditTag", false);
-        }
-        //this.set("isUpdateTag", false);
-        this.cancelTag();
     },
     cancelTag: function()
     {

@@ -17,16 +17,23 @@ HubStar.EditCommentController = Ember.Controller.extend({
     closeCommentItem: function(obj) {     
         if (HubStar.get("parentController") === 'mega')
         {        
-            this.get("controllers.mega").updateComment(obj);
+            var c= this.get("controllers.mega");
+            c.send("updateComment",obj);
         }
         else if(HubStar.get("parentController") === 'comment'){
-            this.get("controllers.comment").closeCommentItem(obj);
+            //this.get("controllers.comment").closeCommentItem(obj);
+            var c= this.get("controllers.comment");
+            c.send("closeCommentItem",obj);
         }
         else if(HubStar.get("parentController") === 'article'){
-            this.get("controllers.article").updateComment(obj);
+            //this.get("controllers.article").updateComment(obj);
+            var c= this.get("controllers.article");
+            c.send("updateComment",obj);
         }
          else if(HubStar.get("parentController") === 'video'){
-            this.get("controllers.video").updateComment(obj);
+            //this.get("controllers.video").updateComment(obj);
+            var c= this.get("controllers.video");
+            c.send("updateComment",obj);
         }
     },
     updateComment: function(object) {

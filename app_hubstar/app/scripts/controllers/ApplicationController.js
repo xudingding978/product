@@ -117,7 +117,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             ga('Trends.send', 'event', 'button', 'click', 'SignUp');
             HubStar.set('checkLoginStatus', true);
             setTimeout(function() {
-                $("#cta-popup").css("display", "none");
+                
                 $("#profiles-main-container").css("display", "block");
                 $('#register-with-social-select-interests').css('display', 'block');
                 $('#user-login-pane').css('display', 'none');

@@ -607,6 +607,14 @@ HubStar.MegaController = Ember.ArrayController.extend({
             requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
             });
         });
+        
+         if (HubStar.get("checkLoginStatus")) {
+            if (HubStar.get('showDiscoveryBar')) {
+                HubStar.set('ctaView', false);
+            } else {
+                HubStar.set('ctaView', true);
+            }
+        }
 
     },
     addRelatedData: function(mega)
@@ -1189,8 +1197,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                     if (object_type === "photos" || object_type === "articles" || object_type === "videos")
                     {
+                       
                         var m = HubStar.Mega.find(search_id);
                         this.transitionTo("search", {id: m.get("owner_title")});
+                       
 
                     }
                     else
@@ -1198,6 +1208,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         HubStar.set("escVideo", true);
                         this.transitionTo("search", {id: search_id});
                     }
+                    
                 }
             }
             else
@@ -1216,7 +1227,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 this.set('selectType', null);
                 this.transitionTo("profile", profile); // transition to profile
                 this.transitionTo("profileCollection", data);
-                HubStar.set('ctaView', false);
             }
         }
         else if (this.get('controllers.masonryCollectionItems').get("type") === "user")
@@ -1234,11 +1244,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             this.set("selectPhoto", false);
             this.transitionTo("collection", data); //user
-
-            HubStar.set('ctaView', false);
         } else {
             this.transitionTo("searchIndexTom");
         }
+           
+        HubStar.set('ctaView', false);
+        
     },
     editingContactForm: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

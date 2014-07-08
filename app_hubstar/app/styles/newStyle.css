@@ -208,7 +208,8 @@ and open the template in the editor.
     margin :10px auto;
     text-align: center;
     background: rgba(255,255,255,1);
-    box-shadow: 2px 2px 6px #ccc;
+    box-shadow: 2px 2px 6px #555;
+    cursor:default;
 }
 
 
@@ -279,6 +280,9 @@ and open the template in the editor.
     top: 17px;
 
 }
+.cta-popup-small-top{
+    top:160px;
+}
 
 .inner{
     width: 100%;
@@ -310,8 +314,76 @@ and open the template in the editor.
     cursor: pointer;
 }
 
+@media only screen and (max-width : 1280px) {
+
+    .cta-popup{
+        width: 400px;
+    }
+    .cta-popup > .inner > .middle{
+        display:none;
+    }
+
+    .cta-popup > .inner > .left{
+        width: 38%;
+    }
+
+    .cta-popup > .inner > .right{
+        width: 36%;
+    }
+}
 
 
 
+@media only screen  and (max-width : 768px) {
+
+    .cta-popup{
+        width: 240px;
+        height: 130px;
+    }
+    .cta-popup .inner{
+        top:0px;
+    }
+
+    .cta-popup > .inner > .left{
+        display:block;
+        width: 100%;
+        text-align: center;
+        margin: 15px 0px 5px 0px
+    }
+
+    .cta-popup > .inner > .right{
+        display:block;
+        width: 100%;
+        margin: 0;
+    }
+    .cta-popup-profile{
+        top: 160px;
+        margin: 0 20%;
+    }
+}
+
+
+@media only screen  and (max-width : 480px){
+    .cta-popup-profile .inner{
+        top:0px;
+    }
+
+    .cta-popup-profile > .inner > .left{
+        display:block;
+        width: 100%;
+        text-align: center;
+        margin: 15px 0px 5px 0px
+    }
+
+    .cta-popup-profile > .inner > .right{
+        display:block;
+        width: 100%;
+        margin: 0;
+    }
+    .cta-popup-profile{
+        top: 160px;
+        margin: 0 20%;
+    }
+}
 
 

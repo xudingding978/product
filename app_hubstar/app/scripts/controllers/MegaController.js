@@ -506,7 +506,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 HubStar.set("pic_current_height", Math.round(max_height));
                 HubStar.set("pic_current_width", Math.round(width / height * max_height));
             }
-        }        
+        }
     },
     getInitData: function(megaObject) {
 
@@ -1159,12 +1159,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
     },
     closeWindow: function() {
-       HubStar.set('ctaView', false);
+
         this.set('image_no', 1);
         this.set('collectable', false);
         this.set('contact', false);
         this.set("selectPhoto", false);
-        
+
         this.set("enableTag", false);  //close the showTag template
         this.set("contentTags", []);
         this.set("isRead", false);
@@ -1216,6 +1216,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 this.set('selectType', null);
                 this.transitionTo("profile", profile); // transition to profile
                 this.transitionTo("profileCollection", data);
+                HubStar.set('ctaView', false);
             }
         }
         else if (this.get('controllers.masonryCollectionItems').get("type") === "user")
@@ -1234,7 +1235,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set("selectPhoto", false);
             this.transitionTo("collection", data); //user
 
-
+            HubStar.set('ctaView', false);
         } else {
             this.transitionTo("searchIndexTom");
         }

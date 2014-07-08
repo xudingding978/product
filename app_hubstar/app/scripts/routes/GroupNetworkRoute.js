@@ -20,5 +20,11 @@ HubStar.GroupNetworkRoute = Ember.Route.extend({
         var group_id = address.split("#")[1].split("/")[2];
         var model = HubStar.Group.find(group_id);
         return model;
+    },
+    renderTemplate: function() {
+        this.render("groupNetwork", {
+            outlet: "groupNetwork",
+            into: "group"
+        });
     }
 });

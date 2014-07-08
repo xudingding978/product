@@ -77,17 +77,16 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
         var photo_id = this.get("photo_id");
         var time_stamp = new Date();
         time_stamp = time_stamp.toString();
-
-        for (var i = 0; i < this.get("controllers.showTag").get("contentTags").get("length"); i++)
-        {
-            if (this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_id"] === tag_id)
-            {
-                this.get("controllers.showTag").get("contentTags").objectAt(i)["desc"] = this.get("description");
-                this.get("controllers.showTag").get("contentTags").objectAt(i)["product_name"] = this.get("product_name");
-                this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_time"] = time_stamp;
-                break;
-            }
-        }
+//        for (var i = 0; i < this.get("controllers.showTag").get("contentTags").get("length"); i++)
+//        {
+//            if (this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_id"] === tag_id)
+//            {
+//                this.get("controllers.showTag").get("contentTags").objectAt(i)["desc"] = this.get("description");
+//                this.get("controllers.showTag").get("contentTags").objectAt(i)["product_name"] = this.get("product_name");
+//                this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_time"] = time_stamp;
+//                break;
+//            }
+//        }
         if (HubStar.get("isArticleTag") === true)
         {
             this.get("controllers.article").set("contentTagsArticle", this.get("controllers.showTag").get("contentTags"));

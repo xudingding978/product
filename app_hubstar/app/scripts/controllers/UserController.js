@@ -63,7 +63,7 @@ HubStar.UserController = Ember.Controller.extend({
     about_me: "",
     first_name: "",
     last_name: "",
-    subcateMethod: [{list_id: 4, isSelection: false, category_topic: "email"}],
+    subcateMethod: [{list_id: 3, isSelection: false, category_topic: "email"}],
     subcate: [{list_id: 0, isSelection: false, category_topic: "message"}, {list_id: 1, isSelection: false, category_topic: "follow"}, {list_id: 2, isSelection: false, category_topic: "conversation"}],
     is_Photoclick: false,
     is_click: false,
@@ -90,12 +90,13 @@ HubStar.UserController = Ember.Controller.extend({
     },
     checkedAction: function(checkedboxselection) {
         $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
-        this.get("subcate").objectAt(checkedboxselection).isSelection = !this.get("subcate").objectAt(checkedboxselection).isSelection;
+        //this.get("subcate").objectAt(checkedboxselection).isSelection = !this.get("subcate").objectAt(checkedboxselection).isSelection;
+        Ember.set(this.get("subcate").objectAt(checkedboxselection), "isSelection" , !this.get("subcate").objectAt(checkedboxselection).isSelection);
     },
     checkedMethodAction: function(checkedboxselection) {
         $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
 
-        this.get("subcateMethod").objectAt(0).isSelection = !this.get("subcateMethod").objectAt(0).isSelection;
+        Ember.set(this.get("subcateMethod").objectAt(checkedboxselection-this.get("subcate").length), "isSelection" , !this.get("subcateMethod").objectAt(checkedboxselection-this.get("subcate").length).isSelection);
 
     },
     saveNotification: function()
@@ -166,30 +167,37 @@ HubStar.UserController = Ember.Controller.extend({
             {
                 if (items[i] === "email")
                 {
-                    this.get("subcateMethod").objectAt(0).isSelection = true;
+                    Ember.set(this.get("subcateMethod").objectAt(0),"isSelection",true);
+                    //this.get("subcateMethod").objectAt(0).isSelection = true;
                 }
                 else if (items[i] === "message")
                 {
-                    this.get("subcate").objectAt(0).isSelection = true;
+                    Ember.set(this.get("subcate").objectAt(0),"isSelection",true);
+                    //this.get("subcate").objectAt(0).isSelection = true;
                 }
                 else if (items[i] === "follow")
                 {
-                    this.get("subcate").objectAt(1).isSelection = true;
+                    Ember.set(this.get("subcate").objectAt(1),"isSelection",true);
+                    //this.get("subcate").objectAt(1).isSelection = true;
                 }
                 else if (items[i] === "conversation")
                 {
-                    this.get("subcate").objectAt(2).isSelection = true;
+                    Ember.set(this.get("subcate").objectAt(2),"isSelection",true);
+                    //this.get("subcate").objectAt(2).isSelection = true;
                 }
             }
         }
         else if (this.get("notification_setting") === null)
         {
 
-            this.get("subcateMethod").objectAt(0).isSelection = true;
-            this.get("subcate").objectAt(0).isSelection = true;
-            this.get("subcate").objectAt(1).isSelection = true;
-            this.get("subcate").objectAt(2).isSelection = true;
-
+//            this.get("subcateMethod").objectAt(0).isSelection = true;
+//            this.get("subcate").objectAt(0).isSelection = true;
+//            this.get("subcate").objectAt(1).isSelection = true;
+//            this.get("subcate").objectAt(2).isSelection = true;
+            Ember.set(this.get("subcateMethod").objectAt(0),"isSelection",true);
+            Ember.set(this.get("subcate").objectAt(0),"isSelection",true);
+            Ember.set(this.get("subcate").objectAt(1),"isSelection",true);
+            Ember.set(this.get("subcate").objectAt(2),"isSelection",true);
         }
     },
     setUser: function()

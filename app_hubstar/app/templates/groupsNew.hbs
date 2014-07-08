@@ -31,7 +31,7 @@
                 {{#each controller.categorys}}
                 {{#if this.isResidential}}
                 {{#if this.isSelected}}
-                <div class="select-group" style="opacity:1" {{action topicSelection this }}>
+                <div class="selected-group" {{action topicSelection this }}>
                      <div  class="group-image">         
                         <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing" {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>
                         <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
@@ -60,7 +60,7 @@
                 {{#each controller.categorys}}
                 {{#if this.isCommercial}}
                 {{#if this.isSelected}}
-                <div class="select-group" style="opacity:1" {{action topicSelection this }}>
+                <div class="selected-group" {{action topicSelection this }}>
                      <div class="group-image">    
                         <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing"  {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>                
                         <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
@@ -93,9 +93,9 @@
     <div id="group-step-2" class="group-step"> 
         <div class="group-profile-title-top">
 
-            <div  class="group-step-button float-left" {{action groupStep "2"}} >BACK</div>
+            <div  class="group-step-button group-step-button2" {{action groupStep "2"}} >BACK</div>
 
-            <div class="group-step-title width-60 cursor-pointer">
+            <div class="group-step-title group-step-3title cursor-pointer">
                 <div id="groupName" class="group-textarea">
                     {{view Ember.TextField valueBinding="groupName" class="textarea-style" placeholder="*Group Name" }}</div>
             </div>
@@ -143,9 +143,9 @@
     <div id="group-step-3" class="group-step"> 
         <div class="group-profile-title-top">
 
-            <div  class="group-step-button float-left" {{action groupStep "1"}} >BACK</div>
+            <div  class="group-step-button group-step-button2" {{action groupStep "1"}} >BACK</div>
 
-            <div class="group-step-title width-60" >
+            <div class="group-step-title group-step-3title" >
                  <div class="group-name group-desc-part" >
                     {{controller.name}}
                 </div>
@@ -155,7 +155,7 @@
         <div class="group-content easing" >
 
             <div class="group-upload-content float-left" >
-                <div class="width-100">
+                <div class="group-upload">
                     <div   class="subcategory-word upload-button" data-hint="Add Photo">Upload a Avatar
                         <div> 
                             {{view HubStar.MultiImageInputButtonView name="logo"}}
@@ -175,7 +175,7 @@
                 </div>
             </div>
             <div class="group-upload-content">
-                <div class="width-100">
+                <div class="group-upload">
                     <div   class="subcategory-word upload-button"  data-hint="Add Photo">Upload a Cover
                         <div> 
                             {{view HubStar.MultiImageInputButtonView name="bg"}}

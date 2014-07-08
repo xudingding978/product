@@ -60,54 +60,48 @@
 
             <div class="tab-pane" id="tab2">
                 <div class="user-edit-title">GENERAL SETTINGS</div>               
-                <div class="profilesnew-table useredit-table" >
+                <div class="useredit-table" >
                     <div class="table-row useredit-table-row">
-                        <div class="table-cell" style="width: 30%;" >User Name:</div>
-                        <div class="table-cell" style=" margin: 0 20px; display: block;" >
-                            <div  id="displayName"  style="margin: 0;width: 100%;">
+                        <div class="table-cell useredit-col1-width" >User Name:</div>
+                        <div class="table-cell useredit-col2-style" >
+                            <div id="displayName" class="useredit-col2-input">
                                 {{input type="text" value=display_name}}
                             </div>
                         </div>
                     </div>
-                    <div style="display: table-row; text-align: right;"> 
-                        <div style="display: table-cell; width: 30%;">Name*:</div>
-                        <div style="display: table-cell; margin: 0 20px; display: block; margin-bottom: 5px;" >
-                            <div  id="first_name" style="margin: 0;width: 49%;display: inline-block;">
+                    <div class="table-row useredit-table-row"> 
+                        <div class="table-cell useredit-col1-width">Name*:</div>
+                        <div class="table-cell useredit-col2-style useredit-col2-margin" >
+                            <div  id="first_name" class="useredit-col2-name" >
                                 {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
                             </div>
-                            <div id="last_name" style="margin: 0;width: 49%;display: inline-block;">
+                            <div id="last_name" class="useredit-col2-name">
                                 {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
                             </div>
                         </div>             
                     </div>
-                    <div style="display: table-row; text-align: right;">
-                        <div style="display: table-cell; width: 30%;">Email:</div>
-                        <div style="display: table-cell; margin: 0 20px; display: block;">
-                            <div style="display: block;">
-                                <div  id="email" class="disabled-btn" style="width: 100%;">
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width">Email:</div>
+                        <div class="table-cell useredit-col2-style">                          
+                                <div  id="email" class="disabled-btn width-100">
                                     {{email}}
-                                </div>
+                                </div>                          
+                        </div>
+                    </div>
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width">About me:</div>
+                        <div class="table-cell useredit-col2-style">
+                            <div id="about_me" class="useredit-col2-input2">
+                                {{view Ember.TextArea valueBinding="about_me" class="no-resize" placeholder="Say something interesting about yourself (Maximum 430 characters)." }}
                             </div>
                         </div>
                     </div>
-                    <div style="display: table-row; text-align: right;">
-                        <div style="display: table-cell; width: 30%;">About me:</div>
-                        <div style="display: table-cell; margin: 0 20px; display: block;">
-                            <div style="display: block;">
-                                <div  id="about_me" style="margin: 0;width: 100%; height:100px;">
-                                    {{view Ember.TextArea valueBinding="about_me" class="no-resize" placeholder="Say something interesting about yourself (Maximum 430 characters)." }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: table-row; text-align: right;">
-                        <div style="display: table-cell; width: 30%;"> Location:</div>
-                        <div style="display: table-cell; margin: 0 20px; display: block;">
-                            <div style="display: block;" >
-                                <div id="location"  style="margin: 0;width: 100%;">
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width"> Location:</div>
+                        <div class="table-cell useredit-col2-style">                            
+                                <div id="location" class="useredit-col2-input">
                                     {{input type="text" value=location }}
-                                </div>
-                            </div>
+                                </div>                           
                         </div>
                     </div>                   
                 </div>
@@ -120,7 +114,7 @@
 
             <div class="tab-pane" id="tab3">
                 <div class="user-edit-title">SOCIAL LINKS</div>
-                <div class="profilesnew-table" style="padding-right: 147px; width: 100%; font-size: 14px;  display: table; border-spacing: 4px;margin:10px auto;">
+                <div class="" style="padding-right: 147px; width: 100%; font-size: 14px;  display: table; border-spacing: 4px;margin:10px auto;">
                     <div style="display: table-row; text-align: right;">
                         <div style="display: table-cell; width: 30%;" >Facebook:</div>
                         <div style="display: table-cell; margin: 0 20px; display: block;" >
@@ -204,7 +198,7 @@
             {{#unless identifier}}
             <div class="tab-pane" id="tab4">
                 <div class="user-edit-title">SECURITY</div>
-                <div class="profilesnew-table" style="padding-right: 147px; width: 100%; font-size: 14px;  display: table; border-spacing: 4px;margin:10px auto;">
+                <div class="" style="padding-right: 147px; width: 100%; font-size: 14px;  display: table; border-spacing: 4px;margin:10px auto;">
                     <div style="display: table-row; text-align: right;">
                         <div style="display: table-cell; width: 30%;" >Current Password:</div>
                         <div style="display: table-cell; margin: 0 20px; display: block;" >

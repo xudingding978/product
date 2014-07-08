@@ -544,7 +544,35 @@ textarea.add-interests{
     text-align: right;
 }
 
+.useredit-col1-width{
+    width: 30%;
+}
 
+.useredit-col2-style{
+    margin: 0 20px; 
+    display: block;
+}
+
+.useredit-col2-input{
+    margin: 0;
+    width: 100%;
+}
+
+.useredit-col2-input2{
+    margin: 0;
+    width: 100%; 
+    height:100px;
+}
+
+.useredit-col2-name{
+    margin: 0;
+    width: 49.3%;
+    display: inline-block;
+}
+
+.useredit-col2-margin{
+    margin-bottom: 5px;
+}
 /*-----------------user talk --------------*/
 .user-talk-main-container{
     z-index: 11; 

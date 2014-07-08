@@ -10,6 +10,12 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     partnerNew: "",
     is_authentic_user: false,
     needs: ['permission', 'applicationFeedback', 'profile'],
+    actions: {
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
+        }
+    },
     addingPartnerObserver: function() {
         var addProfilePic = this.get('currentAddPartnerPic').split("/profiles/")[1];
         this.set('selectedPartnerPic', HubStar.Profile.find(addProfilePic).get('profile_pic_url'));
@@ -29,28 +35,9 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                 that.checkAuthenticUser();
                 that.setContent(data);
                 that.get('controllers.profile').paternsStatistics(data.get("length"));
-                var lastPositionId = HubStar.get('lastPositionId');
-                var lastPosition = HubStar.get("scrollPartenerPosition");
-                if (model.id === lastPositionId) {
-                    $(window).scrollTop(lastPosition);
-                }
-                that.set('loadingTime', false);
-                setTimeout(function() {
-                    $('#masonry_user_container').masonry("reloadItems");
-                    setTimeout(function() {
-                        $('#masonry_user_container').masonry();
-                        $('html,body').animate({
-                            scrollTop: $("#profile_submenu").offset().top - 100
-                        });
-                    }, 100);
-                }, 200);
-
             });
         }
-
-        this.checkAuthenticUser();
-    }
-    ,
+    },
     deleteSelectedPartner: function(idDel) {
         if (idDel !== undefined)
         {
@@ -103,10 +90,6 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             }
         }
     },
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
-    },
     submit: function() {
         var client_input = this.get("currentAddPartnerPic");
         if (client_input.indexOf("/profiles/") !== -1) {
@@ -133,10 +116,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                     this.get('controllers.profile').set('newDesc', '');
                 }
             }
-
             this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
-
-
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please input valid url", "warnning");
         }
@@ -167,14 +147,20 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         {
             is_edit = true;
         }
-        var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-        that.set("is_authentic_user", is_authentic_user || is_edit);
-        currentUser.addObserver('isLoaded', function() {
+        currentUser.then(function() {
             var current_user_email = currentUser.get('email');
-            if (currentUser.get('isLoaded')) {
-                var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-                that.set("is_authentic_user", is_authentic_user || is_edit);
-            }
+            var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
+            that.set("is_authentic_user", is_authentic_user || is_edit);
+            that.set('loadingTime', false);
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                    $('html,body').animate({
+                        scrollTop: $("#profile_submenu").offset().top - 100
+                    });
+                }, 100);
+            }, 200);
         });
     },
     searchPartner: function(searchKeyWord) {
@@ -201,7 +187,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         var that = this;
         for (var i = 0; i < data.get("length"); i++) {
             var tempmega = data.objectAt(i);
-            if (i !== data.get("length")-1) {
+            if (i !== data.get("length") - 1) {
                 that.set("partnerNew", that.get('partnerNew') + tempmega.get("profile").objectAt(0).get("id") + ",");
             }
             else

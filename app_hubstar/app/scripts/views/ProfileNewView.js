@@ -1,6 +1,28 @@
 HubStar.ProfileNewView = Ember.View.extend({
     templateName: 'profileNew',
     added: true,
+    actions: {
+        addSecond: function() {
+            $("#secondEmail").css("display", "table-row");
+            $("#firstAdd").css("display", "none");
+            this.set("added", true);
+
+        },
+        addThird: function() {
+            $("#thirdEmail").css("display", "table-row");
+            this.set("added", false);
+        },
+        deleteSecond: function() {
+            this.set("added", false);
+            $("#secondEmail").css("display", "none");
+            $("#firstAdd").css("display", "inline-block");
+        },
+        deleteThird: function() {
+            $("#thirdEmail").css("display", "none");
+            this.set("added", true);
+
+        }
+    },
     didInsertElement: function() {
         if (localStorage.loginStatus === null || (localStorage.loginStatus === ""))
         {
@@ -23,39 +45,15 @@ HubStar.ProfileNewView = Ember.View.extend({
         $(document).ready(function() {
             setTimeout(function() {
                 if (that.get("controller").get("regionSelection") === "Region/State") {
-                   $("#regionChecking").css("display","none");
+                    $("#regionChecking").css("display", "none");
                 }
                 else {
-                     $("#regionChecking").css("display","inline-block");
+                    $("#regionChecking").css("display", "inline-block");
                 }
             }, 1);
 
         });
-    },
-    addSecond: function() {
-        $("#secondEmail").css("display", "table-row");
-        $("#firstAdd").css("display", "none");
-        this.set("added", true);
-
-    },
-    addThird: function() {
-        $("#thirdEmail").css("display", "table-row");
-        this.set("added", false);
-    },
-    deleteSecond: function() {
-        this.set("added", false);
-        $("#secondEmail").css("display", "none");
-        $("#firstAdd").css("display", "inline-block");
-    },
-    deleteThird: function() {
-        $("#thirdEmail").css("display", "none");
-        this.set("added", true);
-
     }
-
-
-
-
 });
 
 

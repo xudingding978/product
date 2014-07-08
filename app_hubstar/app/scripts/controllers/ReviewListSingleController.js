@@ -246,6 +246,25 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         },
         cancelReview: function() {
             this.set("review_is_edit", !this.get('review_is_edit'));
+        },
+        deleteConfirm: function()
+        {
+            this.deleteSelectedReview();
+            this.send("cancelDelete");
+            this.get("controllers.profile").set("profileReviewStatistics", this.get("controllers.profile").get('profileReviewStatistics') - 1);
+        },
+        cancelDelete: function() {
+            this.set('makeSureDelete', !this.get('makeSureDelete'));
+            this.set('message', "");
+            HubStar.set('data', null);
+            this.set('delete_id', null);
+
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 100);
+            }, 200);
         }
     },
     init: function()
@@ -253,13 +272,6 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         if (localStorage.loginStatus !== null && localStorage.loginStatus !== 'undefined' && localStorage.loginStatus !== '') {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         }
-        var megaResouce = HubStar.Mega.find();
-    },
-    deleteConfirm: function()
-    {
-        this.deleteSelectedReview();
-        this.cancelDelete();
-        this.get("controllers.profile").set("profileReviewStatistics", this.get("controllers.profile").get('profileReviewStatistics') - 1);
     },
     deleteSelectedReview: function()
     {
@@ -274,21 +286,6 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
                 break;
             }
         }
-
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-            setTimeout(function() {
-                $('#masonry_user_container').masonry();
-            }, 100);
-        }, 200);
-
-
-    },
-    cancelDelete: function() {
-        this.set('makeSureDelete', !this.get('makeSureDelete'));
-        this.set('message', "");
-        HubStar.set('data', null);
-        this.set('delete_id', null);
 
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");

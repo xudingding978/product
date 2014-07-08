@@ -766,7 +766,6 @@ HubStar.UserController = Ember.Controller.extend({
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
         }
-
     },
     isInputValid: function() {
 

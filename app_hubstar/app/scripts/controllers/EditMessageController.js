@@ -9,6 +9,123 @@ HubStar.EditMessageController = Ember.Controller.extend({
     messageContent: null,
     isUploadPhoto: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'message', 'userMessage'],
+    actions: {
+        removePic: function() {
+            this.set('newStyleImageSource', null);
+            this.set('newStyleImageName', "");
+
+            this.set("isUploadPhoto", false);
+
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
+
+        },
+        removeOriginalPic: function(id) {
+            for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
+            {
+                if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
+                {
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("url", null);
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("isUrl", false);
+                    break;
+                }
+            }
+
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
+
+        },
+        updateMessage: function(id) {
+
+            this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+            var owner_id = this.get("currentOwner").get("id");
+            var replyID = null;
+            for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
+            {
+                if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
+                {
+                    if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("url") === null)
+                    {
+                        replyID = createMessageid();
+                    }
+                    var date = new Date();
+                    var newStyleImage = "";
+                    var imageStyleName = "";
+
+                    if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
+                    {
+                        newStyleImage = this.get("newStyleImageSource");
+                    }
+                    else
+                    {
+                        newStyleImage = null;
+                    }
+                    if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
+                    {
+                        imageStyleName = this.get('newStyleImageName');
+                    }
+                    else
+                    {
+                        imageStyleName = "";
+                    }
+                    var imageName = "";
+                    var imageType = "";
+
+                    if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
+                    {
+                        imageName = imageStyleName.split('.');
+                        imageType = imageName[imageName.length - 1];
+                    }
+                    var messageContent = this.get("messageContent");
+                    var url = this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("url");
+                    var tempComment = [owner_id, date.toString(), messageContent, newStyleImage, imageType, imageStyleName, id, replyID, url];
+
+                    tempComment = JSON.stringify(tempComment);
+                    var that = this;
+
+                    requiredBackEnd('messages', 'UpdateMessage', tempComment, 'POST', function(params) {
+
+
+                        for (var i = 0; i < that.get('controllers.userMessage').get("contentMsg").length; i++)
+                        {
+                            if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
+                            {
+                                that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("msg", params.msg);
+                                that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("url", params.url);
+                                that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("time_stamp", params.time_stamp);
+                                that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", false);
+                                if (params.url !== null)
+                                {
+                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("isUrl", true);
+                                }
+                                else
+                                {
+                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("isUrl", false);
+                                }
+
+                            }
+                        }
+                        that.set('messageContent', "");
+                        that.set('newStyleImageSource', null);
+                        that.set('newStyleImageName', "");
+                        that.set("isUploadPhoto", false);
+                        setTimeout(function() {
+                            $('#masonry_user_container').masonry("reloadItems");
+                            setTimeout(function() {
+                                $('#masonry_user_container').masonry();
+                            }, 100);
+                        }, 200);
+
+
+
+                    });
+                }
+            }
+
+        }
+    },
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -35,121 +152,6 @@ HubStar.EditMessageController = Ember.Controller.extend({
             }
         }
         this.set("isUploadPhoto", false);
-    },
-    removePic: function() {
-        this.set('newStyleImageSource', null);
-        this.set('newStyleImageName', "");
-
-        this.set("isUploadPhoto", false);
-
-        setTimeout(function() {
-            $('#masonry_user_container').masonry();
-        }, 100);
-
-    },
-    removeOriginalPic: function(id) {
-        for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
-        {
-            if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
-            {
-                this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("url", null);
-                this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("isUrl", false);
-                break;
-            }
-        }
-
-        setTimeout(function() {
-            $('#masonry_user_container').masonry();
-        }, 100);
-
-    },
-    updateMessage: function(id) {
-
-        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
-        var owner_id = this.get("currentOwner").get("id");
-        var replyID = null;
-        for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
-        {
-            if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
-            {
-                if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("url") === null)
-                {
-                    replyID = createMessageid();
-                }
-                var date = new Date();
-                var newStyleImage = "";
-                var imageStyleName = "";
-
-                if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
-                {
-                    newStyleImage = this.get("newStyleImageSource");
-                }
-                else
-                {
-                    newStyleImage = null;
-                }
-                if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
-                {
-                    imageStyleName = this.get('newStyleImageName');
-                }
-                else
-                {
-                    imageStyleName = "";
-                }
-                var imageName = "";
-                var imageType = "";
-
-                if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
-                {
-                     imageName = imageStyleName.split('.');
-                     imageType = imageName[imageName.length - 1];
-                }
-                var messageContent = this.get("messageContent");
-                var url = this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("url");
-                var tempComment = [owner_id, date.toString(), messageContent, newStyleImage, imageType, imageStyleName, id, replyID, url];
-
-                tempComment = JSON.stringify(tempComment);
-                var that = this;
-
-                requiredBackEnd('messages', 'UpdateMessage', tempComment, 'POST', function(params) {
-
-
-                    for (var i = 0; i < that.get('controllers.userMessage').get("contentMsg").length; i++)
-                    {
-                        if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
-                        {
-                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("msg", params.msg);
-                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("url", params.url);
-                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("time_stamp", params.time_stamp);
-                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", false);
-                            if (params.url !== null)
-                            {
-                                that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("isUrl", true);
-                            }
-                            else
-                            {
-                                that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("isUrl", false);
-                            }
-
-                        }
-                    }
-                    that.set('messageContent', "");
-                    that.set('newStyleImageSource', null);
-                    that.set('newStyleImageName', "");
-                    that.set("isUploadPhoto", false);
-                    setTimeout(function() {
-                        $('#masonry_user_container').masonry("reloadItems");
-                        setTimeout(function() {
-                            $('#masonry_user_container').masonry();
-                        }, 100);
-                    }, 200);
-
-
-
-                });
-            }
-        }
-
     },
     profileStyleImageDrop: function(e, name)
     {

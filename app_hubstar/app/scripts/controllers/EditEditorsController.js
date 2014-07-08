@@ -24,6 +24,170 @@ HubStar.EditEditorsController = Ember.Controller.extend({
     editor: "",
     isCreator: false,
     isAdministrator: false,
+    actions: {
+        reviewCancel: function() {
+            this.get("controllers.profile").set("editorAdd", false);
+            this.set("contentFollowerPhoto", null);
+            this.set("contentCreatorPhoto", null);
+            this.set("contentAdministratorPhoto", null);
+            this.set("contentEditorPhoto", null);
+            var profile = this.get("controllers.profile").get("model");
+            profile.set("profile_administrator", this.get("administrator"));
+            profile.set("profile_editor", this.get("editor"));
+        },
+        removeAdministrator: function(id) {
+            var profile = this.get("controllers.profile").get("model");
+            for (var i = 0; i < this.get("contentAdministratorPhoto").get('length'); i++) {
+                if (id === this.get("contentAdministratorPhoto").objectAt(i).record_id)
+                {
+                    this.get("contentFollowerPhoto").pushObject(this.get("contentAdministratorPhoto").objectAt(i));
+                    var s = profile.get("profile_administrator").replace(id, "");
+                    s = s.replace(",,", ",");
+                    if (s[0] === ",") {
+                        s = s.substr(1);
+                    }
+                    if (s[s.length - 1] === ",")
+                    {
+                        s = s.substr(0, s.length - 1);
+                    }
+                    profile.set("profile_administrator", s);
+                    break;
+                }
+            }
+            var temp = this.get("contentAdministratorPhoto");
+            this.set("contentAdministratorPhoto", []);
+            for (var j = 0; j < temp.get("length"); j++) {
+                if (id === temp.objectAt(j).record_id)
+                {
+                }
+                else
+                {
+                    this.get("contentAdministratorPhoto").pushObject(temp.objectAt(j));
+                }
+            }
+        },
+        removeEditor: function(id) {
+            var profile = this.get("controllers.profile").get("model");
+            for (var i = 0; i < this.get("contentEditorPhoto").get('length'); i++) {
+                if (id === this.get("contentEditorPhoto").objectAt(i).record_id)
+                {
+                    this.get("contentFollowerPhoto").pushObject(this.get("contentEditorPhoto").objectAt(i));
+                    var s = profile.get("profile_editor").replace(id, "");
+                    s = s.replace(",,", ",");
+                    if (s[0] === ",")
+                    {
+                        s = s.substr(1);
+                    }
+                    if (s[s.length - 1] === ",")
+                    {
+                        s = s.substr(0, s.length - 1);
+                    }
+                    profile.set("profile_editor", s);
+                    break;
+                }
+            }
+            var temp = this.get("contentEditorPhoto");
+            this.set("contentEditorPhoto", []);
+            for (var j = 0; j < temp.get("length"); j++) {
+                if (id === temp.objectAt(j).record_id)
+                {
+                }
+                else
+                {
+
+                    this.get("contentEditorPhoto").pushObject(temp.objectAt(j));
+                }
+            }
+        },
+        addToAdministrator: function(id) {
+            var profile = this.get("controllers.profile").get("model");
+            for (var i = 0; i < this.get("contentFollowerPhoto").get('length'); i++) {
+                if (id === this.get("contentFollowerPhoto").objectAt(i).record_id)
+                {
+                    this.get("contentAdministratorPhoto").pushObject(this.get("contentFollowerPhoto").objectAt(i));
+                    if (profile.get("profile_administrator") !== "" && profile.get("profile_administrator") !== null) {
+                        profile.set("profile_administrator", profile.get("profile_administrator") + "," + id);
+                    }
+                    else
+                    {
+                        profile.set("profile_administrator", id);
+                    }
+                    break;
+                }
+            }
+            var temp = this.get("contentFollowerPhoto");
+            this.set("contentFollowerPhoto", []);
+            for (var j = 0; j < temp.get("length"); j++) {
+                if (id === temp.objectAt(j).record_id)
+                {
+                }
+                else
+                {
+                    this.get("contentFollowerPhoto").pushObject(temp.objectAt(j));
+                }
+            }
+        },
+        addToEditor: function(id) {
+            var profile = this.get("controllers.profile").get("model");
+            for (var i = 0; i < this.get("contentFollowerPhoto").get('length'); i++) {
+                if (id === this.get("contentFollowerPhoto").objectAt(i).record_id)
+                {
+                    this.get("contentEditorPhoto").pushObject(this.get("contentFollowerPhoto").objectAt(i));
+                    if (profile.get("profile_editor") !== "" && profile.get("profile_editor") !== null) {
+                        profile.set("profile_editor", profile.get("profile_editor") + "," + id);
+                    }
+                    else
+                    {
+                        profile.set("profile_editor", id);
+                    }
+                    break;
+                }
+            }
+            var temp = this.get("contentFollowerPhoto");
+            this.set("contentFollowerPhoto", []);
+            for (var j = 0; j < temp.get("length"); j++) {
+                if (id === temp.objectAt(j).record_id)
+                {
+                }
+                else
+                {
+                    this.get("contentFollowerPhoto").pushObject(temp.objectAt(j));
+                }
+            }
+        },
+        save: function() {
+            var profile = this.get("controllers.profile").get("model");
+            if (profile.get("profile_administrator") !== this.get("administrator") || profile.get("profile_editor") !== this.get("editor")) {
+                var a = profile.save();
+                //profile.get('isSaving');
+                var that = this;
+                a.then(function() {
+                    {
+                        var administrators = that.checkAdministratorsOrEditorsChange(that.get("contentAdministratorPhoto"), that.get("administrator"), "administrator");
+                        var editors = that.checkAdministratorsOrEditorsChange(that.get("contentEditorPhoto"), that.get("editor"), "editor");
+                        var data = [];
+                        data[0] = administrators;
+                        data[1] = editors;
+                        var tempComment = "";
+                        tempComment = JSON.stringify(data);
+                        requiredBackEnd('users', 'sendNotification', data, 'POST', function() {
+                            that.get('controllers.applicationFeedback').statusObserver(null, "the requests have been sent", "warnning");
+                        });
+                        that.get("controllers.profile").set("editorAdd", false);
+                        that.set("administrator", profile.get("profile_administrator"));
+                        that.set("editor", profile.get("profile_editor"));
+                    }
+                }, function() {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Fail", "warnning");
+                });
+            }
+            else
+            {
+                this.get('controllers.applicationFeedback').statusObserver(null, "Sorry, there is no change", "warnning");
+            }
+        }
+
+    },
     init: function()
     {
     },
@@ -109,62 +273,6 @@ HubStar.EditEditorsController = Ember.Controller.extend({
             that.set('loadingTime', false);
         });
     },
-    addToAdministrator: function(id) {
-        var profile = this.get("controllers.profile").get("model");
-        for (var i = 0; i < this.get("contentFollowerPhoto").get('length'); i++) {
-            if (id === this.get("contentFollowerPhoto").objectAt(i).record_id)
-            {
-                this.get("contentAdministratorPhoto").pushObject(this.get("contentFollowerPhoto").objectAt(i));
-                if (profile.get("profile_administrator") !== "" && profile.get("profile_administrator") !== null) {
-                    profile.set("profile_administrator", profile.get("profile_administrator") + "," + id);
-                }
-                else
-                {
-                    profile.set("profile_administrator", id);
-                }
-                break;
-            }
-        }
-        var temp = this.get("contentFollowerPhoto");
-        this.set("contentFollowerPhoto", []);
-        for (var j = 0; j < temp.get("length"); j++) {
-            if (id === temp.objectAt(j).record_id)
-            {
-            }
-            else
-            {
-                this.get("contentFollowerPhoto").pushObject(temp.objectAt(j));
-            }
-        }
-    },
-    addToEditor: function(id) {
-        var profile = this.get("controllers.profile").get("model");
-        for (var i = 0; i < this.get("contentFollowerPhoto").get('length'); i++) {
-            if (id === this.get("contentFollowerPhoto").objectAt(i).record_id)
-            {
-                this.get("contentEditorPhoto").pushObject(this.get("contentFollowerPhoto").objectAt(i));
-                if (profile.get("profile_editor") !== "" && profile.get("profile_editor") !== null) {
-                    profile.set("profile_editor", profile.get("profile_editor") + "," + id);
-                }
-                else
-                {
-                    profile.set("profile_editor", id);
-                }
-                break;
-            }
-        }
-        var temp = this.get("contentFollowerPhoto");
-        this.set("contentFollowerPhoto", []);
-        for (var j = 0; j < temp.get("length"); j++) {
-            if (id === temp.objectAt(j).record_id)
-            {
-            }
-            else
-            {
-                this.get("contentFollowerPhoto").pushObject(temp.objectAt(j));
-            }
-        }
-    },
     checkAdministratorsOrEditorsChange: function(newResults, oldResults, type) {
         var profile = this.get("controllers.profile").get("model");
         var administrators_change = [];
@@ -212,111 +320,9 @@ HubStar.EditEditorsController = Ember.Controller.extend({
         administrators_change[0] = dataDel;
         administrators_change[1] = dataAdd;
         return administrators_change;
-    },
-    save: function() {
-        var profile = this.get("controllers.profile").get("model");
-        if (profile.get("profile_administrator") !== this.get("administrator") || profile.get("profile_editor") !== this.get("editor")) {
-            var a = profile.save();
-            //profile.get('isSaving');
-            var that = this;
-            a.then(function() {
-                {
-                    var administrators = that.checkAdministratorsOrEditorsChange(that.get("contentAdministratorPhoto"), that.get("administrator"), "administrator");
-                    var editors = that.checkAdministratorsOrEditorsChange(that.get("contentEditorPhoto"), that.get("editor"), "editor");
-                    var data = [];
-                    data[0] = administrators;
-                    data[1] = editors;
-                    var tempComment = "";
-                    tempComment = JSON.stringify(data);
-                    requiredBackEnd('users', 'sendNotification', data, 'POST', function() {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "the requests have been sent", "warnning");
-                    });
-                    that.get("controllers.profile").set("editorAdd", false);
-                    that.set("administrator", profile.get("profile_administrator"));
-                    that.set("editor", profile.get("profile_editor"));
-                }
-            }, function() {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Fail", "warnning");
-            });
-        }
-        else
-        {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Sorry, there is no change", "warnning");
-        }
-    },
-    removeEditor: function(id) {
-        var profile = this.get("controllers.profile").get("model");
-        for (var i = 0; i < this.get("contentEditorPhoto").get('length'); i++) {
-            if (id === this.get("contentEditorPhoto").objectAt(i).record_id)
-            {
-                this.get("contentFollowerPhoto").pushObject(this.get("contentEditorPhoto").objectAt(i));
-                var s = profile.get("profile_editor").replace(id, "");
-                s = s.replace(",,", ",");
-                if (s[0] === ",")
-                {
-                    s = s.substr(1);
-                }
-                if (s[s.length - 1] === ",")
-                {
-                    s = s.substr(0, s.length - 1);
-                }
-                profile.set("profile_editor", s);
-                break;
-            }
-        }
-        var temp = this.get("contentEditorPhoto");
-        this.set("contentEditorPhoto", []);
-        for (var j = 0; j < temp.get("length"); j++) {
-            if (id === temp.objectAt(j).record_id)
-            {
-            }
-            else
-            {
-
-                this.get("contentEditorPhoto").pushObject(temp.objectAt(j));
-            }
-        }
-    },
-    removeAdministrator: function(id) {
-        var profile = this.get("controllers.profile").get("model");
-        for (var i = 0; i < this.get("contentAdministratorPhoto").get('length'); i++) {
-            if (id === this.get("contentAdministratorPhoto").objectAt(i).record_id)
-            {
-                this.get("contentFollowerPhoto").pushObject(this.get("contentAdministratorPhoto").objectAt(i));
-                var s = profile.get("profile_administrator").replace(id, "");
-                s = s.replace(",,", ",");
-                if (s[0] === ",") {
-                    s = s.substr(1);
-                }
-                if (s[s.length - 1] === ",")
-                {
-                    s = s.substr(0, s.length - 1);
-                }
-                profile.set("profile_administrator", s);
-                break;
-            }
-        }
-        var temp = this.get("contentAdministratorPhoto");
-        this.set("contentAdministratorPhoto", []);
-        for (var j = 0; j < temp.get("length"); j++) {
-            if (id === temp.objectAt(j).record_id)
-            {
-            }
-            else
-            {
-                this.get("contentAdministratorPhoto").pushObject(temp.objectAt(j));
-            }
-        }
-    },
-    reviewCancel: function() {
-        this.get("controllers.profile").set("editorAdd", false);
-        this.set("contentFollowerPhoto", null);
-        this.set("contentCreatorPhoto", null);
-        this.set("contentAdministratorPhoto", null);
-        this.set("contentEditorPhoto", null);
-        var profile = this.get("controllers.profile").get("model");
-        profile.set("profile_administrator", this.get("administrator"));
-        profile.set("profile_editor", this.get("editor"));
     }
+
+
+
 }
 );

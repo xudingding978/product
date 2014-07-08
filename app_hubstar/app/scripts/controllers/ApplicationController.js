@@ -256,78 +256,115 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.set('isNavigatorDropdown', false);
             this.set('isHeaderNavigatorDropdown', false);
         },
-         topicSelection: function(data) {
+        topicSelection: function(data) {
+            this.set('subcate', []);
+            this.set('subcategories', []);
+            for (var i = 0; i < data.get('subcate').get('length'); i++) {
+                //var str = data.get('subcate').objectAt(i).get('category_topic');
+
+                this.get('subcate').pushObject({'ids': data.get('subcate').objectAt(i).get("ids"), 'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
+            }
+            $('#navigator_id_' + this.get("navigator_id")).removeClass('selected-navigation');
+            this.set("navigator_id", data.get("ids"));
+            $('#navigator_id_' + data.get("ids")).addClass('selected-navigation');
+        },
+        topicSearch: function(search_topic) {
+            HubStar.set("escVideo", false);
+            this.transitionToRoute('search', {id: search_topic});
+            $("#search-bar").css('display', 'block');
+            this.set('search_string', search_topic);
+//        this.newSearch();
+            this.set('isNavigatorDropdown', false);
+            this.set('isHeaderNavigatorDropdown', false);
+            HubStar.set("showDiscoveryBar", false);
+        },
+        searchTopicSelection: function(data, ids) {
+
+            this.set('subcategories', []);
+            for (var i = 0; i < data.get('length'); i++) {
+                this.get('subcategories').pushObject({'search_topic': data.objectAt(i).get('search_topic')});
+            }
+            $('#navigator_id1_' + this.get("navigator_id1")).removeClass('selected-navigation');
+            this.set("navigator_id1", ids);
+            $('#navigator_id1_' + ids).addClass('selected-navigation');
+        },
+        scrollDownAction: function() {
+            //this.set('loadingTime', true);
+            this.set("nextPageSpinner", true);
+            HubStar.set("scrollDownSearch", true);
+            this.set("size", 20);
+            if (this.get("searchFromTopic") === false)
+            {
+                this.set("pageCount", this.get("pageCount") + 1);
+            }
+            else
+            {
+                this.set("searchFromTopic", false);
+            }
+            this.getPageNo();
+            this.set("from", this.get("from") + this.get("size"));
+            var results;
+            if (localStorage.geoLocation === "International") {
+                results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": "Global", "classification": localStorage.resOrcom});
+            } else {
+                results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": localStorage.geoLocation, "classification": localStorage.resOrcom});
+
+            }
+
+            var that = this;
+            results.then(function() {
+                var stat = results.objectAt(0);
+                var megasResults = stat.get("megas");
+                that.setContent(megasResults);
+                if (results.get("length") === 0) {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
+
+                    HubStar.set("scrollDownSearch", true);
+
+                    $(document).ready(function() {
+
+                        $("#show_more_button").css("display", "none");
+
+                    });
+                }
+            });
+
+        },
+        dropdownNavigator: function() {
+        this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
+        var that = this;
+        this.get("categorys").then(function() {
+            $(document).ready(function() {
+                setTimeout(function() {
+                    that.residentialCommercialStatus();
+                }, 50);
+            });
+        });
         this.set('subcate', []);
         this.set('subcategories', []);
-        for (var i = 0; i < data.get('subcate').get('length'); i++) {
-            //var str = data.get('subcate').objectAt(i).get('category_topic');
 
-            this.get('subcate').pushObject({'ids': data.get('subcate').objectAt(i).get("ids"), 'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
-        }
-        $('#navigator_id_' + this.get("navigator_id")).removeClass('selected-navigation');
-        this.set("navigator_id", data.get("ids"));
-        $('#navigator_id_' + data.get("ids")).addClass('selected-navigation');
+        setTimeout(function() {
+            $('.Navigator-box').fadeIn("fast");
+        }, 30);
     },
-        topicSearch: function(search_topic) {
-        HubStar.set("escVideo", false);
-        this.transitionToRoute('search', {id: search_topic});
-        $("#search-bar").css('display', 'block');
-        this.set('search_string', search_topic);
-//        this.newSearch();
-        this.set('isNavigatorDropdown', false);
-        this.set('isHeaderNavigatorDropdown', false);
-        HubStar.set("showDiscoveryBar", false);
-    },
-    searchTopicSelection: function(data, ids) {
+    dropdownHeaderNavigator: function() {
 
-        this.set('subcategories', []);
-        for (var i = 0; i < data.get('length'); i++) {
-            this.get('subcategories').pushObject({'search_topic': data.objectAt(i).get('search_topic')});
-        }
-        $('#navigator_id1_' + this.get("navigator_id1")).removeClass('selected-navigation');
-        this.set("navigator_id1", ids);
-        $('#navigator_id1_' + ids).addClass('selected-navigation');
-    },
-        scrollDownAction: function() {
-        //this.set('loadingTime', true);
-        this.set("nextPageSpinner", true);
-        HubStar.set("scrollDownSearch", true);
-        this.set("size", 20);
-        if (this.get("searchFromTopic") === false)
-        {
-            this.set("pageCount", this.get("pageCount") + 1);
-        }
-        else
-        {
-            this.set("searchFromTopic", false);
-        }
-        this.getPageNo();
-        this.set("from", this.get("from") + this.get("size"));
-        var results;
-        if (localStorage.geoLocation === "International") {
-            results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": "Global", "classification": localStorage.resOrcom});
-        } else {
-            results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": localStorage.geoLocation, "classification": localStorage.resOrcom});
-        }
-
+        this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
         var that = this;
-        results.then(function() {
-            var stat = results.objectAt(0);
-            var megasResults = stat.get("megas");
-            that.setContent(megasResults);
-            if (results.get("length") === 0) {
-                that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
-
-                HubStar.set("scrollDownSearch", true);
-
-                $(document).ready(function() {
-
-                    $("#show_more_button").css("display", "none");
-
-                });
-            }
+        this.get("categorys").then(function() {
+            
+            $(document).ready(function() {
+                setTimeout(function() {
+                    that.residentialCommercialStatus();
+                }, 50);
+            });
         });
+        this.set('subcate', []);
+        this.set('subcategories', []);
 
+        setTimeout(function() {
+            $('.Navigator-box').fadeIn("fast");
+        }, 30);
     }
     },
     init: function() {
@@ -1072,41 +1109,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     setfemale: function() {
         this.set('gender', "female");
     },
-    dropdownNavigator: function() {
-        this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
-        var that = this;
-        this.get("categorys").then(function() {
-            $(document).ready(function() {
-                setTimeout(function() {
-                    that.residentialCommercialStatus();
-                }, 50);
-            });
-        });
-        this.set('subcate', []);
-        this.set('subcategories', []);
-
-        setTimeout(function() {
-            $('.Navigator-box').fadeIn("fast");
-        }, 30);
-    },
-    dropdownHeaderNavigator: function() {
-
-        this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
-        this.get("categorys").then(function() {
-            var that = this;
-            $(document).ready(function() {
-                setTimeout(function() {
-                    that.residentialCommercialStatus();
-                }, 50);
-            });
-        });
-        this.set('subcate', []);
-        this.set('subcategories', []);
-
-        setTimeout(function() {
-            $('.Navigator-box').fadeIn("fast");
-        }, 30);
-    },
+    
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginUsername') !== "" && this.get('loginPassword') !== "")
         {

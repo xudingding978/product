@@ -6,7 +6,7 @@
 
 HubStar.ProfilePdfRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-         
+
         this.controllerFor('profile').set('profileSelectionStatus', 'Pdf');
         this.controllerFor('profile').set('reviewTag', false);
         this.controllerFor('profile').set('partnerTag', false);
@@ -14,13 +14,13 @@ HubStar.ProfilePdfRoute = Ember.Route.extend({
         this.controllerFor('profile').set('followerProfileTag', false);
         this.controllerFor('profile').set('videoTag', false);
         this.controllerFor('profile').set('pdfTag', true);
-         
-      $(document).ready(function() {
-                setTimeout(function() {
-                    $('#user-stats > li').removeClass('selected-user-stats');
-        $('#pdf').addClass('selected-user-stats');
-                }, 3500);
-            });
+
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $('#pdf').addClass('selected-user-stats');
+            }, 3500);
+        });
         var address = document.URL;
         var l = address.split("#")[1].split("/").length;
         if (l > 4) {
@@ -34,10 +34,8 @@ HubStar.ProfilePdfRoute = Ember.Route.extend({
         }
         else {
             this.controllerFor('profile').send("selectPdf",model);
+
         }
-
-
-
     },
     model: function(params) {
 

@@ -10,14 +10,27 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     pdfContent: [],
     isRenderDeleteItemTemplate: false,
     needs: ['profile', 'permission', 'applicationFeedback', 'pdfUploader'],
-
+    actions: {
+        deleteConfirm: function()
+        {
+            this.deleteSelectedCollection();
+            this.send("cancelDelete");
+        },
+        cancelDelete: function() {
+            this.set('makeSureDelete', !this.get('makeSureDelete'));
+            this.set('message', "");
+            HubStar.set('data', null);
+            $('#dropdown_id_' + this.get('delete_id')).toggleClass('hideClass');
+            this.set('delete_id', null);
+            this.relayout();
+        }
+    },
     init: function() {
         var address = document.URL;
         var profile_id = address.split("#")[1].split("/")[2];
         var model = HubStar.Profile.find(profile_id);
         this.getClientId(model);
     },
-            
     getClientId: function(model) {
         var results = HubStar.Mega.find({"RquireType": "pdf", 'ownerid': model.get("id")});
 
@@ -27,47 +40,32 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
             that.set('pdfContent', []);
             for (var i = 0; i < results.get("length"); i++) {
                 var tempmega = results.objectAt(i);
-                that.get("pdfContent").insertAt(0,tempmega);
+                that.get("pdfContent").insertAt(0, tempmega);
             }
-//            that.get("controllers.profile").set("profileVideoStatistics", results.get("length"));
             that.set("loadingTime", false);
-//            that.relayout();
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
                 setTimeout(function() {
                     $('#masonry_user_container').masonry();
-                      $('html,body').animate({
-                    scrollTop: $("#profile_submenu").offset().top-100
-                });
+                    $('html,body').animate({
+                        scrollTop: $("#profile_submenu").offset().top - 100
+                    });
                 }, 100);
             }, 250);
         });
-
-//        this.checkEditingMode();
     },
-            
     transitionToPdf: function(id) {
-    console.log(id);
-    var url = "";
-    for (var i = 0; i < this.get('pdfContent').get('length'); i ++) {
-        if (this.get('pdfContent').objectAt(i).get('id') === id) {
-            console.log(i);
-            url = this.get('pdfContent').objectAt(i).get('pdf').objectAt(0).get('pdf_url');
+        var url = "";
+        for (var i = 0; i < this.get('pdfContent').get('length'); i++) {
+            if (this.get('pdfContent').objectAt(i).get('id') === id) {
+                console.log(i);
+                url = this.get('pdfContent').objectAt(i).get('pdf').objectAt(0).get('pdf_url');
+            }
         }
-    }
-    console.log(url);
         window.open(
                 url
                 ).focus();
     },
-    
-    pdfCreateModeSwitch: function()
-    {
-        console.log('switch');
-        this.set('is_pdf_create_mode', true);
-        this.transitionToRoute("pdfUploader");
-    },
-
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var current_user_email = currentUser.get('email');
@@ -89,12 +87,6 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
         this.set('makeSureDelete', !this.get('makeSureDelete'));
 
     },
-    deleteConfirm: function()
-    {
-
-        this.deleteSelectedCollection();
-        this.cancelDelete();
-    },
     deleteSelectedCollection: function()
     {
         for (var i = 0; i < this.get('videoesContent').get('length'); i++) {
@@ -104,20 +96,9 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
                 tempmega.deleteRecord();
                 tempmega.store.save();
                 this.get('videoesContent').removeObject(tempmega);
-                this.get("controllers.profile").set("profileVideoStatistics",this.get('videoesContent').get("length"));
+                this.get("controllers.profile").set("profileVideoStatistics", this.get('videoesContent').get("length"));
                 break;
             }
         }
-
-
-    },
-    cancelDelete: function() {
-        this.set('makeSureDelete', !this.get('makeSureDelete'));
-        this.set('message', "");
-        HubStar.set('data', null);
-        $('#dropdown_id_' + this.get('delete_id')).toggleClass('hideClass');
-        this.set('delete_id', null);
-        this.relayout();
     }
-    
 });

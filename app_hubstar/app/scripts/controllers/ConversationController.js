@@ -6,6 +6,28 @@ HubStar.ConversationController = Ember.Controller.extend({
     makeSureDelete: false,
     willDelete: false,
     isNewConversation: false,
+    actions: {
+        removeConversationItem: function(s)
+        {
+            var message = "Remove this conversation?";
+            this.set("message", message);
+
+            this.set('makeSureDelete', true);
+            if (this.get('willDelete') === true) {
+                this.deleteConversationItem(s);
+                this.cancelDelete();
+            } else {
+                this.set("s", s);
+                this.set('willDelete', true);
+            }
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 10);
+            }, 50);
+        }
+    },
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -41,26 +63,6 @@ HubStar.ConversationController = Ember.Controller.extend({
             }
         }
     },
-    removeConversationItem: function(s)
-    {
-        var message = "Remove this conversation?";
-        this.set("message", message);
-
-        this.set('makeSureDelete', true);
-        if (this.get('willDelete') === true) {
-            this.deleteConversationItem(s);
-            this.cancelDelete();
-        } else {
-            this.set("s", s);
-            this.set('willDelete', true);
-        }
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-            setTimeout(function() {
-                $('#masonry_user_container').masonry();
-            }, 10);
-        }, 50);
-    },
     cancelDelete: function() {
         this.set('willDelete', false);
         this.set('makeSureDelete', false);
@@ -87,7 +89,7 @@ HubStar.ConversationController = Ember.Controller.extend({
             }
         });
     },
-    getClientId: function(id, conversation_id) {                          
+    getClientId: function(id, conversation_id) {
         this.set("routerFlag", false);
         this.set('clientID', id);
         var data = this.get('clientID');

@@ -32,6 +32,88 @@ HubStar.ContactController = Ember.Controller.extend({
     projectExperience: null,
     email_title: "",
     needs: ["mega", "profile", 'article', 'applicationFeedback', 'video', 'application'],
+    actions: {
+        closeContact: function() {
+            var megaController = this.get("controllers.mega");
+            var profileController = this.get("controllers.profile");
+            var articleController = this.get("controllers.article");
+            var videoController = this.get("controllers.video");
+
+            this.set('projectCategoryDropdown', false);
+            this.set('projectTimeframeDropdown', false);
+            this.set('projectBudgetDropdown', false);
+            this.set('projectExperienceDropdown', false);
+            this.set('showCate', false);
+
+            videoController.send("closeContact");
+            megaController.send("closeContact");
+            profileController.send("closeContact");
+            articleController.send("closeContact");
+        },
+        nextSendingEmailProcess: function() {
+
+            this.set('secondStepOfContactEmail', true);
+            this.set('firstStepOfContactEmail', true);
+            this.selectionCheckBox();
+
+        },
+        setEditable: function(attr) {
+            var swtich = "isDisplay" + attr + "Editable";
+            var status = "edit" + attr + "Status";
+            if (this.get(swtich))
+            {
+                this.set(status, "edit");
+            }
+            else {
+                this.set(status, "confirm");
+            }
+            this.set(swtich, !this.get(swtich));
+        },
+        proviousSendingEmailProcess: function() {
+            this.set('secondStepOfContactEmail', false);
+            this.set('firstStepOfContactEmail', false);
+        },
+        dropdown: function(checking) {
+            if (checking === "Category") {
+
+                this.set('projectExperienceDropdown', false);
+                this.set('projectTimeframeDropdown', false);
+                this.set('projectBudgetDropdown', false);
+                this.set('projectCategoryDropdown', !this.get('projectCategoryDropdown'));
+
+            } else if (checking === "Timeframe") {
+
+                this.set('projectExperienceDropdown', false);
+                this.set('projectBudgetDropdown', false);
+                this.set('projectCategoryDropdown', false);
+                this.set('projectTimeframeDropdown', !this.get('projectTimeframeDropdown'));
+
+            } else if (checking === "Budget") {
+
+                this.set('projectExperienceDropdown', false);
+                this.set('projectCategoryDropdown', false);
+                this.set('projectTimeframeDropdown', false);
+                this.set('projectBudgetDropdown', !this.get('projectBudgetDropdown'));
+
+            } else if (checking === "Experience") {
+
+                this.set('projectTimeframeDropdown', false);
+                this.set('projectCategoryDropdown', false);
+                this.set('projectBudgetDropdown', false);
+                this.set('projectExperienceDropdown', !this.get('projectExperienceDropdown'));
+
+            } else {
+            }
+        },
+        checkedAction: function(checkedboxselection) {
+            $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
+            if ($("#" + checkedboxselection).prop('checked') === false) {
+                this.set(checkedboxselection, false);
+            } else {
+                this.set(checkedboxselection, true);
+            }
+        }
+    },
     init: function() {
         this.set('categorys', this.get("controllers.application").get("categorys"));
         this.set('projectCategorySelection', 'Please Select One ...');
@@ -58,14 +140,6 @@ HubStar.ContactController = Ember.Controller.extend({
         }
 
     },
-    checkedAction: function(checkedboxselection) {
-        $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
-        if ($("#" + checkedboxselection).prop('checked') === false) {
-            this.set(checkedboxselection, false);
-        } else {
-            this.set(checkedboxselection, true);
-        }
-    },
     setSelectedMega: function(id)
     {
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
@@ -84,8 +158,8 @@ HubStar.ContactController = Ember.Controller.extend({
             that.set("selectedMega", tempMega);
             that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
             that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
-            that.set("emaiBCCDestination",that.get("selectedMega").get("owner_contact_bcc_emails"));
-            that.set("ownerTitle",that.get("selectedMega").get("owner_title"));
+            that.set("emaiBCCDestination", that.get("selectedMega").get("owner_contact_bcc_emails"));
+            that.set("ownerTitle", that.get("selectedMega").get("owner_title"));
             idProfile = that.get("selectedMega").get("owner_id");
 
             if (that.get("selectedMega").get("type") === 'profile')
@@ -105,35 +179,6 @@ HubStar.ContactController = Ember.Controller.extend({
 //            });
         });
     },
-    closeContact: function() {
-        var megaController = this.get("controllers.mega");
-        var profileController = this.get("controllers.profile");
-        var articleController = this.get("controllers.article");
-        var videoController = this.get("controllers.video");
-
-        this.set('projectCategoryDropdown', false);
-        this.set('projectTimeframeDropdown', false);
-        this.set('projectBudgetDropdown', false);
-        this.set('projectExperienceDropdown', false);
-        this.set('showCate', false);
-
-        videoController.closeContact();
-        megaController.closeContact();
-        profileController.closeContact();
-        articleController.closeContact();
-    },
-    setEditable: function(attr) {
-        var swtich = "isDisplay" + attr + "Editable";
-        var status = "edit" + attr + "Status";
-        if (this.get(swtich))
-        {
-            this.set(status, "edit");
-        }
-        else {
-            this.set(status, "confirm");
-        }
-        this.set(swtich, !this.get(swtich));
-    },
     emailSend: function()
     {
 
@@ -150,7 +195,7 @@ HubStar.ContactController = Ember.Controller.extend({
         }
         projectSubCategoryItem = projectSubCategoryItem.substring(0, projectSubCategoryItem.length - 1);
         var tempEmail = HubStar.Email.createRecord({
-            "ownerTitle":this.get("ownerTitle"),
+            "ownerTitle": this.get("ownerTitle"),
             "displayName": this.get("displayName"),
             "displayEmail": this.get("displayEmail"),
             'recieveProfile': this.get('recieveProfile'),
@@ -181,40 +226,8 @@ HubStar.ContactController = Ember.Controller.extend({
         this.set('projectBudgetSelection', 'Please Select One ...');
         this.set('projectExperienceSelection', 'Please Select One ...');
         this.set('showCate', false);
-        this.closeContact();
+        this.send("closeContact");
 
-    },
-    dropdown: function(checking) {
-        if (checking === "Category") {
-
-            this.set('projectExperienceDropdown', false);
-            this.set('projectTimeframeDropdown', false);
-            this.set('projectBudgetDropdown', false);
-            this.set('projectCategoryDropdown', !this.get('projectCategoryDropdown'));
-
-        } else if (checking === "Timeframe") {
-
-            this.set('projectExperienceDropdown', false);
-            this.set('projectBudgetDropdown', false);
-            this.set('projectCategoryDropdown', false);
-            this.set('projectTimeframeDropdown', !this.get('projectTimeframeDropdown'));
-
-        } else if (checking === "Budget") {
-
-            this.set('projectExperienceDropdown', false);
-            this.set('projectCategoryDropdown', false);
-            this.set('projectTimeframeDropdown', false);
-            this.set('projectBudgetDropdown', !this.get('projectBudgetDropdown'));
-
-        } else if (checking === "Experience") {
-
-            this.set('projectTimeframeDropdown', false);
-            this.set('projectCategoryDropdown', false);
-            this.set('projectBudgetDropdown', false);
-            this.set('projectExperienceDropdown', !this.get('projectExperienceDropdown'));
-
-        } else {
-        }
     },
     canelDropDown: function()
     {
@@ -222,16 +235,7 @@ HubStar.ContactController = Ember.Controller.extend({
         this.set('projectTimeframeDropdown', false);
         this.set('projectBudgetDropdown', false);
         this.set('projectExperienceDropdown', false);
-    },
-    nextSendingEmailProcess: function() {
-
-        this.set('secondStepOfContactEmail', true);
-        this.set('firstStepOfContactEmail', true);
-        this.selectionCheckBox();
-
-    },
-    proviousSendingEmailProcess: function() {
-        this.set('secondStepOfContactEmail', false);
-        this.set('firstStepOfContactEmail', false);
     }
+
+
 });

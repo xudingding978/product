@@ -66,7 +66,7 @@ HubStar.ArticleView = Ember.View.extend({
                     //$("#showTagSavePhoto").css("left", "0px");
                     that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
                 }
-                that.get("controller").nextImage(event, mouseX, mouseY);
+                that.get("controller").send("nextImage", event, mouseX, mouseY);
             }
         });
         $('#previousarticlephoto').mousedown(function(event) {
@@ -121,7 +121,7 @@ HubStar.ArticleView = Ember.View.extend({
                     // $("#showTagSavePhoto").css("left", "0px");
                     that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
                 }
-                that.get("controller").previesImage(event, mouseX, mouseY);
+                that.get("controller").send("previesImage", event, mouseX, mouseY);
             }
         });
 

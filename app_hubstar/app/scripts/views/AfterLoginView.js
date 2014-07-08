@@ -3,6 +3,40 @@ HubStar.AfterLoginView = Ember.View.extend({
     templateName: 'afterLogin',
     newProfile: false,
     profiles: null,
+    actions: {
+        userDisplaynone: function(checking) {
+            if (checking === "myUserProfile") {
+                location.href = this.get("controller").get("myUserProfile");
+                // $("#user-dd-menu").attr("style", "display:none");
+                this.get("controller").set('userProfile', false);
+                $("#cancel").css("display", "none");
+                $(window).scrollTop(0);
+            } else if (checking === "myMessageBoard") {
+                location.href = this.get("controller").get("myMessageBoard");
+                //$("#user-dd-menu").attr("style", "display:none");
+                this.get("controller").set('userProfile', false);
+                $("#cancel").css("display", "none");
+
+            } else if (checking === "about") {
+
+                window.open('http://about.trendsideas.com/');
+                this.get("controller").set('userProfile', false);
+                $("#user-dd-menu").attr("style", "display:none");
+                $("#cancel").css("display", "none");
+
+            } else if (checking === "new") {
+                $("#cancel").css("display", "none");
+                this.get("controller").set('userProfile', false);
+                this.get("controller").set("newProfile", true);
+            }
+            else if (checking === "newGroup") {
+                location.href = "#/groups/new";
+                this.get("controller").set('userProfile', false);
+                //$("#user-dd-menu").attr("style", "display:none");
+                $("#cancel").css("display", "none");
+            }
+        }
+    },
     willInsertElement: function() {
     },
     didInsertElement: function() {
@@ -28,38 +62,6 @@ HubStar.AfterLoginView = Ember.View.extend({
             this.set("newProfile", false);
             $("#user-dd-menu").show();
             $("#cancel").css("display", "block");
-        }
-    },
-    userDisplaynone: function(checking) {
-        if (checking === "myUserProfile") {
-            location.href = this.get("controller").get("myUserProfile");
-            // $("#user-dd-menu").attr("style", "display:none");
-            this.get("controller").set('userProfile', false);
-            $("#cancel").css("display", "none");
-            $(window).scrollTop(0);
-        } else if (checking === "myMessageBoard") {
-            location.href = this.get("controller").get("myMessageBoard");
-            //$("#user-dd-menu").attr("style", "display:none");
-            this.get("controller").set('userProfile', false);
-            $("#cancel").css("display", "none");
-
-        } else if (checking === "about") {
-
-            window.open('http://about.trendsideas.com/');
-            this.get("controller").set('userProfile', false);
-            $("#user-dd-menu").attr("style", "display:none");
-            $("#cancel").css("display", "none");
-
-        } else if (checking === "new") {
-            $("#cancel").css("display", "none");
-            this.get("controller").set('userProfile', false);
-            this.get("controller").set("newProfile", true);
-        }
-        else if (checking === "newGroup") {
-            location.href = "#/groups/new";
-            this.get("controller").set('userProfile', false);
-            //$("#user-dd-menu").attr("style", "display:none");
-            $("#cancel").css("display", "none");
         }
     },
     cancel: function() {

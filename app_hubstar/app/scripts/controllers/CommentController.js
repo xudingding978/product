@@ -9,6 +9,103 @@ HubStar.CommentController = Ember.Controller.extend({
     willDelete: false,
     objID: "",
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'shareEmail'],
+    actions: {
+        openComment: function(id) {
+
+            if (localStorage.loginStatus) {
+                this.getCommentsById(id);
+
+                this.addComment();
+            } else {
+                HubStar.set('checkLoginStatus', true);
+            }
+        },
+        linkingUser: function(id) {
+
+            self.location = "#/users/" + id;
+
+        },
+        removeComment: function(object)
+        {
+            var message = "Remove this comment?";
+            this.set("message", message);
+            this.set('makeSureDelete', true);
+            if (this.get('willDelete')) {
+                this.removeCommentItem(object);
+                this.send("cancelDelete");
+            } else {
+                this.set("obj", object);
+                this.set('willDelete', true);
+            }
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                $('#masonry_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                    $('#masonry_photo_collection_container').masonry();
+                    $('#masonry_container').masonry();
+                }, 100);
+            }, 200);
+        },
+        editingCommentData: function(obj)
+        {
+            this.get("controllers.editComment").setRelatedController("comment");
+            var id = obj.get("message_id");
+            var msg = obj.get("content");
+            $('#commentItem_' + id).attr('style', 'display:none');
+
+            obj.set("isEdit", true);
+
+            this.send("seeMore", this.get('content').id);
+
+            HubStar.set("updateCommentmsg", msg);
+
+            setTimeout(function() {
+                $('#commentEdit_' + id).attr('style', 'display:block');
+                $('#commentItemIn_' + id).attr('style', 'display:none');
+            }, 200);
+        },
+        seeMore: function(id) {
+            $('#closeComment_' + id).attr('style', 'display:block');
+            $('#showMoreComment_' + id).attr('style', 'display:none');
+
+            $("#commentScrollBar_" + this.get('model').get('getID')).mCustomScrollbar("disable", true);
+
+            $('#commentData_' + this.get('model').get('getID')).attr('style', 'display:block');
+            $('#commentScrollBar_' + this.get('model').get('getID')).removeClass('comment-scroll-bar');
+            $('#commentScrollBar_' + this.get('model').get('getID') + ' > div').attr('class', '');
+            $('#commentScrollBar_' + this.get('model').get('getID') + ' > div').attr('style', 'position: relative; height: 100%; overflow: hidden; max-width: 100%;');
+            $('#commentScrollBar_' + this.get('model').get('getID') + ' > div > .mCSB_container').attr('style', 'position: relative; top: 0px;');
+
+            setTimeout(function() {
+                $('#masonry_container').masonry();
+                $('#masonry_user_container').masonry();
+                $('#masonry_photo_collection_container').masonry();
+            }, 20);
+        },
+        closeMore: function(id) {
+            $('#closeComment_' + id).attr('style', 'display:none');
+            $('#showMoreComment_' + id).attr('style', 'display:block');
+
+
+            $('#commentScrollBar_' + this.get('model').get('getID')).addClass('comment-scroll-bar');
+            $('#commentScrollBar_' + this.get('model').get('getID') + ' > div').attr('class', '');
+            $('#commentScrollBar_' + this.get('model').get('getID') + ' > div').attr('class', 'mCustomScrollBox mCS-dark-2');
+            $('#commentScrollBar_' + this.get('model').get('getID') + ' > div').attr('style', 'position: relative; height: 100%; overflow: hidden; max-width: 100%;max-height: 360px;');
+
+            $("#commentScrollBar_" + this.get('model').get('getID')).mCustomScrollbar("update");
+
+            setTimeout(function() {
+                $('#masonry_container').masonry();
+                $('#masonry_user_container').masonry();
+                $('#masonry_photo_collection_container').masonry();
+            }, 20);
+        },
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
+        }
+    },
     init: function()
     {
         if (localStorage.loginStatus) {
@@ -59,16 +156,6 @@ HubStar.CommentController = Ember.Controller.extend({
             }
         }
     },
-    openComment: function(id) {
-
-        if (localStorage.loginStatus) {
-            this.getCommentsById(id);
-
-            this.addComment();
-        } else {
-            HubStar.set('checkLoginStatus', true);
-        }
-    },
     addComment: function() {
         var commentContent = this.get('commentContent');
         if (commentContent) {
@@ -97,7 +184,7 @@ HubStar.CommentController = Ember.Controller.extend({
             var that = this;
             $(document).ready(function() {
                 setTimeout(function() {
-                    that.seeMore(that.get('mega').get('id'));
+                    that.send("seeMore", that.get('mega').get('id'));
                     $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
                     setTimeout(function() {
                         $('#masonry_user_container').masonry();
@@ -123,29 +210,6 @@ HubStar.CommentController = Ember.Controller.extend({
         }, 100);
 
     },
-    editingCommentData: function(obj)
-    {
-        this.get("controllers.editComment").setRelatedController("comment");
-        var id = obj.get("message_id");
-        var msg = obj.get("content");
-        $('#commentItem_' + id).attr('style', 'display:none');
-
-        obj.set("isEdit", true);
-
-        this.seeMore(this.get('content').id);
-
-        HubStar.set("updateCommentmsg", msg);
-
-        setTimeout(function() {
-            $('#commentEdit_' + id).attr('style', 'display:block');
-            $('#commentItemIn_' + id).attr('style', 'display:none');
-        }, 200);
-    },
-    linkingUser: function(id) {
-
-        self.location = "#/users/" + id;
-
-    },
     getCommentsById: function(id)
     {
         var mega = HubStar.Mega.find(id);
@@ -166,32 +230,6 @@ HubStar.CommentController = Ember.Controller.extend({
                 $('#masonry_photo_collection_container').masonry();
             }, 100);
         }, 200);
-    },
-    removeComment: function(object)
-    {
-        var message = "Remove this comment?";
-        this.set("message", message);
-        this.set('makeSureDelete', true);
-        if (this.get('willDelete')) {
-            this.removeCommentItem(object);
-            this.cancelDelete();
-        } else {
-            this.set("obj", object);
-            this.set('willDelete', true);
-        }
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-            $('#masonry_container').masonry("reloadItems");
-            setTimeout(function() {
-                $('#masonry_user_container').masonry();
-                $('#masonry_photo_collection_container').masonry();
-                $('#masonry_container').masonry();
-            }, 100);
-        }, 200);
-    },
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
     },
     removeCommentItem: function(object)
     {
@@ -259,42 +297,6 @@ HubStar.CommentController = Ember.Controller.extend({
             success: function() {
             }
         });
-    },
-    seeMore: function(id) {
-        $('#closeComment_' + id).attr('style', 'display:block');
-        $('#showMoreComment_' + id).attr('style', 'display:none');
-
-        $("#commentScrollBar_" + this.get('model').get('getID')).mCustomScrollbar("disable", true);
-
-        $('#commentData_' + this.get('model').get('getID')).attr('style', 'display:block');
-        $('#commentScrollBar_' + this.get('model').get('getID')).removeClass('comment-scroll-bar');
-        $('#commentScrollBar_' + this.get('model').get('getID') + ' > div').attr('class', '');
-        $('#commentScrollBar_' + this.get('model').get('getID') + ' > div').attr('style', 'position: relative; height: 100%; overflow: hidden; max-width: 100%;');
-        $('#commentScrollBar_' + this.get('model').get('getID') + ' > div > .mCSB_container').attr('style', 'position: relative; top: 0px;');
-
-        setTimeout(function() {
-            $('#masonry_container').masonry();
-            $('#masonry_user_container').masonry();
-            $('#masonry_photo_collection_container').masonry();
-        }, 20);
-    },
-    closeMore: function(id) {
-        $('#closeComment_' + id).attr('style', 'display:none');
-        $('#showMoreComment_' + id).attr('style', 'display:block');
-
-
-        $('#commentScrollBar_' + this.get('model').get('getID')).addClass('comment-scroll-bar');
-        $('#commentScrollBar_' + this.get('model').get('getID') + ' > div').attr('class', '');
-        $('#commentScrollBar_' + this.get('model').get('getID') + ' > div').attr('class', 'mCustomScrollBox mCS-dark-2');
-        $('#commentScrollBar_' + this.get('model').get('getID') + ' > div').attr('style', 'position: relative; height: 100%; overflow: hidden; max-width: 100%;max-height: 360px;');
-
-        $("#commentScrollBar_" + this.get('model').get('getID')).mCustomScrollbar("update");
-
-        setTimeout(function() {
-            $('#masonry_container').masonry();
-            $('#masonry_user_container').masonry();
-            $('#masonry_photo_collection_container').masonry();
-        }, 20);
     },
     shareDisplay: function(id) {
         $('#share_' + id).children('ul').removeClass("hideClass");
@@ -588,7 +590,7 @@ HubStar.CommentController = Ember.Controller.extend({
             return false;
         }
     },
-   eShare: function() {
+    eShare: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
             var mega = HubStar.Mega.find(this.get('currentUserID'));

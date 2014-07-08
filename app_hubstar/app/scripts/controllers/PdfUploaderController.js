@@ -11,14 +11,9 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
     pdf_desc: "",
     profileMega: null,
     pdfInfromationEdit: false,
-    init: function() {
-        this.setMega();
-    },
-    cancel: function() {
-        this.reset();
-        var profilePdf = this.get('controllers.profilePdf');
-        profilePdf.pdfCreateModeSwitch();
-    },
+    
+    actions:{
+        
     closeUploader: function() {
         this.get('controllers.profilePdf').set('is_pdf_create_mode', false);
         this.set('pdfInfromationEdit', false);
@@ -35,6 +30,8 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
             $('#' + pdf_id).slideToggle(1000);
         }
     },
+    changeCover: function(param) {
+    },   
     saveDetail: function(pdf_id) {
         var pdf = this.seekCurrentPdf(pdf_id);
         if (pdf !== null) {
@@ -49,10 +46,17 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         $('#' + param).slideToggle(1000);
         $('#pdf_id_' + param).slideToggle(200);
 
+    }
     },
-    changeCover: function(param) {
+    init: function() {
+        this.setMega();
     },
-            
+    cancel: function() {
+        this.reset();
+        var profilePdf = this.get('controllers.profilePdf');
+        profilePdf.pdfCreateModeSwitch();
+    },
+         
     seekCurrentPdf: function(pdf_id) {
         var pdf = null;
         for (var i = 0; i < this.get("pdfArray").get('length'); i ++) {
@@ -131,7 +135,7 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         for (var i = 0; i < this.get('pdfArray').get('length'); i++) {
             this.get('pdfArray').objectAt(i).store.save();
         }
-        this.closeUploader();
+        this.send("closeUploader");
     },
     
     setMega: function() {

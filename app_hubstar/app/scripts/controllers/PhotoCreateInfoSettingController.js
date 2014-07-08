@@ -5,6 +5,38 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
     //  content: [],
     photoInfo: [],
     isEditingMode: false,
+    actions:{
+         backToDragAndDrop: function() {
+        this.finishUploadingAndInfo();
+        var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
+
+        masonryCollectionItems.send("newUpload");
+        setTimeout(function() {
+            $('#masonry_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_container').masonry();
+            }, 200);
+        }, 250);
+
+    },
+     submitPhotoInfo: function() {
+        var that = this;
+        var objectLength = this.get("photoInfo").get('length');
+        this.set("photoLength", 0);
+        for (var i = 0; i < objectLength; i++) {
+            var data = this.get('photoInfo').objectAt(i);
+            var photoInfo = HubStar.Photo.find(data.id);
+            that.photoSave(photoInfo, data);
+        }
+    },
+   
+    finishUploadingAndInfo: function() {
+        var photoCreate = this.get('controllers.photoCreate');
+        photoCreate.back();
+    }
+    },
+    
+    
     init: function() {
 
     },
@@ -32,22 +64,7 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
         this.get('controllers.masonryCollectionItems').reLayout();
         this.set('isEditingMode', false);
     },
-    submitPhotoInfo: function() {
-        var that = this;
-        var objectLength = this.get("photoInfo").get('length');
-        this.set("photoLength", 0);
-        for (var i = 0; i < objectLength; i++) {
-            var data = this.get('photoInfo').objectAt(i);
-            var photoInfo = HubStar.Photo.find(data.id);
-            that.photoSave(photoInfo, data);
-        }
-
-
-//        setTimeout(function() {
-//            
-//        }, objectLength * 500);
-
-    },
+   
     photoSave: function(photoInfo, data)
     {
         var objectLength = this.get("photoInfo").get('length');
@@ -72,29 +89,12 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
                     var a = that.get("collection").save();
                     that.get("collection").get("isSaving");
                     a.then(function() {
-                        that.finishUploadingAndInfo();
+                        that.send("finishUploadingAndInfo");
                     });
                 } else {
-                    that.finishUploadingAndInfo();
+                    that.send("finishUploadingAndInfo");
                 }
             }
         });
-    },
-    backToDragAndDrop: function() {
-        this.finishUploadingAndInfo();
-        var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
-
-        masonryCollectionItems.newUpload();
-        setTimeout(function() {
-            $('#masonry_container').masonry("reloadItems");
-            setTimeout(function() {
-                $('#masonry_container').masonry();
-            }, 200);
-        }, 250);
-
-    },
-    finishUploadingAndInfo: function() {
-        var photoCreate = this.get('controllers.photoCreate');
-        photoCreate.back();
     }
 });

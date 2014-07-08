@@ -39,16 +39,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             evt.preventDefault();
         }
     },
-    back: function()
-    {
-        HubStar.set('isNewUpload', true);
-
-        this.set("filesNumber", 0);
-        $('#dragAndDroppArea').attr('style', "display:none");
-        var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
-
-        masonryCollectionItems.back();
-    },
+    
     photoUpload: function()
     {
         HubStar.set('isNewUpload', false);

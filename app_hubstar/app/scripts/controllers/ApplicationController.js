@@ -411,7 +411,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 $("#topResidentialCommerical").css('display', "none");
             } else {
                 console.log(HubStar.get("isTopAdDisplay"));
-;                if (HubStar.get("isTopAdDisplay")) {
+                 if (HubStar.get("isTopAdDisplay")) { 
                     $('#masonry_wrapper').css('top', "240px");
                     console.log("3");
                         $("#top_bar_ads").css({"position": "fixed", "top": "90px"});       

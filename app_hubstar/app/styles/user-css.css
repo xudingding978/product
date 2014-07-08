@@ -531,6 +531,20 @@ textarea.add-interests{
     left: 0;
 }
 
+.useredit-table{
+    padding-right: 147px; 
+    width: 100%; 
+    font-size: 14px;  
+    display: table; 
+    border-spacing: 4px;
+    margin:10px auto;
+}
+
+.useredit-table-row{
+    text-align: right;
+}
+
+
 /*-----------------user talk --------------*/
 .user-talk-main-container{
     z-index: 11; 
@@ -1538,3 +1552,4 @@ notification-context{
 .message-post-action img{
     border: 4px solid #fff;
 }
+

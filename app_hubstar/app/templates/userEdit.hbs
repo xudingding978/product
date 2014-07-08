@@ -19,12 +19,9 @@
             </ul>
         </div>
         <div class="tab-content easing">
-
             <div class="tab-pane active" id="tab1">
                 <div class="user-edit-title">CHANGE COVER</div>
-
                 <div id="dragAndDroppArea" class="dragndropbox user-cover-edit">
-
                     <div class="styleup_uploadbox easing user-edit-upload-box">
                         <i class="fa fa-arrow-circle-o-up fa fa-3x" ></i>
                         <span class="user-edit-upload-box-span-font">Drag & drop a cover image here</span>
@@ -37,17 +34,13 @@
                                     </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
-
                 <div class="user-edit-buttons">
                     <div class="new-btn blue-btn user-edit-choose-button">
                         <i class="fa fa-arrow-circle-o-up"> &nbsp;Choose</i>
                         <div> {{view HubStar.SingleImageInputButtonView }}</div>
                     </div>
-
                     <div class="user-edit-crop-button" >
 
                         {{#if controller.isCrop}}
@@ -62,90 +55,62 @@
                         {{/if}} 
                         <span class="new-btn flip-back"{{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
                     </div>
-
-
                 </div>
-
-
             </div>
 
-
-
-
             <div class="tab-pane" id="tab2">
-
-                <div class="user-edit-title">GENERAL SETTINGS</div>
-
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" class="profilesnew-table" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin:10px auto;">
-                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-
-                        <tr>
-                            <td>User Name:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="displayName"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=display_name}}
-
-                                    </div>
+                <div class="user-edit-title">GENERAL SETTINGS</div>               
+                <div class="profilesnew-table useredit-table" >
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell" style="width: 30%;" >User Name:</div>
+                        <div class="table-cell" style=" margin: 0 20px; display: block;" >
+                            <div  id="displayName"  style="margin: 0;width: 100%;">
+                                {{input type="text" value=display_name}}
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: table-row; text-align: right;"> 
+                        <div style="display: table-cell; width: 30%;">Name*:</div>
+                        <div style="display: table-cell; margin: 0 20px; display: block; margin-bottom: 5px;" >
+                            <div  id="first_name" style="margin: 0;width: 49%;display: inline-block;">
+                                {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
+                            </div>
+                            <div id="last_name" style="margin: 0;width: 49%;display: inline-block;">
+                                {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
+                            </div>
+                        </div>             
+                    </div>
+                    <div style="display: table-row; text-align: right;">
+                        <div style="display: table-cell; width: 30%;">Email:</div>
+                        <div style="display: table-cell; margin: 0 20px; display: block;">
+                            <div style="display: block;">
+                                <div  id="email" class="disabled-btn" style="width: 100%;">
+                                    {{email}}
                                 </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Name*:</td>
-                            <td>
-                                <div  style="display: block; margin-bottom: 5px;" >
-
-                                    <div  id="first_name" style="margin: 0;width: 49%;display: inline-block;">
-                                        {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
-                                    </div>
-                                    <div id="last_name" style="margin: 0;width: 49%;display: inline-block;">
-                                        {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
-                                    </div>
-
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: table-row; text-align: right;">
+                        <div style="display: table-cell; width: 30%;">About me:</div>
+                        <div style="display: table-cell; margin: 0 20px; display: block;">
+                            <div style="display: block;">
+                                <div  id="about_me" style="margin: 0;width: 100%; height:100px;">
+                                    {{view Ember.TextArea valueBinding="about_me" class="no-resize" placeholder="Say something interesting about yourself (Maximum 430 characters)." }}
                                 </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Email:</td>
-                            <td>
-                                <div style="display: block;">
-
-                                    <div  id="email" class="disabled-btn" style="margin: 0;width: 100%;top:0">
-                                        {{email}}
-                                    </div>
-
-
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: table-row; text-align: right;">
+                        <div style="display: table-cell; width: 30%;"> Location:</div>
+                        <div style="display: table-cell; margin: 0 20px; display: block;">
+                            <div style="display: block;" >
+                                <div id="location"  style="margin: 0;width: 100%;">
+                                    {{input type="text" value=location }}
                                 </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>About me:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="about_me" style="margin: 0;width: 100%; height:100px;">
-                                        {{view Ember.TextArea valueBinding="about_me" class="no-resize" placeholder="Say something interesting about yourself (Maximum 430 characters)." }}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td> Location:</td>
-                            <td>
-                                <div style="display: block;" >
-                                    <div id="location"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=location }}
-                                    </div>
-                                </div>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                            </div>
+                        </div>
+                    </div>                   
+                </div>
                 <div style="right: 0;margin:10px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action saveUpdate}}>Save</span>
                     <span class="new-btn flip-back" {{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
@@ -154,92 +119,83 @@
             </div>
 
             <div class="tab-pane" id="tab3">
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">SOCIAL LINKS</div>
-
-                <table class="profilesnew-table" style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 10px auto;">
-                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-
-                        <tr>
-                            <td>Facebook:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="facebook" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=facebook placeholder="eg:www.facebook.com"}}
-                                    </div>
+                <div class="user-edit-title">SOCIAL LINKS</div>
+                <div class="profilesnew-table" style="padding-right: 147px; width: 100%; font-size: 14px;  display: table; border-spacing: 4px;margin:10px auto;">
+                    <div style="display: table-row; text-align: right;">
+                        <div style="display: table-cell; width: 30%;" >Facebook:</div>
+                        <div style="display: table-cell; margin: 0 20px; display: block;" >
+                            <div  id="facebook" style="margin: 0;width: 100%;">
+                                {{input type="text" value=facebook placeholder="eg:www.facebook.com"}}
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: table-row; text-align: right;">
+                        <div style="display: table-cell; width: 30%;">Twitter:</div>
+                        <div style="display: table-cell; margin: 0 20px; display: block;">
+                            <div style="display: block;">
+                                <div  id="twitter" style="margin: 0;width: 100%;">
+                                    {{input type="text" value=twitter placeholder="eg:www.twitter.com"}}
                                 </div>
-                            </td>
-                        </tr>
+                            </div>
+                        </div>
+                    </div>
 
-                        <tr>
-                            <td>Twitter:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="twitter" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=twitter placeholder="eg:www.twitter.com"}}
-                                    </div>
+                    <div style="display: table-row; text-align: right;">
+                        <div style="display: table-cell; width: 30%;">Google+:</div>
+                        <div style="display: table-cell; margin: 0 20px; display: block;">
+                            <div style="display: block;">
+                                <div id="googleplus"  style="margin: 0;width: 100%;">
+                                    {{input type="text" value=googleplus placeholder="eg:plus.google.com"}}
                                 </div>
-                            </td>
-                        </tr>
+                            </div>
+                        </div>
+                    </div>
 
-                        <tr>
-                            <td>Google+:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div id="googleplus"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=googleplus placeholder="eg:plus.google.com"}}
-                                    </div>
+                    <div style="display: table-row; text-align: right;">
+                        <div style="display: table-cell; width: 30%;">Pinterest:</div>
+                        <div style="display: table-cell; margin: 0 20px; display: block;">
+                            <div style="display: block;">
+                                <div  id="pinterest"  style="margin: 0;width: 100%;">
+                                    {{input type="text" value=pinterest placeholder="eg:www.pinterest.com"}}
                                 </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Pinterest:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="pinterest"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=pinterest placeholder="eg:www.pinterest.com"}}
-                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: table-row; text-align: right;">
+                        <div style="display: table-cell; width: 30%;">Linkedin:</div>
+                        <div style="display: table-cell; margin: 0 20px; display: block;">
+                            <div style="display: block;">
+                                <div id="linkedin"  style="margin: 0;width: 100%;">
+                                    {{input type="text" value=linkedin placeholder="eg:www.linkedin.com"}}
                                 </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Linkedin:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div id="linkedin"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=linkedin placeholder="eg:www.linkedin.com"}}
-                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div style="display: table-row; text-align: right;">
+                        <div style="display: table-cell; width: 30%;">Youtube:</div>
+                        <div style="display: table-cell; margin: 0 20px; display: block;">
+                            <div style="display: block;">
+                                <div  id="youtube" style="margin: 0;width: 100%;">
+                                    {{input type="text" value=youtube placeholder="eg:www.youtube.com" }}
                                 </div>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Youtube:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="youtube" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=youtube placeholder="eg:www.youtube.com" }}
-                                    </div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <div style="display: table-row; text-align: right;">
+                        <div style="display: table-cell; width: 30%;">Instagram:</div>
+                        <div style="display: table-cell; margin: 0 20px; display: block;">
+                            <div style="display: block;">
+                                <div  id="Instagram" style="margin: 0;width: 100%;">
+                                    {{input type="text" value=Instagram placeholder="eg:www.instagram.com" }}
                                 </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Instagram:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="Instagram" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=Instagram placeholder="eg:www.instagram.com" }}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-
-                <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                            </div>
+                        </div>
+                    </div>                                  
+                </div>
+                <div style="right: 0;margin: 10px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action saveSociallinkUpdate}} >Save</span>
                     <span class="new-btn flip-back"{{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
                 </div>
@@ -247,47 +203,33 @@
             </div>
             {{#unless identifier}}
             <div class="tab-pane" id="tab4">
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">SECURITY</div>
-
-                <table class="profilesnew-table" style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
-                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-
-                        <tr>
-                            <td>Current Password:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div id="password"  style="margin: 0;width: 100%;">
-                                        {{input type="password" value=oldpassword placeholder="" style="padding: 1px 6px;"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>New Password:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{input type="password" value=newpassword placeholder="Minimum 6 characters" style="padding: 1px 6px;"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Confirm New Password:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{input type="password" value=repeatnew placeholder="Confirm new password" style="padding: 1px 6px;"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-
+                <div class="user-edit-title">SECURITY</div>
+                <div class="profilesnew-table" style="padding-right: 147px; width: 100%; font-size: 14px;  display: table; border-spacing: 4px;margin:10px auto;">
+                    <div style="display: table-row; text-align: right;">
+                        <div style="display: table-cell; width: 30%;" >Current Password:</div>
+                        <div style="display: table-cell; margin: 0 20px; display: block;" >
+                             <div id="password"  style="margin: 0;width: 100%;">
+                                  {{input type="password" value=oldpassword placeholder="" style="padding: 1px 6px;"}}
+                             </div>
+                        </div>
+                    </div>
+                    <div style="display: table-row; text-align: right;">
+                        <div style="display: table-cell; width: 30%;" >New Password:</div>
+                        <div style="display: table-cell; margin: 0 20px; display: block;" >
+                             <div style="margin: 0;width: 100%;">
+                                  {{input type="password" value=newpassword placeholder="Minimum 6 characters" style="padding: 1px 6px;"}}
+                             </div>
+                        </div>
+                    </div>
+                    <div style="display: table-row; text-align: right;">
+                        <div style="display: table-cell; width: 30%;" >Confirm New Password:</div>
+                        <div style="display: table-cell; margin: 0 20px; display: block;" >
+                             <div style="margin: 0;width: 100%;">
+                                 {{input type="password" value=repeatnew placeholder="Confirm new password" style="padding: 1px 6px;"}}
+                             </div>
+                        </div>
+                    </div>                          
+                </div>
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action savePassword}} >Save</span>
                     <span class="new-btn flip-back"{{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
@@ -296,7 +238,7 @@
             </div>          
             {{/unless}}
             <div class="tab-pane" id="tab5">
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">NOTIFICATION</div>
+                <div class="user-edit-title">NOTIFICATION</div>
                 <div style="margin: 10px 40px;"> 
                     <span style="font-size: 15px; font-weight: bold; color: #555;">How You Get Notifications:</span>
                     {{#each controller.subcateMethod}}
@@ -326,7 +268,7 @@
             </div>
             {{#if HubStar.profile_manager}}
             <div class="tab-pane" id="tab6">
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">YOUR BUSINESS PROFILES</div>
+                <div class="user-edit-title">YOUR BUSINESS PROFILES</div>
 
 
                 <div id="user_profiles"> 
@@ -443,11 +385,4 @@
 
     </div>
     {{/if}}
-
-
-
-
-
 </div>
-
-

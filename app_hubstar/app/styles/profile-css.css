@@ -2477,11 +2477,11 @@ div#appfeedback .fresh-message > i.fa-times{
     max-width: 300px;
 }
 .profile-row{
-    display:table-row;
+    display: table-row;
 }
 
 .profile-row > .profile-col1{
-    display:table-cell;
+    display: table-cell;
     text-align: right; 
     width: 25%;
 }
@@ -3609,7 +3609,7 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .table-row{
-    display:table-row;
+    display: table-row;
 }
 
 .table-cell{

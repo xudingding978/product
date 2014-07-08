@@ -27,7 +27,7 @@ HubStar.PartnersRoute = Ember.Route.extend({
                 }, 50);
             });
             this.controllerFor('profilePartners').getClientId(model);
-            this.controllerFor('profile').selectPartner(model);
+            this.controllerFor('profile').send("selectPartner",model);
 
         }
     },

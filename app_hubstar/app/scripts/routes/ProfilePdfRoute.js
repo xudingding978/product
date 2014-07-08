@@ -29,11 +29,11 @@ HubStar.ProfilePdfRoute = Ember.Route.extend({
             }
             else
             {
-                this.controllerFor('profile').selectPdf(model);
+                this.controllerFor('profile').send("selectPdf",model);
             }
         }
         else {
-            this.controllerFor('profile').selectPdf(model);
+            this.controllerFor('profile').send("selectPdf",model);
         }
 
 

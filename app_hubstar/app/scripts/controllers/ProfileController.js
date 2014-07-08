@@ -189,6 +189,132 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     }
                 }
             }
+        },
+        partnerSearch: function()
+        {
+            if (this.get('partnerSearchString') !== null && this.get('partnerSearchString') !== '') {
+                var profilePartnersController = this.get("controllers.profilePartners");
+                profilePartnersController.searchPartner(this.get('partnerSearchString'));
+            }
+        },
+        partnerSearchReset: function(model)
+        {
+            var profilePartnersController = this.get("controllers.profilePartners");
+            this.set('partnerSearchString', '');
+            profilePartnersController.getClientId(model);
+        },
+        selectCollection: function() {
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $('#defualt').addClass('selected-user-stats');
+            this.sendEventTracking('event', 'button', 'click', 'Collections');
+            this.set('partnerPage', 'Collections');
+            this.set('profileSelectionStatus', 'Collections');
+            this.set('partnerTag', false);
+            this.set('followerProfileTag', false);
+            this.set('collectionTag', true);
+            this.set('reviewTag', false);
+            this.set('videoTag', false);
+            this.set('pdfTag', false);
+            this.transitionToRoute('profileCollections');
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                    $('html,body').animate({
+                        scrollTop: $("#profile_submenu").offset().top - 100
+                    });
+                }, 200);
+            }, 250);
+        },
+        selectVideo: function(model) {
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                this.sendEventTracking('event', 'button', 'click', 'Video');
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $('#video').addClass('selected-user-stats');
+                this.set('profileSelectionStatus', 'Videos');
+                this.get('controllers.profileVideos').getClientId(model);
+                this.set('videoTag', true);
+                this.set('pdfTag', false);
+                this.set('partnerTag', false);
+                this.set('collectionTag', false);
+                this.set('reviewTag', false);
+                this.set('followerProfileTag', false);
+                this.transitionToRoute('profileVideos');
+            }
+        },
+        selectPartner: function() {
+
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                this.sendEventTracking('event', 'button', 'click', 'Partners');
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $('#network').addClass('selected-user-stats');
+                this.set('profileSelectionStatus', 'Network');
+                this.set('partnerTag', true);
+                this.set('collectionTag', false);
+                this.set('followerProfileTag', false);
+                this.set('reviewTag', false);
+                this.get('controllers.itemProfiles').setPartnerRemove();
+                this.set('videoTag', false);
+                this.set('pdfTag', false);
+                this.transitionToRoute('partners');
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry("reloadItems");
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry();
+                        $('html,body').animate({
+                            scrollTop: $("#profile_submenu").offset().top - 100
+                        });
+                    }, 100);
+                }, 250);
+            }
+        },
+        selectFollower: function() {
+
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                this.sendEventTracking('event', 'button', 'click', 'Followers');
+                this.set('profileSelectionStatus', 'Followers');
+                this.set('partnerTag', false);
+                this.set('collectionTag', false);
+                this.set('followerProfileTag', true);
+                this.set('reviewTag', false);
+                this.set('videoTag', false);
+                this.set('pdfTag', false);
+                this.transitionToRoute('profileFollowers');
+            }
+        },
+        selectReview: function() {
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                this.sendEventTracking('event', 'button', 'click', 'Reviews');
+                this.set('profileSelectionStatus', 'Reviews');
+                this.set('partnerTag', false);
+                this.set('collectionTag', false);
+                this.set('followerProfileTag', false);
+                this.set('reviewTag', true);
+                this.set('videoTag', false);
+                this.set('pdfTag', false);
+                this.transitionToRoute('reviews');
+            }
+        },
+        selectPdf: function(model) {
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                this.sendEventTracking('event', 'button', 'click', 'PDF');
+                this.set('profileSelectionStatus', 'Pdf');
+                this.get('controllers.profilePdf').getClientId(model);
+                this.set('videoTag', false);
+                this.set('pdfTag', true);
+                this.set('partnerTag', false);
+                this.set('collectionTag', false);
+                this.set('reviewTag', false);
+                this.set('followerProfileTag', false);
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $('#pdf').addClass('selected-user-stats');
+                this.transitionToRoute('profilePdf');
+            }
         }
     },
     init: function() {
@@ -1126,119 +1252,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }, 200);
         }, 250);
     },
-    selectCollection: function() {
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#defualt').addClass('selected-user-stats');
-        this.sendEventTracking('event', 'button', 'click', 'Collections');
-        this.set('partnerPage', 'Collections');
-        this.set('profileSelectionStatus', 'Collections');
-        this.set('partnerTag', false);
-        this.set('followerProfileTag', false);
-        this.set('collectionTag', true);
-        this.set('reviewTag', false);
-        this.set('videoTag', false);
-        this.set('pdfTag', false);
-        this.transitionToRoute('profileCollections');
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-            setTimeout(function() {
-                $('#masonry_user_container').masonry();
-                $('html,body').animate({
-                    scrollTop: $("#profile_submenu").offset().top - 100
-                });
-            }, 200);
-        }, 250);
-    },
-    selectVideo: function(model) {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            this.sendEventTracking('event', 'button', 'click', 'Video');
-            $('#user-stats > li').removeClass('selected-user-stats');
-            $('#video').addClass('selected-user-stats');
-            this.set('profileSelectionStatus', 'Videos');
-            this.get('controllers.profileVideos').getClientId(model);
-            this.set('videoTag', true);
-            this.set('pdfTag', false);
-            this.set('partnerTag', false);
-            this.set('collectionTag', false);
-            this.set('reviewTag', false);
-            this.set('followerProfileTag', false);
-            this.transitionToRoute('profileVideos');
-        }
-    },
-    selectPartner: function() {
-
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            this.sendEventTracking('event', 'button', 'click', 'Partners');
-            $('#user-stats > li').removeClass('selected-user-stats');
-            $('#network').addClass('selected-user-stats');
-            this.set('profileSelectionStatus', 'Network');
-            this.set('partnerTag', true);
-            this.set('collectionTag', false);
-            this.set('followerProfileTag', false);
-            this.set('reviewTag', false);
-            this.get('controllers.itemProfiles').setPartnerRemove();
-            this.set('videoTag', false);
-            this.set('pdfTag', false);
-            this.transitionToRoute('partners');
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
-                setTimeout(function() {
-                    $('#masonry_user_container').masonry();
-                    $('html,body').animate({
-                        scrollTop: $("#profile_submenu").offset().top - 100
-                    });
-                }, 100);
-            }, 250);
-        }
-    },
-    selectFollower: function() {
-
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            this.sendEventTracking('event', 'button', 'click', 'Followers');
-            this.set('profileSelectionStatus', 'Followers');
-            this.set('partnerTag', false);
-            this.set('collectionTag', false);
-            this.set('followerProfileTag', true);
-            this.set('reviewTag', false);
-            this.set('videoTag', false);
-            this.set('pdfTag', false);
-            this.transitionToRoute('profileFollowers');
-        }
-    },
-    selectReview: function() {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            this.sendEventTracking('event', 'button', 'click', 'Reviews');
-            this.set('profileSelectionStatus', 'Reviews');
-            this.set('partnerTag', false);
-            this.set('collectionTag', false);
-            this.set('followerProfileTag', false);
-            this.set('reviewTag', true);
-            this.set('videoTag', false);
-            this.set('pdfTag', false);
-            this.transitionToRoute('reviews');
-        }
-    },
-    selectPdf: function(model) {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            this.sendEventTracking('event', 'button', 'click', 'PDF');
-            this.set('profileSelectionStatus', 'Pdf');
-            this.get('controllers.profilePdf').getClientId(model);
-            this.set('videoTag', false);
-            this.set('pdfTag', true);
-            this.set('partnerTag', false);
-            this.set('collectionTag', false);
-            this.set('reviewTag', false);
-            this.set('followerProfileTag', false);
-            $('#user-stats > li').removeClass('selected-user-stats');
-            $('#pdf').addClass('selected-user-stats');
-            this.transitionToRoute('profilePdf');
-        }
-    },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
         var textarea = document.getElementById("wysihtml5-editor");
@@ -1838,19 +1851,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.get('controllers.applicationFeedback').statusObserver(null, "This keyword has already been added to your display list.", "warnning");
             }
         }
-    },
-    partnerSearch: function()
-    {
-        if (this.get('partnerSearchString') !== null && this.get('partnerSearchString') !== '') {
-            var profilePartnersController = this.get("controllers.profilePartners");
-            profilePartnersController.searchPartner(this.get('partnerSearchString'));
-        }
-    },
-    partnerSearchReset: function(model)
-    {
-        var profilePartnersController = this.get("controllers.profilePartners");
-        this.set('partnerSearchString', '');
-        profilePartnersController.getClientId(model);
     }
 
 }

@@ -160,7 +160,7 @@ HubStar.ApplicationView = Ember.View.extend({
             });
         }
         if (this.isScrolledToBottom() && HubStar.get('isMansonryPageLoad')) {
-            this.get('controller').scrollDownAction();
+            this.get('controller').send("scrollDownAction");
 
         }
     },

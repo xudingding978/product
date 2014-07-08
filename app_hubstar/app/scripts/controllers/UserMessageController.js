@@ -128,6 +128,20 @@ HubStar.UserMessageController = Ember.Controller.extend({
                     that.set('newStyleImageName', "");
                 });
             }
+        },
+        removeMessageItem: function(s)
+        {
+            var message = "Remove this post?";
+            this.set("message", message);
+            this.set('makeSureDelete', true);
+            this.set('isUserMessage', true);
+            if (this.get('willDelete') === true) {
+                this.removeMessage(s);
+                this.cancelDelete();
+            } else {
+                this.set("s", s);
+                this.set('willDelete', true);
+            }
         }
     },
     init: function()
@@ -301,20 +315,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
         });
     }
     ,
-    removeMessageItem: function(s)
-    {
-        var message = "Remove this post?";
-        this.set("message", message);
-        this.set('makeSureDelete', true);
-        this.set('isUserMessage', true);
-        if (this.get('willDelete') === true) {
-            this.removeMessage(s);
-            this.cancelDelete();
-        } else {
-            this.set("s", s);
-            this.set('willDelete', true);
-        }
-    },
     cancelDelete: function() {
         this.set('willDelete', false);
         this.set('makeSureDelete', false);

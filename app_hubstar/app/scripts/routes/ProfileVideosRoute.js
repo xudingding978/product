@@ -9,11 +9,11 @@ HubStar.ProfileVideosRoute = Ember.Route.extend({
             }
             else
             {
-                this.controllerFor('profile').selectVideo(model);
+                this.controllerFor('profile').send("selectVideo",model);
             }
         }
         else {
-            this.controllerFor('profile').selectVideo(model);
+            this.controllerFor('profile').send("selectVideo",model);
         }
     },
     model: function(params) {

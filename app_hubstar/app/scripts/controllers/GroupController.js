@@ -30,6 +30,28 @@ HubStar.GroupController = Ember.Controller.extend({
     topic: [],
     subCategory: "",
     Category: "",
+    actions: {
+        selectPartner1: function() {
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $('.new-masonry-bar > ul > li').removeClass('new-selected');
+                    $('#networkGroup1').addClass('new-selected');
+                }, 2);
+            });
+        },
+        selectPartner: function()
+        {
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $('.new-masonry-bar > ul > li').removeClass('new-selected');
+                    $('#networkGroup').addClass('new-selected');
+                }, 2);
+            });
+            this.set("groupNetwork", true);
+            this.set('profileSelectionStatus', 'Network');
+            this.transitionToRoute('groupNetwork');
+        }
+    },
     init: function()
     {
     },
@@ -42,7 +64,7 @@ HubStar.GroupController = Ember.Controller.extend({
         this.set("createTime", date + "");
         var that = this;
         setTimeout(function() {
-            that.selectPartner();
+            that.send("selectPartner");
         }, 2);
         this.setPic();
         this.set("editGroup", false);
@@ -382,26 +404,6 @@ HubStar.GroupController = Ember.Controller.extend({
         {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please type in group name");
         }
-    },
-    selectPartner1: function() {
-        $(document).ready(function() {
-            setTimeout(function() {
-                $('.new-masonry-bar > ul > li').removeClass('new-selected');
-                $('#networkGroup1').addClass('new-selected');
-            }, 2);
-        });
-    },
-    selectPartner: function()
-    {
-        $(document).ready(function() {
-            setTimeout(function() {
-                $('.new-masonry-bar > ul > li').removeClass('new-selected');
-                $('#networkGroup').addClass('new-selected');
-            }, 2);
-        });
-        this.set("groupNetwork", true);
-        this.set('profileSelectionStatus', 'Network');
-        this.transitionToRoute('groupNetwork');
     },
     chooseBudget: function(n, s) {
         var that = this;

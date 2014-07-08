@@ -1167,6 +1167,17 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
     },
     closeWindow: function() {
+        
+        HubStar.set('ctaView', false);
+        
+              setTimeout(function(){
+           if ($(window).width() > 1200) {
+                    $("#cta-popup").removeClass("cta-popup-small-top");
+                } else {
+                    $("#cta-popup").addClass("cta-popup-small-top");
+                }
+       },1);     
+
 
         this.set('image_no', 1);
         this.set('collectable', false);
@@ -1247,8 +1258,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         } else {
             this.transitionTo("searchIndexTom");
         }
-           
-        HubStar.set('ctaView', false);
+          
         
     },
     editingContactForm: function() {

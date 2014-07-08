@@ -141,6 +141,16 @@ HubStar.VideoController = Ember.Controller.extend({
         }
     },
     closeWindow: function() {
+        
+         HubStar.set('ctaView', false);
+       setTimeout(function(){
+           if ($(window).width() > 1200) {
+                    $("#cta-popup").removeClass("cta-popup-small-top");
+                } else {
+                    $("#cta-popup").addClass("cta-popup-small-top");
+                }
+       },1);                
+           
        
         this.set('collectable', false);
         this.set('contact', false);
@@ -192,7 +202,7 @@ HubStar.VideoController = Ember.Controller.extend({
         else {
             window.history.back();
         }
-        HubStar.set('ctaView', false);
+       
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
         setTimeout(function() {
             $('#masonry_container').masonry();  //masonry();

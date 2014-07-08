@@ -38,9 +38,17 @@ HubStar.SearchRoute = Ember.Route.extend({
 
         if (HubStar.get("checkLoginStatus")) {
             if (HubStar.get('showDiscoveryBar')) {
-            //    HubStar.set('ctaView', true);
+                //    HubStar.set('ctaView', true);
             } else {
                 HubStar.set('ctaView', false);
+                setTimeout(function() {
+                    if ($(window).width() > 1200) {
+                        $("#cta-popup").removeClass("cta-popup-small-top");
+                    } else {
+                        $("#cta-popup").addClass("cta-popup-small-top");
+                    }
+                }, 1);
+
             }
         }
     },

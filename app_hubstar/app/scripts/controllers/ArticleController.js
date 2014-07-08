@@ -831,6 +831,14 @@ HubStar.ArticleController = Ember.Controller.extend({
             }
 
         }
+        setTimeout(function(){
+           if ($(window).width() > 1200) {
+                    $("#cta-popup").removeClass("cta-popup-small-top");
+                } else {
+                    $("#cta-popup").addClass("cta-popup-small-top");
+                }
+       },1);     
+
     },
     switchCollection: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

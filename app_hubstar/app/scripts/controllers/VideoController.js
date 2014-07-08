@@ -5,6 +5,341 @@ HubStar.VideoController = Ember.Controller.extend({
     currentUser: null,
     enableToEdit: false,
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'itemFunction', 'shareEmail'],
+    actions: {
+        switchCollection: function() {
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                var addCollectionController = this.get('controllers.addCollection');
+                var selectid = this.get('megaResouce').id;
+                addCollectionController.setImageID(selectid);
+                var tempUrl = this.get('megaResouce').get('object_image_url');
+                addCollectionController.setThumbnailUrl(tempUrl);
+                addCollectionController.setUser();
+                addCollectionController.setRelatedController('video');
+                this.set('collectable', !this.get('collectable'));
+            }
+        },
+        dropdownPhotoSetting: function(param) {
+            var tempUrl = this.get('megaResouce').get('object_image_url');
+            this.set('sharePhotoUrl', tempUrl);
+            this.set('sharePhotoName', "test");
+            $('#dropdown_id_' + param).toggleClass('hideClass');
+        },
+        // share to social facebook
+        fbShare: function(param) {
+            this.dropdownPhotoSetting(param);
+            var that = this;
+            var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
+            var caption = '';
+
+            if (this.get('megaResouce').get('object_description') !== null)
+            {
+                caption = this.get('megaResouce').get('object_description');
+            }
+            else
+            {
+                caption = '';
+            }
+
+            var obj = {
+                method: 'feed',
+                link: currntUrl,
+                picture: this.getImageURL(),
+                name: this.get('videoObject').get("videoTitle"),
+                caption: 'Trends Ideas',
+                description: caption
+            };
+
+            function callback(response) {
+                if (response && response.post_id) {
+                    var mega = HubStar.Mega.find(that.get('megaResouce').get('id'));
+                    mega.then(function() {
+                        if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                        {
+                            mega.set("share_count", 0);
+                        }
+                        else
+                        {
+                            mega.set("share_count", mega.get("share_count") + 1);
+                        }
+                        mega.store.save();
+                    });
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Video shared successfully!");
+                } else {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
+                }
+            }
+
+            FB.ui(obj, callback);
+
+            return false;
+        },
+        //share to social google plus
+        gpShare: function(param) {
+            this.dropdownPhotoSetting(param);
+            var caption = '';
+            if (this.get('megaResouce').get('object_description') !== null)
+            {
+                caption = this.get('megaResouce').get('object_description');
+            }
+            else
+            {
+                caption = '';
+            }
+
+            $("meta[property='og\\:title']").attr("content", this.get('videoObject').get("videoTitle"));
+            $("meta[property='og\\:description']").attr("content", caption);
+            $("meta[property='og\\:image']").attr("content", this.getImageURL());
+            var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
+            var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+
+            var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+            window.open(
+                    url,
+                    'popupwindow',
+                    'scrollbars=yes,width=800,height=400'
+                    ).focus();
+
+            return false;
+        },
+        //share to social twitter
+        tShare: function(param) {
+            this.dropdownPhotoSetting(param);
+            var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
+            var url = 'https://twitter.com/share?text=' + this.get('videoObject').get("videoTitle") + '&url=' + encodeURIComponent(currntUrl);
+            var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+            window.open(
+                    url,
+                    'popupwindow',
+                    'height=436,width=626'
+                    ).focus();
+            return false;
+        },
+        pShare: function(param) {
+            this.dropdownPhotoSetting(param);
+            var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
+            var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                    '&media=' + encodeURIComponent(this.getImageURL()) +
+                    '&description=' + encodeURIComponent(this.get('videoObject').get("videoTitle"));
+            var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+            window.open(
+                    url,
+                    'popupwindow',
+                    'height=436,width=626'
+                    ).focus();
+            return false;
+        },
+        eShare: function() {
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                this.set('descript', this.get('videoObject').get("videoTitle"));
+                var currentUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
+                var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
+                mega.then(function() {
+                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                    {
+                        mega.set("share_count", 0);
+                    }
+                    else
+                    {
+                        mega.set("share_count", mega.get("share_count") + 1);
+                    }
+                    mega.store.save();
+                });
+
+                var shareEmailController = this.get('controllers.shareEmail');
+                var selectid = this.get('megaResouce').id;
+                ;
+                shareEmailController.setImageID(selectid);
+                var tempUrl = this.get('megaResouce').get('object_image_url');
+                shareEmailController.setThumbnailUrl(tempUrl);
+                shareEmailController.setUrl(currentUrl);
+                shareEmailController.setUser();
+                shareEmailController.setRelatedController('video');
+                shareEmailController.setSelectedMega(selectid);
+                shareEmailController.setTitle(this.get('descript'));
+                this.set("isShareEmail", true);
+//        this.get("controllers.shareEmail").getClientId(this.get("Id"));
+
+            }
+        },
+        closeWindow: function() {
+            this.set('collectable', false);
+            this.set('contact', false);
+            var address = document.URL;
+            var object_type = address.split("#")[1].split("/")[1];
+            var search_id = address.split("#")[1].split("/")[2];
+            var collection_id = address.split("#")[1].split("/")[6];
+            if (object_type === "photos" || object_type === "articles" || object_type === "videos")
+            {
+                var m = HubStar.Mega.find(search_id);
+                this.transitionToRoute("search", {id: m.get("owner_title")});
+            }
+            else if (object_type === "search") //search from the seach board
+            {
+                if (search_id === "default") //it is the search index
+                {
+                    this.transitionToRoute("searchIndexTom");
+                }
+                else
+                {
+                    HubStar.set("escVideo", true);
+                    this.transitionToRoute("search", {id: search_id}); // go to search page, this can  work, but it is too slowlly.
+                }
+            }
+            else if (object_type === "users")
+            {
+                var photoObject = HubStar.Mega.find(collection_id);
+
+                this.transitionToRoute("userPhoto", photoObject); //user photo
+            }
+            else if (object_type === "profiles")
+            {
+                if (address.split("#")[1].split("/")[4] === "videos")
+                {
+                    var that = this;
+                    that.transitionToRoute("profile");
+                    setTimeout(function() {
+                        that.transitionToRoute("profileVideos");
+                    }, 30);
+                } else {
+                    var photoObject = HubStar.Mega.find(collection_id);
+
+                    this.transitionToRoute("profilePhoto", photoObject); // profile photo
+                }
+            }
+            else {
+                window.history.back();
+            }
+            $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+            setTimeout(function() {
+                $('#masonry_container').masonry();  //masonry();
+            }, 300);
+        },
+        editingContactForm: function() {
+
+
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                var contactController = this.get('controllers.contact');
+                var selectid = this.get('megaResouce').id;
+                contactController.setSelectedMega(selectid);
+                contactController.selectionCheckBox();
+
+                this.set('contact', !this.get('contact'));
+            }
+        },
+        addLike: function() {
+            var controller = this.get('controllers.itemFunction');
+//            controller.addLike(this.get('megaResouce').get('id'));
+            controller.send("addLike", this.get('megaResouce').get('id'));
+        },
+        unLike: function() {
+            var controller = this.get('controllers.itemFunction');
+            //controller.unLike(this.get('megaResouce').get('id'));
+            controller.send("unLike", this.get('megaResouce').get('id'));
+        },
+        editingPhotoMegaData: function() {
+            this.set('enableToEdit', !this.get('enableToEdit'));
+        },
+        yes: function()
+        {
+            this.get('megaResouce').store.save();
+            this.set('enableToEdit', !this.get('enableToEdit'));
+        },
+        no: function() {
+            if (this.get('megaResouce').get("isDirty")) {
+                this.get('megaResouce').rollback();
+            }
+            this.set('enableToEdit', !this.get('enableToEdit'));
+        },
+        addComment: function() {
+
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                var commentContent = this.get('commentContent');
+                if (commentContent) {
+                    var comments = this.get('megaResouce').get('comments');
+                    var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
+                    var commenter_id = this.get("currentUser").get('id');
+                    var name = this.get("currentUser").get('display_name');
+                    var date = new Date();
+                    var message_id = createMessageid() + commenter_id;
+                    var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
+                        "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
+                        "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
+                    comments.insertAt(0, tempComment);
+                    tempComment.save();
+                    this.set('commentContent', '');
+                    $('#addcommetBut').attr('style', 'display:block');
+                    $('#commentBox').attr('style', 'display:none');
+                }
+            }
+        },
+        removeComment: function(object)
+        {
+            var id = this.get('megaResouce').get("id");
+            var message_id = object.get("message_id");
+            var delInfo = [id, message_id];
+
+            delInfo = JSON.stringify(delInfo);
+            this.get('megaResouce').get('comments').removeObject(object);
+            requiredBackEnd('comments', 'DeleteVideoComment', delInfo, 'POST', function() {
+            });
+        },
+        updateComment: function(object) {
+
+            this.get("controllers.editComment").setRelatedController("video");
+            var comments = this.get('megaResouce').get('comments');
+
+            for (var i = 0; i < comments.get("length"); i++)
+            {
+                if (comments.objectAt(i).get("message_id") === object.get("message_id"))
+                {
+                    object.set("isEdit", !object.get("isEdit"));
+                }
+                else
+                {
+                    comments.objectAt(i).set("isEdit", false);
+                }
+            }
+            var msg = object.get("content");
+            HubStar.set("updateCommentmsg", msg);
+        }
+    },
     getinitdata: function(videoObject)
     {
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
@@ -114,330 +449,18 @@ HubStar.VideoController = Ember.Controller.extend({
             }, 300);
         });
     },
-    addComment: function() {
-
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            var commentContent = this.get('commentContent');
-            if (commentContent) {
-                var comments = this.get('megaResouce').get('comments');
-                var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
-                var commenter_id = this.get("currentUser").get('id');
-                var name = this.get("currentUser").get('display_name');
-                var date = new Date();
-                var message_id = createMessageid() + commenter_id;
-                var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
-                    "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
-                    "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
-                comments.insertAt(0, tempComment);
-                comments.store.save();
-                this.set('commentContent', '');
-                $('#addcommetBut').attr('style', 'display:block');
-                $('#commentBox').attr('style', 'display:none');
-            }
-        }
-    },
-    closeWindow: function() {
-        this.set('collectable', false);
-        this.set('contact', false);
-        var address = document.URL;
-        var object_type = address.split("#")[1].split("/")[1];
-        var search_id = address.split("#")[1].split("/")[2];
-        var collection_id = address.split("#")[1].split("/")[6];
-        if (object_type === "photos" || object_type === "articles" || object_type === "videos")
-        {
-            var m = HubStar.Mega.find(search_id);
-            this.transitionToRoute("search", {id: m.get("owner_title")});
-        }
-        else if (object_type === "search") //search from the seach board
-        {
-            if (search_id === "default") //it is the search index
-            {
-                this.transitionToRoute("searchIndexTom");
-            }
-            else
-            {
-                HubStar.set("escVideo", true);
-                this.transitionToRoute("search", {id: search_id}); // go to search page, this can  work, but it is too slowlly.
-            }
-        }
-        else if (object_type === "users")
-        {
-            var photoObject = HubStar.Mega.find(collection_id);
-
-            this.transitionToRoute("userPhoto", photoObject); //user photo
-        }
-        else if (object_type === "profiles")
-        {
-            if (address.split("#")[1].split("/")[4] === "videos")
-            {
-                var that = this;
-                that.transitionToRoute("profile");
-                setTimeout(function() {
-                    that.transitionToRoute("profileVideos");
-                }, 30);
-            } else {
-                var photoObject = HubStar.Mega.find(collection_id);
-
-                this.transitionToRoute("profilePhoto", photoObject); // profile photo
-            }
-        }
-        else {
-            window.history.back();
-        }
-        $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-        setTimeout(function() {
-            $('#masonry_container').masonry();  //masonry();
-        }, 300);
-    },
-    removeComment: function(object)
-    {
-        var id = this.get('megaResouce').get("id");
-        var message_id = object.get("message_id");
-        var delInfo = [id, message_id];
-
-        delInfo = JSON.stringify(delInfo);
-        this.get('megaResouce').get('comments').removeObject(object);
-        requiredBackEnd('comments', 'DeleteVideoComment', delInfo, 'POST', function() {
-        });
-    },
-    updateComment: function(object) {
-
-        this.get("controllers.editComment").setRelatedController("video");
-        var comments = this.get('megaResouce').get('comments');
-
-        for (var i = 0; i < comments.get("length"); i++)
-        {
-            if (comments.objectAt(i).get("message_id") === object.get("message_id"))
-            {
-                object.set("isEdit", !object.get("isEdit"));
-            }
-            else
-            {
-                comments.objectAt(i).set("isEdit", false);
-            }
-        }
-        var msg = object.get("content");
-        HubStar.set("updateCommentmsg", msg);
-    },
-    switchCollection: function() {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            var addCollectionController = this.get('controllers.addCollection');
-            var selectid = this.get('megaResouce').id;
-            addCollectionController.setImageID(selectid);
-            var tempUrl = this.get('megaResouce').get('object_image_url');
-            addCollectionController.setThumbnailUrl(tempUrl);
-            addCollectionController.setUser();
-            addCollectionController.setRelatedController('video');
-            this.set('collectable', !this.get('collectable'));
-        }
-    },
-    editingContactForm: function() {
-
-
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            var contactController = this.get('controllers.contact');
-            var selectid = this.get('megaResouce').id;
-            contactController.setSelectedMega(selectid);
-            contactController.selectionCheckBox();
-
-            this.set('contact', !this.get('contact'));
-        }
-    },
     closeContact: function() {
         this.set('contact', false);
     },
     closeShareEmail: function() {
         this.set('shareEmail', false);
     },
-    dropdownPhotoSetting: function(param) {
-        console.log("111");
-        var tempUrl = this.get('megaResouce').get('object_image_url');
-        this.set('sharePhotoUrl', tempUrl);
-        this.set('sharePhotoName', "test");
-        $('#dropdown_id_' + param).toggleClass('hideClass');
-    },
     getImageURL: function()
     {
         var tempUrl = this.get('megaResouce').get('object_image_url');
         return tempUrl;
     },
-    // share to social facebook
-    fbShare: function(param) {
-        this.dropdownPhotoSetting(param);
-        var that = this;
-        var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
-        var caption = '';
-
-        if (this.get('megaResouce').get('object_description') !== null)
-        {
-            caption = this.get('megaResouce').get('object_description');
-        }
-        else
-        {
-            caption = '';
-        }
-
-        var obj = {
-            method: 'feed',
-            link: currntUrl,
-            picture: this.getImageURL(),
-            name: this.get('videoObject').get("videoTitle"),
-            caption: 'Trends Ideas',
-            description: caption
-        };
-
-        function callback(response) {
-            if (response && response.post_id) {
-                var mega = HubStar.Mega.find(that.get('megaResouce').get('id'));
-                mega.then(function() {
-                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-                    {
-                        mega.set("share_count", 0);
-                    }
-                    else
-                    {
-                        mega.set("share_count", mega.get("share_count") + 1);
-                    }
-                    mega.store.save();
-                });
-                that.get('controllers.applicationFeedback').statusObserver(null, "Video shared successfully!");
-            } else {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
-            }
-        }
-
-        FB.ui(obj, callback);
-
-        return false;
-    },
-    //share to social google plus
-    gpShare: function(param) {
-        this.dropdownPhotoSetting(param);
-        var caption = '';
-        if (this.get('megaResouce').get('object_description') !== null)
-        {
-            caption = this.get('megaResouce').get('object_description');
-        }
-        else
-        {
-            caption = '';
-        }
-
-        $("meta[property='og\\:title']").attr("content", this.get('videoObject').get("videoTitle"));
-        $("meta[property='og\\:description']").attr("content", caption);
-        $("meta[property='og\\:image']").attr("content", this.getImageURL());
-        var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
-        var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
-
-        var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
-        mega.then(function() {
-            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-            {
-                mega.set("share_count", 0);
-            }
-            else
-            {
-                mega.set("share_count", mega.get("share_count") + 1);
-            }
-            mega.store.save();
-        });
-        window.open(
-                url,
-                'popupwindow',
-                'scrollbars=yes,width=800,height=400'
-                ).focus();
-
-        return false;
-    },
-    //share to social twitter
-    tShare: function(param) {
-        this.dropdownPhotoSetting(param);
-        var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
-        var url = 'https://twitter.com/share?text=' + this.get('videoObject').get("videoTitle") + '&url=' + encodeURIComponent(currntUrl);
-        var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
-        mega.then(function() {
-            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-            {
-                mega.set("share_count", 0);
-            }
-            else
-            {
-                mega.set("share_count", mega.get("share_count") + 1);
-            }
-            mega.store.save();
-        });
-        window.open(
-                url,
-                'popupwindow',
-                'height=436,width=626'
-                ).focus();
-        return false;
-    },
-    pShare: function(param) {
-        this.dropdownPhotoSetting(param);
-        var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
-        var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
-                '&media=' + encodeURIComponent(this.getImageURL()) +
-                '&description=' + encodeURIComponent(this.get('videoObject').get("videoTitle"));
-        var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
-        mega.then(function() {
-            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-            {
-                mega.set("share_count", 0);
-            }
-            else
-            {
-                mega.set("share_count", mega.get("share_count") + 1);
-            }
-            mega.store.save();
-        });
-        window.open(
-                url,
-                'popupwindow',
-                'height=436,width=626'
-                ).focus();
-        return false;
-    },
-    eShare: function() {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            this.set('descript', this.get('videoObject').get("videoTitle"));
-            var currentUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
-            var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
-            mega.then(function() {
-                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-                {
-                    mega.set("share_count", 0);
-                }
-                else
-                {
-                    mega.set("share_count", mega.get("share_count") + 1);
-                }
-                mega.store.save();
-            });
-
-            var shareEmailController = this.get('controllers.shareEmail');
-            var selectid = this.get('megaResouce').id;;
-            shareEmailController.setImageID(selectid);
-            var tempUrl = this.get('megaResouce').get('object_image_url');
-            shareEmailController.setThumbnailUrl(tempUrl);
-            shareEmailController.setUrl(currentUrl);
-            shareEmailController.setUser();
-            shareEmailController.setRelatedController('video');
-            shareEmailController.setSelectedMega(selectid);
-            shareEmailController.setTitle(this.get('descript'));
-            this.set("isShareEmail", true);
-//        this.get("controllers.shareEmail").getClientId(this.get("Id"));
-
-        }
-    },
-    editingPhotoMegaData: function() {
-        this.set('enableToEdit', !this.get('enableToEdit'));
-
-    }, checkAuthenticUser: function() {
+    checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
@@ -457,25 +480,6 @@ HubStar.VideoController = Ember.Controller.extend({
                 that.set("is_authentic_user", is_authentic_user || is_edit);
             }
         });
-    },
-    yes: function()
-    {
-        this.get('megaResouce').store.save();
-        this.set('enableToEdit', !this.get('enableToEdit'));
-    },
-    no: function() {
-        if (this.get('megaResouce').get("isDirty")) {
-            this.get('megaResouce').rollback();
-        }
-        this.set('enableToEdit', !this.get('enableToEdit'));
-    },
-    addLike: function() {
-        var controller = this.get('controllers.itemFunction');
-        controller.addLike(this.get('megaResouce').get('id'));
-    },
-    unLike: function() {
-        var controller = this.get('controllers.itemFunction');
-        controller.unLike(this.get('megaResouce').get('id'));
     }
 }
 

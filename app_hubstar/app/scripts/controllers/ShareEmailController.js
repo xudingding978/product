@@ -25,6 +25,30 @@ HubStar.ShareEmailController = Ember.Controller.extend({
 ////        if (localStorage.loginStatus) {
 ////            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
 //    },
+    actions: {
+        exit: function() {
+            var that = this;
+            this.get("controllers.profile").set("isShareEmail", false);
+            this.get("controllers.article").set("isShareEmail", false);
+            this.get("controllers.mega").set("isShareEmail", false);
+            this.get("controllers.video").set("isShareEmail", false);
+            HubStar.set("isShareEmail", false);
+            if (that.get('parentTController') === 'itemFunction')
+            {
+                var id = this.get("objectID");
+                $('#addEmail_' + id).attr('style', 'display: none');
+            }
+            $("#body_id").css("overflow", "auto");
+        },
+        emailSend: function()
+        {
+            var tempEmail = [this.get("emailDestination"), this.get("emailBody"), this.get('displayName'), this.get('displayEmail'), this.get("currentUser").get('photo_url_large'), this.get("owner_profile_pic"), this.get("selectedPhotoThumbnailUrl"), this.get("selectedUrl"), this.get('contentTitle'), this.get("selectedMega").get("owner_title"), this.get("selectedMega").get("owner_profile_pic")];
+            requiredBackEnd('emails', 'shareemail', tempEmail, 'POST', function(params) {
+            });
+            this.get('controllers.applicationFeedback').statusObserver(null, "Your message has been sent.");
+            this.send("exit");
+        }
+    },
     setSelectedMega: function(id)
     {
 
@@ -55,24 +79,6 @@ HubStar.ShareEmailController = Ember.Controller.extend({
             }
         });
     },
-    emailSend: function()
-    {
-        var tempEmail = [this.get("emailDestination"), this.get("emailBody"), this.get('displayName'), this.get('displayEmail'), this.get("currentUser").get('photo_url_large'), this.get("owner_profile_pic"), this.get("selectedPhotoThumbnailUrl"), this.get("selectedUrl"), this.get('contentTitle'), this.get("selectedMega").get("owner_title"), this.get("selectedMega").get("owner_profile_pic")];
-
-        requiredBackEnd('emails', 'shareemail', tempEmail, 'POST', function(params) {
-        });
-//        console.log(this.get('displayName'));
-//        console.log(this.get('displayEmail'));
-//        console.log(this.get("currentUser").get('photo_url_large'));
-//        console.log(this.get("owner_profile_pic"));
-//        console.log(this.get("selectedPhotoThumbnailUrl"));
-//        console.log(this.get("selectedUrl"));
-//        console.log(this.get('contentTitle'));
-//        console.log(this.get("selectedMega").get("owner_title"));
-//        console.log(this.get("selectedMega").get("owner_profile_pic"));
-        this.get('controllers.applicationFeedback').statusObserver(null, "Your message has been sent.");
-        this.exit();
-    },
     setImageID: function(id) {
         this.set("objectID", id);
     },
@@ -96,33 +102,5 @@ HubStar.ShareEmailController = Ember.Controller.extend({
     },
     setDesc: function(desc) {
         this.set("selectedDesc", desc);
-    },
-    exit: function() {
-        var that = this;
-        this.get("controllers.profile").set("isShareEmail", false);
-        this.get("controllers.article").set("isShareEmail", false);
-        this.get("controllers.mega").set("isShareEmail", false);
-        this.get("controllers.video").set("isShareEmail", false);
-        HubStar.set("isShareEmail", false);
-//        if (this.get('parentTController') === 'article')
-//        {
-//            this.get("controllers.article").eShare();
-//        }
-//
-//        else 
-        if (that.get('parentTController') === 'itemFunction')
-        {
-            var id = this.get("objectID");
-            $('#addEmail_' + id).attr('style', 'display: none');
-        }
-
-//        else if (this.get('parentTController') === 'video')
-//        {
-//            this.get("controllers.video").eShare();
-//        }
-//        else {
-//            this.get("controllers.mega").eShare();
-//        }
-        $("#body_id").css("overflow", "auto");
     }
 });

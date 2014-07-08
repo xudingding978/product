@@ -45,8 +45,9 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('mega').set('from', "search");
         $(".navbar").css("box-shadow", "");
         if (HubStar.get("checkLoginStatus")) {
-                if (HubStar.get('showDiscoveryBar') === false) {
-                    HubStar.set('ctaView', true);
+                if (HubStar.get('showDiscoveryBar')) {
+                 //   HubStar.set('ctaView', true);
+                    
                 } else {
                     HubStar.set('ctaView', false);
                 }

@@ -648,6 +648,9 @@ textarea.add-interests{
     line-height: 40px;
 }
 
+.user-talk-spinner{
+    top: 12px;
+}
 
 /* ---------------- user post -----------*/
 
@@ -1040,6 +1043,14 @@ textarea.add-interests{
     font-weight: bold; 
     float: left;
     margin-left: 20px;
+}
+
+.invitepeople-search{
+    font-size: 15px; 
+    line-height: 50px; 
+    font-weight: bold; 
+    width: 50px;
+    height: 49px;
 }
 
 .invitepeople-display-container{

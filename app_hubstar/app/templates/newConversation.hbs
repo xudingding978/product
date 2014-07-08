@@ -49,15 +49,15 @@
                 </div>
                 {{/if}}
                 <div class="post-action-container">
-                    <div  class="message-btn easing post-addphoto" ><i class='fa fa-picture-o'>&nbsp;</i>Add Photo
+                    <div  class="message-btn easing post-addphoto" ><i class="fa fa-picture-o">&nbsp;</i>Add Photo
                         <div class="post-addphoto-txt"> 
                             {{view HubStar.SingleImageInputButtonView }}
                         </div>
                     </div>
                      {{#if controller.isPosting}}
-                    <div class="message-btn easing" style=''{{action addComment}}><i class='fa fa-check'>&nbsp;</i>Send</div>
+                    <div class="message-btn easing" {{action addComment}}><i class="fa fa-check">&nbsp;</i>Send</div>
                     {{else}}
-                    <div class="message-btn-x easing" style=''><i class="spinner">&nbsp;</i>Posting </div>
+                    <div class="message-btn-x easing" ><i class="spinner">&nbsp;</i>Posting </div>
                     {{/if}}
                     
                 </div>

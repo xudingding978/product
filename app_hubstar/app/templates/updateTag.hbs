@@ -16,30 +16,30 @@
         <div class="show-tag-contactmebox-wapper">
             <div class="show-tag-part">
                 <div>
-                    <div class='show-tag-font'>Product Name :</div> 
+                    <div class="show-tag-font">Product Name :</div> 
                     <div>
                         {{view Ember.TextArea valueBinding="controller.product_name" rows="1" cols="70" class="tag_currenprofile" placeholder="Say something about it!"}}
                     </div>
                 </div>
                 <div>
-                    <div class='show-tag-font'>Description :</div>
+                    <div class="show-tag-font">Description :</div>
                     <div>
                         {{view Ember.TextArea valueBinding="controller.description" rows="10" cols="70" class="tag_descriptionbox" placeholder="Write something to introduce the product!"}}
                     </div>
                 </div>
             </div>
             <div class="show-tag-link-to">
-                <div class='show-tag-font'> Link to tag :</div>
+                <div class="show-tag-font"> Link to tag :</div>
                 <div class="show-tag-link-to-content"> {{controller.linkTo}} </div>
             </div>
             <div class="show-tag-part-below">
                 <div class="show-tag-part-below-left">
                     <div class="show-tag-left">
-                        <div class='show-tag-font'>Profile :</div>
+                        <div class="show-tag-font">Profile :</div>
                         <div class="disabled-btn show-tag-disabled">{{controller.profile_name}} </div>                   
                     </div>
                     <div class="show-tag-left">
-                        <div class='show-tag-font'>Collection :</div>
+                        <div class="show-tag-font">Collection :</div>
                         <div class="disabled-btn show-tag-disabled">  {{controller.selectedCollectionName}}  </div>                    
                     </div>
                 </div>
@@ -51,10 +51,9 @@
             </div>
         </div> 
         <div class="show-tag-bottom">
-            <div  class="message-btn easing show-tag-button-right"  {{action cancelUpdateTag }}><i class='fa fa-times'>&nbsp;</i>Cancel</div>
-            <div class="message-btn easing" {{action saveUpdateTag controller.selectedPhotoThumbnailUrl}}><i class='fa fa-check'>&nbsp;</i>Update</div>
+            <div  class="message-btn easing show-tag-button-right"  {{action cancelUpdateTag }}><i class="fa fa-times">&nbsp;</i>Cancel</div>
+            <div class="message-btn easing" {{action saveUpdateTag controller.selectedPhotoThumbnailUrl}}><i class="fa fa-check">&nbsp;</i>Update</div>
         </div>
-
     </div> 
 </div>
 

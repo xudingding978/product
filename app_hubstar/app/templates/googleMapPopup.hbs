@@ -25,7 +25,7 @@
         </div>
 
         <div class="googlemappop-action-container" >
-            <div class="message-btn easing googlemappop-printmap" value="Print map" onclick="printmap('google_map_pop');"><i class='fa fa-print'>&nbsp;</i>Print Map</div>
+            <div class="message-btn easing googlemappop-printmap" value="Print map" onclick="printmap('google_map_pop');"><i class="fa fa-print">&nbsp;</i>Print Map</div>
  
           <div id ="routeMode" class="message-btn easing googlemappop-routemode" {{action dropdownRoute target="view" on="click"}}>
              {{#if view.showTransportation}}
@@ -37,16 +37,16 @@
 
             <div id="routeModeDropdown" class="hideClass Dropdownstyle1 googlemappop-routemode-container" {{action selectRoute target="view" on="click"}}>
                 <li class="ite" value="DRIVING" >DRIVING</li>
-                <li class='ite' value="WALKING">WALKING</li>
-                <li class='ite' value="BICYCLING">BICYCLING</li>
+                <li class="ite" value="WALKING">WALKING</li>
+                <li class="ite" value="BICYCLING">BICYCLING</li>
                 <li class="ite" value="TRANSIT">TRANSIT</li>
             </div>
             {{#if fromAddress}}
-            <div id="routeGo" class="message-btn easing googlemappop-dir" {{action routeGo on="click" target="view"}}>Get Directions <i class='fa fa-long-arrow-right'>&nbsp;</i></div>
+            <div id="routeGo" class="message-btn easing googlemappop-dir" {{action routeGo on="click" target="view"}}>Get Directions <i class="fa fa-long-arrow-right">&nbsp;</i></div>
             {{else}}
-            <div  class="message-btn-x easing googlemappop-dir" >Get Directions <i class='fa fa-long-arrow-right'>&nbsp;</i></div>
+            <div  class="message-btn-x easing googlemappop-dir" >Get Directions <i class="fa fa-long-arrow-right">&nbsp;</i></div>
             {{/if}}
-            <div  id="routeClear" class="message-btn easing googlemappop-clear" {{action routeClear on="click" target="view"}}><i class='fa fa-long-arrow-left'>&nbsp;</i>Clear</div>
+            <div  id="routeClear" class="message-btn easing googlemappop-clear" {{action routeClear on="click" target="view"}}><i class="fa fa-long-arrow-left">&nbsp;</i>Clear</div>
         </div>
 
     </div>

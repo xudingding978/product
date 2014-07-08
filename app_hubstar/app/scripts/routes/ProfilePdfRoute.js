@@ -14,12 +14,11 @@ HubStar.ProfilePdfRoute = Ember.Route.extend({
         this.controllerFor('profile').set('followerProfileTag', false);
         this.controllerFor('profile').set('videoTag', false);
         this.controllerFor('profile').set('pdfTag', true);
-
         $(document).ready(function() {
             setTimeout(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');
                 $('#pdf').addClass('selected-user-stats');
-            }, 3500);
+            }, 35);
         });
         var address = document.URL;
         var l = address.split("#")[1].split("/").length;
@@ -29,11 +28,11 @@ HubStar.ProfilePdfRoute = Ember.Route.extend({
             }
             else
             {
-                this.controllerFor('profile').send("selectPdf",model);
+                this.controllerFor('profile').send("selectPdf", model);
             }
         }
         else {
-            this.controllerFor('profile').send("selectPdf",model);
+            this.controllerFor('profile').send("selectPdf", model);
 
         }
     },

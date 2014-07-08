@@ -296,7 +296,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 }, 250);
             }
         },
-
         submit: function() {
             var collectionController = this.get('controllers.collection');
             var collection = collectionController.getCreateCollection(this.get('newTitle'), this.get('newDesc'), this.get("collections"));
@@ -392,6 +391,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 $('#pdf').addClass('selected-user-stats');
                 this.transitionToRoute('profilePdf');
             }
+        },
+        dropdownPhotoSetting: function() {
+            $("#dropdown_id_").toggleClass('hideClass');
+            $("#dropdown_id_").click(function() {
+                $(this).removeClass('hideClass');
+            }).mouseleave(function() {
+                $(this).addClass('hideClass');
+            });
         }
     },
     init: function() {
@@ -1654,14 +1661,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 });
             }
         }
-    },
-    dropdownPhotoSetting: function() {
-        $("#dropdown_id_").toggleClass('hideClass');
-        $("#dropdown_id_").click(function() {
-            $(this).removeClass('hideClass');
-        }).mouseleave(function() {
-            $(this).addClass('hideClass');
-        });
     },
     // share to social facebook
     fbShare: function() {

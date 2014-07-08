@@ -16,6 +16,17 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
                 document.getElementById("body_id").style.overflow = "auto";
             }
             this.set('is_video_create_mode', !this.get('is_video_create_mode'));
+        },
+        dropdownPhotoSetting: function(id)
+        {
+            this.set('delete_id', id);
+            var ids = '#dropdown_id_' + id;
+            $(ids).toggleClass('hideClass');
+            $(ids).click(function() {
+                $(this).removeClass('hideClass');
+            }).mouseleave(function() {
+                $(this).addClass('hideClass');
+            });
         }
     },
     getClientId: function(model) {
@@ -34,17 +45,6 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
             that.relayout();
         });
         this.checkEditingMode();
-    },
-    dropdownPhotoSetting: function(id)
-    {
-        this.set('delete_id', id);
-        var ids = '#dropdown_id_' + id;
-        $(ids).toggleClass('hideClass');
-        $(ids).click(function() {
-            $(this).removeClass('hideClass');
-        }).mouseleave(function() {
-            $(this).addClass('hideClass');
-        });
     },
     checkEditingMode: function()
     {

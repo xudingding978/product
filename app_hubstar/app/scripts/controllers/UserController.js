@@ -820,6 +820,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.saveUpdateInterest();
         $(".limit_about_us").attr('style', 'display: block');
     },
+
     isInputValid: function() {
 
         function CheckObject(id, input, length, isEmailValid)

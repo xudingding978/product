@@ -447,6 +447,86 @@ HubStar.UserController = Ember.Controller.extend({
                 this.transitionToRoute('userMessage');
             }
 
+        },
+        deleteSelectedCollection: function()
+        {
+            var message = "Remove this collection?";
+            this.set("message", message);
+            this.set('makeSureDelete', true);
+            if (this.get('willDelete')) {
+                var tempCollection = this.get("selectedCollection");
+                var delInfo = [tempCollection.get("id"), this.get('model').get('id'), 'user'];
+                delInfo = JSON.stringify(delInfo);
+                requiredBackEnd('collections', 'delete', delInfo, 'POST', function() {
+                });
+                this.get("collections").removeObject(this.get("selectedCollection"));
+                this.cancelDelete();
+            } else {
+                this.set('willDelete', true);
+            }
+            this.statstics();
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 100);
+            }, 250);
+        },
+        submit: function()
+        {
+            var collectionController = this.get('controllers.collection');
+            var collection = collectionController.getCreateCollection(this.get('newTitle'), this.get('newDesc'), this.get("collections"));
+            if (this.get('newDesc').length < 256) {
+                if (collection !== null && collection !== "") {
+                    collection.set('type', 'user');
+                    collection.set('optional', this.get('model').get('id'));
+                    this.get("collections").insertAt(0, collection);
+                    collection.store.save();
+                    $(".Targeting_Object_front").attr("style", "display:inline-block");
+                    $(" #uploadArea").attr('style', "display:none");
+                    $(" #uploadObject").attr('style', "display:block");
+                    this.statstics();
+                    this.set("newTitle", "");
+                    this.set("newDesc", "");
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry("reloadItems");
+                        setTimeout(function() {
+                            $('#masonry_user_container').masonry();
+                        }, 100);
+                    }, 250);
+                }
+            } else {
+                this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
+            }
+
+        },
+        updateCollectionInfo: function()
+        {
+            if (this.get('newDesc').length < 256) {
+                this.get('selectedCollection').set('title', this.get('newTitle'));
+                this.get('selectedCollection').set('desc', this.get('newDesc'));
+                var collectionController = this.get('controllers.collection');
+                var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
+                collection.set('optional', this.get('model').get('id'));
+                collection.set('type', 'user');
+                this.set('selectedCollection', collection);
+                this.get("selectedCollection").store.save();
+                $(".Targeting_Object_front").attr("style", "display:inline-block");
+                $(" #uploadArea").attr('style', "display:none");
+                $(" #uploadObject").attr('style', "display:block");
+                this.set('newTitle', '');
+                this.set('newDesc', '');
+            }
+            else
+            {
+                this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
+            }
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 100);
+            }, 250);
         }
     },
     init: function()
@@ -740,34 +820,6 @@ HubStar.UserController = Ember.Controller.extend({
         this.saveUpdateInterest();
         $(".limit_about_us").attr('style', 'display: block');
     },
-    submit: function()
-    {
-        var collectionController = this.get('controllers.collection');
-        var collection = collectionController.getCreateCollection(this.get('newTitle'), this.get('newDesc'), this.get("collections"));
-        if (this.get('newDesc').length < 256) {
-            if (collection !== null && collection !== "") {
-                collection.set('type', 'user');
-                collection.set('optional', this.get('model').get('id'));
-                this.get("collections").insertAt(0, collection);
-                collection.store.save();
-                $(".Targeting_Object_front").attr("style", "display:inline-block");
-                $(" #uploadArea").attr('style', "display:none");
-                $(" #uploadObject").attr('style', "display:block");
-                this.statstics();
-                this.set("newTitle", "");
-                this.set("newDesc", "");
-                setTimeout(function() {
-                    $('#masonry_user_container').masonry("reloadItems");
-                    setTimeout(function() {
-                        $('#masonry_user_container').masonry();
-                    }, 100);
-                }, 250);
-            }
-        } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
-        }
-
-    },
     isInputValid: function() {
 
         function CheckObject(id, input, length, isEmailValid)
@@ -967,61 +1019,9 @@ HubStar.UserController = Ember.Controller.extend({
         }
         return isContainsTitle;
     },
-    deleteSelectedCollection: function()
-    {
-        var message = "Remove this collection?";
-        this.set("message", message);
-        this.set('makeSureDelete', true);
-        if (this.get('willDelete')) {
-            var tempCollection = this.get("selectedCollection");
-            var delInfo = [tempCollection.get("id"), this.get('model').get('id'), 'user'];
-            delInfo = JSON.stringify(delInfo);
-            requiredBackEnd('collections', 'delete', delInfo, 'POST', function() {
-            });
-            this.get("collections").removeObject(this.get("selectedCollection"));
-            this.cancelDelete();
-        } else {
-            this.set('willDelete', true);
-        }
-        this.statstics();
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-            setTimeout(function() {
-                $('#masonry_user_container').masonry();
-            }, 100);
-        }, 250);
-    },
     cancelDelete: function() {
         this.set('willDelete', false);
         this.set('makeSureDelete', false);
-    },
-    updateCollectionInfo: function()
-    {
-        if (this.get('newDesc').length < 256) {
-            this.get('selectedCollection').set('title', this.get('newTitle'));
-            this.get('selectedCollection').set('desc', this.get('newDesc'));
-            var collectionController = this.get('controllers.collection');
-            var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
-            collection.set('optional', this.get('model').get('id'));
-            collection.set('type', 'user');
-            this.set('selectedCollection', collection);
-            this.get("selectedCollection").store.save();
-            $(".Targeting_Object_front").attr("style", "display:inline-block");
-            $(" #uploadArea").attr('style', "display:none");
-            $(" #uploadObject").attr('style', "display:block");
-            this.set('newTitle', '');
-            this.set('newDesc', '');
-        }
-        else
-        {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
-        }
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-            setTimeout(function() {
-                $('#masonry_user_container').masonry();
-            }, 100);
-        }, 250);
     },
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {

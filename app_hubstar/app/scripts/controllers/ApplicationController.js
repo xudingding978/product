@@ -251,6 +251,28 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.set('headerAbout', false);
             this.set('userProfile', false);
             this.set('isGeoDropdown', false);
+        },
+        topicSearch: function(search_topic) {
+            HubStar.set("escVideo", false);
+            this.transitionToRoute('search', {id: search_topic});
+            $("#search-bar").css('display', 'block');
+            this.set('search_string', search_topic);
+//        this.newSearch();
+            this.set('isNavigatorDropdown', false);
+            this.set('isHeaderNavigatorDropdown', false);
+            HubStar.set("showDiscoveryBar", false);
+        },
+        topicSelection: function(data) {
+            this.set('subcate', []);
+            this.set('subcategories', []);
+            for (var i = 0; i < data.get('subcate').get('length'); i++) {
+                //var str = data.get('subcate').objectAt(i).get('category_topic');
+
+                this.get('subcate').pushObject({'ids': data.get('subcate').objectAt(i).get("ids"), 'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
+            }
+            $('#navigator_id_' + this.get("navigator_id")).removeClass('selected-navigation');
+            this.set("navigator_id", data.get("ids"));
+            $('#navigator_id_' + data.get("ids")).addClass('selected-navigation');
         }
     },
     init: function() {
@@ -1075,18 +1097,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('.Navigator-box').fadeIn("fast");
         }, 30);
     },
-    topicSelection: function(data) {
-        this.set('subcate', []);
-        this.set('subcategories', []);
-        for (var i = 0; i < data.get('subcate').get('length'); i++) {
-            //var str = data.get('subcate').objectAt(i).get('category_topic');
-
-            this.get('subcate').pushObject({'ids': data.get('subcate').objectAt(i).get("ids"), 'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
-        }
-        $('#navigator_id_' + this.get("navigator_id")).removeClass('selected-navigation');
-        this.set("navigator_id", data.get("ids"));
-        $('#navigator_id_' + data.get("ids")).addClass('selected-navigation');
-    },
     searchTopicSelection: function(data, ids) {
 
         this.set('subcategories', []);
@@ -1096,16 +1106,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $('#navigator_id1_' + this.get("navigator_id1")).removeClass('selected-navigation');
         this.set("navigator_id1", ids);
         $('#navigator_id1_' + ids).addClass('selected-navigation');
-    },
-    topicSearch: function(search_topic) {
-        HubStar.set("escVideo", false);
-        this.transitionToRoute('search', {id: search_topic});
-        $("#search-bar").css('display', 'block');
-        this.set('search_string', search_topic);
-//        this.newSearch();
-        this.set('isNavigatorDropdown', false);
-        this.set('isHeaderNavigatorDropdown', false);
-        HubStar.set("showDiscoveryBar", false);
     },
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginUsername') !== "" && this.get('loginPassword') !== "")

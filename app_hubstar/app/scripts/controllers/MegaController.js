@@ -624,11 +624,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
         },
         addLike: function() {
             var controller = this.get('controllers.itemFunction');
-            controller.addLike(this.get('megaResouce').get('id'));
+             controller.send("addLike", this.get('megaResouce').get('id'));
+            //controller.addLike(this.get('megaResouce').get('id'));
         },
         unLike: function() {
             var controller = this.get('controllers.itemFunction');
-            controller.unLike(this.get('megaResouce').get('id'));
+             controller.send("addLike", this.get('megaResouce').get('id'));
+           // controller.unLike(this.get('megaResouce').get('id'));
         },
         editingPhotoMegaData: function() {
             this.set('enableToEdit', !this.get('enableToEdit'));
@@ -659,7 +661,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
                         "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
                     comments.insertAt(0, tempComment);
-                    comments.store.save();
+                    tempComment.save();
                     this.set('commentContent', '');
                     $('#addcommetBut').attr('style', 'display:block');
                     $('#commentBox').attr('style', 'display:none');

@@ -8,7 +8,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     uploadOrsubmit: false,
     fileSize: null,
     collection_id: "",
-    needs: ['profile', 'masonryCollectionItems', 'photoCreateInfoSetting', 'megaCreate'],
+    needs: ['profile', 'masonryCollectionItems', 'photoCreateInfoSetting', 'megaCreate', 'applicationFeedback'],
     actions: {
         back: function()
         {
@@ -40,13 +40,26 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         this.checkingCleanBeforeUpload();
         for (var i = 0; i < files.length; i++) {
             (function(file) {
-                console.log(type);
                 var name = file.name;
                 var type = file.type;
                 var fileSize = file.size;
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    that.addPhotoObject(e, name, type, fileSize);
+                    if (fileSize >= 25000000)
+                    {
+                        that.get('controllers.applicationFeedback').statusObserver(null, "The limit size of uploading is 25MB");
+                    }
+                    else if (type !== undefined && type !== null) {
+                        var t = type.split("/")[1];
+                        if (t === "bmp" || t === "gif" || t === "jpg" || t === "jpeg" || t === "png")
+                        {
+                            that.addPhotoObject(e, name, type, fileSize);
+                        }
+                        else
+                        {
+                            that.get('controllers.applicationFeedback').statusObserver(null, "Undefined Format");
+                        }
+                    }
                 }, reader.readAsDataURL(files[i]);
             })(files[i]);
             evt.preventDefault();

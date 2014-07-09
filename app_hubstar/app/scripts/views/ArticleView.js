@@ -6,6 +6,32 @@ HubStar.ArticleView = Ember.View.extend({
     fullName: (function() {
         return "test";
     }).property(),
+    actions: {
+        checkReading: function() {
+            this.set('readContent', !this.get("readContent"));
+            $('#article_text_action').css('height', 'auto');
+            var height = $('#article_text_action').height();
+            $("#article_text_action").height('215px').animate({height: height}, "slow");
+            $('#read_more_cue').attr("style", "display:none;");
+        },
+        checkClosed: function() {
+            var height = $('#article_text_action').offset().height;
+            $("#article_text_action").css({height: height}).animate({"height": "210px"}, "slow");
+            this.set('readContent', !this.get("readContent"));
+            $('#read_more_cue').attr("style", "display:block;");
+
+        },
+            setDiscussionTag: function() {
+        $('#discuss_action').slideToggle("slow");
+
+    },
+        popupAibum: function() {
+        $(".show-album").slideToggle("slow");
+    },
+    setNameTag: function() {
+        $('#poster_action').slideToggle("slow");
+    },
+    },
     didInsertElement: function() {
         this.ads();
         var that = this;
@@ -30,7 +56,7 @@ HubStar.ArticleView = Ember.View.extend({
                 {
                     var pic_w = HubStar.get("pic_current_width");
                     var pic_h = HubStar.get("pic_current_height");
-                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) && 
+                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) &&
                             (Math.ceil(event.clientY) > Math.ceil(top) && Math.ceil(event.clientY) < Math.ceil(top) + Math.ceil(pic_h))) {
                         that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
                     }
@@ -86,7 +112,7 @@ HubStar.ArticleView = Ember.View.extend({
                 {
                     var pic_w = HubStar.get("pic_current_width");
                     var pic_h = HubStar.get("pic_current_height");
-                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) && 
+                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) &&
                             (Math.ceil(event.clientY) > Math.ceil(top) && Math.ceil(event.clientY) < Math.ceil(top) + Math.ceil(pic_h))) {
                         that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
                     }
@@ -138,20 +164,6 @@ HubStar.ArticleView = Ember.View.extend({
 
 
     },
-    checkReading: function() {
-        this.set('readContent', !this.get("readContent"));
-        $('#article_text_action').css('height', 'auto');
-        var height = $('#article_text_action').height();
-        $("#article_text_action").height('215px').animate({height: height}, "slow");
-        $('#read_more_cue').attr("style", "display:none;");
-    },
-    checkClosed: function() {
-        var height = $('#article_text_action').offset().height;
-        $("#article_text_action").css({height: height}).animate({"height": "210px"}, "slow");
-        this.set('readContent', !this.get("readContent"));
-        $('#read_more_cue').attr("style", "display:block;");
-
-    },
     setArticleTag: function() {
 
         $('#article_tag_action').slideToggle("slow");
@@ -172,20 +184,10 @@ HubStar.ArticleView = Ember.View.extend({
             }, 500);
         });
     },
-    setDiscussionTag: function() {
-        $('#discuss_action').slideToggle("slow");
-
-    },
-    setNameTag: function() {
-        $('#poster_action').slideToggle("slow");
-    },
     setPartnerTag: function() {
 
         $('#partner_action').slideToggle("slow");
 
-    },
-    popupAibum: function() {
-        $(".show-album").slideToggle("slow");
     },
     openComment: function() {
 

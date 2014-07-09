@@ -573,6 +573,51 @@ textarea.add-interests{
 .useredit-col2-margin{
     margin-bottom: 5px;
 }
+
+.user-tab-save{
+    right: 0;
+    margin: 10px auto 0;
+    width: 150px;
+}
+.useredit-row{
+    margin: 10px 40px;
+}
+.useredit-notification{
+    font-size: 15px; 
+    font-weight: bold; 
+    color: #555;
+}
+
+.useredit-trendsuser{
+    width: 100%;
+    height: auto; 
+    min-height: 50px;
+    padding-left: 25px;
+}
+
+.useredit-back{
+    margin: 0 auto;
+    width: 100px;
+    clear: both;
+}
+
+.useredit-crop-container{
+    width: 600px;
+    height: 350px;
+    margin: 10px auto; 
+    text-align: center;
+}
+
+.useredit-canvas{
+    height: 100%;
+    width: auto;
+    margin: 0 auto; 
+}
+
+.useredit-action{
+    margin: 20px auto;
+    width: 150px;
+}
 /*-----------------user talk --------------*/
 .user-talk-main-container{
     z-index: 11; 
@@ -1496,6 +1541,9 @@ notification-context{
 }
 
 /* message.hbs */
+.message-bg{
+    background-color: #fafafa;
+}
 .message-replyedit-container{
     padding: 15px;
 }

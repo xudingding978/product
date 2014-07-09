@@ -1784,3 +1784,12 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     line-height: 3;
 }
 
+
+/*------------------------ reset -----------------------*/
+.right-0{
+    right:0;
+}
+
+.zidex-11{
+  z-index:11 !important;  
+}

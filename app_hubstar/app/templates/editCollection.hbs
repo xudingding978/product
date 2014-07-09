@@ -48,10 +48,7 @@
             {{view Ember.TextArea valueBinding="controller.newDesc" rows="12" cols="70" class="no-resize"  placeholder="Write a brief description for this Collection"}}
         </div>
 
-
         {{/if}}
-
-
     </div>
     <div class="controlbtn-field editCollection-action">
                     {{#if controller.is_authentic_user}}
@@ -63,7 +60,7 @@
         <div class="editCollection-updates">
 
             <div id="uploadingObject" class="new-btn editCollection-cancel" {{action returnCollection  id target="view" on="click"}}>Cancel</div>
-            <div id="createbtn" type="button" {{action submit }}  class="new-btn green-btn" style="right:0;">Create</div>
+            <div id="createbtn" type="button" {{action submit }}  class="new-btn green-btn right-0" >Create</div>
             <div id="updatebtn" type="button" {{action updateCollectionInfo }} class="new-btn green-btn editCollection-update">Update</div>
 
         </div>

@@ -6,6 +6,9 @@ HubStar.VideoController = Ember.Controller.extend({
     enableToEdit: false,
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'itemFunction', 'shareEmail'],
     actions: {
+        closeContact: function() {
+            this.set('contact', false);
+        },
         switchCollection: function() {
             if (this.get("controllers.checkingLoginStatus").popupLogin())
             {
@@ -27,7 +30,7 @@ HubStar.VideoController = Ember.Controller.extend({
         },
         // share to social facebook
         fbShare: function(param) {
-            this.send("dropdownPhotoSetting",param);
+            this.send("dropdownPhotoSetting", param);
             var that = this;
             var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
             var caption = '';
@@ -76,7 +79,7 @@ HubStar.VideoController = Ember.Controller.extend({
         },
         //share to social google plus
         gpShare: function(param) {
-            this.send("dropdownPhotoSetting",param);
+            this.send("dropdownPhotoSetting", param);
             var caption = '';
             if (this.get('megaResouce').get('object_description') !== null)
             {
@@ -115,7 +118,7 @@ HubStar.VideoController = Ember.Controller.extend({
         },
         //share to social twitter
         tShare: function(param) {
-            this.send("dropdownPhotoSetting",param);
+            this.send("dropdownPhotoSetting", param);
             var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
             var url = 'https://twitter.com/share?text=' + this.get('videoObject').get("videoTitle") + '&url=' + encodeURIComponent(currntUrl);
             var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
@@ -138,7 +141,7 @@ HubStar.VideoController = Ember.Controller.extend({
             return false;
         },
         pShare: function(param) {
-            this.send("dropdownPhotoSetting",param);
+            this.send("dropdownPhotoSetting", param);
             var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
             var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                     '&media=' + encodeURIComponent(this.getImageURL()) +
@@ -448,9 +451,6 @@ HubStar.VideoController = Ember.Controller.extend({
                 }
             }, 300);
         });
-    },
-    closeContact: function() {
-        this.set('contact', false);
     },
     closeShareEmail: function() {
         this.set('shareEmail', false);

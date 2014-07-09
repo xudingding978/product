@@ -49,6 +49,23 @@ HubStar.MegaController = Ember.ArrayController.extend({
     isRead: false,
     descript: "",
     actions: {
+        cancelDelTag: function()
+        {
+            this.set('willDelTag', false);
+            this.set('makeSureActivateTag', false);
+        },
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
+        },
+        EditTag: function(tag_id)
+        {
+            this.set("enableEditTag", true);
+            this.get("controllers.updateTag").updateTag(tag_id, this.get('selectedPhoto').id);
+        },
+        closeContact: function() {
+            this.set('contact', false);
+        },
         switchCollection: function() {
 
             if (this.get("controllers.checkingLoginStatus").popupLogin())
@@ -124,7 +141,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         // share to social facebook
         fbShare: function(param) {
             if (this.get("controllers.checkingLoginStatus").popupLogin()) {
-                this.send("dropdownPhotoSetting",param);
+                this.send("dropdownPhotoSetting", param);
                 var that = this;
                 var caption = '';
                 if (this.get('selectedPhoto').get('photo_caption') !== null)
@@ -185,7 +202,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         //share to social google plus
         gpShare: function(param) {
             if (this.get("controllers.checkingLoginStatus").popupLogin()) {
-                this.send("dropdownPhotoSetting",param);
+                this.send("dropdownPhotoSetting", param);
                 var caption = '';
                 if (this.get('selectedPhoto').get('photo_caption') !== null)
                 {
@@ -234,7 +251,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         //share to social twitter
         tShare: function(param) {
             if (this.get("controllers.checkingLoginStatus").popupLogin()) {
-                this.send("dropdownPhotoSetting",param);
+                this.send("dropdownPhotoSetting", param);
                 var descript = this.get('selectedPhoto').get('photo_title');
                 var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
                 if (this.get('selectedPhoto').get("type") === "article")
@@ -270,7 +287,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         },
         pShare: function(param) {
             if (this.get("controllers.checkingLoginStatus").popupLogin()) {
-                this.send("dropdownPhotoSetting",param);
+                this.send("dropdownPhotoSetting", param);
                 var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
                 var descript = this.get('selectedPhoto').get('photo_title');
                 if (this.get('selectedPhoto').get("type") === "article")
@@ -675,7 +692,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set('makeSureDelete', true);
             if (this.get('willDelete')) {
                 this.removeCommentItem(object);
-                this.cancelDelete();
+                this.send("cancelDelete");
             } else {
                 this.set("obj", object);
                 this.set('willDelete', true);
@@ -708,7 +725,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             if (this.get('willDelTag') === true) {
 
                 this.sureDelTag(tag_id);
-                this.cancelDelTag();
+                this.send("cancelDelTag");
             } else {
                 this.set("s", tag_id);
                 this.set('willDelTag', true);
@@ -894,11 +911,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
             $(tagDiv).css({top: height, left: width});
         }
     },
-    EditTag: function(tag_id)
-    {
-        this.set("enableEditTag", true);
-        this.get("controllers.updateTag").updateTag(tag_id, this.get('selectedPhoto').id);
-    },
     JudgeBusinessProfile: function()
     {
         this.set("showEachTagContent", false);
@@ -960,11 +972,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
     sureDelTag: function(tag_id)
     {
         this.get("controllers.showTag").deleteTag(tag_id, this.get('selectedPhoto').id);
-    },
-    cancelDelTag: function()
-    {
-        this.set('willDelTag', false);
-        this.set('makeSureActivateTag', false);
     },
     photoSizeJudge: function(photoObj) {
         var height = photoObj.get("photo_original_height");
@@ -1549,15 +1556,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
             window.history.back();
         }
     },
-    closeContact: function() {
-        this.set('contact', false);
-    },
     closeShareEmail: function() {
         this.set('shareEmail', false);
-    },
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
     },
     removeCommentItem: function(object)
     {

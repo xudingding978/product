@@ -384,6 +384,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             {
                 this.sendEventTracking('event', 'button', 'click', 'PDF');
                 this.set('profileSelectionStatus', 'Pdf');
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        $('#user-stats > li').removeClass('selected-user-stats');
+                        $('#pdf').addClass('selected-user-stats');
+                    }, 50);
+                });
                 this.get('controllers.profilePdf').getClientId(model);
                 this.set('videoTag', false);
                 this.set('pdfTag', true);

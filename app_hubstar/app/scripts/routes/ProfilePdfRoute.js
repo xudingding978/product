@@ -18,7 +18,7 @@ HubStar.ProfilePdfRoute = Ember.Route.extend({
             setTimeout(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');
                 $('#pdf').addClass('selected-user-stats');
-            }, 35);
+            }, 50);
         });
         var address = document.URL;
         var l = address.split("#")[1].split("/").length;

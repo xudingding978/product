@@ -216,7 +216,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             }
         },
         dropdownPhotoSetting: function(id) {
-//        $('#dropdown_id_' + id).toggleClass('hideClass');
             var id = '#dropdown_id_' + id;
             $(id).toggleClass('hideClass');
             $(id).click(function() {
@@ -386,7 +385,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             setTimeout(function() {
                 $('#masonry_photo_collection_container').masonry("reloadItems");
                 setTimeout(function() {
-                    that.set("loadingTime", false);
                     $('#masonry_photo_collection_container').masonry();
                 }, 10);
             }, 30);

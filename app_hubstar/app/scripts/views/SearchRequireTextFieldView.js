@@ -1,10 +1,10 @@
 HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
     insertNewline: function() {
         var controller = this.get('targetObject');
-          var s = this.$().parents()[0].id.split("_")[1];
+        var s = this.$().parents()[0].id.split("_")[1];
         if (controller._debugContainerKey.indexOf("addCollection") !== -1)
         {
-            controller.addNewCollection();
+            controller.send("addNewCollection");
         }
         else if (controller._debugContainerKey.indexOf("application") !== -1)
         {
@@ -20,7 +20,6 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
             }
             else {
             }
-
         }
         else if (controller._debugContainerKey.indexOf("fourOhFour") !== -1)
         {
@@ -52,22 +51,22 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
             controller.partnerSearch();
         }
         else if (controller._debugContainerKey.indexOf("message") !== -1) {
-          
+
             controller.addReply(s);
         }
         else if (controller._debugContainerKey.indexOf("editReply") !== -1) {
-          
+
             controller.updateReply(s);
         }
         else if (controller._debugContainerKey.indexOf("reviewListSingle") !== -1) {
 
-        
+
             controller.transitionToRoute('review', {id: s});
             controller.addReviewReply(s);
-           
+
         }
         else if (controller._debugContainerKey.indexOf("reviewReplyListSingle") !== -1) {
-          
+
             controller.transitionToRoute('reply', {id: s});
             controller.saveReviewReply(s);
         }

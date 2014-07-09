@@ -14,6 +14,14 @@ HubStar.CollectionRoute = Ember.Route.extend({
         $('#defualt').addClass('selected-user-stats');
         this.controllerFor('masonryCollectionItems').selectModelForUser(id);
         this.controllerFor('masonryCollectionItems').set('canEdit', true);
+        if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar')) {
+                    HubStar.set('ctaView', true);
+                } 
+                else {
+                    HubStar.set('ctaView', false);
+                }
+            }
 
     },
     events: {

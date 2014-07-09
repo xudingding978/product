@@ -11,7 +11,7 @@
     <!--Embeded object part-->
     {{#each about_embeded_object}}
     {{#if controller.isAdmin}}
-    <div class="aboutus-attr">ISSUU Link:  (ex: issuu.com/trendsideas/docs/nz3002?e=0/6968696)</div>
+    <div class="aboutus-attr">ISSUU Link:  (ex: https://issuu.com/trendsideas/docs/nz3002?e=0/6968696)</div>
     <div class="input-box">
         {{view Ember.TextArea valueBinding="embeded_object_code" class="no-effect no-resize"  placeholder="*"}}
     </div> 
@@ -77,7 +77,7 @@
     {{#each about_embeded_object}}
     {{#if embed_object_enabled}}
     <hr>
-    <iframe width="800" height="560" src="//e.issuu.com/embed.html#{{unbound embeded_object_id}}" frameborder="0" allowfullscreen></iframe>
+    <iframe width="800" height="560" {{bind-attr src = "embeded_object_code"}} frameborder="0" allowfullscreen></iframe>
 
     {{#if embeded_object_code}}
     <div class="getapp-btn">

@@ -460,7 +460,7 @@ HubStar.UserController = Ember.Controller.extend({
                 requiredBackEnd('collections', 'delete', delInfo, 'POST', function() {
                 });
                 this.get("collections").removeObject(this.get("selectedCollection"));
-                this.cancelDelete();
+                this.send("cancelDelete");
             } else {
                 this.set('willDelete', true);
             }

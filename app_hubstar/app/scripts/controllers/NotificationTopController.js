@@ -8,6 +8,10 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'application', 'notification', 'userMessage', 'application'],
     isUploadPhoto: false,
     actions: {
+        notificationCancel: function() {
+            this.get("controllers.application").set("isNotification", false);
+            $('#Geo-Filter').toggleClass('Geo-Filter-active');
+        },
         cancelDelete: function() {
             this.set('willDelete', false);
             this.set('makeSureDelete', false);
@@ -72,7 +76,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                     break;
                 }
             }
-            this.notificationCancel();
+            this.send("notificationCancel");
         },
         removeNotificationItem: function(s)
         {
@@ -114,7 +118,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             this.transitionToRoute('user', user);
             this.set("notificationSeeAll", true);
             var that = this;
-            this.notificationCancel();
+            this.send("notificationCancel");
             setTimeout(function() {
                 that.transitionToRoute('messageCenter');
                 that.transitionToRoute("notification");
@@ -343,9 +347,5 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             }, 20);
         }
     },
-    notificationCancel: function() {
-        this.get("controllers.application").set("isNotification", false);
-        $('#Geo-Filter').toggleClass('Geo-Filter-active');
-    }
 }
 );

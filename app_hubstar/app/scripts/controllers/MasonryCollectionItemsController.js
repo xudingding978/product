@@ -21,6 +21,11 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     user_id: null,
     loadingTime: false,
     actions: {
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
+            HubStar.set('data', null);
+        },
         newUpload: function() {
 
             $('#ownerUpload').attr('style', 'display:block');
@@ -207,7 +212,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     }
                 }
                 this.reLayout();
-                this.cancelDelete();
+                this.send("cancelDelete");
             } else {
                 this.set('willDelete', true);
                 this.set('collectionID', collectionID);
@@ -362,11 +367,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                 $('#masonry_photo_collection_container').masonry();
             }, 100);
         }, 300);
-    },
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
-        HubStar.set('data', null);
     },
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);

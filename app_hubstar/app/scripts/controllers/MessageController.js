@@ -200,7 +200,7 @@ HubStar.MessageController = Ember.Controller.extend({
             this.set('isMessage', true);
             if (this.get('willDelete') === true) {
                 this.removeReply(s);
-                this.cancelDelete();
+                this.send("cancelDelete");
             } else {
                 this.set("s", s);
                 this.set('willDelete', true);
@@ -308,6 +308,10 @@ HubStar.MessageController = Ember.Controller.extend({
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
             }, 10);
+        },
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
         }
     },
     init: function()
@@ -330,10 +334,6 @@ HubStar.MessageController = Ember.Controller.extend({
 
 
         this.set("isEdit", true);
-    },
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
     },
     removeReply: function(reply_id)
     {

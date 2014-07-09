@@ -91,7 +91,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             HubStar.set("newConversation", false);
             HubStar.set("talkConversation", false);
             this.controllerFor("conversation").selectConversation(data.get("id"));
-            this.transitionTo("conversation", data);
+            this.transitionTo("conversationSingle", data);
         }
     },
     renderTemplate: function() {

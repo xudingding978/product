@@ -96,7 +96,7 @@ HubStar.GroupController = Ember.Controller.extend({
             if (this.get("topic").get("length") !== 0)
             {
                 if (this.get("topic").get("type").indexOf("commercial") !== -1) {
-                    this.topicSelection(this.get("topic"));
+                    this.send("topicSelection", this.get("topic"));
                 }
             }
             $("#group-com").addClass("group-button-active");
@@ -186,6 +186,163 @@ HubStar.GroupController = Ember.Controller.extend({
             this.get('topic').set("chooseNumber", this.get('topic').get("chooseNumber") + 1);
             this.get('selected_cate').push(s);
         },
+            topicSelection: function(data) {
+        if (data !== this.get("topic")) {
+
+            this.set('selected_cate', []);
+        }
+        data.set("isSelected", true);
+        this.set('topic', data);
+        this.set('subcate', data.get('subcate'));
+        for (var i = 0; i < this.get('categorys').get('length'); i++)
+        {
+            if (data.get("ids") !== this.get('categorys').objectAt(i).get("ids")) {
+                this.get('categorys').objectAt(i).set("isSelected", false);
+                this.get('categorys').objectAt(i).set("chooseNumber", 0);
+                for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
+                {
+                    this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
+                }
+            }
+        }
+    },
+        chooseBudget: function(n, s) {
+        var that = this;
+        $(document).ready(function() {
+            setTimeout(function() {
+                for (var i = 1; i <= 8; i++)
+                {
+                    $("#budget" + i).removeClass("group-selected");
+                }
+                $("#budget" + n).addClass("group-selected");
+                that.set("group_budget", s);
+            }, 2);
+        });
+    },
+        chooseTime: function(n, s) {
+        var that = this;
+        $(document).ready(function() {
+            setTimeout(function() {
+                for (var i = 1; i <= 5; i++)
+                {
+                    $("#time" + i).removeClass("group-selected");
+                }
+                $("#time" + n).addClass("group-selected");
+                that.set("group_timeframe", s);
+            }, 2);
+        });
+    },
+        choose: function(number) {
+        var that = this;
+        $(document).ready(function() {
+            setTimeout(function() {
+                if (number === "1") {
+                    $("#first_time").addClass("group-selected");
+                    $("#some_experiences").removeClass("group-selected");
+                    $("#professional").removeClass("group-selected");
+                    that.set("group_expertise", "First Time");
+                } else if (number === "2") {
+                    $("#some_experiences").addClass("group-selected");
+                    $("#first_time").removeClass("group-selected");
+                    $("#professional").removeClass("group-selected");
+                    that.set("group_expertise", "I have some experiences");
+                } else if (number === "3") {
+                    $("#professional").addClass("group-selected");
+                    $("#some_experiences").removeClass("group-selected");
+                    $("#first_time").removeClass("group-selected");
+                    that.set("group_expertise", "I am professional");
+                }
+            }, 2);
+        });
+    },
+        save: function() {
+        if (this.get("name")) {
+            this.getCateandSubCate();
+            var flag = this.fieldChecking();
+
+            if (flag) {
+                var that = this;
+                var a = this.get("model").save();
+                this.get("model").get('isSaving');
+                a.then(function() {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+                    for (var i = 0; i < HubStar.get("groups").get("length"); i++)
+                    {
+                        if (that.get("model").get("id") === HubStar.get("groups")[i].group_id)
+                        {
+                            HubStar.get("groups")[i].group_name = that.get("model").get("group_name");
+                            HubStar.get("groups")[i].group_pic_url = that.get("model").get("group_pic_url");
+                            var pic = that.get("model").get("group_pic_url");
+                            var url = pic.split("_");
+                            var length = url.length;
+                            var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
+                            var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+                            var heightNew = 50;
+                            var widthNew = 50;
+                            if (width > height)
+                            {
+                                heightNew = Math.ceil(height / width * 50);
+                                widthNew = 50;
+                            }
+                            else
+                            {
+                                heightNew = 50;
+                                widthNew = Math.ceil(width / height * heightNew);
+                            }
+                            width = widthNew + "px";
+                            height = heightNew + "px";
+                            HubStar.get("groups")[i].width = width;
+                            HubStar.get("groups")[i].height = height;
+                        }
+                    }
+                    that.send("backToFront");
+                });
+            }
+            else
+            {
+                this.get('controllers.applicationFeedback').statusObserver(null, "Please select a cateory");
+            }
+        }
+        else
+        {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please type in group name");
+        }
+    },
+        removePic: function(s) {
+        this.set(s + 'Source', null);
+        this.set(s + 'Name', null);
+        if (s === "logo") {
+            this.set("group_pic_url", this.get("model").get("group_pic_url"));
+        }
+        else if (s === "bg")
+        {
+            this.set("group_bg_url", this.get("model").get("group_bg_url"));
+            this.set("group_hero_url", this.get("model").get("group_hero_url"));
+        }
+    },
+        backToFront: function() {
+        this.set("group_budget", "");
+        this.set("group_timeframe", "");
+        this.set("group_pic_url", "");
+        this.set("group_bg_url", "");
+        this.set("group_hero_url", "");
+        this.set("group_expertise", "");
+        this.set("name", "");
+        this.set("description", "");
+        this.send("removePic", "logo");
+        this.send("removePic", "bg");
+        this.set("editGroup", false);
+        this.set("isResidential", false);
+        this.set("isCommercial", false);
+        this.set("categorys", null);
+        this.set("subcate", null);
+        this.set("selected_cate", []);
+        this.set("topic", []);
+        this.setPic();
+        $(".group-top").css("top", "70px");
+        $(".group-wallpaper").css("max-height", "700px");
+        $(".new-masonry-bar").parent().css("bottom", "0px");
+    }
     },
     init: function()
     {
@@ -259,7 +416,7 @@ HubStar.GroupController = Ember.Controller.extend({
             {
                 if (cate === this.get('categorys').objectAt(i).get("topic"))
                 {
-                    this.topicSelection(this.get('categorys').objectAt(i));
+                    this.send("topicSelection", this.get('categorys').objectAt(i));
                     break;
                 }
             }
@@ -294,166 +451,79 @@ HubStar.GroupController = Ember.Controller.extend({
             }
         }
     },
-    topicSelection: function(data) {
-        if (data !== this.get("topic")) {
 
-            this.set('selected_cate', []);
-        }
-        data.set("isSelected", true);
-        this.set('topic', data);
-        this.set('subcate', data.get('subcate'));
-        for (var i = 0; i < this.get('categorys').get('length'); i++)
-        {
-            if (data.get("ids") !== this.get('categorys').objectAt(i).get("ids")) {
-                this.get('categorys').objectAt(i).set("isSelected", false);
-                this.get('categorys').objectAt(i).set("chooseNumber", 0);
-                for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
-                {
-                    this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
-                }
-            }
-        }
-    },
-    backToFront: function() {
-        this.set("group_budget", "");
-        this.set("group_timeframe", "");
-        this.set("group_pic_url", "");
-        this.set("group_bg_url", "");
-        this.set("group_hero_url", "");
-        this.set("group_expertise", "");
-        this.set("name", "");
-        this.set("description", "");
-        this.removePic("logo");
-        this.removePic("bg");
-        this.set("editGroup", false);
-        this.set("isResidential", false);
-        this.set("isCommercial", false);
-        this.set("categorys", null);
-        this.set("subcate", null);
-        this.set("selected_cate", []);
-        this.set("topic", []);
-        this.setPic();
-        $(".group-top").css("top", "70px");
-        $(".group-wallpaper").css("max-height", "700px");
-        $(".new-masonry-bar").parent().css("bottom", "0px");
-    },
+
     refreshPage: function() {
         if (this.get('group_expertise') === "First Time")
         {
-            this.choose("1");
+            this.send("choose", "1");
         }
         else if (this.get('group_expertise') === "I have some experiences")
         {
-            this.choose("2");
+            this.send("choose", "2");
         }
         else if (this.get('group_expertise') === "I am professional")
         {
-            this.choose("3");
+            this.send("choose", "3");
         }
 
         if (this.get('group_budget') === "Less than 5k")
         {
-            this.chooseBudget("1", this.get('group_budget'));
+            this.send("chooseBudget", "1", this.get('group_budget'));
         }
         else if (this.get('group_budget') === "5k-10k")
         {
-            this.chooseBudget("2", this.get('group_budget'));
+            this.send("chooseBudget", "2", this.get('group_budget'));
         }
         else if (this.get('group_budget') === "10k-50k")
         {
-            this.chooseBudget("3", this.get('group_budget'));
+            this.send("chooseBudget", "3", this.get('group_budget'));
         }
         else if (this.get('group_budget') === "50k-100k")
         {
-            this.chooseBudget("4", this.get('group_budget'));
+            this.send("chooseBudget", "4", this.get('group_budget'));
         }
         else if (this.get('group_budget') === "100k-250k")
         {
-            this.chooseBudget("5", this.get('group_budget'));
+            this.send("chooseBudget", "5", this.get('group_budget'));
         }
         else if (this.get('group_budget') === "250k-500k")
         {
-            this.chooseBudget("6", this.get('group_budget'));
+            this.send("chooseBudget", "6", this.get('group_budget'));
         }
         else if (this.get('group_budget') === "500k- 1M")
         {
-            this.chooseBudget("7", this.get('group_budget'));
+            this.send("chooseBudget", "7", this.get('group_budget'));
         }
         else if (this.get('group_budget') === "1M+")
         {
-            this.chooseBudget("8", this.get('group_budget'));
+            this.send("chooseBudget", "8", this.get('group_budget'));
         }
 
         if (this.get('group_timeframe') === "1-2 months")
         {
-            this.chooseTime("1", this.get('group_timeframe'));
+            this.send("chooseTime", "1", this.get('group_timeframe'));
         }
         else if (this.get('group_timeframe') === "Next 6 months")
         {
-            this.chooseTime("2", this.get('group_timeframe'));
+            this.send("chooseTime", "2", this.get('group_timeframe'));
         }
         else if (this.get('group_timeframe') === "Within 12 months")
         {
-            this.chooseTime("3", this.get('group_timeframe'));
+            this.send("chooseTime", "3", this.get('group_timeframe'));
         }
         else if (this.get('group_timeframe') === "1-2 years")
         {
-            this.chooseTime("4", this.get('group_timeframe'));
+            this.send("chooseTime", "4", this.get('group_timeframe'));
         }
         else if (this.get('group_timeframe') === "Within 3 years")
         {
-            this.chooseTime("5", this.get('group_timeframe'));
+            this.send("chooseTime", "5", this.get('group_timeframe'));
         }
     },
-    chooseBudget: function(n, s) {
-        var that = this;
-        $(document).ready(function() {
-            setTimeout(function() {
-                for (var i = 1; i <= 8; i++)
-                {
-                    $("#budget" + i).removeClass("group-selected");
-                }
-                $("#budget" + n).addClass("group-selected");
-                that.set("group_budget", s);
-            }, 2);
-        });
-    },
-    chooseTime: function(n, s) {
-        var that = this;
-        $(document).ready(function() {
-            setTimeout(function() {
-                for (var i = 1; i <= 5; i++)
-                {
-                    $("#time" + i).removeClass("group-selected");
-                }
-                $("#time" + n).addClass("group-selected");
-                that.set("group_timeframe", s);
-            }, 2);
-        });
-    },
-    choose: function(number) {
-        var that = this;
-        $(document).ready(function() {
-            setTimeout(function() {
-                if (number === "1") {
-                    $("#first_time").addClass("group-selected");
-                    $("#some_experiences").removeClass("group-selected");
-                    $("#professional").removeClass("group-selected");
-                    that.set("group_expertise", "First Time");
-                } else if (number === "2") {
-                    $("#some_experiences").addClass("group-selected");
-                    $("#first_time").removeClass("group-selected");
-                    $("#professional").removeClass("group-selected");
-                    that.set("group_expertise", "I have some experiences");
-                } else if (number === "3") {
-                    $("#professional").addClass("group-selected");
-                    $("#some_experiences").removeClass("group-selected");
-                    $("#first_time").removeClass("group-selected");
-                    that.set("group_expertise", "I am professional");
-                }
-            }, 2);
-        });
-    },
+
+
+
     getCateandSubCate: function() {
         var subCategory = "";
         var cateIds = "";
@@ -531,71 +601,8 @@ HubStar.GroupController = Ember.Controller.extend({
         }
         return flag;
     },
-    save: function() {
-        if (this.get("name")) {
-            this.getCateandSubCate();
-            var flag = this.fieldChecking();
 
-            if (flag) {
-                var that = this;
-                var a = this.get("model").save();
-                this.get("model").get('isSaving');
-                a.then(function() {
-                    that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
-                    for (var i = 0; i < HubStar.get("groups").get("length"); i++)
-                    {
-                        if (that.get("model").get("id") === HubStar.get("groups")[i].group_id)
-                        {
-                            HubStar.get("groups")[i].group_name = that.get("model").get("group_name");
-                            HubStar.get("groups")[i].group_pic_url = that.get("model").get("group_pic_url");
-                            var pic = that.get("model").get("group_pic_url");
-                            var url = pic.split("_");
-                            var length = url.length;
-                            var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
-                            var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
-                            var heightNew = 50;
-                            var widthNew = 50;
-                            if (width > height)
-                            {
-                                heightNew = Math.ceil(height / width * 50);
-                                widthNew = 50;
-                            }
-                            else
-                            {
-                                heightNew = 50;
-                                widthNew = Math.ceil(width / height * heightNew);
-                            }
-                            width = widthNew + "px";
-                            height = heightNew + "px";
-                            HubStar.get("groups")[i].width = width;
-                            HubStar.get("groups")[i].height = height;
-                        }
-                    }
-                    that.backToFront();
-                });
-            }
-            else
-            {
-                this.get('controllers.applicationFeedback').statusObserver(null, "Please select a cateory");
-            }
-        }
-        else
-        {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please type in group name");
-        }
-    },
-    removePic: function(s) {
-        this.set(s + 'Source', null);
-        this.set(s + 'Name', null);
-        if (s === "logo") {
-            this.set("group_pic_url", this.get("model").get("group_pic_url"));
-        }
-        else if (s === "bg")
-        {
-            this.set("group_bg_url", this.get("model").get("group_bg_url"));
-            this.set("group_hero_url", this.get("model").get("group_hero_url"));
-        }
-    },
+
     profileStyleImageDrop: function(e, name, variable) {
         this.set("isUploadPhoto", true);
         var target = getTarget(e, "single");

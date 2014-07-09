@@ -17,6 +17,10 @@ HubStar.PhotoView = Ember.View.extend({
         },
         setDiscussionTag: function() {
             $('#discuss_action').slideToggle("slow");
+        },
+        popupAibum: function() {
+            $(".show-album").slideToggle("slow");
+
         }
     },
     didInsertElement: function() {
@@ -176,9 +180,6 @@ HubStar.PhotoView = Ember.View.extend({
             //alert(that.get("controller").get("showEachTagContent"));
         });
 
-    },
-    popupAibum: function() {
-        $(".show-album").slideToggle("slow");
     },
     openComment: function() {
 

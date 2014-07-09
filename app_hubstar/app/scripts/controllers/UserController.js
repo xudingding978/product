@@ -722,10 +722,10 @@ HubStar.UserController = Ember.Controller.extend({
         {
             if (this.get("user").get("email").match(/@trendsideas.com/g) !== "" && this.get("user").get("email").match(/@trendsideas.com/g) !== "undefined" && this.get("user").get("email").match(/@trendsideas.com/g) !== null)
             {
-                this.get("controllers.application").set("is_trends_user", true);
+                HubStar.set("is_trends_user", true);
             }
             else {
-                this.get("controllers.application").set("is_trends_user", false);
+                HubStar.set("is_trends_user", false);
             }
         }
         else {

@@ -5,24 +5,23 @@
 
     <div class="t-style-box pdfuploader-inner" >
 
-        <div id="pdfUploaderContent" class="pdfuploader-txtContainer">
-            <i class="fa fa-arrow-circle-o-up pdfuploader-icon" ></i>
-            <span class="pdfuploader-txt1">
-                Drag & Drop Your PDF Here
-            </span>
-            <span class="pdfuploader-txt2">Please upload no more than 20 photos at a time, and maximum size of 20MB per photo.</span> 
+        {{#view HubStar.SingleFileUploaderView}}
+        <div id="pdfUploaderData" class="pdfuploader-back" >
+            <div id="pdfUploaderContent" class="pdfuploader-txtContainer">
+                <i class="fa fa-arrow-circle-o-up pdfuploader-icon" ></i>
+                <span class="pdfuploader-txt1">
+                    Drag & Drop Your PDF Here
+                </span>
+                <span class="pdfuploader-txt2">Please upload no more than 20 photos at a time, and maximum size of 20MB per photo.</span> 
+            </div>
         </div>
-
+        
 
         <div  id="pdfInformation" >
-            {{#if controller.loadingTime}}
 
-            {{render "loadingSpinner"}}
-
-            {{/if}}
             {{#each pdfArray}}          
-            
-            
+
+
 
             <div class="pdfuploader-preview-container">
                 <div id="pdf_id_{{unbound id}}">
@@ -59,21 +58,11 @@
     </div>
     {{/each}}
 </div>
-
-</div>
-
-
-{{#view HubStar.SingleFileUploaderView}}
-<div id="pdfUploaderData" class="pdfuploader-back" >
-    <div id="pdfUploaderContent" class="pdfuploader-txtContainer">
-        <i class="fa fa-arrow-circle-o-up pdfuploader-icon" ></i>
-        <span class="pdfuploader-txt1">
-            Drag & Drop Your PDF Here
-        </span>
-        <span class="pdfuploader-txt2">Please upload no more than 20 photos at a time, and maximum size of 20MB per photo.</span> 
-    </div>
-</div>
 {{/view}}
+</div>
+
+
+
 
 <div class="pdfuploader-action-container" >
     <div class="message-btn easing pdfuploader-action-btn" {{action closeUploader}}>
@@ -91,3 +80,8 @@
 
 
 </div>
+{{#if controller.loadingTime}}
+
+{{render "loadingSpinner"}}
+
+{{/if}}

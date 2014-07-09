@@ -519,10 +519,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         && (u.get("email")).match(/@trendsideas.com/g) !== ""
                         && (u.get("email")).match(/@trendsideas.com/g) !== null)
                 {
-                    that.set("is_trends_user", true);
+                    HubStar.set("is_trends_user", true);
                 }
                 else {
-                    that.set("is_trends_user", false);
+                    HubStar.set("is_trends_user", false);
                 }
                 if (HubStar.get("isTopAdDisplay")) {
                     setTimeout(function() {
@@ -756,6 +756,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     else if (tempmega.get("getVideo") === true)
                     {
                         $("#init_photo_" + tempmega.get("id")).css({height: 263});
+                    }
+                    else if (tempmega.get("getPdf") === true)
+                    {
+                        $("#init_photo_" + tempmega.get("id")).css({height: 495});
                     }
                     else if (tempmega.get("getProfile") === true)
                     {

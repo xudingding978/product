@@ -20,68 +20,67 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting', 'applicationFeedback'],
     user_id: null,
     loadingTime: false,
-    
-    actions:{
+    actions: {
         newUpload: function() {
 
-        $('#ownerUpload').attr('style', 'display:block');
-        $('#tagetUplaod').attr('style', 'display:none');
-        $('#addNew').toggleClass('col2');
-        $('#addNew').toggleClass('col4');
-        var photoCreate = this.get('controllers.photoCreate');
-        photoCreate.init();
-        setTimeout(function() {
-            $('#masonry_photo_collection_container').masonry("reloadItems");
+            $('#ownerUpload').attr('style', 'display:block');
+            $('#tagetUplaod').attr('style', 'display:none');
+            $('#addNew').toggleClass('col2');
+            $('#addNew').toggleClass('col4');
+            var photoCreate = this.get('controllers.photoCreate');
+            photoCreate.init();
             setTimeout(function() {
-                $('#masonry_photo_collection_container').masonry();
-            }, 100);
-        }, 200);
-    },
-    goBack: function() {
+                $('#masonry_photo_collection_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_photo_collection_container').masonry();
+                }, 100);
+            }, 200);
+        },
+        goBack: function() {
 //        var lastposition = HubStar.get("scrollCollectionPosition");
-        //window.history.back();
+            //window.history.back();
 
-        var address = document.URL;
-        var user_id = address.split("#")[1].split("/")[1];
-        if (user_id === "profiles")
-        {
-            this.get('controllers.profile').goToProfileRoute(address.split("#")[1].split("/")[2]);
+            var address = document.URL;
+            var user_id = address.split("#")[1].split("/")[1];
+            if (user_id === "profiles")
+            {
+                this.get('controllers.profile').goToProfileRoute(address.split("#")[1].split("/")[2]);
 
+            }
+            else if (user_id === "users")
+            {
+                this.get('controllers.user').goToUserRoute();
+            }
+
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+                $('html,body').animate({
+                    scrollTop: $("#profile_submenu").offset().top - 100
+                });
+            }, 100);
+        },
+        back: function() {
+            this.resetContent();
+            var photoCreateController = this.get('controllers.photoCreate');
+            photoCreateController.set("fileSize", 0);
+            photoCreateController.set("filesNumber", 0);
+            $('#ownerUpload').attr('style', 'display:none');
+            $('#tagetUplaod').attr('style', 'display:block');
+            this.set('uploadOrsubmit', false);
+            $('#addNew').toggleClass('col2');
+            $('#addNew').toggleClass('col4');
+            this.reLayout();
+
+            HubStar.set('isNewUpload', true);
+            $('#dragAndDroppArea').attr('style', "display:none");
+        },
+        photoUpload: function(e) {
+            for (var i = 0; i < this.get("uploadImageContent").length; i++)
+            {
+                var t = this.get("uploadImageContent").objectAt(i).store.save();
+                this.get("uploadImageContent").objectAt(i).get("isSaving");
+            }
         }
-        else if (user_id === "users")
-        {
-            this.get('controllers.user').goToUserRoute();
-        }
-
-        setTimeout(function() {
-            $('#masonry_user_container').masonry();
-            $('html,body').animate({
-                scrollTop: $("#profile_submenu").offset().top - 100
-            });
-        }, 100);
-    },
-     back: function() {
-        this.resetContent();
-        var photoCreateController = this.get('controllers.photoCreate');
-        photoCreateController.set("fileSize", 0);
-        photoCreateController.set("filesNumber", 0);
-        $('#ownerUpload').attr('style', 'display:none');
-        $('#tagetUplaod').attr('style', 'display:block');
-        this.set('uploadOrsubmit', false);
-        $('#addNew').toggleClass('col2');
-        $('#addNew').toggleClass('col4');
-        this.reLayout();
-
-        HubStar.set('isNewUpload', true);
-        $('#dragAndDroppArea').attr('style', "display:none");
-    },
-    photoUpload: function(e) {
-        for (var i = 0; i < this.get("uploadImageContent").length; i++)
-        {
-            var t = this.get("uploadImageContent").objectAt(i).store.save();
-            this.get("uploadImageContent").objectAt(i).get("isSaving");
-        }
-    }
     },
     init: function() {
     },
@@ -150,6 +149,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                         {
                             $("#init_photo_" + tempmega.get("id")).css({height: "263px"});
                         }
+                        else if (tempmega.get("getPdf") === true)
+                        {
+                            $("#init_photo_" + tempmega.get("id")).css({height: 495});
+                        }
                     }
                     setTimeout(function() {
                         $('#masonry_photo_collection_container').masonry("reloadItems");
@@ -207,7 +210,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.checkEditingMode();
     }
     ,
-    
     removeCollectedItem: function(collectionID, itemID, type)
     {
         var message = "Remove this item from your collection?";
@@ -426,6 +428,14 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                                         $("#init_photo_" + tempmega.get("id")).css({height: size});
                                     }
                                 }
+                            }
+                            else if (tempmega.get("getVideo") === true)
+                            {
+                                $("#init_photo_" + tempmega.get("id")).css({height: 263});
+                            }
+                            else if (tempmega.get("getPdf") === true)
+                            {
+                                $("#init_photo_" + tempmega.get("id")).css({height: 495});
                             }
                         }
                         setTimeout(function() {

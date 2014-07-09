@@ -55,10 +55,10 @@ HubStar.NewProfileDisplayView = Ember.View.extend({
                         && (u.get("email")).match(/@trendsideas.com/g) !== ""
                         && (u.get("email")).match(/@trendsideas.com/g) !== null)
                 {
-                    that.set("is_trends_user", true);
+                    HubStar.set("is_trends_user", true);
                 }
                 else {
-                    that.set("is_trends_user", false);
+                    HubStar.set("is_trends_user", false);
                 }
             });
         $(document).ready(function() {

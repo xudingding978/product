@@ -3208,7 +3208,7 @@ div#appfeedback .fresh-message > i.fa-times{
     top: 0;
     background-color: rgba(204, 204, 204, 0.75); 
     height: 490px; 
-    z-index: 100; 
+    z-index: 0; 
     width: 600px;
 }
 .pdfuploader-inner{
@@ -3266,7 +3266,12 @@ div#appfeedback .fresh-message > i.fa-times{
     width: 50px;
 }
 .pdfuploader-preview-title{
+    width: 70%;
+    overflow: hidden;
+    text-align: left;
     margin-left: 20px;
+    position: relative;
+    top: 10px;
 }
 
 .pdfuploader-trash{

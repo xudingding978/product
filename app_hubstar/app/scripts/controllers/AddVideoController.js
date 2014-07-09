@@ -11,7 +11,7 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
         canel: function() {
             this.reset();
             var profileVideoController = this.get('controllers.profileVideos');
-            profileVideoController.videoCreateModeSwitch();
+            profileVideoController.send("videoCreateModeSwitch");
         },
         getVideoFromYoutube: function()
         {

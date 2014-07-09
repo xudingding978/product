@@ -23,6 +23,29 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
             $('#dropdown_id_' + this.get('delete_id')).toggleClass('hideClass');
             this.set('delete_id', null);
             this.relayout();
+        },
+        removeCollectedItem: function()
+        {
+            this.set('message', "Remove this video?");
+            this.set('makeSureDelete', !this.get('makeSureDelete'));
+
+        },
+        transitionToPdf: function(id) {
+            var url = "";
+            for (var i = 0; i < this.get('pdfContent').get('length'); i++) {
+                if (this.get('pdfContent').objectAt(i).get('id') === id) {
+                    console.log(i);
+                    url = this.get('pdfContent').objectAt(i).get('pdf').objectAt(0).get('pdf_url');
+                }
+            }
+            window.open(
+                    url
+                    ).focus();
+        },
+        pdfCreateModeSwitch: function()
+        {
+            this.set('is_pdf_create_mode', true);
+            this.transitionToRoute("pdfUploader");
         }
     },
     init: function() {
@@ -51,20 +74,8 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
                         scrollTop: $("#profile_submenu").offset().top - 100
                     });
                 }, 100);
-            }, 250);
+            }, 850);
         });
-    },
-    transitionToPdf: function(id) {
-        var url = "";
-        for (var i = 0; i < this.get('pdfContent').get('length'); i++) {
-            if (this.get('pdfContent').objectAt(i).get('id') === id) {
-                console.log(i);
-                url = this.get('pdfContent').objectAt(i).get('pdf').objectAt(0).get('pdf_url');
-            }
-        }
-        window.open(
-                url
-                ).focus();
     },
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
@@ -80,12 +91,6 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
             }
         });
         return is_authentic_user;
-    },
-    removeCollectedItem: function()
-    {
-        this.set('message', "Remove this video?");
-        this.set('makeSureDelete', !this.get('makeSureDelete'));
-
     },
     deleteSelectedCollection: function()
     {

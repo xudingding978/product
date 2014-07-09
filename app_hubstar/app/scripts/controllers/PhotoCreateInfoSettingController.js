@@ -7,7 +7,7 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
     isEditingMode: false,
     actions:{
          backToDragAndDrop: function() {
-        this.finishUploadingAndInfo();
+        this.send("finishUploadingAndInfo");
         var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
 
         masonryCollectionItems.send("newUpload");
@@ -32,7 +32,7 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
    
     finishUploadingAndInfo: function() {
         var photoCreate = this.get('controllers.photoCreate');
-        photoCreate.back();
+        photoCreate.send("back");
     }
     },
     

@@ -331,41 +331,41 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         },
         dropdownNavigator: function() {
-        this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
-        var that = this;
-        this.get("categorys").then(function() {
-            $(document).ready(function() {
-                setTimeout(function() {
-                    that.residentialCommercialStatus();
-                }, 50);
+            this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
+            var that = this;
+            this.get("categorys").then(function() {
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        that.residentialCommercialStatus();
+                    }, 50);
+                });
             });
-        });
-        this.set('subcate', []);
-        this.set('subcategories', []);
+            this.set('subcate', []);
+            this.set('subcategories', []);
 
-        setTimeout(function() {
-            $('.Navigator-box').fadeIn("fast");
-        }, 30);
-    },
-    dropdownHeaderNavigator: function() {
+            setTimeout(function() {
+                $('.Navigator-box').fadeIn("fast");
+            }, 30);
+        },
+        dropdownHeaderNavigator: function() {
 
-        this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
-        var that = this;
-        this.get("categorys").then(function() {
-            
-            $(document).ready(function() {
-                setTimeout(function() {
-                    that.residentialCommercialStatus();
-                }, 50);
+            this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
+            var that = this;
+            this.get("categorys").then(function() {
+
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        that.residentialCommercialStatus();
+                    }, 50);
+                });
             });
-        });
-        this.set('subcate', []);
-        this.set('subcategories', []);
+            this.set('subcate', []);
+            this.set('subcategories', []);
 
-        setTimeout(function() {
-            $('.Navigator-box').fadeIn("fast");
-        }, 30);
-    }
+            setTimeout(function() {
+                $('.Navigator-box').fadeIn("fast");
+            }, 30);
+        }
     },
     init: function() {
         HubStar.set("isTopAdDisplay", true);
@@ -1113,7 +1113,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     setfemale: function() {
         this.set('gender', "female");
     },
-    
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginUsername') !== "" && this.get('loginPassword') !== "")
         {

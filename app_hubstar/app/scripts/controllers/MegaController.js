@@ -124,7 +124,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         // share to social facebook
         fbShare: function(param) {
             if (this.get("controllers.checkingLoginStatus").popupLogin()) {
-                this.dropdownPhotoSetting(param);
+                this.send("dropdownPhotoSetting",param);
                 var that = this;
                 var caption = '';
                 if (this.get('selectedPhoto').get('photo_caption') !== null)
@@ -185,7 +185,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         //share to social google plus
         gpShare: function(param) {
             if (this.get("controllers.checkingLoginStatus").popupLogin()) {
-                this.dropdownPhotoSetting(param);
+                this.send("dropdownPhotoSetting",param);
                 var caption = '';
                 if (this.get('selectedPhoto').get('photo_caption') !== null)
                 {
@@ -234,7 +234,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         //share to social twitter
         tShare: function(param) {
             if (this.get("controllers.checkingLoginStatus").popupLogin()) {
-                this.dropdownPhotoSetting(param);
+                this.send("dropdownPhotoSetting",param);
                 var descript = this.get('selectedPhoto').get('photo_title');
                 var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
                 if (this.get('selectedPhoto').get("type") === "article")
@@ -270,7 +270,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         },
         pShare: function(param) {
             if (this.get("controllers.checkingLoginStatus").popupLogin()) {
-                this.dropdownPhotoSetting(param);
+                this.send("dropdownPhotoSetting",param);
                 var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
                 var descript = this.get('selectedPhoto').get('photo_title');
                 if (this.get('selectedPhoto').get("type") === "article")

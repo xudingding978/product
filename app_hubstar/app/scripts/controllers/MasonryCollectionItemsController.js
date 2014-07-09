@@ -293,6 +293,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                         {
                             $("#init_photo_" + tempmega.get("id")).css({height: "263px"});
                         }
+                        else if (tempmega.get("getPdf") === true)
+                        {
+                            $("#init_photo_" + tempmega.get("id")).css({height: 495});
+                        }
                     }
                     setTimeout(function() {
                         $('#masonry_photo_collection_container').masonry("reloadItems");
@@ -423,6 +427,14 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                                         $("#init_photo_" + tempmega.get("id")).css({height: size});
                                     }
                                 }
+                            }
+                            else if (tempmega.get("getVideo") === true)
+                            {
+                                $("#init_photo_" + tempmega.get("id")).css({height: 263});
+                            }
+                            else if (tempmega.get("getPdf") === true)
+                            {
+                                $("#init_photo_" + tempmega.get("id")).css({height: 495});
                             }
                         }
                         setTimeout(function() {

@@ -35,9 +35,9 @@ HubStar.ProfileNewView = Ember.View.extend({
                     && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== "undefined"
                     && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== null) {
 
-                this.get("controller").get('controllers.application').set("is_trends_user", true);
+                HubStar.set("is_trends_user", true);
             } else {
-                this.get("controller").get('controllers.application').set("is_trends_user", false);
+                HubStar.set("is_trends_user", false);
                 this.get("controller").transitionToRoute("searchIndexTom");
             }
         }

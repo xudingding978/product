@@ -7,13 +7,13 @@
 <div class="masonry-container">
 
     {{#if controller.groupPage}}
-      <div class="new-masonry-bar" >
+    <div class="new-masonry-bar" >
         <ul  id="new-user-stats">
-          <li id="networkGroup"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position="top" {{action selectPartner}}>Network <span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>
-          <li id="networkGroup1"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position="top" {{action selectPartner1}}>Collections <span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>
-          </ul>
-      </div>
-    
+            <li id="networkGroup"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position="top" {{action selectPartner}}>Network <span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>
+            <li id="networkGroup1"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position="top" {{action selectPartner1}}>Collections <span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>
+        </ul>
+    </div>
+
     {{else}}
 
     <div id="profile_submenu" class="style-box t-style-box masonry-profilesubmenu" >
@@ -62,12 +62,12 @@
 
         </ul>
         {{/if}}    
-       
+
     </div>
-    
-    
-    
-        {{/if}}
+
+
+
+    {{/if}}
 
     <div id="masonry_user_container" class="centered clearfix masonry_push_down" >
         <!-- masonry from here -->
@@ -102,14 +102,15 @@
         {{render "userFollowings"}}
         {{/if}} 
 
-
+        {{#if messageTag}}
         {{outlet messageCenter}}
-        
+        {{/if}} 
 
 
+        {{#if postTag}}
         {{outlet userMessage}}
+        {{/if}} 
 
-        
         {{#if controller.groupNetwork}}
         {{outlet "groupNetwork"}}
         {{/if}}

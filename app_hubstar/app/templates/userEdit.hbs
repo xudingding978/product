@@ -331,7 +331,7 @@
 
                 <div id="user_profiles"> 
                     <div class="user-profile-hover">
-                        <div id="profile-creator-title" class="user-title-list" {{action clickToDisplay 'Creator' on="click" target="view"}}> 
+                        <div id="profile-creator-title" class="user-title-list" > 
                              <i class="fa fa-user-md" >&nbsp;</i>Creator &nbsp;(&nbsp;{{HubStar.userCreator}}&nbsp;)
                         </div>
                         <div id="user-profile-creator">
@@ -352,7 +352,7 @@
                         </div>
                     </div>
                     <div class="user-profile-hover">
-                        <div id="profile-admin-title" class="user-title-list " {{action clickToDisplay "Admin" on="click" target="view"}}>
+                        <div id="profile-admin-title" class="user-title-list " >
                              <i class="fa fa-user" ></i>&nbsp;Administrator &nbsp;(&nbsp;{{HubStar.userAdministrator}}&nbsp;)
 
                         </div>
@@ -377,7 +377,7 @@
                         </div>
                     </div>
                     <div class="user-profile-hover">
-                        <div id="profile-editor-title" class="user-title-list" {{action clickToDisplay "Editor" on="click" target="view"}}>
+                        <div id="profile-editor-title" class="user-title-list" >
                              <i class="fa fa-users">&nbsp;</i>Editor  &nbsp;(&nbsp;{{HubStar.userEditor}}&nbsp;)
 
                         </div>
@@ -403,7 +403,7 @@
                 </div>
 
                 <div style="width: 100%;height: auto; min-height: 50px;padding-left: 25px;">
-                    {{#if view.is_trends_user}}
+                    {{#if HubStar.is_trends_user}}
                     <div class='new-profile-display-button'><a href="#/profiles/new"><i class="fa fa-plus">&nbsp;New Profile</i></a> </div>
                     {{/if}}
                 </div>

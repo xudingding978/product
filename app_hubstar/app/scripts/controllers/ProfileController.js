@@ -157,6 +157,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     editorAdd: false,
     isShareEmail: false,
     actions: {
+        closeContact: function() {
+            this.set('contactChecking', false);
+            document.getElementById("body_id").style.overflow = "auto";
+        },
         getVideoURL: function() {
             var video_url = this.get('about_us').objectAt(0).get('about_video').objectAt(0).get('video_url').split('?');
             if (video_url.get('length') > 1) {
@@ -1613,10 +1617,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     toggleUpload: function() {
         $('.corpbanner_mask').toggleClass('hideClass');
         this.set('uploadChecking', !this.get('uploadChecking'));
-    },
-    closeContact: function() {
-        this.set('contactChecking', false);
-        document.getElementById("body_id").style.overflow = "auto";
     },
     closeShareEmail: function() {
         this.set('shareEmail', false);

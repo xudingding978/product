@@ -7,6 +7,15 @@ HubStar.PhotoView = Ember.View.extend({
     PartnerTag: false,
     DiscussionTag: false,
     NameTag: false,
+    actions: {
+        setTitleTag: function() {
+            $('#article_action').slideToggle(1000);
+        },
+        setNameTag: function() {
+            $('#poster_action').slideToggle("slow");
+
+        }
+    },
     didInsertElement: function() {
         this.ads();
         var that = this;
@@ -141,15 +150,8 @@ HubStar.PhotoView = Ember.View.extend({
         };
         return this.$().attr({tabindex: 1}), this.$().focus();
     },
-    setTitleTag: function() {
-        $('#article_action').slideToggle(1000);
-    },
     setDiscussionTag: function() {
         $('#discuss_action').slideToggle("slow");
-    },
-    setNameTag: function() {
-        $('#poster_action').slideToggle("slow");
-
     },
     setPartnerTag: function() {
         $('#partner_action').slideToggle("slow");

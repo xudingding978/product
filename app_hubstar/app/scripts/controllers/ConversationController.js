@@ -7,6 +7,10 @@ HubStar.ConversationController = Ember.Controller.extend({
     willDelete: false,
     isNewConversation: false,
     actions: {
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
+        },
         removeConversationItem: function(s)
         {
             var message = "Remove this conversation?";
@@ -15,7 +19,7 @@ HubStar.ConversationController = Ember.Controller.extend({
             this.set('makeSureDelete', true);
             if (this.get('willDelete') === true) {
                 this.deleteConversationItem(s);
-                this.cancelDelete();
+                this.send("cancelDelete");
             } else {
                 this.set("s", s);
                 this.set('willDelete', true);
@@ -63,10 +67,6 @@ HubStar.ConversationController = Ember.Controller.extend({
             }
         }
     },
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
-    },
     deleteConversationItem: function(id)
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -78,7 +78,7 @@ HubStar.ConversationController = Ember.Controller.extend({
         var that = this;
 
         requiredBackEnd('conversations', 'DeleteConversation', tempComment, 'POST', function() {
-            that.get("controllers.messageCenter").selectNewConversation();
+            that.get("controllers.messageCenter").send("selectNewConversation");
             for (var i = 0; i < that.get("conversationContent").length; i++)
             {
                 if (that.get("conversationContent").objectAt(i).get("conversationID") === id)

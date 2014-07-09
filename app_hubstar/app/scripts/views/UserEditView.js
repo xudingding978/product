@@ -1,19 +1,24 @@
 HubStar.UserEditView = Ember.View.extend({
     templateName: 'userEdit',
+    is_trends_user: false,
+    aa:"!2321321321",
     didInsertElement: function() {
-      var u = HubStar.User.find(localStorage.loginStatus);
-        var that =this;
-            u.then(function() {
-                if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
-                        && (u.get("email")).match(/@trendsideas.com/g) !== ""
-                        && (u.get("email")).match(/@trendsideas.com/g) !== null)
-                {
-                    that.set("is_trends_user", true);
-                }
-                else {
-                    that.set("is_trends_user", false);
-                }
-            });
+        var u = HubStar.User.find(localStorage.loginStatus);
+        var that = this;
+        console.log("111111111111");
+        u.then(function() {
+            if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
+                    && (u.get("email")).match(/@trendsideas.com/g) !== ""
+                    && (u.get("email")).match(/@trendsideas.com/g) !== null)
+            {
+                console.log("22222222222222");
+                that.set("is_trends_user", true);
+            }
+            else {
+                console.log("333333333333333");
+                that.set("is_trends_user", false);
+            }
+        });
         $(document).ready(function() {
             if (HubStar.get("userCreator") >= 3) {
                 $("#user-profile-creator").mCustomScrollbar({

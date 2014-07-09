@@ -10,6 +10,20 @@ HubStar.CommentController = Ember.Controller.extend({
     objID: "",
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'shareEmail'],
     actions: {
+        closeCommentItem: function(obj) {
+            obj.set("isEdit", false);
+            var id = obj.get("message_id");
+            setTimeout(function() {
+                $('#commentEdit_' + id).attr('style', 'display:none');
+                $('#commentItem_' + id).attr('style', 'display:block');
+                $('#commentItemIn_' + id).attr('style', 'display:block');
+                setTimeout(function() {
+                    $('#masonry_container').masonry();
+                    $('#masonry_user_container').masonry();
+                    $('#masonry_photo_collection_container').masonry();
+                }, 100);
+            }, 200);
+        },
         openComment: function(id) {
 
             if (localStorage.loginStatus) {
@@ -216,20 +230,6 @@ HubStar.CommentController = Ember.Controller.extend({
         var comments = mega.get('comments');
         this.set('mega', mega);
         this.set('thisComments', comments);
-    },
-    closeCommentItem: function(obj) {
-        obj.set("isEdit", false);
-        var id = obj.get("message_id");
-        setTimeout(function() {
-            $('#commentEdit_' + id).attr('style', 'display:none');
-            $('#commentItem_' + id).attr('style', 'display:block');
-            $('#commentItemIn_' + id).attr('style', 'display:block');
-            setTimeout(function() {
-                $('#masonry_container').masonry();
-                $('#masonry_user_container').masonry();
-                $('#masonry_photo_collection_container').masonry();
-            }, 100);
-        }, 200);
     },
     removeCommentItem: function(object)
     {

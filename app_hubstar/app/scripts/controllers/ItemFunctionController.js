@@ -127,7 +127,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         },
         fbShare: function(model) {
 
-            this.shareHide(model.id);
+            this.send("shareHide", model.id);
             var that = this;
             var currntUrl = '';
             var caption = '';
@@ -251,7 +251,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         },
         //share to social google plus
         gpShare: function(model) {
-            this.shareHide(model.id);
+            this.send("shareHide", model.id);
             var caption = '';
             var currntUrl = '';
             var url = '';
@@ -355,7 +355,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         //share to social twitter
         tShare: function(model) {
 
-            this.shareHide(model.id);
+            this.send("shareHide", model.id);
             var currntUrl = '';
             var url = '';
             var mega = model;
@@ -409,7 +409,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         },
         pShare: function(model) {
 
-            this.shareHide(model.id);
+            this.send("shareHide", model.id);
             var currntUrl = '';
             var url = '';
             var mega = model;
@@ -469,7 +469,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
 
         },
         eShare: function(model) {
-            this.shareHide(model.id);
+            this.send("shareHide", model.id);
             if (this.get("controllers.checkingLoginStatus").popupLogin()) {
                 this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
                 var photoObj;

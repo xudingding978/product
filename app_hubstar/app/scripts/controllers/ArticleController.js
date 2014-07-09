@@ -31,6 +31,10 @@ HubStar.ArticleController = Ember.Controller.extend({
     showTagAfterSave: false, // show the tag icon afte approve
     needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems', 'showTag', 'mega', 'updateTag', 'permission', 'shareEmail'],
     actions: {
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
+        },
         closeWindow: function() {
             this.set('collectable', false);
             this.set('contact', false);
@@ -623,7 +627,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             this.set('makeSureDelete', true);
             if (this.get('willDelete')) {
                 this.removeCommentItem(object);
-                this.cancelDelete();
+                this.send("cancelDelete");
             } else {
                 this.set("obj", object);
                 this.set('willDelete', true);
@@ -930,10 +934,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         } else {
             this.set('isCreditListExist', false);
         }
-    },
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
     },
     removeCommentItem: function(object)
     {

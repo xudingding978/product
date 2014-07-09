@@ -37,7 +37,7 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
         deleteConfirm: function()
         {
             this.deleteSelectedCollection();
-            this.cancelDelete();
+            this.send("cancelDelete");
         },
         cancelDelete: function() {
             this.set('makeSureDelete', !this.get('makeSureDelete'));

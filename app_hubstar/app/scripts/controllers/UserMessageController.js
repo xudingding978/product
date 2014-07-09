@@ -22,6 +22,10 @@ HubStar.UserMessageController = Ember.Controller.extend({
     willDelete: false,
     oldPost: "",
     actions: {
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
+        },
         removePic: function() {
             this.set('newStyleImageSource', null);
             this.set('newStyleImageName', "");
@@ -137,7 +141,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             this.set('isUserMessage', true);
             if (this.get('willDelete') === true) {
                 this.removeMessage(s);
-                this.cancelDelete();
+                this.send("cancelDelete");
             } else {
                 this.set("s", s);
                 this.set('willDelete', true);
@@ -315,10 +319,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
         });
     }
     ,
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
-    },
     removeMessage: function(Message_id)
     {
 

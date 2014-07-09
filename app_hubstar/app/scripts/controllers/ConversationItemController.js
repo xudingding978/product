@@ -23,6 +23,12 @@ HubStar.ConversationItemController = Ember.Controller.extend({
     isNewPeople: false,
     isPosting: true,
     actions: {
+        invitePeople: function(id)
+        {
+            this.get("controllers.invitePeople").set("owner", "conversationItem");
+            this.set("isInvitePeople", true);
+            this.get("controllers.invitePeople").getClientId(localStorage.loginStatus, id);
+        },
         seeMore: function(id) {
             $('#closeComment').attr('style', 'display:inline-block');
             $('#showMoreComment').attr('style', 'display:none');
@@ -256,12 +262,6 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                 set_height: 1000
             });
         }, 200);
-    },
-    invitePeople: function(id)
-    {
-        this.get("controllers.invitePeople").set("owner", "conversationItem");
-        this.set("isInvitePeople", true);
-        this.get("controllers.invitePeople").getClientId(localStorage.loginStatus, id);
     },
     profileStyleImageDrop: function(e, name)
     {

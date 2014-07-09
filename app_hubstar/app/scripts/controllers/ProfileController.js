@@ -157,6 +157,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     editorAdd: false,
     isShareEmail: false,
     actions: {
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
+        },
         closeContact: function() {
             this.set('contactChecking', false);
             document.getElementById("body_id").style.overflow = "auto";
@@ -227,7 +231,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         $('#masonry_user_container').masonry();
                     }, 100);
                 }, 100);
-                this.cancelDelete();
+                this.send("cancelDelete");
             } else {
                 this.set('willDelete', true);
             }
@@ -618,7 +622,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 
                 this.set('editingContact', !this.get('editingContact'));
-                this.saveUpdateGeneral();
+                this.send("saveUpdateGeneral");
             }
             else if (checkingInfo === "timeSetting") {
                 var updateHour = this.get('hours');
@@ -628,7 +632,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 }
                 this.set('model.profile_hours', data.substring(0, data.length - 1));
                 this.set('editingTime', !this.get('editingTime'));
-                this.saveUpdate();
+                this.send("saveUpdate");
             }
         },
         editingContactForm: function() {
@@ -1615,10 +1619,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     followersStatistics: function(length) {
         this.set('profileFollowerStatistics', length);
-    },
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
     },
     toggleUpload: function() {
         $('.corpbanner_mask').toggleClass('hideClass');

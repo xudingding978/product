@@ -8,38 +8,40 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         {
             if (this.get("controllers.checkingLoginStatus").popupLogin()) {
                 var mega = HubStar.Mega.find(id);
-                var type = mega.get("type");
-                var people_like = mega.get("people_like");
-                if (people_like === null || people_like === undefined) {
-                    people_like = "";
-                }
-                if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
-                {
-                    if (people_like.indexOf(localStorage.loginStatus) !== -1)
+                var that = this;
+                mega.then(function() {
+                    var type = mega.get("type");
+                    var people_like = mega.get("people_like");
+                    if (people_like === null || people_like === undefined) {
+                        people_like = "";
+                    }
+                    if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
                     {
-                        var likeArray = [localStorage.loginStatus, id, type];
-                        likeArray = JSON.stringify(likeArray);
-                        var that = this;
-                        requiredBackEnd('megas', 'unlike', likeArray, 'POST', function(params) {
-                            if (params === "") {
-                                mega.set("likes_count", 0);
-                                that.count = 0;
-                            } else {
-                                params = params + "";
-                                var like = params.split(",");
-                                mega.set("likes_count", like.length);
-                                that.count = like.length;
-                            }
-                            mega.set("people_like", params);
-                            mega.set("isLike", false);
-                            mega.store.save();
-                        });
+                        if (people_like.indexOf(localStorage.loginStatus) !== -1)
+                        {
+                            var likeArray = [localStorage.loginStatus, id, type];
+                            likeArray = JSON.stringify(likeArray);
+                            requiredBackEnd('megas', 'unlike', likeArray, 'POST', function(params) {
 
+                                if (params === "") {
+                                    mega.set("likes_count", 0);
+                                    that.count = 0;
+                                } else {
+                                    params = params + "";
+                                    var like = params.split(",");
+                                    mega.set("likes_count", like.length);
+                                    that.count = like.length;
+                                }
+                                mega.set("people_like", params);
+                                mega.set("isLike", false);
+                                mega.save();
+                            });
+                        }
+                        else {
+                            this.count = mega.get('likes_count');
+                        }
                     }
-                    else {
-                        this.count = mega.get('likes_count');
-                    }
-                }
+                });
             }
 
         },
@@ -47,32 +49,36 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         {
             if (this.get("controllers.checkingLoginStatus").popupLogin()) {
                 var mega = HubStar.Mega.find(id);
-                var type = mega.get("type");
-                var people_like = mega.get("people_like");
-                if (people_like === null || people_like === undefined) {
-                    people_like = "";
-                }
-                if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
-                {
-                    if (people_like.indexOf(localStorage.loginStatus) !== -1)
+                var that = this;
+                mega.then(function() {
+                    var type = mega.get("type");
+                    var people_like = mega.get("people_like");
+                    if (people_like === null || people_like === undefined) {
+                        people_like = "";
+                    }
+                    if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
                     {
-                        this.count = mega.get('likes_count');
+                        if (people_like.indexOf(localStorage.loginStatus) !== -1)
+                        {
+                            this.count = mega.get('likes_count');
+                        }
+                        else {
+                            var likeArray = [localStorage.loginStatus, id, type];
+                            likeArray = JSON.stringify(likeArray);
+
+                            requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
+                                params = params + "";
+                                var like = params.split(",");
+
+                                mega.set("likes_count", like.length);
+                                mega.set("people_like", params);
+                                that.count = like.length;
+                                mega.set("isLike", true);
+                                mega.save();
+                            });
+                        }
                     }
-                    else {
-                        var likeArray = [localStorage.loginStatus, id, type];
-                        likeArray = JSON.stringify(likeArray);
-                        var that = this;
-                        requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
-                            params = params + "";
-                            var like = params.split(",");
-                            mega.set("likes_count", like.length);
-                            mega.set("people_like", params);
-                            that.count = like.length;
-                            mega.set("isLike", true);
-                            mega.store.save();
-                        });
-                    }
-                }
+                });
             }
         },
         switchCollection: function(model) {

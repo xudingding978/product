@@ -28,6 +28,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         this.checkingCleanBeforeUpload();
         for (var i = 0; i < files.length; i++) {
             (function(file) {
+                console.log(type);
                 var name = file.name;
                 var type = file.type;
                 var fileSize = file.size;

@@ -1829,7 +1829,7 @@ div#appfeedback .fresh-message > i.fa-times{
     height: auto;
     margin: 0 auto; 
     position: fixed; 
-    top: 25%;
+    top: 15%;
     left: 0;
     right: 0;
     overflow: hidden;

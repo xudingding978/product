@@ -379,20 +379,18 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         {
             is_edit = true;
         }
-
-        if (currentUser.get("isLoaded")) {
+        currentUser.then(function() {
+            var current_user_email = currentUser.get('email');
             var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
-            this.set("is_authentic_user", is_authentic_user || is_edit);
-        } else {
-            currentUser.addObserver('isLoaded', function() {
-                var current_user_email = currentUser.get('email');
-                if (currentUser.get('isLoaded')) {
-                    is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
-                    that.set("is_authentic_user", is_authentic_user || is_edit);
-                }
-            });
-        }
-        //return is_authentic_user;
+            that.set("is_authentic_user", is_authentic_user || is_edit);
+            setTimeout(function() {
+                $('#masonry_photo_collection_container').masonry("reloadItems");
+                setTimeout(function() {
+                    that.set("loadingTime", false);
+                    $('#masonry_photo_collection_container').masonry();
+                }, 10);
+            }, 30);
+        });
     },
     resetContent: function()
     {

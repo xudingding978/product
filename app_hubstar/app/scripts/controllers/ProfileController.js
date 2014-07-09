@@ -1662,7 +1662,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //                this.set('isAdmin', isAdmin || is_edit);
                 that.set("is_authentic_user", is_authentic_user || is_edit);
             } else {
-
                 currentUser.then(function() {
                     var current_user_email = currentUser.get('email');
                     if (currentUser.get('isLoaded')) {
@@ -1671,6 +1670,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         that.set("is_authentic_user", is_authentic_user || is_edit);
                         var isAdmin = permissionController.setIsAdmin(current_user_email);
                         that.set('isAdmin', isAdmin);
+                        setTimeout(function() {
+                            $('#masonry_user_container').masonry("reloadItems");
+                            setTimeout(function() {
+                                $('#masonry_user_container').masonry();
+                            }, 4);
+                        }, 10);
                     }
                 });
             }

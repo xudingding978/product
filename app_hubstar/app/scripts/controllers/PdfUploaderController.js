@@ -61,36 +61,42 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
     },
     profileStyleImageDrop: function(e, name)
     {
-        this.set('pdfInfromationEdit', true);
-        var target = getTarget(e, "single");
-        this.set('loadingTime', true);
-        var src = target.result;
+        var type = name.split('.')[name.split('.').length-1];
+        if (type === "pdf") {
+            this.set('pdfInfromationEdit', true);
+            var target = getTarget(e, "single");
+            this.set('loadingTime', true);
+            var src = target.result;
+            var testID = createGuid();
+            testID = testID.replace('test', '');
+            var MegaCreateController = this.get('controllers.megaCreate');
 
-        var testID = createGuid();
-        testID = testID.replace('test', '');
-        var MegaCreateController = this.get('controllers.megaCreate');
-
-        var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, null, 'pdf');
-        var a = mega.save();
-        mega.get('isSaving');
-        var that = this;
-        a.then(function() {
-            requiredBackEnd('pdfs', 'saveToS3', {'id': mega.get('id'),
-                'pdf_cover_image': "http://www.soompi.com/wp-content/uploads/2013/07/IU-tumblr.jpg", 'pdf_title': name.split('.')[0],
-                'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')}, 'POST', function(params) {
-                var pdf_url = params.pdf_url;
-                var pdf_cover_image = params.pdf_cover_image;
-                var pdf = HubStar.Pdf.createRecord({'id': mega.get('id'),
-                    'pdf_cover_image': pdf_cover_image, 'pdf_title': name.split('.')[0],
-                    'pdf_desc': "", 'pdf_url': pdf_url, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')});
-                pdf.store.save();
-                that.get("pdfArray").insertAt(0, pdf);
-                that.set('loadingTime', false);
+            var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, null, 'pdf');
+            var a = mega.save();
+            mega.get('isSaving');
+            var that = this;
+            a.then(function() {
+                requiredBackEnd('pdfs', 'saveToS3', {'id': mega.get('id'),
+                    'pdf_cover_image': "http://www.soompi.com/wp-content/uploads/2013/07/IU-tumblr.jpg", 'pdf_title': name.split('.')[0],
+                    'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')}, 'POST', function(params) {
+                    var pdf_url = params.pdf_url;
+                    var pdf_cover_image = params.pdf_cover_image;
+                    var pdf = HubStar.Pdf.createRecord({'id': mega.get('id'),
+                        'pdf_cover_image': pdf_cover_image, 'pdf_title': name.split('.')[0],
+                        'pdf_desc': "", 'pdf_url': pdf_url, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')});
+                    pdf.store.save();
+                    that.get("pdfArray").insertAt(0, pdf);
+                    that.set('loadingTime', false);
+                });
             });
-        });
-        var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
-        profile.set("pdf_id", profile.get("'pdf_id") + "," + mega.get('id'));
-        profile.store.save();
+            var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
+            profile.set("pdf_id", profile.get("'pdf_id") + "," + mega.get('id'));
+            profile.store.save();
+        }
+        else
+        {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Undefined Format");
+        }
     },
     reset: function() {
         this.set('pdfArray', []);

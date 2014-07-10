@@ -831,6 +831,21 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             this.set('image_no', selectedIndex);
             this.selectedImage(e);
+        },
+        sureToActivate: function(tag_id)
+        {
+            var message = "Activate this tag?";
+            this.set("message", message);
+            this.set('makeSureActivateTag', true);
+            this.set("tag_id", tag_id);
+            this.set("type", true);
+            if (this.get('willActivate') === true) {
+                this.activateUserTag(tag_id);
+                this.send("cancelActivate");
+            } else {
+                this.set("s", tag_id);
+                this.set('willActivate', true);
+            }
         }
     },
     init: function()
@@ -953,21 +968,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
     activateUserTag: function(tag_id)
     {
         this.get("controllers.showTag").activateUserTag(tag_id, this.get('selectedPhoto').id);
-    },
-    sureToActivate: function(tag_id)
-    {
-        var message = "Activate this tag?";
-        this.set("message", message);
-        this.set('makeSureActivateTag', true);
-        this.set("tag_id", tag_id);
-        this.set("type", true);
-        if (this.get('willActivate') === true) {
-            this.activateUserTag(tag_id);
-            this.send("cancelActivate");
-        } else {
-            this.set("s", tag_id);
-            this.set('willActivate', true);
-        }
     },
     sureDelTag: function(tag_id)
     {

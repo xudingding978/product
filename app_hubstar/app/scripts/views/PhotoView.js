@@ -141,11 +141,13 @@ HubStar.PhotoView = Ember.View.extend({
 
         var that = this;
         window.onresize = function() {
-            var tags = that.get("controller").get("controllers.showTag").get("contentTags");
-            if (tags !== undefined && tags !== "" && tags !== null)
-            {
-                that.get("controller").photoSizeJudge(that.get("controller").get('selectedPhoto'));
-                that.get("controller").windowResizeTags(tags);
+            if (that.get("controller").get("controllers.showTag") !== undefined) {
+                var tags = that.get("controller").get("controllers.showTag").get("contentTags");
+                if (tags !== undefined && tags !== "" && tags !== null)
+                {
+                    that.get("controller").photoSizeJudge(that.get("controller").get('selectedPhoto'));
+                    that.get("controller").windowResizeTags(tags);
+                }
             }
         };
         return this.$().attr({tabindex: 1}), this.$().focus();

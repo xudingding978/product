@@ -30,7 +30,7 @@ HubStar.ArticleView = Ember.View.extend({
                 {
                     var pic_w = HubStar.get("pic_current_width");
                     var pic_h = HubStar.get("pic_current_height");
-                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) && 
+                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) &&
                             (Math.ceil(event.clientY) > Math.ceil(top) && Math.ceil(event.clientY) < Math.ceil(top) + Math.ceil(pic_h))) {
                         that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
                     }
@@ -86,7 +86,7 @@ HubStar.ArticleView = Ember.View.extend({
                 {
                     var pic_w = HubStar.get("pic_current_width");
                     var pic_h = HubStar.get("pic_current_height");
-                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) && 
+                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) &&
                             (Math.ceil(event.clientY) > Math.ceil(top) && Math.ceil(event.clientY) < Math.ceil(top) + Math.ceil(pic_h))) {
                         that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
                     }
@@ -127,11 +127,13 @@ HubStar.ArticleView = Ember.View.extend({
 
         var that = this;
         window.onresize = function() {
-            var tags = that.get("controller").get("controllers.showTag").get("contentTags");
-            if (tags !== undefined && tags !== "" && tags !== null)
-            {
-                that.get("controller").get("controllers.mega").photoSizeJudge(that.get("controller").get('selectedPhoto'));
-                that.get("controller").windowResizeTags(tags);
+            if (that.get("controller").get("controllers.showTag") !== undefined) {
+                var tags = that.get("controller").get("controllers.showTag").get("contentTags");
+                if (tags !== undefined && tags !== "" && tags !== null)
+                {
+                    that.get("controller").get("controllers.mega").photoSizeJudge(that.get("controller").get('selectedPhoto'));
+                    that.get("controller").windowResizeTags(tags);
+                }
             }
         };
         return this.$().attr({tabindex: 1}), this.$().focus();

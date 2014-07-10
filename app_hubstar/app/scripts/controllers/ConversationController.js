@@ -63,6 +63,7 @@ HubStar.ConversationController = Ember.Controller.extend({
             if (this.get("isNewConversation") === false)
             {
                 this.get('controllers.messageCenter').selectConversationItem(id);
+                this.transitionToRoute("conversationSingle",id);
                 this.get('controllers.conversationItem').getClientId(id);
             }
         }

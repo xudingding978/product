@@ -80,13 +80,13 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         this.set("isNotification", false);
         this.set("isMessageBoard", false);
 
-        this.transitionToRoute("conversationSingle");
+        //this.transitionToRoute("conversationSingle");
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
-            }, 100);
-        }, 200);
+            }, 10);
+        }, 20);
     }
 }
 );

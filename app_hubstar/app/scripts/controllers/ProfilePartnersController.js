@@ -93,7 +93,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     submit: function() {
         var client_input = this.get("currentAddPartnerPic");
         if (client_input.indexOf("/profiles/") !== -1) {
-            var client_id = client_input.split("/profiles/")[1];
+            var client_id = client_input.split("/profiles/")[1].split('/')[0];
             var temp = this.get('partnerID');
             if (temp === null || temp === "") {
                 this.set('partnerID', client_id);

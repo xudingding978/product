@@ -286,7 +286,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         //this.transitionToRoute('messageCenter');
         var that = this;
         setTimeout(function() {
-            that.transitionToRoute('userPost');
+            that.transitionToRoute('userMessage');
             var address = document.URL;
             if (address.split("#")[1].split("/").length >= 4) {
                 var page = address.split("#")[1].split("/")[3];
@@ -297,9 +297,6 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             }
             $(window).scrollTop(550);
         }, 20);
-
-        //this.transitionToRoute('userPost');
-        //$(window).scrollTop(550);
     },
     gotoReply: function(id)
     {
@@ -316,7 +313,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                 var userID = HubStar.User.find(reply[2]);
                 that.transitionToRoute('user', userID);
                 setTimeout(function() {
-                    that.transitionToRoute('userPost');
+                    that.transitionToRoute('userMessage');
                     var address = document.URL;
                     var page = address.split("#")[1].split("/")[3];
                     if (page === "post")
@@ -334,7 +331,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             var userID = HubStar.User.find(reply[2]);
             this.transitionToRoute('user', userID);
             setTimeout(function() {
-                that.transitionToRoute('userPost');
+                that.transitionToRoute('userMessage');
                 var address = document.URL;
                 if (address.split("#")[1].split("/").length >= 4) {
                     var page = address.split("#")[1].split("/")[3];
@@ -346,6 +343,6 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                 $(window).scrollTop(550);
             }, 20);
         }
-    },
+    }
 }
 );

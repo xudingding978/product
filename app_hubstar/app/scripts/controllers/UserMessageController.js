@@ -288,7 +288,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
 
                     var thatthat = that;
                     setTimeout(function() {
-                        thatthat.get('controllers.message').seeMore(that.get("controllers.notification").get("reply"));
+                        thatthat.get('controllers.message').send("seeMore", that.get("controllers.notification").get("reply"));
                     }, 50);
                     that.get('controllers.notification').set("reply_ids", "");
                 }
@@ -309,7 +309,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 {
                     var thatthat = that;
                     setTimeout(function() {
-                        thatthat.get('controllers.message').seeMore(that.get("controllers.notificationTop").get("reply"));
+                        thatthat.get('controllers.message').send("seeMore", that.get("controllers.notificationTop").get("reply"));
                     }, 50);
                     that.get('controllers.notificationTop').set("reply_ids", "");
                 }

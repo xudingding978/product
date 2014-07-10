@@ -19,6 +19,7 @@ HubStar.ShareEmailController = Ember.Controller.extend({
     email_title: "",
     contentTitle: "",
     selectedUrl: "",
+    ownerTitle: "",
     needs: ['permission', 'applicationFeedback', 'user', 'profile', "mega", 'article', 'video', 'application', 'itemFunction'],
 //    init: function()
 //    {
@@ -42,9 +43,11 @@ HubStar.ShareEmailController = Ember.Controller.extend({
         },
         emailSend: function()
         {
-            var tempEmail = [this.get("emailDestination"), this.get("emailBody"), this.get('displayName'), this.get('displayEmail'), this.get("currentUser").get('photo_url_large'), this.get("owner_profile_pic"), this.get("selectedPhotoThumbnailUrl"), this.get("selectedUrl"), this.get('contentTitle'), this.get("selectedMega").get("owner_title"), this.get("selectedMega").get("owner_profile_pic")];
+            var tempEmail = [this.get("emailDestination"), this.get("emailBody"), this.get('displayName'), this.get('displayEmail'), this.get("currentUser").get('photo_url_large'), this.get("owner_profile_pic"), this.get("selectedPhotoThumbnailUrl"), this.get("selectedUrl"), this.get('contentTitle'), this.get("ownerTitle"), this.get("selectedMega").get("owner_profile_pic")];
             requiredBackEnd('emails', 'shareemail', tempEmail, 'POST', function(params) {
             });
+            console.log(this.get("contentTitle"));
+            console.log(this.get("ownerTitle"));
             this.get('controllers.applicationFeedback').statusObserver(null, "Your message has been sent.");
             this.send("exit");
         }
@@ -73,9 +76,11 @@ HubStar.ShareEmailController = Ember.Controller.extend({
             if (that.get("selectedMega").get("type") === 'profile')
             {
                 that.set("owner_profile_pic", that.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
+                that.set("ownerTitle", that.get("contentTitle"));
             }
             else {
                 that.set("owner_profile_pic", that.get("selectedMega").get("owner_profile_pic"));
+                that.set("ownerTitle", that.get("selectedMega").get("owner_title"));
             }
         });
     },

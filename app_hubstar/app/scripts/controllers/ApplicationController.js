@@ -1010,6 +1010,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         setTimeout(function() {
             $('.Navigator-box').fadeIn("fast");
+            $('.Navigator-box').css("margin-left", "100px");
         }, 30);
     },
     showDiscoveryBar: function() {

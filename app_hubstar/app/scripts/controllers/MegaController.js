@@ -646,7 +646,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         },
         unLike: function() {
             var controller = this.get('controllers.itemFunction');
-            controller.send("addLike", this.get('megaResouce').get('id'));
+            controller.send("unLike", this.get('megaResouce').get('id'));
             // controller.unLike(this.get('megaResouce').get('id'));
         },
         editingPhotoMegaData: function() {

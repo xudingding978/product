@@ -451,9 +451,11 @@ HubStar.UserFollowersController = Ember.Controller.extend({
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
-                $('html,body').animate({
-                    scrollTop: $("#profile_submenu").offset().top - 100
-                });
+                if ($("#profile_submenu") !== null && $("#profile_submenu").offset() !== undefined) {
+                    $('html,body').animate({
+                        scrollTop: $("#profile_submenu").offset().top - 100
+                    });
+                }
             }, 400);
         }, 300);
     }

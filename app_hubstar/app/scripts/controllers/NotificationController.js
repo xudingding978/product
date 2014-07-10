@@ -96,7 +96,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                         });
                     }
                     that.get('controllers.applicationFeedback').statusObserver(null, params, "warnning");
-                    that.markRead(id);
+                    that.send("markRead",id);
                 });
             }
             else if (type === "Tag")
@@ -111,7 +111,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                         }
                     }
                     that.get('controllers.applicationFeedback').statusObserver(null, params, "warnning");
-                    that.markRead(id);
+                    that.send("markRead",id);
                 });
             }
         },

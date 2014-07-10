@@ -29,9 +29,9 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
                     this.controllerFor('masonryCollectionItems').set("createTime", date + "");
                 }
                 else
-                    {
-                        this.controllerFor('masonryCollectionItems').set("createTime", "Wed Jan 01 2014 00:00:00 GMT+1200 (NZST)");
-                    }
+                {
+                    this.controllerFor('masonryCollectionItems').set("createTime", "Wed Jan 01 2014 00:00:00 GMT+1200 (NZST)");
+                }
             }
         }
         this.controllerFor('masonryCollectionItems').selectModelForProfile(id, title, profileId);
@@ -75,9 +75,12 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
                     break;
                 }
             }
-            if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
+            if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', true);
+                } else {
+                    HubStar.set('ctaView', false);
+                }
             }
 
 //            this.transitionTo("profileCollection", data);
@@ -87,9 +90,13 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
             this.transitionTo("profile", HubStar.Profile.find(id));
         },
         transitionToArticle: function(id) {
-            if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
+
+            if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', true);
+                } else {
+                    HubStar.set('ctaView', false);
+                }
             }
             this.controllerFor("article").set("collectionArticleId", id);
             var obj = HubStar.Mega.find(id);
@@ -99,10 +106,14 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
 
         },
         transitionToVideo: function(video_id) {
-            if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
+            if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', true);
+                } else {
+                    HubStar.set('ctaView', false);
+                }
             }
+//            
 //            var address = document.URL;
 //            var owner_id = address.split("#")[1].split("/")[2];
 //

@@ -44,24 +44,44 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('application').set('isotherpage', false);
         this.controllerFor('mega').set('from', "search");
         $(".navbar").css("box-shadow", "");
-        //  $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+        if (HubStar.get("checkLoginStatus")) {
+            if (HubStar.get('showDiscoveryBar')) {
+                //   HubStar.set('ctaView', true);
+
+            } else {
+                HubStar.set('ctaView', false);
+                setTimeout(function() {
+                    if ($(window).width() > 1200) {
+                        $("#cta-popup").removeClass("cta-popup-small-top");
+                    } else {
+                        $("#cta-popup").addClass("cta-popup-small-top");
+                    }
+                }, 1);
+            }
+        }
     },
     events: {
         transitionToPhoto: function(id) {
             this.controllerFor('article').set("accessFromSearchBoard", true);
             this.transitionTo("searchDefaultPhoto", HubStar.Mega.find(id)); //it will got to default search without go to the new search
-            if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
+            if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', true);
+                } else {
+                    HubStar.set('ctaView', false);
+                }
             }
 
         },
         transitionToVideo: function(id) {
             this.controllerFor('article').set("accessFromSearchBoard", true);
             this.transitionTo("searchDefaultVideo", HubStar.Mega.find(id)); //it will got to default search without go to the new search
-            if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
+            if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', true);
+                } else {
+                    HubStar.set('ctaView', false);
+                }
             }
 
         },
@@ -71,11 +91,14 @@ HubStar.SearchsRoute = Ember.Route.extend({
         transitionToArticle: function(id) {
             this.controllerFor('article').set("accessFromSearchBoard", true);
             this.transitionTo("searchDefaultArticle", HubStar.Article.find(id)); //it will got to default search without go to the new search
-            if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
-            }
 
+            if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', true);
+                } else {
+                    HubStar.set('ctaView', false);
+                }
+            }
         }
     },
     redirect: function() {

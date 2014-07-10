@@ -11,7 +11,8 @@ HubStar.AfterLoginView = Ember.View.extend({
         this.resetTopAd();
         localStorage.removeItem('loginStatus');
         document.cookie = 'Session=; path=/; domain=.trendsideas.com; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-        location.reload();
+        location.reload();    
+           
     },
     resetTopAd: function() {
         var tempComment = [localStorage.loginStatus];

@@ -452,7 +452,6 @@ HubStar.UserFollowersController = Ember.Controller.extend({
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
                 if ($("#profile_submenu") !== null && $("#profile_submenu").offset() !== undefined) {
-                    console.log($("#profile_submenu").offset());
                     $('html,body').animate({
                         scrollTop: $("#profile_submenu").offset().top - 100
                     });

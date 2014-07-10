@@ -193,6 +193,7 @@ HubStar.CommentController = Ember.Controller.extend({
             comments.insertAt(0, tempComment);
             this.get('mega').set("comment_count", comments.get("length"));
             tempComment.save();
+            this.get('mega').store.commit();
             this.set('commentContent', "");
 
             var that = this;

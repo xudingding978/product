@@ -533,7 +533,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 
                 }
-                
+
             }
             else if (checkingInfo === "contact") {
                 this.set('first_name', first_name_record);
@@ -551,7 +551,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.set('editingTime', !this.get('editingTime'));
             }
 
-            
+
         },
         toggleEditing: function(data, checkingInfo) {
             if (checkingInfo === "profileName") {
@@ -1140,6 +1140,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 var requiredSize = "Your required image size is " + params.width + "x" + params.height;
                 that.set('RequiredImageSize', requiredSize);
             });
+        },
+        topicSelection: function(data) {
+            this.set('subcate', []);
+            for (var i = 0; i < data.get('subcate').get('length'); i++)
+            {
+                this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')
+                });
+            }
         }
     },
     init: function() {
@@ -1411,15 +1419,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
         }
         );
-    },
-    topicSelection: function(data) {
-        this.set('subcate', []);
-        for (var i = 0; i < data.get('subcate').get('length'); i++)
-        {
-            this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')
-            });
-        }
-
     },
     createGooglemap: function() {
 

@@ -112,6 +112,63 @@ HubStar.ContactController = Ember.Controller.extend({
             } else {
                 this.set(checkedboxselection, true);
             }
+        },
+        topicSelection: function(data) {
+            this.set('showCate', true);
+            this.set('temp', []);
+            this.set('temp', data);
+            this.set('subcate', []);
+            for (var i = 0; i < data.get('subcate').get('length'); i++) {
+                this.set("checkbox" + i, false);
+                this.get('subcate').pushObject({'list_id': "checkbox" + i, 'category_topic': data.get('subcate').objectAt(i).get('category_topic'), "isSelection": this.get("checkbox" + i)});
+            }
+        },
+        emailSend: function()
+        {
+
+            var projectSubCategoryItem = "";
+            for (var i = 0; i < this.get('subcate').get('length'); i++) {
+                if (this.get("checkbox" + i) === true) {
+                    projectSubCategoryItem += $('.checkbox' + i).text() + ",";
+                }
+            }
+            var userEnvironment = "";
+            if (this.get("osAndBrowser") === true)
+            {
+                userEnvironment = this.get("userEnvironment");
+            }
+            projectSubCategoryItem = projectSubCategoryItem.substring(0, projectSubCategoryItem.length - 1);
+            var tempEmail = HubStar.Email.createRecord({
+                "ownerTitle": this.get("ownerTitle"),
+                "displayName": this.get("displayName"),
+                "displayEmail": this.get("displayEmail"),
+                'recieveProfile': this.get('recieveProfile'),
+                "emailBody": this.get("emailBody"),
+                "emailSubject": this.get("emailSubject"),
+                "emailDestination": this.get("emailDestination"),
+                "emaiCCDestination": this.get("emaiCCDestination"),
+                "emaiBCCDestination": this.get("emaiBCCDestination"),
+                "projectCategory": this.get('projectCategorySelection').trim(),
+                "projectTimeframe": this.get('timeframeSelection').trim(),
+                "projectBudget": this.get('projectBudgetSelection').trim(),
+                "projectExperience": this.get('projectExperienceSelection').trim(),
+                "objectUrl": document.URL,
+                "userEnvironment": userEnvironment,
+                "projectSubCategoryItem": projectSubCategoryItem
+            });
+
+            tempEmail.store.commit();
+            this.get('controllers.applicationFeedback').statusObserver(null, "Your message has been sent.");
+            if (!this.get('rememberMessage')) {
+                this.set("emailBody", "");
+                this.set("emailSubject", "");
+            }
+            this.set('projectCategorySelection', 'Please Select One ...');
+            this.set('timeframeSelection', 'Please Select One ...');
+            this.set('projectBudgetSelection', 'Please Select One ...');
+            this.set('projectExperienceSelection', 'Please Select One ...');
+            this.set('showCate', false);
+            this.send("closeContact");
         }
     },
     init: function() {
@@ -128,17 +185,6 @@ HubStar.ContactController = Ember.Controller.extend({
                 this.get('subcate').pushObject({'list_id': "checkbox" + i, 'category_topic': this.get('temp').get('subcate').objectAt(i).get('category_topic'), "isSelection": this.get("checkbox" + i)});
             }
         }
-    },
-    topicSelection: function(data) {
-        this.set('showCate', true);
-        this.set('temp', []);
-        this.set('temp', data);
-        this.set('subcate', []);
-        for (var i = 0; i < data.get('subcate').get('length'); i++) {
-            this.set("checkbox" + i, false);
-            this.get('subcate').pushObject({'list_id': "checkbox" + i, 'category_topic': data.get('subcate').objectAt(i).get('category_topic'), "isSelection": this.get("checkbox" + i)});
-        }
-
     },
     setSelectedMega: function(id)
     {
@@ -178,56 +224,6 @@ HubStar.ContactController = Ember.Controller.extend({
 //                that.set("emaiBCCDestination",tempProfile.get("owner_contact_bcc_emails"));
 //            });
         });
-    },
-    emailSend: function()
-    {
-
-        var projectSubCategoryItem = "";
-        for (var i = 0; i < this.get('subcate').get('length'); i++) {
-            if (this.get("checkbox" + i) === true) {
-                projectSubCategoryItem += $('.checkbox' + i).text() + ",";
-            }
-        }
-        var userEnvironment = "";
-        if (this.get("osAndBrowser") === true)
-        {
-            userEnvironment = this.get("userEnvironment");
-        }
-        projectSubCategoryItem = projectSubCategoryItem.substring(0, projectSubCategoryItem.length - 1);
-        var tempEmail = HubStar.Email.createRecord({
-            "ownerTitle": this.get("ownerTitle"),
-            "displayName": this.get("displayName"),
-            "displayEmail": this.get("displayEmail"),
-            'recieveProfile': this.get('recieveProfile'),
-            "emailBody": this.get("emailBody"),
-            "emailSubject": this.get("emailSubject"),
-            "emailDestination": this.get("emailDestination"),
-            "emaiCCDestination": this.get("emaiCCDestination"),
-            "emaiBCCDestination": this.get("emaiBCCDestination"),
-            "projectCategory": this.get('projectCategorySelection').trim(),
-            "projectTimeframe": this.get('timeframeSelection').trim(),
-            "projectBudget": this.get('projectBudgetSelection').trim(),
-            "projectExperience": this.get('projectExperienceSelection').trim(),
-            "objectUrl": document.URL,
-            "userEnvironment": userEnvironment,
-            "projectSubCategoryItem": projectSubCategoryItem
-        });
-
-        tempEmail.store.commit();
-        this.get('controllers.applicationFeedback').statusObserver(null, "Your message has been sent.");
-        if (!this.get('rememberMessage')) {
-            this.set("emailBody", "");
-            this.set("emailSubject", "");
-
-        }
-
-        this.set('projectCategorySelection', 'Please Select One ...');
-        this.set('timeframeSelection', 'Please Select One ...');
-        this.set('projectBudgetSelection', 'Please Select One ...');
-        this.set('projectExperienceSelection', 'Please Select One ...');
-        this.set('showCate', false);
-        this.send("closeContact");
-
     },
     canelDropDown: function()
     {

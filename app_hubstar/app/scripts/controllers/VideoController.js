@@ -61,10 +61,13 @@ HubStar.VideoController = Ember.Controller.extend({
                 that.transitionTo('fourOhFour', "404");
             });
         }
-
         );
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
+         if (HubStar.get("checkLoginStatus")) {
+            if (HubStar.get('showDiscoveryBar')) {
+                HubStar.set('ctaView', false);
+            } else {
+                HubStar.set('ctaView', true);
+            }
         }
     },
     ads: function() {
@@ -138,6 +141,17 @@ HubStar.VideoController = Ember.Controller.extend({
         }
     },
     closeWindow: function() {
+        
+         HubStar.set('ctaView', false);
+       setTimeout(function(){
+           if ($(window).width() > 1200) {
+                    $("#cta-popup").removeClass("cta-popup-small-top");
+                } else {
+                    $("#cta-popup").addClass("cta-popup-small-top");
+                }
+       },1);                
+           
+       
         this.set('collectable', false);
         this.set('contact', false);
         var address = document.URL;
@@ -160,12 +174,14 @@ HubStar.VideoController = Ember.Controller.extend({
                 HubStar.set("escVideo", true);
                 this.transitionTo("search", {id: search_id}); // go to search page, this can  work, but it is too slowlly.
             }
+             
         }
         else if (object_type === "users")
         {
             var photoObject = HubStar.Mega.find(collection_id);
 
             this.transitionTo("userPhoto", photoObject); //user photo
+            
         }
         else if (object_type === "profiles")
         {
@@ -181,10 +197,12 @@ HubStar.VideoController = Ember.Controller.extend({
 
                 this.transitionTo("profilePhoto", photoObject); // profile photo
             }
+             
         }
         else {
             window.history.back();
         }
+       
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
         setTimeout(function() {
             $('#masonry_container').masonry();  //masonry();
@@ -420,7 +438,8 @@ HubStar.VideoController = Ember.Controller.extend({
             });
 
             var shareEmailController = this.get('controllers.shareEmail');
-            var selectid = this.get('megaResouce').id;;
+            var selectid = this.get('megaResouce').id;
+            ;
             shareEmailController.setImageID(selectid);
             var tempUrl = this.get('megaResouce').get('object_image_url');
             shareEmailController.setThumbnailUrl(tempUrl);

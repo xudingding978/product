@@ -65,12 +65,23 @@ HubStar.ProfileRoute = Ember.Route.extend({
         this.controllerFor('application').set("newProfile", false);
         $("#user-dd-menu").attr("style", "display:none");
       
-        ProfileController.setProfile(model.id); 
-        
-         if (HubStar.get('ctaView') === true) {
-            this.controllerFor("checkingLoginStatus").popupLogin();
-            HubStar.set('ctaView', false);
+        ProfileController.setProfile(model.id);
+         if (HubStar.get("checkLoginStatus")) {
+            if (HubStar.get('showDiscoveryBar')) {
+                //    HubStar.set('ctaView', true);
+            } else {
+                HubStar.set('ctaView', false);
+                setTimeout(function() {
+                    if ($(window).width() > 1200) {
+                        $("#cta-popup").removeClass("cta-popup-small-top");
+                    } else {
+                        $("#cta-popup").addClass("cta-popup-small-top");
+                    }
+                }, 1);
+
+            }
         }
+        
     },
     model: function(params) {
 

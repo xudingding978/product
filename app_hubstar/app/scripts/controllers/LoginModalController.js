@@ -27,7 +27,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         this.set('loginUsername', localStorage.userName);
     },
     closePopupLogin: function() {
-        HubStar.set('checkLoginStatus', false);
+         HubStar.set("loginModal", false);
     },
     validateEmail: function(email)
     {
@@ -38,14 +38,14 @@ HubStar.LoginModalController = Ember.Controller.extend({
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {
-            document.getElementById("loginUsername").setAttribute("class", "login-textfield");
-            document.getElementById("loginPassword").setAttribute("class", "login-textfield");
+            $("#loginUsername").setAttribute("class", "login-textfield");
+            $("#loginPassword").setAttribute("class", "login-textfield");
 
             var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
             var that = this;
             requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
                 if (params === 1) {
-                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                    $("#loginUsername").setAttribute("class", "login-textfield error-textfield");
 
 
                     $('.black-tool-tip').stop();
@@ -53,27 +53,26 @@ HubStar.LoginModalController = Ember.Controller.extend({
                     $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 }// INVALID user name when the user attempts to login.
 
-
-                else if (params === 0) {
-                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+     else if (params === 0) {
+                    $("#loginUsername").addClass("error-textfield");
                     that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type-facebook').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Facebook account
                 else if (params === 3) {
-                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                    $("#loginUsername").addClass("error-textfield");
                     that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type-twitter').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Twitter account
                 else if (params === 4) {
-                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                    $("#loginUsername").addClass("error-textfield");
                     that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type-google').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Google account
                 else if (params === 5) {
-                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                    $("#loginUsername").addClass("error-textfield");
                     that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type-linkedin').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -105,7 +104,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                         }
                     }
                     else {
-                        document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
+                        $("#loginPassword").addClass("error-textfield");
 
 
                         if ($('#incorrect-password').css('display') === 'none') {
@@ -135,7 +134,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                 }
                 else if (params === 0) {
 
-                    document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
+                    $("#email").addClass("error-textfield");
 
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
@@ -146,7 +145,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
 
                 else if (params === 2) {
 
-                    document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
+                    $("#email").addClass("error-textfield");
 
 
                     $('.black-tool-tip').stop();
@@ -311,7 +310,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         for (var i = 0; i < checkList.length; i++)
         {
             var patternEmail = /^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$/;
-            document.getElementById(checkList[i].id).setAttribute("class", "login-textfield");
+            $("#" +checkList[i].id).removeClass("error-textfield");
             if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !== undefined)
             {
                 if (checkList[i].input.length > checkList[i].lengthMax || checkList[i].input.length < checkList[i].lengthMin)
@@ -322,7 +321,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-password').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
 
-                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    $("#" +checkList[i].id).addClass("error-textfield");
                     break;
 
                 }
@@ -338,7 +337,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                     $('.black-tool-tip').css('display', 'none');
                     $('#missing-fields').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
 
-                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    $("#" +checkList[i].id).addClass("error-textfield");
                     break;
 
 
@@ -354,7 +353,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name-register-with-spaces').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    $("#" +checkList[i].id).addClass("error-textfield");
                     break;
                 }
                 else if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
@@ -366,7 +365,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
 
-                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    $("#" +checkList[i].id).addClass("error-textfield");
                     break;
                 }// INVALID user name when the user attempts to login.
             }

@@ -5,33 +5,36 @@
     {{view HubStar.HeaderView}}
     {{outlet "welcome"}}
     {{#unless controller.isotherpage}}
-        {{#if HubStar.showDiscoveryBar}}
-        {{view HubStar.DiscoveryView}}
-        {{/if}}
-        {{#if HubStar.top_ad_display}}
-        {{#if HubStar.isTopAdDisplay}}
-        <div id ="top_bar_ads" class="topbar-ad topbar-ad-a" >
+    {{#if HubStar.showDiscoveryBar}}
+    {{view HubStar.DiscoveryView}}    
+    {{/if}}
+    {{#if HubStar.checkLoginStatus}}
+    {{render callToAction}}
+    {{/if}}
+    {{#if HubStar.top_ad_display}}
+    {{#if HubStar.isTopAdDisplay}}
+    <div id ="top_bar_ads" class="topbar-ad topbar-ad-a" >
             <div class="topbar-ad-action" {{action closeTopAd}}><i class="fa fa-times"></i></div>
             <div id ="search_wall_top" class="topbar-ad-searchwall">
             </div>
-        </div>
-        {{/if}}
-        {{/if}}
-        {{view HubStar.MasonryView}}
+    {{/if}}
+    {{/if}}
+    {{view HubStar.MasonryView}}
     {{else}}
-        {{#if HubStar.top_ad_display}}
-       {{#if HubStar.isTopAdDisplay}}
+    {{#if HubStar.checkLoginStatus}}
+    {{render callToAction}}
+    {{/if}}
+    {{#if HubStar.top_ad_display}}
+    {{#if HubStar.isTopAdDisplay}}
        <div id ="top_bar_ads" class="topbar-ad topbar-ad-b" >
            <div class="topbar-ad-action"  {{action closeTopAd}}><i class="fa fa-times"></i></div>
            <div id ="search_wall_top" class="topbar-ad-searchwall">
            </div>
        </div>
-       {{/if}}
-       {{/if}}
+    {{/if}}
+    {{/if}}
     {{/unless}}
-
-
-
+    
     <div style="position:relative;">
         {{outlet profiles}}
         {{outlet profile}}
@@ -68,10 +71,9 @@
 </script>
 <div id="fixed-bg" class="fixed-bg"></div>
 
-{{#if HubStar.checkLoginStatus}}
-
-{{render loginModal}}       
-
+{{#if HubStar.loginModal}}
+  
+{{render loginModal}}
 {{/if}}
 
 <script type="text/javascript">

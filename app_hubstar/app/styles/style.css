@@ -1831,7 +1831,7 @@ to{
     height: 565px;
     border: 0;
     text-align: center; 
-    display:none;
+    
 }
 
 .loginmodal-social{
@@ -1864,8 +1864,8 @@ to{
     border-top:1px solid #e3e3e3; 
 }
 
-.loginmodal-email-name div{
-    width: 49%;
+.loginmodal-email-name{
+    width: 49% !important;
     display: inline-block;
     border: none
 }
@@ -1881,19 +1881,12 @@ to{
 }
 
 .loginmodal-step-4{
-    overflow: hidden;
-    z-index: 11; 
-    background-color: white; 
-    border-radius: 5px; 
     box-shadow: rgb(187, 187, 187) 0px 0px 20px; 
-    width: 430px; 
-    height: 320px; 
-    margin: 0px auto; 
-    position: fixed; 
+    margin: 0px auto;  
     top: 20%; 
-    left: 0px; 
-    right: 0px; 
     display: none;
+    width: 420px;
+  
 }
 
 .loginmodal-step4-title-container{
@@ -1920,13 +1913,11 @@ to{
 
 .loginmodal-step4-text{
     text-align: center;
-    padding: 70px;
+   padding: 40px 70px 70px 70px;
 }
 
 .loginmodal-final-register{
-    height: 45px;
-    line-height: 45px;
-    width: 100%;
+    width: 100% !important;
     border-top: 1px solid #ddd;
     bottom: 0;
     position: absolute;
@@ -1946,18 +1937,30 @@ to{
     border-bottom:1px solid #e3e3e3;
 }
 
-.loginmodal-user-login-panel-text a{
-    color: #888;
-}
-
-#click-login a {
-    color: #888;
-}
-
 .loginmodal-email-drop-down{
     margin: 0 auto ;
     background-color: #fff;
     border-radius: 0 0 5px 5px;
+}
+
+.loginmodal-forget-password{
+    cursor:pointer;
+    float: right;
+    margin-top: -40px;
+    height: 30px;
+    color:#888;
+}
+
+#user-forgot-password-pane .login-textfield{
+    padding: 0 10px;
+    
+}
+
+.loginmodal-login-btn{
+        margin: 15px 0;
+        cursor:pointer;
+        color: #fff;
+        font-size: 12px;
 }
 
 
@@ -1979,5 +1982,13 @@ to{
 
 .zidex-11{
     z-index:11 !important;  
+}
+
+.width-300{
+    width:300px;
+}
+
+.top-4{
+   top:4px; 
 }
 

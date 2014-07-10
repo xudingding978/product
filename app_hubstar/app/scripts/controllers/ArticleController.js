@@ -565,6 +565,14 @@ HubStar.ArticleController = Ember.Controller.extend({
         });
 
 
+        if (HubStar.get("checkLoginStatus")) {
+            if (HubStar.get('showDiscoveryBar')) {
+                HubStar.set('ctaView', false);
+            } else {
+                HubStar.set('ctaView', true);
+            }
+        }
+
     },
     checkCreditExist: function(credits) {
         if (credits !== null && credits !== 'undefined' && credits.get('length') > 0) {
@@ -788,12 +796,14 @@ HubStar.ArticleController = Ember.Controller.extend({
             if (user_id === "default") //it is the search index
             {
                 this.transitionTo("searchIndexTom");
+
             }
             else
             {
                 HubStar.set("escVideo", true);
                 this.transitionTo("search", {id: user_id}); // go to search page, this can  work, but it is too slowlly.
             }
+            HubStar.set('ctaView', false);
         }
         else
         {
@@ -803,21 +813,32 @@ HubStar.ArticleController = Ember.Controller.extend({
                 photoObject = HubStar.Mega.find(collection_id);
 
                 this.transitionTo("userPhoto", photoObject); //user photo
+                HubStar.set('ctaView', false);
             }
             else if (type === "profiles")
             {
                 photoObject = HubStar.Mega.find(collection_id);
 
                 this.transitionTo("profilePhoto", photoObject); // profile photo
+                HubStar.set('ctaView', false);
             }
             else if (type === "photos" || type === "articles" || type === "videos")
             {
                 var m = HubStar.Mega.find(user_id);
                 HubStar.set("closeArticlePhoto", true);
                 this.transitionTo("search", {id: m.get("owner_title")});
+                HubStar.set('ctaView', true);
             }
+
         }
-        HubStar.set('ctaView', true);
+        setTimeout(function(){
+           if ($(window).width() > 1200) {
+                    $("#cta-popup").removeClass("cta-popup-small-top");
+                } else {
+                    $("#cta-popup").addClass("cta-popup-small-top");
+                }
+       },1);     
+
     },
     switchCollection: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

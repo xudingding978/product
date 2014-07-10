@@ -1,29 +1,6 @@
-<div  id="loginModal" class="blur_black"  {{action closePane on="click"  target="view"}}></div>
 
-<div id="cta-popup" style="display:block;">
-    <div class="inner">
-        <div class="left">
-            <img src="../../../images/trends_logo.png" alt="trends logo">
-            <div id="cta_register" class="registerbtn" {{action ctaregister on="click"  target="view"}}>Register</div>
-            <div id="cta_login" class="loginbtn" {{action ctalogin on="click"  target="view"}}>Log in</div>
-            <div class="learnmore" >
-                <a href="http://about.trendsideas.com" target="_blank">Learn more</a>
-            </div>
-        </div><!-- end .left -->
-        <div class="right">
-            <img src="../../../images/cta-diagram.png" alt="Connect, Collect and Collaborate">
-        </div><!-- end .right -->
-
-    </div><!-- end .inner -->
-    <div class="closeview" style="right: 50px;color: #fff;"{{action closePane on="click"  target="view"}}>
-        <i class="fa fa-times"></i>
-        <span id="close_text" class="close_text">close</span>
-    </div>
-
-</div><!-- end #cta-popup -->
-
-
-<div id="profiles-main-container" class="Login-box loginmodal-container" >   
+<div  id="loginModal" class="blur_black"  {{action closePopupLogin}}></div>
+<div id="profiles-main-container" class="Login-box loginmodal-container">   
 
     <div id="click-register-social" class="register-with easing social-active loginmodal-social">
         <i class="fa fa-facebook">&nbsp</i><a class="loginmodal-text-color"> Register with social account</a>
@@ -59,15 +36,15 @@
             <i class="fa fa-envelope">&nbsp </i><a class="loginmodal-text-color"> Register with Email</a>
         </div>
 
-        <div   id="register-with-email-drop-down" class="loginmodal-email">
+        <div   id="register-with-email-drop-down" class="loginmodal-email ">
             <div class="loginmodal-email-container">
 
-                <div class="loginmodal-email-name-up loginmodal-email-name-bottom">
-                    <div id="first_name" class="login-textfield" >
+                <div class="loginmodal-email-name-up">
+                    <div id="first_name" class="login-textfield loginmodal-email-name" >
                         {{view Ember.TextField valueBinding="first_name" placeholder="First Name" }}
                     </div>
 
-                    <div id="last_name" class="login-textfield" >
+                    <div id="last_name" class="login-textfield loginmodal-email-name" >
                         {{view Ember.TextField valueBinding="last_name" placeholder="Last Name" }}
                     </div>
                 </div>
@@ -261,29 +238,29 @@
             </div>
         </div>
     </div> 
-    <div>
+    <div  class="loginmodal-step4-text">
         Registration successful! You'll soon receive an email with your account information and an activation link. Click on the activation link to activate your myTrends account!
     </div>
     <div id="finishRegister" class="register-btn easing loginmodal-final-register" {{action done}}>Done&nbsp;<i class="fa fa-long-arrow-right"></i></div>
 </div>
 
 
-<div id="missing-fields" class="black-tool-tip" class="display-none">
+<div id="missing-fields" class="black-tool-tip display-none">
     <p>Please fill in all mandatory fields.</p>
 </div>
-<div id="invalid-user-name-register" class="black-tool-tip" class="display-none">
+<div id="invalid-user-name-register" class="black-tool-tip display-none">
     <p>The email address  you have entered is invalid.</p>
 </div>
-<div id="invalid-user-name-register-with-spaces" class="black-tool-tip" class="display-none">
+<div id="invalid-user-name-register-with-spaces" class="black-tool-tip display-none">
     <p>Please remove spaces from your email address.</p>
 </div>
-<div id="invalid-password" class="black-tool-tip" class="display-none">
+<div id="invalid-password" class="black-tool-tip display-none">
     <p>Your password length should be between 6-40 characters long.</p>
 </div>
-<div id="email-in-use" class="black-tool-tip" class="display-none">
+<div id="email-in-use" class="black-tool-tip display-none">
     <p>The email address you have entered belongs to an existing account.</p>
 </div>
-<div id="email-used-by-social" class="black-tool-tip" class="display-none">
+<div id="email-used-by-social" class="black-tool-tip display-none">
     <p>The email address you have entered belongs to an existing account.</p>
 </div>
 
@@ -293,9 +270,9 @@
 <div id="user-login-pane"  class="loginmodal-user-login-panel">
 
     <div id="social-login" class="register-with easing loginmodal-user-login-panel-text" >
-        <i id="social-login" class="fa fa-facebook">&nbsp</i><a > Log in with social account</a>
+        <i id="social-login" class="fa fa-facebook">&nbsp</i><a class="loginmodal-text-color"> Log in with social account</a>
     </div>
-    <div id="social-login-container" class="social-links-container" class="display-none">
+    <div id="social-login-container" class="social-links-container display-none">
         <div class="social-login-iconbox" {{action Facebook  on="click"  target="view"}}>
             <i  class="fa fa-facebook"></i>
         </div>
@@ -320,7 +297,7 @@
 
 
     <div id="click-login" class="register-with easing active-tab loginmodal-email-name-bottom">
-        <i class="fa fa-envelope">&nbsp </i><a> Log in with Email</a>
+        <i class="fa fa-envelope">&nbsp </i><a class="loginmodal-text-color"> Log in with Email</a>
     </div>
 
     <div id="login-with-email-drop-down" class="loginmodal-email-drop-down">
@@ -333,7 +310,7 @@
 
             <div id="loginPassword" class="login-textfield"  >
                 {{view HubStar.LoginEnterKeyTextFieldView type="password" valueBinding="loginPassword" placeholder="Password" }}
-                <div class="hint--right hint--rounded" data-hint="Forgot password?" style="cursor:pointer;float: right;margin-top: -40px;height: 30px;color:#888;">
+                <div class="hint--right hint--rounded loginmodal-forget-password" data-hint="Forgot password?">
                     <i class="fa fa-question-circle">&nbsp</i>
                 </div>
             </div>
@@ -341,8 +318,8 @@
 
         <div id="register-btn" class="register-btn easing"  {{action login}}> Log in</div>
     </div>
-    <div id="user-forgot-password-pane" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
-        <div  id="resetPasswordEmail"class="login-textfield" style="padding: 0 10px">
+    <div id="user-forgot-password-pane" class="loginmodal-email width-300">
+        <div  id="resetPasswordEmail" class="login-textfield" >
             {{view Ember.TextField valueBinding="resetPasswordEmail" placeholder="Your Email" }}
         </div>
         <div class="back-btn easing"  >Back</div>
@@ -352,13 +329,13 @@
         {{#if controller.isEmailsend}}
         <div id="reset-btn" class="register-btn easing register-btn-small" {{action emailSend}}>Reset password</div>
         {{else}}
-        <div class="easing register-btn-small" ><i class="spinner" style="top:4px">&nbsp;</i></div>
+        <div class="easing register-btn-small"><i class="spinner top-4">&nbsp;</i></div>
         {{/if}}
 
 
     </div>
 
-    <div class="black-tool-tip"id="forgot-message-container" style="display:none;">
+    <div class="black-tool-tip display-none" id="forgot-message-container">
         <p>We've just emailed you a new password for your myTrends account - be sure to check your Spam folder in case it ends up there.</p><br/>
         <p>If you don't receive a password reset email, please contact us at 
             <a class="white-text-hover easing" href="http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1" target="blank" style="text-decoration: underline"><b>help documents.</b></a>
@@ -366,32 +343,32 @@
     </div>
 
 
-    <div id="invalid-user-name" class="black-tool-tip" style="display:none;">
+    <div id="invalid-user-name" class="black-tool-tip display-none">
         <p>The email address  you have entered is invalid.</p>
     </div>
-    <div id="invalid-account-type-facebook" class="black-tool-tip" style="display:none;">
+    <div id="invalid-account-type-facebook" class="black-tool-tip display-none">
         <p>You are attempting to log in with a social account. Please use your "Facebook account" option.</p>
     </div>
-    <div id="invalid-account-type-twitter" class="black-tool-tip" style="display:none;">
+    <div id="invalid-account-type-twitter" class="black-tool-tip display-none">
         <p>You are attempting to log in with a social account. Please use your "Twitter  account" option.</p>
     </div>
-    <div id="invalid-account-type-google" class="black-tool-tip" style="display:none;">
+    <div id="invalid-account-type-google" class="black-tool-tip display-none">
         <p>You are attempting to log in with a social account. Please use your "Google+  account" option.</p>
     </div>
-    <div id="invalid-account-type-linkedin" class="black-tool-tip" style="display:none;">
+    <div id="invalid-account-type-linkedin" class="black-tool-tip display-none">
         <p>You are attempting to log in with a social account. Please use your "LinkedIn account" option.</p>
     </div>
-    <div id="incorrect-password" class="black-tool-tip" style="display:none;">
+    <div id="incorrect-password" class="black-tool-tip display-none">
         <p>Incorrect password.</p>
     </div>
-    <div id="incorrect-varify" class="black-tool-tip" style="display:none;">
+    <div id="incorrect-varify" class="black-tool-tip display-none">
         <p>You're almost there! To activate your myTrends account, please click on the activation link in the 'Confirmation of registration' email we have sent you.</p>
     </div>
 
-    <div id="invalid-account-type-reset" class="black-tool-tip" style="display:none;">
+    <div id="invalid-account-type-reset" class="black-tool-tip display-none">
         <p>You are attempting to reset the password of a social account. Please use the "Log in with social account" option.</p>
     </div>
-    <div id="new-password" class="black-tool-tip" style="display:none;">
+    <div id="new-password" class="black-tool-tip display-none"> 
         <p>  We've sent you an email with instructions to reset your password.</p><br/>
         <p>Please make sure it didn't wind up in your Junk Mail. If you aren't receiving our password reset emails, contact to support@trendsideas.com</p>
     </div>
@@ -404,7 +381,7 @@
     <div class="learnmore-btn easing" >Learn more</div>
 </a>
 
-<div style="margin: 15px 0;cursor:pointer;color: #fff; font-size: 12px;"  id="login-btn" class="hover-opacity easing" {{action loginPane on="click"  target="view"}}>Already have an account? Click here to Log in!</div>
+<div style=""  id="login-btn" class="hover-opacity easing loginmodal-login-btn" {{action loginPane on="click"  target="view"}}>Already have an account? Click here to Log in!</div>
 
 </div>
 

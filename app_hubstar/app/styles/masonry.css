@@ -760,6 +760,6 @@ code .nd { color: #9FAD7E; } /* CSS pseudo selector */
 .masonry-moreresult-txt{
     position: relative;
     line-height: 21px;
-    padding-left: 35px;
+    padding-left: 8px;
     font-size:20px
 }

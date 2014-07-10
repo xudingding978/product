@@ -564,6 +564,7 @@
     background-color: white;
     padding:12px;
     border-bottom: 1px solid #e3e3e3;
+    display: block;
 }
 
 .login-textfield{
@@ -1336,7 +1337,9 @@ search-bar-on-small-screen #topResidentialCommerical{
     }
 
     div.register-btn-small {width: 49%}
-
+    
+    div.register-btn-small i{top:4px;}
+    
     .interest-image-container{width: 70px; height: 70px;}
 
     .select-interest{margin: 8px 10px;}

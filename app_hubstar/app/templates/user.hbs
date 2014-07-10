@@ -14,21 +14,21 @@
             {{#if controller.followDisplay}}
             <div class="user-follow-style-top">
                 {{#if controller.isUserSelf}}
-                <div href="#question_modal" role="button" class="disabled-btn follow-btn" data-toggle="modal" style="">Follow</div>
+                <div href="#question_modal" role="button" class="disabled-btn follow-btn" data-toggle="modal" >Follow</div>
 
                 {{else}}
 
                 {{#if controller.follow_status}}
                 {{#if controller.following_status}}
-                <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class="fa fa-exchange" >&nbsp; </i> Following</div>
+                <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" {{action followThisUser}}><i class="fa fa-exchange" >&nbsp; </i> Following</div>
                 {{else}}
-                <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class="fa fa-circle-o" >&nbsp; </i> Following</div>
+                <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" {{action followThisUser}}><i class="fa fa-circle-o" >&nbsp; </i> Following</div>
                 {{/if}}
                 {{else}}
                 {{#if controller.following_status}}
-                <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class="fa fa-check" >&nbsp; </i> Follow</div>
+                <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" {{action followThisUser}}><i class="fa fa-check" >&nbsp; </i> Follow</div>
                 {{else}}
-                <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class="fa fa-plus" >&nbsp; </i> Follow</div>
+                <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" {{action followThisUser}}><i class="fa fa-plus" >&nbsp; </i> Follow</div>
                 {{/if}}
                 {{/if}}
                 <div class="new-btn blue-btn" {{action talkToPeople}}><i class="fa fa-envelope" ></i></div>
@@ -98,12 +98,12 @@
                 <img {{bindAttr src= "controller.cover_url"}} />
 
                 {{#if controller.is_authentic_user}}
-                <div  id="flip-front" class='blue-btn new-btn hint--left hint--rounded edit-dashboard-btn' data-hint="Dashboard"{{action userDashboardButton "User Cover"}}>  
+                <div  id="flip-front" class="blue-btn new-btn hint--left hint--rounded edit-dashboard-btn" data-hint="Dashboard"{{action userDashboardButton "User Cover"}}>  
 
                       <i class="fa fa-cogs" ></i>
                 </div>
                 {{/if}}
-                <div class="user-display-name" style="">{{display_name}}</div>
+                <div class="user-display-name" >{{display_name}}</div>
             </div>
 
             <div class="editor-content user-editor-content" data-step="4" data-intro="Write something about yourself in the <b>About me</b> section." data-position="left">

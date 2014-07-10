@@ -4,27 +4,24 @@
     <div class="tabbable">
         <div class="tabs-left">
             <ul class="nav nav-tabs easing">
-                <li class="active" ><a style="" href="#tab1" data-toggle="tab">COVER</a></li>
-                <li class="easing" ><a style="" href="#tab2" data-toggle="tab">SETTINGS</a></li>
-                <li class="easing" ><a style="" href="#tab3" data-toggle="tab">SOCIAL LINKS</a></li>
+                <li class="active" ><a  href="#tab1" data-toggle="tab">COVER</a></li>
+                <li class="easing" ><a  href="#tab2" data-toggle="tab">SETTINGS</a></li>
+                <li class="easing" ><a  href="#tab3" data-toggle="tab">SOCIAL LINKS</a></li>
                 {{#unless identifier}}
-                <li class="easing" ><a style="" href="#tab4" data-toggle="tab">SECURITY</a></li>
+                <li class="easing" ><a  href="#tab4" data-toggle="tab">SECURITY</a></li>
                 {{/unless}}
-                <li class="easing" ><a style="" href="#tab5" data-toggle="tab">NOTIFICATION</a></li>
+                <li class="easing" ><a  href="#tab5" data-toggle="tab">NOTIFICATION</a></li>
                 {{#if HubStar.profile_manager}}
                 {{#if HubStar.profiles}}
-                <li class="easing" ><a style="" href="#tab6" data-toggle="tab">PROFILES</a></li>
+                <li class="easing" ><a  href="#tab6" data-toggle="tab">PROFILES</a></li>
                 {{/if}}
                 {{/if}}
             </ul>
         </div>
         <div class="tab-content easing">
-
             <div class="tab-pane active" id="tab1">
                 <div class="user-edit-title">CHANGE COVER</div>
-
                 <div id="dragAndDroppArea" class="dragndropbox user-cover-edit">
-
                     <div class="styleup_uploadbox easing user-edit-upload-box">
                         <i class="fa fa-arrow-circle-o-up fa fa-3x" ></i>
                         <span class="user-edit-upload-box-span-font">Drag & drop a cover image here</span>
@@ -37,17 +34,13 @@
                                     </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
-
                 <div class="user-edit-buttons">
                     <div class="new-btn blue-btn user-edit-choose-button">
                         <i class="fa fa-arrow-circle-o-up"> &nbsp;Choose</i>
                         <div> {{view HubStar.SingleImageInputButtonView }}</div>
                     </div>
-
                     <div class="user-edit-crop-button" >
 
                         {{#if controller.isCrop}}
@@ -62,91 +55,57 @@
                         {{/if}} 
                         <span class="new-btn flip-back"{{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
                     </div>
-
-
                 </div>
-
-
             </div>
 
-
-
-
             <div class="tab-pane" id="tab2">
-
-                <div class="user-edit-title">GENERAL SETTINGS</div>
-
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" class="profilesnew-table" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin:10px auto;">
-                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-
-                        <tr>
-                            <td>User Name:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="displayName"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=display_name}}
-
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Name*:</td>
-                            <td>
-                                <div  style="display: block; margin-bottom: 5px;" >
-
-                                    <div  id="first_name" style="margin: 0;width: 49%;display: inline-block;">
-                                        {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
-                                    </div>
-                                    <div id="last_name" style="margin: 0;width: 49%;display: inline-block;">
-                                        {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
-                                    </div>
-
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Email:</td>
-                            <td>
-                                <div style="display: block;">
-
-                                    <div  id="email" class="disabled-btn" style="margin: 0;width: 100%;top:0">
-                                        {{email}}
-                                    </div>
-
-
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>About me:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="about_me" style="margin: 0;width: 100%; height:100px;">
-                                        {{view Ember.TextArea valueBinding="about_me" class="no-resize" placeholder="Say something interesting about yourself (Maximum 430 characters)." }}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td> Location:</td>
-                            <td>
-                                <div style="display: block;" >
-                                    <div id="location"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=location }}
-                                    </div>
-                                </div>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div style="right: 0;margin:10px auto 0;width: 150px;">
+                <div class="user-edit-title">GENERAL SETTINGS</div>               
+                <div class="useredit-table" >
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width" >User Name:</div>
+                        <div class="table-cell useredit-col2-style" >
+                            <div id="displayName" class="useredit-col2-input">
+                                {{input type="text" value=display_name}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-row useredit-table-row"> 
+                        <div class="table-cell useredit-col1-width">Name*:</div>
+                        <div class="table-cell useredit-col2-style useredit-col2-margin" >
+                            <div  id="first_name" class="useredit-col2-name" >
+                                {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
+                            </div>
+                            <div id="last_name" class="useredit-col2-name">
+                                {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
+                            </div>
+                        </div>             
+                    </div>
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width">Email:</div>
+                        <div class="table-cell useredit-col2-style">                          
+                                <div  id="email" class="disabled-btn width-100">
+                                    {{email}}
+                                </div>                          
+                        </div>
+                    </div>
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width">About me:</div>
+                        <div class="table-cell useredit-col2-style">
+                            <div id="about_me" class="useredit-col2-input2">
+                                {{view Ember.TextArea valueBinding="about_me" class="no-resize" placeholder="Say something interesting about yourself (Maximum 430 characters)." }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width"> Location:</div>
+                        <div class="table-cell useredit-col2-style">                            
+                                <div id="location" class="useredit-col2-input">
+                                    {{input type="text" value=location }}
+                                </div>                           
+                        </div>
+                    </div>                   
+                </div>
+                <div class="user-tab-save">
                     <span class="new-btn green-btn" {{action saveUpdate}}>Save</span>
                     <span class="new-btn flip-back" {{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
                 </div>
@@ -154,92 +113,66 @@
             </div>
 
             <div class="tab-pane" id="tab3">
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">SOCIAL LINKS</div>
-
-                <table class="profilesnew-table" style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 10px auto;">
-                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-
-                        <tr>
-                            <td>Facebook:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="facebook" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=facebook placeholder="eg:www.facebook.com"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Twitter:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="twitter" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=twitter placeholder="eg:www.twitter.com"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Google+:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div id="googleplus"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=googleplus placeholder="eg:plus.google.com"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Pinterest:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="pinterest"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=pinterest placeholder="eg:www.pinterest.com"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Linkedin:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div id="linkedin"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=linkedin placeholder="eg:www.linkedin.com"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Youtube:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="youtube" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=youtube placeholder="eg:www.youtube.com" }}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Instagram:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="Instagram" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=Instagram placeholder="eg:www.instagram.com" }}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-
-                <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                <div class="user-edit-title">SOCIAL LINKS</div>
+                <div class="useredit-table" >
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width" >Facebook:</div>
+                        <div class="table-cell useredit-col2-style" >
+                            <div  id="facebook" class="useredit-col2-input" >
+                                {{input type="text" value=facebook placeholder="eg:www.facebook.com"}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width" >Twitter:</div>
+                        <div class="table-cell useredit-col2-style" >
+                            <div id="twitter" class="useredit-col2-input">
+                                 {{input type="text" value=twitter placeholder="eg:www.twitter.com"}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width" >Google+:</div>
+                        <div class="table-cell useredit-col2-style" >                           
+                            <div id="googleplus" class="useredit-col2-input">
+                                {{input type="text" value=googleplus placeholder="eg:plus.google.com"}}
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width" >Pinterest:</div>
+                        <div class="table-cell useredit-col2-style" >                            
+                            <div id="pinterest" class="useredit-col2-input">
+                                {{input type="text" value=pinterest placeholder="eg:www.pinterest.com"}}
+                            </div>                          
+                        </div>
+                    </div>
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width" >Linkedin:</div>
+                        <div class="table-cell useredit-col2-style" >                           
+                            <div id="linkedin" class="useredit-col2-input">
+                                {{input type="text" value=linkedin placeholder="eg:www.linkedin.com"}}
+                            </div>                           
+                        </div>
+                    </div>
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width" >Youtube:</div>
+                        <div class="table-cell useredit-col2-style" >                           
+                            <div id="youtube" class="useredit-col2-input">
+                                {{input type="text" value=youtube placeholder="eg:www.youtube.com" }}
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width" >Instagram:</div>
+                        <div class="table-cell useredit-col2-style" >                           
+                            <div id="Instagram" class="useredit-col2-input" >
+                                {{input type="text" value=Instagram placeholder="eg:www.instagram.com" }}
+                            </div>                            
+                        </div>
+                    </div>                                  
+                </div>
+                <div class="user-tab-save">
                     <span class="new-btn green-btn" {{action saveSociallinkUpdate}} >Save</span>
                     <span class="new-btn flip-back"{{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
                 </div>
@@ -247,91 +180,71 @@
             </div>
             {{#unless identifier}}
             <div class="tab-pane" id="tab4">
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">SECURITY</div>
-
-                <table class="profilesnew-table" style="padding-right: 147px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
-                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-
-                        <tr>
-                            <td>Current Password:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div id="password"  style="margin: 0;width: 100%;">
-                                        {{input type="password" value=oldpassword placeholder="" style="padding: 1px 6px;"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>New Password:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{input type="password" value=newpassword placeholder="Minimum 6 characters" style="padding: 1px 6px;"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Confirm New Password:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{input type="password" value=repeatnew placeholder="Confirm new password" style="padding: 1px 6px;"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-
-                <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                <div class="user-edit-title">SECURITY</div>
+                <div class="useredit-table">
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width" >Current Password:</div>
+                        <div class="table-cell useredit-col2-style" >
+                             <div id="password" class="useredit-col2-input">
+                                  {{input type="password" value=oldpassword placeholder="" style="padding: 1px 6px;"}}
+                             </div>
+                        </div>
+                    </div>
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width" >New Password:</div>
+                        <div class="table-cell useredit-col2-style" >
+                             <div class="useredit-col2-input">
+                                  {{input type="password" value=newpassword placeholder="Minimum 6 characters" style="padding: 1px 6px;"}}
+                             </div>
+                        </div>
+                    </div>
+                    <div class="table-row useredit-table-row">
+                        <div class="table-cell useredit-col1-width" >Confirm New Password:</div>
+                        <div class="table-cell useredit-col2-style" >
+                             <div class="useredit-col2-input">
+                                 {{input type="password" value=repeatnew placeholder="Confirm new password" style="padding: 1px 6px;"}}
+                             </div>
+                        </div>
+                    </div>                          
+                </div>
+                <div class="profile-tab-save1">
                     <span class="new-btn green-btn" {{action savePassword}} >Save</span>
                     <span class="new-btn flip-back"{{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
                 </div>
-
             </div>          
             {{/unless}}
             <div class="tab-pane" id="tab5">
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">NOTIFICATION</div>
-                <div style="margin: 10px 40px;"> 
-                    <span style="font-size: 15px; font-weight: bold; color: #555;">How You Get Notifications:</span>
+                <div class="user-edit-title">NOTIFICATION</div>
+                <div class="useredit-row"> 
+                    <span class="useredit-notification">How You Get Notifications:</span>
                     {{#each controller.subcateMethod}}
-                    <li class="checkbox-container" style="width: 100%;" {{action checkedMethodAction list_id this}}>
+                    <li class="checkbox-container width-100" {{action checkedMethodAction list_id this}}>
                         <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox">
                             <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check {{unbound list_id}}">{{category_topic}}</label>
                     </li>
                     {{/each}}
                 </div>
                 <hr>
-                    <div style="margin: 10px 40px 30px"> 
-                        <span style="font-size: 15px; font-weight: bold; color: #555;">What You Get Notified About:</span>
+                    <div class="useredit-row"> 
+                        <span class="useredit-notification">What You Get Notified About:</span>
                         {{#each controller.subcate}}
-                        <li class="checkbox-container" style="width: 100%;" {{action checkedAction list_id this}}>
+                        <li class="checkbox-container width-100" {{action checkedAction list_id this}}>
                             <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox">
                                 <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check {{unbound list_id}}">{{category_topic}}</label>
                         </li>
                         {{/each}}
                     </div>
-
-
-                    <div style="right: 0;margin:10px auto 0;width: 150px;">
+                    <div class="user-tab-save">
                         <span class="new-btn green-btn" {{action saveNotification}}>Save</span>
                         <span class="new-btn flip-back" {{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
                     </div>
-
             </div>
             {{#if HubStar.profile_manager}}
             <div class="tab-pane" id="tab6">
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">YOUR BUSINESS PROFILES</div>
-
-
+                <div class="user-edit-title">YOUR BUSINESS PROFILES</div>
                 <div id="user_profiles"> 
                     <div class="user-profile-hover">
-                        <div id="profile-creator-title" class="user-title-list" {{action clickToDisplay 'Creator' on="click" target="view"}}> 
+                        <div id="profile-creator-title" class="user-title-list" > 
                              <i class="fa fa-user-md" >&nbsp;</i>Creator &nbsp;(&nbsp;{{HubStar.userCreator}}&nbsp;)
                         </div>
                         <div id="user-profile-creator">
@@ -352,23 +265,20 @@
                         </div>
                     </div>
                     <div class="user-profile-hover">
-                        <div id="profile-admin-title" class="user-title-list " {{action clickToDisplay "Admin" on="click" target="view"}}>
+                        <div id="profile-admin-title" class="user-title-list " >
                              <i class="fa fa-user" ></i>&nbsp;Administrator &nbsp;(&nbsp;{{HubStar.userAdministrator}}&nbsp;)
 
                         </div>
                         <div id="user-profile-admin">
-
                             {{#each HubStar.profiles}}  
                             {{#if this.isAdministrator}}
                             <div>
                                 <a href="#/profiles/{{unbound this.profile_id}}">
                                     <div class="profile-image" > 
                                         <div class="profile-top-image-position">
-                                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                                            <img {{bindAttr src="this.profile_pic"}} style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
                                         </div>
-
                                         <div class="profile-top-name-position">{{this.profile_name}}</div>
-
                                     </div>
                                 </a>
                             </div>
@@ -377,9 +287,8 @@
                         </div>
                     </div>
                     <div class="user-profile-hover">
-                        <div id="profile-editor-title" class="user-title-list" {{action clickToDisplay "Editor" on="click" target="view"}}>
+                        <div id="profile-editor-title" class="user-title-list" >
                              <i class="fa fa-users">&nbsp;</i>Editor  &nbsp;(&nbsp;{{HubStar.userEditor}}&nbsp;)
-
                         </div>
                         <div id="user-profile-editor">
 
@@ -401,53 +310,41 @@
                         </div>
                     </div>
                 </div>
-
-                <div style="width: 100%;height: auto; min-height: 50px;padding-left: 25px;">
+                <div class="useredit-trendsuser">
                     {{#if view.is_trends_user}}
-                    <div class='new-profile-display-button'><a href="#/profiles/new"><i class="fa fa-plus">&nbsp;New Profile</i></a> </div>
+                    <div class="new-profile-display-button"><a href="#/profiles/new"><i class="fa fa-plus">&nbsp;New Profile</i></a> </div>
                     {{/if}}
                 </div>
-                <div style="margin: 0 auto;width: 100px;clear: both;">
+                <div class="useredit-back">
                     <span class="new-btn flip-back" {{action userDashboardBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
                 </div>
-
             </div>
             {{/if}}
         </div>
-
-
     </div>
     {{/view}}
     {{/if}}
 
-
     {{#if controller.isPhotoEditingMode}}
-    <div class="" style="position:relative;height: 65px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);">
-        <span style="position: relative;display: inline-block;font-size: 40px; vertical-align: top;"><i class="fa fa-check-circle"></i></span>
-        <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
-            <span style="font-size: 20px;display: block;line-height: 25px;font-weight: bold">Crop your picture now!</span>
-            <span style="font-size: 15px;display: block;line-height: 15px;"> Image Size: <span id="log"></span> </span>  
+    <div class="profile-tab-editContainer" >
+        <span class="profile-tab1-edit-check" ><i class="fa fa-check-circle"></i></span>
+        <span class="profile-tab1-edit-titlectn" >
+            <span class="profile-tab1-edit-title">Crop your picture now!</span>
+            <span class="profile-tab1-edit-imgsize"> Image Size: <span id="log"></span> </span>  
         </span>
     </div>
 
 
-    <div id="crop-container" style="width: 600px;height: 350px;margin: 10px auto; text-align: center">
+    <div id="crop-container" class="useredit-crop-container">
         <div class="contr"></div>
-        <canvas id="panel" class="crop-canvas" style="height: 100%;width: auto;margin: 0 auto; "><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
+        <canvas id="panel" class="crop-canvas useredit-canvas" ><img {{bindAttr src="newStyleImageSource"}} ></canvas>
 
     </div>
-    <div style="margin:20px auto;width: 150px;">
+    <div class="useredit-action">
 
         <span class="new-btn green-btn " {{action savePhotoUpdate}} ><i class="fa fa-save"> &nbsp;Save</i></span>
         <span class="new-btn flip-back"{{action userDashboardBackButton}}><i class="fa fa-group"> &nbsp;</i>Back</span>
 
     </div>
     {{/if}}
-
-
-
-
-
 </div>
-
-

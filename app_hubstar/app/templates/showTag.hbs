@@ -15,26 +15,26 @@
         <div class="show-tag-contactmebox-wapper">
             <div class="show-tag-part">
                 <div>
-                    <div class='show-tag-font'>Product Name :</div> 
+                    <div class="show-tag-font">Product Name :</div> 
                     <div>
                         {{view Ember.TextArea valueBinding="controller.product_name" rows="1" cols="70" class="tag_currenprofile" placeholder="Say something about it!"}}
                     </div>
                 </div>
                 <div>
-                    <div class='show-tag-font'>Description :</div>
+                    <div class="show-tag-font">Description :</div>
                     <div>
                         {{view Ember.TextArea valueBinding="controller.description" rows="10" cols="70" class="tag_descriptionbox" placeholder="Write something to introduce the product!"}}
                     </div>
                 </div>
             </div>
             <div class="show-tag-link-to">
-                <div class='show-tag-font'> Link to tag :</div>
+                <div class="show-tag-font"> Link to tag :</div>
                 <div class="show-tag-link-to-content"> {{controller.linkTo}} </div>
             </div>
             <div class="show-tag-part-below">
                 <div class="show-tag-part-below-left">
                     <div class="show-tag-left">
-                        <div class='show-tag-font'>Profile :</div>
+                        <div class="show-tag-font">Profile :</div>
                         {{#if controller.selectedDesc}}
                         {{#unless controller.isReadProfile}}
                         <div class="new-btn show-tag-select" {{action profileSwitch on="click" target="controller"}}>
@@ -43,7 +43,7 @@
                         </div>                      
                         {{else}}
                         <div class="new-btn show-tag-select"> 
-                            <div class="show-tag-loading"> Loading <i class="spinner" style="">&nbsp;</i></div>                       
+                            <div class="show-tag-loading"> Loading <i class="spinner" >&nbsp;</i></div>                       
                         </div>
                         {{/unless}}
                         {{else}}
@@ -54,7 +54,7 @@
                                 </div> 
                         {{else}}
                         <div class="new-btn show-tag-select"> 
-                            <div class="show-tag-loading"> Loading <i class="spinner" style="">&nbsp;</i></div>                       
+                            <div class="show-tag-loading"> Loading <i class="spinner" >&nbsp;</i></div>                       
                         </div>
                         {{/unless}}
                         {{/if}}
@@ -63,7 +63,7 @@
                         <div class="select-profile-save">
                             <div class="show-tag-profile-content" >         
                                 {{#each controller.profiles}}
-                                <div class="choose-exist-collection easing" style="" {{action chooseProfile profile_name profile_id}}>
+                                <div class="choose-exist-collection easing"  {{action chooseProfile profile_name profile_id}}>
                                      <a class="exist-name easing"> {{profile_name}}</a>
                                 </div>
                                 {{/each}}
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="show-tag-left">
-                        <div class='show-tag-font'>Collection :</div>
+                        <div class="show-tag-font">Collection :</div>
                         {{#if chooseProfileItem}}
                         <div class="new-btn show-tag-select"  {{action collectionSwitch }} {{bindAttr text="controller.selectedTitle" }}>
                              {{controller.selectedTitle}}
@@ -106,8 +106,8 @@
             </div>
         </div> 
         <div class="show-tag-bottom">
-            <div  class="message-btn easing show-tag-button-right"  {{action cancelTag }}><i class='fa fa-times'>&nbsp;</i>Cancel</div>
-            <div class="message-btn easing" {{action saveTag}}><i class='fa fa-check'>&nbsp;</i>Save</div>
+            <div  class="message-btn easing show-tag-button-right"  {{action cancelTag }}><i class="fa fa-times">&nbsp;</i>Cancel</div>
+            <div class="message-btn easing" {{action saveTag}}><i class="fa fa-check">&nbsp;</i>Save</div>
         </div>
     </div>
     {{#if controller.change_tag_show}}

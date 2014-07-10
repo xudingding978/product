@@ -39,22 +39,22 @@ body > div.ember-view > div
 
 @-moz-keyframes tagBounce { 
     50% { -moz-transform: rotate(70deg); } 
-    68% { -moz-transform: rotate(10deg); } 
-    82% { -moz-transform: rotate(35deg); } 
-    99% { -moz-transform: rotate(0deg); } 
+68% { -moz-transform: rotate(10deg); } 
+82% { -moz-transform: rotate(35deg); } 
+99% { -moz-transform: rotate(0deg); } 
 
 }
 @-webkit-keyframes tagBounce { 
     50% { -webkit-transform: rotate(70deg); } 
-    68% { -webkit-transform: rotate(10deg); } 
-    82% { -webkit-transform: rotate(35deg); } 
-    99% { -webkit-transform: rotate(0deg); } 
+68% { -webkit-transform: rotate(10deg); } 
+82% { -webkit-transform: rotate(35deg); } 
+99% { -webkit-transform: rotate(0deg); } 
 }
 @keyframes tagBounce { 
     50% {transform:rotate(70deg); }
-    68% {transform:rotate(10deg); }
-    82% {transform:rotate(35deg);}
-    99% {transform:rotate(0deg);}
+68% {transform:rotate(10deg); }
+82% {transform:rotate(35deg);}
+99% {transform:rotate(0deg);}
 
 }
 
@@ -934,14 +934,14 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 }
 @-webkit-keyframes pulsate {
     0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
-    50% {opacity: 1.0;}
-    100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+50% {opacity: 1.0;}
+100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
 }
 
 @keyframes pulsate {
     0% {-moz-transform: scale(0.1, 0.1); opacity: 0.0;}
-    50% {opacity: 1.0;}
-    100% {-moz-transform: scale(1.2, 1.2); opacity: 0.0;}
+50% {opacity: 1.0;}
+100% {-moz-transform: scale(1.2, 1.2); opacity: 0.0;}
 }
 
 .enquiryBtn{
@@ -1319,76 +1319,76 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 @-moz-keyframes bounce_blurringTextG{
     0%{
-        text-shadow: #555555 0 0 0;
-    }
+    text-shadow: #555555 0 0 0;
+}
 
-    50%{
-        text-shadow: #FFFFFF 0 0 20px;
-    }
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
 
-    100%{
-        text-shadow: #555555 0 0 0;
-    }
+100%{
+    text-shadow: #555555 0 0 0;
+}
 
 }
 
 @-webkit-keyframes bounce_blurringTextG{
     0%{
-        text-shadow: #555555 0 0 0;
-    }
+    text-shadow: #555555 0 0 0;
+}
 
-    50%{
-        text-shadow: #FFFFFF 0 0 20px;
-    }
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
 
-    100%{
-        text-shadow: #555555 0 0 0;
-    }
+100%{
+    text-shadow: #555555 0 0 0;
+}
 
 }
 
 @-ms-keyframes bounce_blurringTextG{
     0%{
-        text-shadow: #555555 0 0 0;
-    }
+    text-shadow: #555555 0 0 0;
+}
 
-    50%{
-        text-shadow: #FFFFFF 0 0 20px;
-    }
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
 
-    100%{
-        text-shadow: #555555 0 0 0;
-    }
+100%{
+    text-shadow: #555555 0 0 0;
+}
 
 }
 
 @-o-keyframes bounce_blurringTextG{
     0%{
-        text-shadow: #555555 0 0 0;
-    }
+    text-shadow: #555555 0 0 0;
+}
 
-    50%{
-        text-shadow: #FFFFFF 0 0 20px;
-    }
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
 
-    100%{
-        text-shadow: #555555 0 0 0;
-    }
+100%{
+    text-shadow: #555555 0 0 0;
+}
 
 }
 
 @keyframes bounce_blurringTextG{
     0%{
-        text-shadow: #555555 0 0 0;
-    }
+    text-shadow: #555555 0 0 0;
+}
 
-    50%{
-        text-shadow: #FFFFFF 0 0 20px;
-    }
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
 
-    100%{
-        text-shadow: #555555 0 0 0;
-    }
+100%{
+    text-shadow: #555555 0 0 0;
+}
 
 }
 
@@ -1494,20 +1494,20 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 @-webkit-keyframes rotating {
     from{
-        -webkit-transform: rotate(0deg);
-    }
-    to{
-        -webkit-transform: rotate(360deg);
-    }
+    -webkit-transform: rotate(0deg);
+}
+to{
+    -webkit-transform: rotate(360deg);
+}
 }
 
 @-moz-keyframes rotating {
     from{
-        -webkit-transform: rotate(0deg);
-    }
-    to{
-        -webkit-transform: rotate(360deg);
-    }
+    -webkit-transform: rotate(0deg);
+}
+to{
+    -webkit-transform: rotate(360deg);
+}
 }
 
 
@@ -1663,12 +1663,12 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 @-webkit-keyframes loader2{
     0%{-webkit-transform:rotate(0deg);}
-    100%{-webkit-transform:rotate(360deg);}
+100%{-webkit-transform:rotate(360deg);}
 }
 
 @keyframes loader2{
     0%{transform:rotate(0deg);}
-    100%{transform:rotate(360deg);}
+100%{transform:rotate(360deg);}
 }
 
 .app_box{
@@ -1786,8 +1786,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 .inset-text{
     /* Shadows are visible under slightly transparent text color */
-color: rgba(80,80,80,.8);
-text-shadow: 1px 4px 6px #ddd, 0 0 0 #555, 1px 4px 6px #ddd;
+    color: rgba(80,80,80,.8);
+    text-shadow: 1px 4px 6px #ddd, 0 0 0 #555, 1px 4px 6px #ddd;
 }
 /* Don't show shadows when selecting text */
 ::-moz-selection { background: #5af; color: #fff; text-shadow: none; }
@@ -1819,3 +1819,165 @@ text-shadow: 1px 4px 6px #ddd, 0 0 0 #555, 1px 4px 6px #ddd;
 
 
 /*----------login modal------------*/
+.loginmodal-container{
+    background-color: transparent;
+    position: fixed; 
+    top: 30%; 
+    z-index: 10;
+    margin: auto; 
+    left: 0px; 
+    right: 0px; 
+    width: 300px;
+    height: 565px;
+    border: 0;
+    text-align: center; 
+    display:none;
+}
+
+.loginmodal-social{
+    border-radius: 5px 5px 0 0; 
+    border-bottom:1px solid #e3e3e3;
+}
+
+.loginmodal-text-color{
+    color: #888;
+}
+
+.loginmodal-email{
+    margin: 0 auto ;
+    background-color: #fff;
+    border-radius: 0 0 5px 5px;
+    display:none;
+}
+
+
+.loginmodal-email-container{
+    padding: 0 8px;
+    position: relative;
+}
+.loginmodal-email-name-bottom{
+    border-bottom: 1px solid #e3e3e3; 
+
+}
+
+.loginmodal-email-name-up{
+    border-top:1px solid #e3e3e3; 
+}
+
+.loginmodal-email-name div{
+    width: 49%;
+    display: inline-block;
+    border: none
+}
+
+.register-with-email-step-3-style{
+    display:none; 
+    width: 101.5%;
+    overflow: hidden;
+}
+
+#register-with-social-select-interests, #register-with-email-step-3 .popup-bg-fadeout{
+    background-color: transparent;
+}
+
+.loginmodal-step-4{
+    overflow: hidden;
+    z-index: 11; 
+    background-color: white; 
+    border-radius: 5px; 
+    box-shadow: rgb(187, 187, 187) 0px 0px 20px; 
+    width: 430px; 
+    height: 320px; 
+    margin: 0px auto; 
+    position: fixed; 
+    top: 20%; 
+    left: 0px; 
+    right: 0px; 
+    display: none;
+}
+
+.loginmodal-step4-title-container{
+    background-color: #f3f3f3;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.loginmodal-step4-title-container div{
+    display: block;
+    position: relative;
+    height: 35px;
+    margin: 0 auto;
+}
+
+.loginmodal-step4-title-container div div{
+    position: relative;  
+    line-height: 35px;
+    font-size: 20px;
+    background-color: #f3f3f3;
+    opacity: 0.5;
+}
+
+.loginmodal-step4-text{
+    text-align: center;
+    padding: 70px;
+}
+
+.loginmodal-final-register{
+    height: 45px;
+    line-height: 45px;
+    width: 100%;
+    border-top: 1px solid #ddd;
+    bottom: 0;
+    position: absolute;
+    display:block
+}
+
+.loginmodal-final-register i{
+    font-size: 13px;
+}
+
+.loginmodal-user-login-panel{
+    display:none;border-radius: 5px 5px 0 0;
+}
+
+.loginmodal-user-login-panel-text{
+    border-radius: 5px 5px 0 0; 
+    border-bottom:1px solid #e3e3e3;
+}
+
+.loginmodal-user-login-panel-text a{
+    color: #888;
+}
+
+#click-login a {
+    color: #888;
+}
+
+.loginmodal-email-drop-down{
+    margin: 0 auto ;
+    background-color: #fff;
+    border-radius: 0 0 5px 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*------------------------ reset -----------------------*/
+.right-0{
+    right:0;
+}
+
+.zidex-11{
+    z-index:11 !important;  
+}
+

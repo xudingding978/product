@@ -80,7 +80,7 @@
                     <tr>
                         <td>Project Category:</td>
                         <td>
-                            <div class="new-btn" style="" {{action dropdown controller.dropdownCategory}}>
+                            <div class="new-btn"  {{action dropdown controller.dropdownCategory}}>
                                  <span id="dropdownCategory">{{controller.projectCategorySelection}}</span>
                                 <span class="caret"></span>
                             </div>
@@ -193,7 +193,7 @@
         {{#if controller.secondStepOfContactEmail}}
         <span class="contact-pre-container">
             <div type="button" {{action proviousSendingEmailProcess}}  class="new-btn blue-btn">
-                 <i class='fa fa-arrow-left'>&nbsp;</i>Previous</div>
+                 <i class="fa fa-arrow-left">&nbsp;</i>Previous</div>
         </span>
         {{/if}}
         {{#unless controller.firstStepOfContactEmail}}

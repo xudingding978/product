@@ -4,15 +4,15 @@
 
     <div id="dragAndDroppArea" class="dragndropbox user-picture-edit">
 
-        <div class='styleup_uploadbox easing user-picture-upload-box'>
-            <i class='fa fa-arrow-circle-o-up fa fa-3x'></i>
+        <div class="styleup_uploadbox easing user-picture-upload-box">
+            <i class="fa fa-arrow-circle-o-up fa fa-3x"></i>
             <span class="user-picture-span-font">Drag & drop a profile image here</span>
             <span class="user-picture-span-size"> {{controller.RequiredImageSize}}</span>
             <div>
                 <div>
                     <img  {{bindAttr src= "newStyleImageSource"}}>
-                    <div id='uploadStyleImg'>
-                        <img style="" src="../../../images/uploadphotos_spinner.gif"/>
+                    <div id="uploadStyleImg">
+                        <img src="../../../images/uploadphotos_spinner.gif"/>
                     </div>
                 </div>
             </div>
@@ -20,16 +20,16 @@
     </div>
     <div class="user-picture-img-button">
         <div class="new-btn blue-btn user-picture-img-button-choose">
-            <i class='fa fa-arrow-circle-o-up'> &nbsp;Choose </i>
-            <div style=""> {{view HubStar.SingleImageInputButtonView }}</div>
+            <i class="fa fa-arrow-circle-o-up"> &nbsp;Choose </i>
+            <div > {{view HubStar.SingleImageInputButtonView }}</div>
         </div>
         <div class="user-picture-img-button-crop">
             {{#if controller.isCrop}}
-            <span id="photoUploadbtn" class="new-btn green-btn" {{action cropButton}}><i class='fa fa-cut '> &nbsp;</i>Crop</span>
+            <span id="photoUploadbtn" class="new-btn green-btn" {{action cropButton}}><i class="fa fa-cut"> &nbsp;</i>Crop</span>
             {{else}}
-            <span  class="disabled-btn" ><i class='fa fa-cut '> &nbsp;</i>Crop</span>
+            <span  class="disabled-btn" ><i class="fa fa-cut"> &nbsp;</i>Crop</span>
             {{/if}} 
-            <span class='new-btn flip-back'{{action userPhotoEditBackButton }}><i class='fa fa-user'> &nbsp;</i>Back</span>
+            <span class="new-btn flip-back" {{action userPhotoEditBackButton }}><i class="fa fa-user"> &nbsp;</i>Back</span>
 
         </div>
     </div>
@@ -38,16 +38,16 @@
 
     {{#if controller.isPhotoEditingMode}}
     <div class="user-picture-img-crop-title">
-        <span class="user-picture-img-crop-title-icon"><i class='fa fa-check-circle'></i></span>
+        <span class="user-picture-img-crop-title-icon"><i class="fa fa-check-circle"></i></span>
         <span class="user-picture-img-crop-title-name">Crop your picture now!</span>
     </div>
 
     <div id="crop-container" class="user-picture-crop-container">
-        <canvas id="panel" ><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
+        <canvas id="panel" ><img {{bindAttr src= "newStyleImageSource"}} ></canvas>
     </div>
     <div class="user-picture-crop-button">
-        <span class="new-btn green-btn " {{action savePhotoUpdate}} ><i class='fa fa-save'> &nbsp;</i>Save</span>
-        <span class='new-btn flip-back'{{action userPhotoEditBackButton }}><i class='fa fa-group'> &nbsp;</i>Back</span>
+        <span class="new-btn green-btn " {{action savePhotoUpdate}} ><i class="fa fa-save"> &nbsp;</i>Save</span>
+        <span class="new-btn flip-back" {{action userPhotoEditBackButton }}><i class="fa fa-group"> &nbsp;</i>Back</span>
     </div>
     {{/if}}
 </div>

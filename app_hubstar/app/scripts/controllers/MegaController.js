@@ -507,12 +507,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 HubStar.set("pic_current_width", Math.round(width / height * max_height));
             }
         }
-        
-//         if (HubStar.get('ctaView') === true) {
-//                this.get("controllers.checkingLoginStatus").popupLogin();
-//                HubStar.set('ctaView', false);
-//            }
-
     },
     getInitData: function(megaObject) {
 
@@ -613,6 +607,14 @@ HubStar.MegaController = Ember.ArrayController.extend({
             requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
             });
         });
+        
+         if (HubStar.get("checkLoginStatus")) {
+            if (HubStar.get('showDiscoveryBar')) {
+                HubStar.set('ctaView', false);
+            } else {
+                HubStar.set('ctaView', true);
+            }
+        }
 
     },
     addRelatedData: function(mega)
@@ -1165,6 +1167,18 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
     },
     closeWindow: function() {
+        
+        HubStar.set('ctaView', false);
+        
+              setTimeout(function(){
+           if ($(window).width() > 1200) {
+                    $("#cta-popup").removeClass("cta-popup-small-top");
+                } else {
+                    $("#cta-popup").addClass("cta-popup-small-top");
+                }
+       },1);     
+
+
         this.set('image_no', 1);
         this.set('collectable', false);
         this.set('contact', false);
@@ -1194,8 +1208,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                     if (object_type === "photos" || object_type === "articles" || object_type === "videos")
                     {
+                       
                         var m = HubStar.Mega.find(search_id);
                         this.transitionTo("search", {id: m.get("owner_title")});
+                       
 
                     }
                     else
@@ -1203,6 +1219,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         HubStar.set("escVideo", true);
                         this.transitionTo("search", {id: search_id});
                     }
+                    
                 }
             }
             else
@@ -1238,12 +1255,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             this.set("selectPhoto", false);
             this.transitionTo("collection", data); //user
-
-
         } else {
             this.transitionTo("searchIndexTom");
         }
-        HubStar.set('ctaView', true);
+          
+        
     },
     editingContactForm: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

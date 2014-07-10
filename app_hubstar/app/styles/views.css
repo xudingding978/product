@@ -3406,18 +3406,16 @@ div.album-description-bg{
 }
 
 .search-wrapper-container{
-    position: absolute; 
-    top: 140px; 
-    width: 880px;
-    left:0; 
-    right: 0; 
-    margin: auto;
+    position: relative;
+    top: 140px;
+    width: 1030px;
+    margin: 0 auto;
     text-align: center;
-    height:400px;
+    height: 350px;
 }
 
 .searchbar-title{
-    position:relative;
+    position: relative;
     font-size: 50px;
     color: white;
     font-weight: bold;
@@ -3433,8 +3431,8 @@ div.album-description-bg{
 }
 
 .searchbar-maintopic{
-    position:relative; 
-    height:100px;
+    position: relative;
+height: 130px;
 }
 
 .searchbar-listIcon{

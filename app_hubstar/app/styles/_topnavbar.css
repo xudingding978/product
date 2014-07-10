@@ -163,11 +163,10 @@
 }
 
 .search-bar{
-    position: absolute;
-    top: 330px;
+    position: relative;
     margin: 0 auto;
-    width: 65%;
-    left: 23%;
+    width: 100%;
+    height: 100px;
 }
 
 .fourOhFour-searchbar-c{
@@ -187,22 +186,40 @@
 
 
 .Nav-btn{
-    border-radius: 3px; 
+    border-radius: 3px;
     margin-right: 5px;
-    line-height: 50px; 
+    line-height: 50px;
     text-align: center;
     opacity: .9;
     cursor: pointer;
-    float: left;
     width: 100px;
     height: 60px;
-    top: -5px;
     position: relative;
     font-size: 15px;
     font-weight: bold;
     color: #333;
     background-color: white;
+    display: inline-block;
+    float:left;
 }
+
+.navigator-button{
+  border-radius: 3px;
+    margin-right: 5px;
+    line-height: 50px;
+    text-align: center;
+    opacity: .9;
+    cursor: pointer;
+    width: 100px;
+    height: 60px;
+    position: relative;
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    background-color: white;
+    display: inline-block;  
+}
+
 
 .Nav-btn:hover{opacity: 1}
 
@@ -217,13 +234,12 @@
 }
 
 .search-box{
-    top: -5px;
     position: relative;
-    float: left;
     display: inline-block;
     height: 100%;
     max-width: 84%;
     width: 70%;
+    vertical-align: top;
 }
 
 .fourOhFour-searchbar{
@@ -243,12 +259,10 @@
 }
 
 .popular-topics{
-    top: 410px;
-    width: 1075px;
-    position:absolute; 
-    margin: auto;
-    left: 0;
-    right: 0;
+    width: 105%;
+    position: relative;
+    margin: 0 auto;
+    height: 50px;
 }
 
 .popular-topics > div{
@@ -564,6 +578,7 @@
     background-color: white;
     padding:12px;
     border-bottom: 1px solid #e3e3e3;
+    display: block;
 }
 
 .login-textfield{
@@ -1337,6 +1352,8 @@ search-bar-on-small-screen #topResidentialCommerical{
 
     div.register-btn-small {width: 49%}
 
+    div.register-btn-small i{top:4px;}
+
     .interest-image-container{width: 70px; height: 70px;}
 
     .select-interest{margin: 8px 10px;}
@@ -1357,17 +1374,17 @@ search-bar-on-small-screen #topResidentialCommerical{
     .search-bar-on-large-screen{
         display: none;
     }
-    
+
     .user-top{
         height:180px;
     }
-    
+
 }
 
 
 
 @media only screen and (min-width : 768px) and (max-width : 979px) {
-    
+
     .Dropdownstyle2{
         right:185px;
     }

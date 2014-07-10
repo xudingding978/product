@@ -65,10 +65,12 @@ HubStar.ProfileView = Ember.View.extend({
                     $("#search-bar").css('display', "block");
                     $("#topResidentialCommerical").css('display', "block");
                     $(".search-bar-on-small-screen").css('display', "none");
+                    $("#cta-popup").removeClass("cta-popup-small-top");
                 } else {
                     $("#search-bar").css('display', "none");
                     $("#topResidentialCommerical").css('display', "none");
                     $(".search-bar-on-small-screen").css('display', "block");
+                    $("#cta-popup").addClass("cta-popup-small-top");
                 }
             });
         });

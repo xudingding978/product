@@ -10,6 +10,15 @@ HubStar.UserView = Ember.View.extend({
             //isInitLayout: false,
             isFitWidth: true
         });
+        
+          $(document).ready(function() {         
+                if ($(window).width() > 1200) {
+                    $("#cta-popup").removeClass("cta-popup-small-top");
+                } else {
+                    $("#cta-popup").addClass("cta-popup-small-top");
+                }
+            });
+      
 
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[3];

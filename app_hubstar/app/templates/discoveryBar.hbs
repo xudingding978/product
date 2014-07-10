@@ -13,16 +13,17 @@
             <div id="commercial" class="residentialCommerical residentialCommerical-selected easing"  {{action commercial on="click" target="view"}}>Commercial</div>
         </div>
 
-    </div>
+
 
     <div class="search-bar" >
-        <div id ="navigator" class="Nav-btn easing" data-step="6" data-intro="Use the Navigator to browse content by <b>category</b>." data-position='left' {{action dropdownNavigator}} >
-             <i class="fa fa-list searchbar-listIcon"></i>
-            <div class="searchbar-listtxt">Categories</div>
-        </div>
         {{#if controller.isNavigatorDropdown}}
         {{view HubStar.NavigatorView}}
         {{/if}}
+        <div id ="navigator" class="navigator-button easing" data-step="6" data-intro="Use the Navigator to browse content by <b>category</b>." data-position='left' {{action dropdownNavigator}} >
+             <i class="fa fa-list searchbar-listIcon"></i>
+            <div class="searchbar-listtxt">Categories</div>
+        </div>
+        
 
         <div class="search-box easing" >
             {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
@@ -53,6 +54,7 @@
         {{/if}}
 
     </div>
+            </div>
 
 </div>
 

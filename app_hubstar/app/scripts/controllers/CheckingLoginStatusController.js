@@ -16,6 +16,7 @@ HubStar.CheckingLoginStatusController = Ember.Controller.extend({
             return false;
         }
         else {
+            
             return true;
         }
     

@@ -2,7 +2,7 @@
 {{#if controller.collectable}}
 {{render addCollection}}
 {{/if}}
-<div  id ="ssss" class="objectview-wrapper" >
+<div class="objectview-wrapper" >
 
     <div class="objectview-left">
 
@@ -84,7 +84,9 @@
             </script>
 
         </div>
-
+        {{#if HubStar.checkLoginStatus}}
+        {{render callToAction}}
+        {{/if}}
         <div  id="close_photo_wrapper" class="closeview" {{action closeWindow on="click" target="controller"}} >
             <i class="fa fa-times"></i>
             <span id="close_text" class="close_text">close</span>

@@ -35,6 +35,22 @@ HubStar.SearchRoute = Ember.Route.extend({
         if (HubStar.get("isTopAdDisplay")) {
             $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
         }
+
+        if (HubStar.get("checkLoginStatus")) {
+            if (HubStar.get('showDiscoveryBar')) {
+                //    HubStar.set('ctaView', true);
+            } else {
+                HubStar.set('ctaView', false);
+                setTimeout(function() {
+                    if ($(window).width() > 1200) {
+                        $("#cta-popup").removeClass("cta-popup-small-top");
+                    } else {
+                        $("#cta-popup").addClass("cta-popup-small-top");
+                    }
+                }, 1);
+
+            }
+        }
     },
     model: function(params) {
         var address = decodeURIComponent(document.URL);
@@ -62,11 +78,15 @@ HubStar.SearchRoute = Ember.Route.extend({
                 this.controllerFor('mega').set("type", "profile");
                 this.transitionTo("newSearchPhoto", HubStar.Mega.find(id));
             }
-             if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
+
+            if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', true);
+                } else {
+                    HubStar.set('ctaView', false);
+                }
             }
-        
+
         },
         transitionToProfile: function(id) {
 
@@ -87,11 +107,15 @@ HubStar.SearchRoute = Ember.Route.extend({
             {
                 this.transitionTo("newSearchVideo", HubStar.Mega.find(id));
             }
-             if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
+
+            if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', true);
+                } else {
+                    HubStar.set('ctaView', false);
+                }
             }
-        
+
         },
         transitionToArticle: function(id) {
 
@@ -108,11 +132,15 @@ HubStar.SearchRoute = Ember.Route.extend({
             {
                 this.transitionTo("searchIndexArticle", HubStar.Article.find(id));
             }
-             if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
+
+            if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', true);
+                } else {
+                    HubStar.set('ctaView', false);
+                }
             }
-        
+
         }
     },
     redirect: function() {
@@ -148,6 +176,7 @@ HubStar.SearchRoute = Ember.Route.extend({
                     if (HubStar.get("isTopAdDisplay")) {
                         $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
                         $('#masonry_wrapper').css('top', "240px");
+                        console.log("2");
                     }
                     else
                     {

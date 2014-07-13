@@ -2,6 +2,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
     selected_topics: "",
     isAdd: false,
     isRegistering: true,
+    isEmailsend: true,
     contentTopicResidential: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment Design'},
         {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/bathroom.png', topic: 'Bathrooms'},
@@ -26,7 +27,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         this.set('loginUsername', localStorage.userName);
     },
     closePopupLogin: function() {
-        HubStar.set('checkLoginStatus', false);
+         HubStar.set("loginModal", false);
     },
     validateEmail: function(email)
     {
@@ -243,7 +244,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
             that.set('loginStatus', params.COUCHBASE_ID);
             localStorage.userType = "email";
             localStorage.loginState = "login";
-            
+
             var emailInfo = [params.USER_NAME, that.encrypt(params.USER_NAME), that.encrypt(params.PWD_HASH)];
             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function() {
 
@@ -384,12 +385,13 @@ HubStar.LoginModalController = Ember.Controller.extend({
     },
     emailSend: function()
     {
-
+        this.set("isEmailsend", false);
         var signupInfo = [this.get('resetPasswordEmail')];
         var that = this;
         requiredBackEnd('login', 'resetemail', signupInfo, 'POST', function(params) {
-            if (params === 1) {
 
+            if (params === 1) {
+                that.set("isEmailsend", true);
 
                 $('.black-tool-tip').stop();
                 $('.black-tool-tip').css('display', 'none');
@@ -398,7 +400,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
 
             }// INVALID EMAIL; The user has forgotten their password and inputted an invalid email address
             else if (params === 0) {
-
+                that.set("isEmailsend", true);
                 $('.black-tool-tip').stop();
                 $('.black-tool-tip').css('display', 'none');
                 $('#invalid-account-type-reset').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -406,6 +408,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
             else {
                 var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
                 requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
+                    that.set("isEmailsend", true);
                     if (params === 1) {
 
                         $('.black-tool-tip').stop();

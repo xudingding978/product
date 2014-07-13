@@ -12,16 +12,16 @@ and open the template in the editor.
 
 .welcome-container{
     z-index: 11;
-    overflow: hidden; 
+    overflow: hidden;
     background-color: white;
-    border-radius: 5px;  
-    width: 1025px;
-    height: 600px; 
-    margin: 0 auto; 
-    position: fixed; 
-    top: 20%; 
-    left: 0px; 
-    right: 0px; 
+    border-radius: 5px;
+    width: 1000px;
+    height: 540px;
+    margin: 0 auto;
+    position: fixed;
+    top: 15%;
+    left: 0px;
+    right: 0px;
     box-shadow: 0 0 5px #555;
 }
 
@@ -46,30 +46,23 @@ and open the template in the editor.
     opacity: 0.5;
 }
 .welcome-subtitle-conainer{
-    margin: 90px 30px 5px;
-    height: 120px;
+    margin: 20px;
+    height: 200px;
+    position: relative;
 }
 
 .welcome-subtitle{
-    position: absolute;
-    top: 100px;
-    font-size: 15px;
-    font-weight: bold;
-}
-
-.welcome-res-position{
-    position: relative;     
-}
-
-.welcome-comm-position{
     position: relative;
-    top:200px;
+    font-size: 25px;
+    font-weight: bold;
+    clear: both;
+    margin: 20px;
+    text-align: left;
 }
-
 
 .welcome-select-interest{
     height: 100px;
-    width: auto;
+    width: 100px;
     position: relative;
     float: left;
     margin: 10px 10px 20px;
@@ -102,12 +95,13 @@ and open the template in the editor.
     border-radius: 50%;
     overflow: hidden;
     top: -5px;
-    float: left; 
+    float: left;
+    left: 5px;
 }
 
 .welcome-image{
-    width: 100px; 
-    height: 100px; 
+    width: 90px; 
+    height: 90px; 
     overflow: hidden;
 }
 
@@ -119,10 +113,10 @@ and open the template in the editor.
 }
 
 .welcome-object-hoverarea{
-    width: 100px;
-    height: 120px;
+    width: auto;
+    height: auto;
     opacity: 0;
-    position: absolute;
+    position: relative;
     z-index: 1; 
 }
 
@@ -202,5 +196,194 @@ and open the template in the editor.
     left: 34%;
 }
 
+
+
+
+/*call to action style by Charis*/
+
+.cta-popup{
+    width: 740px;
+    height: 100px;
+    z-index: 12;
+    margin :10px auto;
+    text-align: center;
+    background: rgba(255,255,255,1);
+    box-shadow: 2px 2px 6px #555;
+    cursor:default;
+}
+
+
+/*-for video, photo, video --*/
+.cta-popup-view{
+    position: relative !important;
+    top: 10px !important;
+    margin: 0 auto !important;
+}
+
+/*-for discovery bar--*/
+.cta-popup-discovery{
+    position: relative;
+    top: 10px;
+    margin: 0 auto;
+}
+
+/*-for profile, user --*/
+.cta-popup-profile{
+    position: fixed;
+    top: 100px;
+    margin: 0 30%;
+}
+
+
+.cta-popup > .inner > .left{
+    display: inline-block;
+    width: 20%;
+    margin: 20px 10px;
+    text-align: right;
+    position: relative;
+
+
+}
+
+.cta-popup > .inner > .left > span{
+    font-size:32px;
+    font-weight:bolder;
+
+}
+
+.cta-popup > .inner > .left > .my{
+    color:#000;
+}
+.cta-popup > .inner > .left > .trends{
+    color:#00b3ee;
+}
+
+.cta-popup > .inner > .middle{
+    display: inline-block;
+    width: 40%;
+    margin: 20px 10px;
+    padding-left: 20px;
+    position: relative;
+    text-align: left;
+    border-left: 1px solid #ccc;
+    vertical-align: bottom;
+    font-size: 13px;
+    line-height: 15px;
+
+}
+
+.cta-popup > .inner > .right{
+    display: inline-block;
+    width: 20%;
+    margin: 0px 10px;
+    position: relative;
+    top: 17px;
+
+}
+.cta-popup-small-top{
+    top:160px;
+}
+
+.inner{
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    padding: 5px;
+    height: 100%;
+    top:6px;
+}
+
+.registerbtn {
+    display: inline-block;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 10px;
+    height: 35px;
+    width: 140px;
+    text-align: center;
+    background-color: #00b3ee;
+    line-height: 15px;
+    cursor: pointer;
+}
+
+.loginbtn {
+    text-align:center;
+    font-size:10px;
+    color:#00b3ee;
+    cursor: pointer;
+}
+
+@media only screen and (max-width : 1280px) {
+
+    .cta-popup{
+        width: 400px;
+    }
+    .cta-popup > .inner > .middle{
+        display:none;
+    }
+
+    .cta-popup > .inner > .left{
+        width: 38%;
+    }
+
+    .cta-popup > .inner > .right{
+        width: 36%;
+    }
+}
+
+
+
+@media only screen  and (max-width : 768px) {
+
+    .cta-popup{
+        width: 240px;
+        height: 130px;
+    }
+    .cta-popup .inner{
+        top:0px;
+    }
+
+    .cta-popup > .inner > .left{
+        display:block;
+        width: 100%;
+        text-align: center;
+        margin: 15px 0px 5px 0px
+    }
+
+    .cta-popup > .inner > .right{
+        display:block;
+        width: 100%;
+        margin: 0;
+    }
+    .cta-popup-profile{
+        top: 160px;
+        margin: 0 20%;
+    }
+}
+
+
+@media only screen  and (max-width : 480px){
+    .cta-popup-profile .inner{
+        top:0px;
+    }
+
+    .cta-popup-profile > .inner > .left{
+        display:block;
+        width: 100%;
+        text-align: center;
+        margin: 15px 0px 5px 0px
+    }
+
+    .cta-popup-profile > .inner > .right{
+        display:block;
+        width: 100%;
+        margin: 0;
+    }
+    .cta-popup-profile{
+        top: 160px;
+        margin: 0 20%;
+    }
+}
 
 

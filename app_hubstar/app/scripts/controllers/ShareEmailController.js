@@ -46,8 +46,6 @@ HubStar.ShareEmailController = Ember.Controller.extend({
             var tempEmail = [this.get("emailDestination"), this.get("emailBody"), this.get('displayName'), this.get('displayEmail'), this.get("currentUser").get('photo_url_large'), this.get("owner_profile_pic"), this.get("selectedPhotoThumbnailUrl"), this.get("selectedUrl"), this.get('contentTitle'), this.get("ownerTitle"), this.get("selectedMega").get("owner_profile_pic")];
             requiredBackEnd('emails', 'shareemail', tempEmail, 'POST', function(params) {
             });
-            console.log(this.get("contentTitle"));
-            console.log(this.get("ownerTitle"));
             this.get('controllers.applicationFeedback').statusObserver(null, "Your message has been sent.");
             this.send("exit");
         }

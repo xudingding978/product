@@ -1718,7 +1718,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 }
 
 .isLogin2{
-    position: absolute;
+    position: absolute !important;
     right:95px;
 }
 

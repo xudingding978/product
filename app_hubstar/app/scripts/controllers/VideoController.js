@@ -449,7 +449,7 @@ HubStar.VideoController = Ember.Controller.extend({
                         }
                     }
                 }
-            }, 300);
+            }, 1300);
         });
     },
     closeShareEmail: function() {

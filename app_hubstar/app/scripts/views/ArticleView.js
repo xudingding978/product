@@ -307,7 +307,7 @@ HubStar.ArticleView = Ember.View.extend({
                         }
                     }
                 }
-            }, 300);
+            }, 1300);
         });
     }
 });

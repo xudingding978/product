@@ -266,7 +266,7 @@ HubStar.PhotoView = Ember.View.extend({
                         }
                     }
                 }
-            }, 300);
+            }, 1300);
         });
 
     }

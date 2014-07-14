@@ -439,6 +439,16 @@ a:hover , a:focus {color: #aaa;}
     left: 25%;
 }
 
+.controlbtn-share-email{
+    text-align: left;
+    padding: 15px 0;
+    width: 200px;
+    display: block;
+    position: relative;
+    /* margin: auto; */
+    left: 32%;
+    bottom: -8%;
+}
 
 /*MANSONRY album OBJECT STYLE*/
 
@@ -2133,7 +2143,7 @@ div.album-description-bg{
     position: absolute; 
     border-radius: 3px;
     width: 530px;
-   height: auto;
+    height: auto;
 }
 
 .show-tag-title{
@@ -2675,7 +2685,7 @@ div.album-description-bg{
 .share-box{
     width: 150px; 
     margin: 0 auto; 
-    left: 70px;
+    left: -70px;
     padding: 0;
 }
 .share-box2a{
@@ -2703,7 +2713,7 @@ div.album-description-bg{
     width: 170px; 
     right: 80px; 
     position: absolute; 
-    top: 136px;
+    top: 156px;
 }
 .share-type-fb{
     max-height:34px;
@@ -2736,6 +2746,11 @@ div.album-description-bg{
 
 .share-type-txt2{
     margin-left: 2.5em;
+}
+
+.share-type-email{
+    width: 16px;
+    height: 16px;
 }
 
 .mainfeature_object2{
@@ -2819,183 +2834,6 @@ div.album-description-bg{
 .collapes-container_inner > .hint--bottom:before{left: 14px!important}
 
 
-
-
-
-
-/*call to action style */
-
-
-/* Author: Stephanie Derrick-Hardie --------Updated by Charis*/
-
-#cta-popup{
-
-    min-width:800px;
-    margin:0 auto;
-    height:580px;
-    position: fixed;
-    top: 10%;
-    right: 25%;
-    left:25%;
-    z-index: 12;
-    background: #68789c; /* Old browsers */
-    background: -moz-linear-gradient(top,  #68789c 0%, #eeeff0 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#68789c), color-stop(100%,#eeeff0)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #68789c 0%,#eeeff0 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #68789c 0%,#eeeff0 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #68789c 0%,#eeeff0 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  #68789c 0%,#eeeff0 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#68789c', endColorstr='#eeeff0',GradientType=0 ); /* IE6-9 */
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    text-align:center;
-}
-
-/*===============================
-         .left styles
-================================*/
-
-#cta-popup > .inner > .left{
-    float: left;
-    width: 320px;
-    margin: auto 0;
-    position: relative;
-    top: 180px;
-}
-
-/*===============================
-         .right styles
-================================*/
-
-#cta-popup > .inner > .right{
-    padding: 20px;
-    position: relative;
-    right: 0;
-    width: 60%;
-    float: right;
-    top: 50px;
-}
-
-
-/*===============================
-         .inner styles
-================================*/
-.inner{
-    width:100%;
-    margin:0 auto;
-}
-
-/* ==============================
-       .registerbtn styles 
- ===============================*/
-
-.registerbtn {
-    -moz-box-shadow:inset 0px 1px 0px 0px #fce2c1;
-    -webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
-    box-shadow:inset 0px 1px 0px 0px #fce2c1;
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffc477), color-stop(1, #fb9e25) );
-    background:-moz-linear-gradient( center top, #ffc477 5%, #fb9e25 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffc477', endColorstr='#fb9e25');
-    background-color:#ffc477;
-    -webkit-border-top-left-radius:3px;
-    -moz-border-radius-topleft:3px;
-    border-top-left-radius:3px;
-    -webkit-border-top-right-radius:3px;
-    -moz-border-radius-topright:3px;
-    border-top-right-radius:3px;
-    -webkit-border-bottom-right-radius:3px;
-    -moz-border-radius-bottomright:3px;
-    border-bottom-right-radius:3px;
-    -webkit-border-bottom-left-radius:3px;
-    -moz-border-radius-bottomleft:3px;
-    border-bottom-left-radius:3px;
-    text-indent:0;
-    border:1px solid #eeb44f;
-    display:inline-block;
-    color:#ffffff;
-    font-family:Arial;
-    font-size:15px;
-    font-weight:normal;
-    font-style:normal;
-    height:41px;
-    line-height:41px;
-    width:120px;
-    text-decoration:none;
-    text-align:center;
-    text-shadow:1px 1px 0px #cc9f52;
-    margin:10px 5px 0 10px;
-}
-.registerbtn:hover {
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fb9e25), color-stop(1, #ffc477) );
-    background:-moz-linear-gradient( center top, #fb9e25 5%, #ffc477 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#ffc477');
-    background-color:#fb9e25;
-}.registerbtn:active {
-    position:relative;
-    top:1px;
-}
-
-/* ==============================
-       .loginbtn styles 
- ===============================*/
-
-.loginbtn {
-    -moz-box-shadow:inset 0px 1px 0px 0px #5a9abc;
-    -webkit-box-shadow:inset 0px 1px 0px 0px #5a9abc;
-    box-shadow:inset 0px 1px 0px 0px #5a9abc;
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #5a9abd), color-stop(1, #264c6e) );
-    background:-moz-linear-gradient( center top, #5a9abd 5%, #264c6e 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5a9abd', endColorstr='#264c6e');
-    background-color:#5a9abd;
-    -webkit-border-top-left-radius:3px;
-    -moz-border-radius-topleft:3px;
-    border-top-left-radius:3px;
-    -webkit-border-top-right-radius:3px;
-    -moz-border-radius-topright:3px;
-    border-top-right-radius:3px;
-    -webkit-border-bottom-right-radius:3px;
-    -moz-border-radius-bottomright:3px;
-    border-bottom-right-radius:3px;
-    -webkit-border-bottom-left-radius:3px;
-    -moz-border-radius-bottomleft:3px;
-    border-bottom-left-radius:3px;
-    text-indent:0;
-    border:1px solid #467c9e;
-    display:inline-block;
-    color:#ffffff;
-    font-family:Arial;
-    font-size:15px;
-    font-weight:normal;
-    font-style:normal;
-    height:41px;
-    line-height:41px;
-    width:120px;
-    text-decoration:none;
-    text-align:center;
-    text-shadow:1px 1px 0px #03192e;
-}
-.loginbtn:hover {
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #264c6e), color-stop(1, #5a9abd) );
-    background:-moz-linear-gradient( center top, #264c6e 5%, #5a9abd 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#264c6e', endColorstr='#5a9abd');
-    background-color:#264c6e;
-}.loginbtn:active {
-    position:relative;
-    top:1px;
-}
-.learnmore{
-    position: relative;
-    font-size: 20px;
-    font-weight: bold;
-    margin: 20px;
-}
-.learnmore a{
-    color:#052C50;
-}
-.learnmore a:hover{
-    color:#fff;
-}
 
 /* comment.hbs*/
 .show-all-comment-box{
@@ -3118,6 +2956,7 @@ div.album-description-bg{
     text-overflow: ellipsis; 
     position:relative; 
     top:5px;
+    max-height: 20px;
 }
 
 .contact-title-marge{
@@ -3523,7 +3362,7 @@ div.album-description-bg{
     top: 35%;
     left: 0;
     right: 0;
-     line-height: 18px;
+    line-height: 18px;
 }
 
 .deleted-icon{
@@ -3657,41 +3496,191 @@ div.album-description-bg{
     position: absolute;
 }
 
+/*------show album --------*/
 
-
-
-
-
-
-@media (max-width: 1280px){
-    #cta-popup{
-        right: 10%;
-        left:10%;     
-    }
+.show-album-content{
+    margin: 15px;
+    overflow: auto;
+    height: 225px;
+    width: 100%;
 }
 
-@media (max-width: 968px){
-    #cta-popup > .inner > .left{
-        float: none;
-        display: block;
-        margin: 30px auto;
-        top: 0;
-    }
 
-    #cta-popup > .inner > .right{
+.black_overlay{
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index:1001;
+    -moz-opacity: 0.8;
+    opacity:.60;
+    //filter: alpha(opacity=80);
+}
+.white_content {
+    display: none;
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 25%;
+    padding: 16px;
+    //border: 16px solid orange;
+    background-color: white;
+    z-index:1002;
+    overflow: auto;
+}
 
-        display: block;
-        float: none;
-        margin: 0 auto;
-        width: 80%;
-        top: -40px;
-        padding: 0;
-    }
-
-    #cta-popup{
-        height: 640px;
-        min-width: 400px;
-    }
 
 
+/*===============================2014.6.25 by Colin======================*/
+
+
+.share-email-lightbox{
+    z-index: 1000;
+    position: fixed;
+    width: 550px;
+    height: 350px;
+    margin: auto;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    top: 25%;
+    left: 0px;
+    display: block;
+    right: 0;
+    box-shadow: 0 0 5px #aaa;
+}
+
+.share-email-left-content-box{
+    width: 60%;
+    float: left;
+    padding: 25px 30px;
+}
+
+.share-email-left-content-box input{
+    height: 50px;
+    background-color: rgba(0,0,0,.2);
+    border-radius: 0;
+    margin-bottom: 10px;
+    box-shadow: none;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box input:hover{
+    background-color: transparent;
+    border:1px solid rgba(0,0,0,.2);
+}
+
+.share-email-left-content-box input::-webkit-input-placeholder {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box input::-moz-placeholder {  /* Firefox 19+ */
+    color: white; 
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box input:-ms-input-placeholder {  
+    color: white;  
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
+
+.share-email-left-content-box i{
+    font-size: 25px;
+    top: 38px;
+    position: absolute;
+    left: 260px;
+    color: white;
+}
+
+.share-email-left-content-box textarea{
+    height: 240px;
+    background-color: rgba(0,0,0,.2);
+    border-radius: 0;
+    box-shadow: none;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box textarea::-webkit-input-placeholder {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box textarea::-moz-placeholder {  /* Firefox 19+ */
+    color: white; 
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.share-email-left-content-box textarea:-ms-input-placeholder {  
+    color: white;  
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
+.share-email-left-content-box textarea:hover{
+    background-color: transparent;
+    border:1px solid rgba(0,0,0,.2);
+}
+
+.share-email-profilepic{
+    position: absolute;
+    right: 42%;
+    bottom: 0;
+    width: 90px;
+    height: 90px;
+    border: 10px solid white;
+    border-radius: 50%;
+}
+
+
+.share-email-right-content-box{
+    width:40%;
+    float:right;
+}
+
+.share-email-right-content-box > img{
+
+    height: 350px;
+    position: absolute;
+}
+
+.sent-btn-hover{
+    width: 100%;
+    height: 350px;
+}
+
+.sent-btn{
+    height: 50px;
+    width: 100%;
+    background-color: rgba(0,0,0,.3);
+    position: relative;
+    margin: -25px auto;
+    top: 50%;
+    padding: 12px 50px;
+    font-weight: bold;
+    color:#fff;
+    font-size: 15px;
+
+    cursor:pointer;
+}
+
+.sent-btn:hover{background-color: rgba(0,0,0,.6);}
+
+.sent-btn img{
+    margin: 0 7px;
+    width: 25px;
 }

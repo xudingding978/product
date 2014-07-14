@@ -1,11 +1,11 @@
 
 {{#if controller.loadingTime}}
 
-{{render loadingSpinner}}
+{{render "loadingSpinner"}}
 
 {{/if}}
 {{#if controller.is_authentic_user}}
-<div class="box style-box t-style-box col2" {{action pdfCreateModeSwitch}} id="addNewPdf" style="z-index: 0">    
+<div class="box style-box t-style-box col2 z-index-0" {{action pdfCreateModeSwitch}} id="addNewPdf" >    
      <div id="uploadPdfObject" >
 
         <div class="add-new-object-hoverarea easing">
@@ -42,5 +42,5 @@
 
 
 {{#if controller.is_pdf_create_mode}}
-{{render pdfUploader}}
+{{outlet "pdfUploader"}}
 {{/if}}

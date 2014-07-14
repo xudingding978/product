@@ -26,7 +26,7 @@ HubStar.GroupRoute = Ember.Route.extend({
             that.transitionTo('fourOhFour', "404");
         });
     },
-    events: {
+    actions: {
     },
     redirect: function(params) {
 

@@ -13,7 +13,7 @@
 
                     //newProfile.get('transaction').commit();
                     newProfile.store.commit();
-                    this.transitionTo('profile', newProfile);
+                    this.transitionToRoute('profile', newProfile);
 
                 }
 //                saveProfile: function() {

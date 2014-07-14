@@ -4,12 +4,15 @@ HubStar.KeywordController.cancel = function(event) {
     event.preventDefault();
     return false;
 };
-HubStar.KeywordController.Droppable = Ember.Mixin.create(HubStar.KeywordController, {
+HubStar.KeywordController.Droppable = Ember.Mixin.create({
     dragEnter: HubStar.KeywordController.cancel,
-    dragOver: HubStar.KeywordController.cancel,
+    dragOver: HubStar.KeywordController.cancel
 });
 
-HubStar.KeywordController.Dragable = Ember.Mixin.create(HubStar.KeywordController,{
+HubStar.KeywordController.Draggable = Ember.Mixin.create({
     attributeBindings: 'draggable',
-    draggable: 'true'
+    draggable: 'true',
+    dragStart: function(event) {
+        
+    }
 });

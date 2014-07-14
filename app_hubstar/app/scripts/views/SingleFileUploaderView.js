@@ -1,19 +1,19 @@
-HubStar.SingleFileUploaderView = Ember.View.extend(HubStar.SingleFileUploaderController.Droppable, {
-    
-        contentBinding: "SingleFileUploader",
-
-        drop: function(event) {
-            var controller = this.get('controller');
-            var dataTransfer = event.originalEvent.dataTransfer;
-            var files = dataTransfer.files;
-            (function(file) {
-                var name = file.name;
-               var size = file.size;
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    controller.profileStyleImageDrop(e, name,size);
-                }, reader.readAsDataURL(files[0]);
-            })(files[0]);
-            return false;
-        }
-    });
+HubStar.SingleFileUploaderView = Ember.View.extend(HubStar.SingleFileUploaderController.Droppable,{
+    contentBinding: "SingleFileUploader",
+    didInsertElement: function() {
+    },
+    drop: function(event) {
+        var controller = this.get('controller');
+        var dataTransfer = event.originalEvent.dataTransfer;
+        var files = dataTransfer.files;
+        (function(file) {
+            var name = file.name;
+            var size = file.size;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                controller.profileStyleImageDrop(e, name, size);
+            }, reader.readAsDataURL(files[0]);
+        })(files[0]);
+        return false;
+    }
+});

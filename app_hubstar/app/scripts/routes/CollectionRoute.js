@@ -8,32 +8,39 @@ HubStar.CollectionRoute = Ember.Route.extend({
         } else {
             id = model.get('id');
         }
-
         this.controllerFor('user').set('switchPhoto', false);
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
         this.controllerFor('masonryCollectionItems').selectModelForUser(id);
         this.controllerFor('masonryCollectionItems').set('canEdit', true);
+        if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar')) {
+                    HubStar.set('ctaView', true);
+                } 
+                else {
+                    HubStar.set('ctaView', false);
+                }
+            }
 
     },
-    events: {
+    actions: {
         transitionToPhoto: function(id) {
 
             this.controllerFor('mega').set("selectPhoto", false);
 
             var obj = HubStar.Mega.find(id);
             this.transitionTo("userPhoto", obj);//photo   
-            if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
+            if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', true);
+                } else {
+                    HubStar.set('ctaView', false);
+                }
             }
 
         },
         transitionToProfile: function(id) {
-            this.controllerFor('user').set('switchPhoto', false);
-//            var address = document.URL;
-//            var user_id = address.split("#")[1].split("/")[2];
-
+            this.controllerFor('user').set('switchPhoto', false);          
             this.transitionTo("profile", HubStar.Profile.find(id));
 
         },
@@ -41,19 +48,24 @@ HubStar.CollectionRoute = Ember.Route.extend({
             this.controllerFor("article").set("collectionArticleId", id);
             var article = HubStar.Mega.find(id);
             this.transitionTo("userArticle", article);
-            if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
+            if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', true);
+                } else {
+                    HubStar.set('ctaView', false);
+                }
             }
 
         },
         transitionToVideo: function(video_id) {
             this.transitionTo("userVideo", video_id);
-            if (HubStar.get('ctaView') === true) {
-                this.controllerFor("checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
+            if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', true);
+                } else {
+                    HubStar.set('ctaView', false);
+                }
             }
-
         }
     },
     redirect: function() {

@@ -1,5 +1,211 @@
 HubStar.LoginModalView = Ember.View.extend({
     templateName: 'loginModal',
+    actions:{
+          closePane: function() {
+        //   this.get("controller").get("controllers.mega").closeWindow();
+        //    $("#body_id").css("overflow","auto");
+        HubStar.set('checkLoginStatus', false);
+        HubStar.set('ctaView', true);
+    },
+       ctaregister: function() {
+        $("#cta-popup").css("display", "none");
+        $("#profiles-main-container").css("display", "block");
+        localStorage.loginState = "register";
+        $("#first_name input").focus();
+        $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
+        $('.Login-box .black-tool-tip').css('display', 'none');
+        $('.Login-box #click-register-social').css('display', 'block');
+        $('.Login-box #social-link').css('display', 'block');
+        $('.Login-box #click-register').css('display', 'block');
+        $('.Login-box #click-register-social').removeClass('social-active');
+        $('.Login-box #click-register').addClass('active-tab');
+        $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
+        $('.Login-box #user-login-pane').css('display', 'none');
+         setTimeout(function(){
+               $("#first_name input").focus();  
+            },1);
+        this.checkSocial();
+
+    },
+    ctalogin: function() {
+        $("#cta-popup").css("display", "none");
+        $("#profiles-main-container").css("display", "block");
+        localStorage.loginState = "login";
+        if (localStorage.userType === "email") {
+            $('.Login-box #login-btn').text('Sign up for a new account!');
+            $('.Login-box .black-tool-tip').css('display', 'none');
+            $('.Login-box #click-register-social').css('display', 'none');
+            $('.Login-box #click-register').css('display', 'none');
+            $('.Login-box #social-link').css('display', 'none');
+            $('.Login-box #login-with-email-drop-down').css('display', 'block');
+            $('.Login-box #social-login-container').css('display', 'none');
+            $('.Login-box #click-login').addClass('active-tab');
+            $('.Login-box #social-login').removeClass('social-active');
+            $('.Login-box #user-forgot-password-pane').css('display', 'none');
+            $('.Login-box #forgot-message-container').css('display', 'none');
+            $('.Login-box #invalid-username').css('display', 'none');
+            $('.Login-box #register-with-email-drop-down').css('display', 'none');
+            $('.Login-box #register-with-email-step-2').css('display', 'none');
+            $('.Login-box #register-with-email-step-3').css('display', 'none');
+            $('.Login-box #user-login-pane').css('display', 'block');
+             if (localStorage.userName !== undefined && localStorage.userName !== null && localStorage.userName !== "")
+                {
+                    $("#loginPassword input").focus();
+                }
+                else {
+                    $("#loginUsername input").focus();
+                }
+
+        } else {
+            $('.Login-box #login-btn').text('Sign up for a new account!');
+            $('.Login-box .black-tool-tip').css('display', 'none');
+            $('.Login-box #click-register-social').css('display', 'none');
+            $('.Login-box #click-register').css('display', 'none');
+            $('.Login-box #social-link').css('display', 'none');
+            $('.Login-box #login-with-email-drop-down').css('display', 'none');
+            $('.Login-box #social-login-container').css('display', 'block');
+            $('.Login-box #click-login').removeClass('active-tab');
+            $('.Login-box #social-login').addClass('social-active');
+            $('.Login-box #user-forgot-password-pane').css('display', 'none');
+            $('.Login-box #forgot-message-container').css('display', 'none');
+            $('.Login-box #invalid-username').css('display', 'none');
+            $('.Login-box #register-with-email-drop-down').css('display', 'none');
+            $('.Login-box #register-with-email-step-2').css('display', 'none');
+            $('.Login-box #register-with-email-step-3').css('display', 'none');
+            $('.Login-box #user-login-pane').css('display', 'block');
+
+        }
+
+    },
+     Facebook: function() {
+        var left = (screen.width / 2) - (650 / 2);
+        var top = (screen.height / 2) - (400 / 2);
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook#_=_";
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        if (window.focus) {
+            newwindow.focus();
+        }
+        localStorage.userType = "facebook";
+    },
+    Yahoo: function() {
+        var left = (screen.width / 2) - (650 / 2);
+        var top = (screen.height / 2) - (400 / 2);
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Yahoo";
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        if (window.focus) {
+            newwindow.focus();
+        }
+        localStorage.userType = "yahoo";
+    },
+    Twitter: function() {
+        var left = (screen.width / 2) - (650 / 2);
+        var top = (screen.height / 2) - (400 / 2);
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Twitter";
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        if (window.focus) {
+            newwindow.focus();
+        }
+        localStorage.userType = "twitter";
+    },
+    Sina: function() {
+        var left = (screen.width / 2) - (650 / 2);
+        var top = (screen.height / 2) - (400 / 2);
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Sina";
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        if (window.focus) {
+            newwindow.focus();
+        }
+        localStorage.userType = "sina";
+    },
+    LinkedIn: function() {
+        var left = (screen.width / 2) - (650 / 2);
+        var top = (screen.height / 2) - (400 / 2);
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=LinkedIn";
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        if (window.focus) {
+            newwindow.focus();
+        }
+        localStorage.userType = "linkedIn";
+    },
+    Google: function() {
+        var left = (screen.width / 2) - (650 / 2);
+        var top = (screen.height / 2) - (400 / 2);
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 * 1.5 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        if (window.focus) {
+            newwindow.focus();
+        }
+        localStorage.userType = "google";
+    },
+    loginPane: function() {
+        if (localStorage.loginState === "login") {
+
+            $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
+            $('.Login-box .black-tool-tip').css('display', 'none');
+            $('.Login-box #click-register-social').css('display', 'block');
+            $('.Login-box #social-link').css('display', 'block');
+            $('.Login-box #click-register').css('display', 'block');
+            $('.Login-box #click-register-social').addClass('social-active');
+            $('.Login-box #click-register').removeClass('active-tab');
+            $('.Login-box #register-with-email-step-2').removeClass('active-step');
+            $('.Login-box #user-login-pane').css('display', 'none');
+            setTimeout(function(){
+               $("#first_name input").focus();  
+            },1);
+           
+            localStorage.loginState = "register";
+
+        }
+        else if (localStorage.loginState === "register") {
+            localStorage.loginState = "login";
+            if (localStorage.userType === "email") {
+
+                $('.Login-box #login-btn').text('Sign up for a new account!');
+                $('.Login-box .black-tool-tip').css('display', 'none');
+                $('.Login-box #click-register-social').css('display', 'none');
+                $('.Login-box #click-register').css('display', 'none');
+                $('.Login-box #social-link').css('display', 'none');
+                $('.Login-box #login-with-email-drop-down').css('display', 'block');
+                $('.Login-box #social-login-container').css('display', 'none');
+                $('.Login-box #click-login').addClass('active-tab');
+                $('.Login-box #social-login').removeClass('social-active');
+                $('.Login-box #user-forgot-password-pane').css('display', 'none');
+                $('.Login-box #forgot-message-container').css('display', 'none');
+                $('.Login-box #invalid-username').css('display', 'none');
+                $('.Login-box #register-with-email-drop-down').css('display', 'none');
+                $('.Login-box #register-with-email-step-2').css('display', 'none');
+                $('.Login-box #register-with-email-step-3').css('display', 'none');
+                $('.Login-box #user-login-pane').css('display', 'block');
+                if (localStorage.userName !== undefined && localStorage.userName !== null && localStorage.userName !== "")
+                {
+                    $("#loginPassword input").focus();
+                }
+                else {
+                    $("#loginUsername input").focus();
+                }
+            } else {
+
+                $('.Login-box #login-btn').text('Sign up for a new account!');
+                $('.Login-box .black-tool-tip').css('display', 'none');
+                $('.Login-box #click-register-social').css('display', 'none');
+                $('.Login-box #click-register').css('display', 'none');
+                $('.Login-box #social-link').css('display', 'none');
+                $('.Login-box #login-with-email-drop-down').css('display', 'none');
+                $('.Login-box #social-login-container').css('display', 'block');
+                $('.Login-box #click-login').removeClass('active-tab');
+                $('.Login-box #social-login').addClass('social-active');
+                $('.Login-box #user-forgot-password-pane').css('display', 'none');
+                $('.Login-box #forgot-message-container').css('display', 'none');
+                $('.Login-box #invalid-username').css('display', 'none');
+                $('.Login-box #register-with-email-drop-down').css('display', 'none');
+                $('.Login-box #register-with-email-step-2').css('display', 'none');
+                $('.Login-box #register-with-email-step-3').css('display', 'none');
+                $('.Login-box #user-login-pane').css('display', 'block');
+
+            }
+        }
+    }
+    },
     didInsertElement: function() {
         var that = this;
         $(document).ready(function() {
@@ -277,211 +483,6 @@ HubStar.LoginModalView = Ember.View.extend({
         }
         else {
         }
-    },
-    ctaregister: function() {
-        $("#cta-popup").css("display", "none");
-        $("#profiles-main-container").css("display", "block");
-        localStorage.loginState = "register";
-        $("#first_name input").focus();
-        $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
-        $('.Login-box .black-tool-tip').css('display', 'none');
-        $('.Login-box #click-register-social').css('display', 'block');
-        $('.Login-box #social-link').css('display', 'block');
-        $('.Login-box #click-register').css('display', 'block');
-        $('.Login-box #click-register-social').removeClass('social-active');
-        $('.Login-box #click-register').addClass('active-tab');
-        $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
-        $('.Login-box #user-login-pane').css('display', 'none');
-         setTimeout(function(){
-               $("#first_name input").focus();  
-            },1);
-        this.checkSocial();
-
-    },
-    ctalogin: function() {
-        $("#cta-popup").css("display", "none");
-        $("#profiles-main-container").css("display", "block");
-        localStorage.loginState = "login";
-        if (localStorage.userType === "email") {
-            $('.Login-box #login-btn').text('Sign up for a new account!');
-            $('.Login-box .black-tool-tip').css('display', 'none');
-            $('.Login-box #click-register-social').css('display', 'none');
-            $('.Login-box #click-register').css('display', 'none');
-            $('.Login-box #social-link').css('display', 'none');
-            $('.Login-box #login-with-email-drop-down').css('display', 'block');
-            $('.Login-box #social-login-container').css('display', 'none');
-            $('.Login-box #click-login').addClass('active-tab');
-            $('.Login-box #social-login').removeClass('social-active');
-            $('.Login-box #user-forgot-password-pane').css('display', 'none');
-            $('.Login-box #forgot-message-container').css('display', 'none');
-            $('.Login-box #invalid-username').css('display', 'none');
-            $('.Login-box #register-with-email-drop-down').css('display', 'none');
-            $('.Login-box #register-with-email-step-2').css('display', 'none');
-            $('.Login-box #register-with-email-step-3').css('display', 'none');
-            $('.Login-box #user-login-pane').css('display', 'block');
-             if (localStorage.userName !== undefined && localStorage.userName !== null && localStorage.userName !== "")
-                {
-                    $("#loginPassword input").focus();
-                }
-                else {
-                    $("#loginUsername input").focus();
-                }
-
-        } else {
-            $('.Login-box #login-btn').text('Sign up for a new account!');
-            $('.Login-box .black-tool-tip').css('display', 'none');
-            $('.Login-box #click-register-social').css('display', 'none');
-            $('.Login-box #click-register').css('display', 'none');
-            $('.Login-box #social-link').css('display', 'none');
-            $('.Login-box #login-with-email-drop-down').css('display', 'none');
-            $('.Login-box #social-login-container').css('display', 'block');
-            $('.Login-box #click-login').removeClass('active-tab');
-            $('.Login-box #social-login').addClass('social-active');
-            $('.Login-box #user-forgot-password-pane').css('display', 'none');
-            $('.Login-box #forgot-message-container').css('display', 'none');
-            $('.Login-box #invalid-username').css('display', 'none');
-            $('.Login-box #register-with-email-drop-down').css('display', 'none');
-            $('.Login-box #register-with-email-step-2').css('display', 'none');
-            $('.Login-box #register-with-email-step-3').css('display', 'none');
-            $('.Login-box #user-login-pane').css('display', 'block');
-
-        }
-
-    },
-    loginPane: function() {
-        if (localStorage.loginState === "login") {
-
-            $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
-            $('.Login-box .black-tool-tip').css('display', 'none');
-            $('.Login-box #click-register-social').css('display', 'block');
-            $('.Login-box #social-link').css('display', 'block');
-            $('.Login-box #click-register').css('display', 'block');
-            $('.Login-box #click-register-social').addClass('social-active');
-            $('.Login-box #click-register').removeClass('active-tab');
-            $('.Login-box #register-with-email-step-2').removeClass('active-step');
-            $('.Login-box #user-login-pane').css('display', 'none');
-            setTimeout(function(){
-               $("#first_name input").focus();  
-            },1);
-           
-            localStorage.loginState = "register";
-
-        }
-        else if (localStorage.loginState === "register") {
-            localStorage.loginState = "login";
-            if (localStorage.userType === "email") {
-
-                $('.Login-box #login-btn').text('Sign up for a new account!');
-                $('.Login-box .black-tool-tip').css('display', 'none');
-                $('.Login-box #click-register-social').css('display', 'none');
-                $('.Login-box #click-register').css('display', 'none');
-                $('.Login-box #social-link').css('display', 'none');
-                $('.Login-box #login-with-email-drop-down').css('display', 'block');
-                $('.Login-box #social-login-container').css('display', 'none');
-                $('.Login-box #click-login').addClass('active-tab');
-                $('.Login-box #social-login').removeClass('social-active');
-                $('.Login-box #user-forgot-password-pane').css('display', 'none');
-                $('.Login-box #forgot-message-container').css('display', 'none');
-                $('.Login-box #invalid-username').css('display', 'none');
-                $('.Login-box #register-with-email-drop-down').css('display', 'none');
-                $('.Login-box #register-with-email-step-2').css('display', 'none');
-                $('.Login-box #register-with-email-step-3').css('display', 'none');
-                $('.Login-box #user-login-pane').css('display', 'block');
-                if (localStorage.userName !== undefined && localStorage.userName !== null && localStorage.userName !== "")
-                {
-                    $("#loginPassword input").focus();
-                }
-                else {
-                    $("#loginUsername input").focus();
-                }
-            } else {
-
-                $('.Login-box #login-btn').text('Sign up for a new account!');
-                $('.Login-box .black-tool-tip').css('display', 'none');
-                $('.Login-box #click-register-social').css('display', 'none');
-                $('.Login-box #click-register').css('display', 'none');
-                $('.Login-box #social-link').css('display', 'none');
-                $('.Login-box #login-with-email-drop-down').css('display', 'none');
-                $('.Login-box #social-login-container').css('display', 'block');
-                $('.Login-box #click-login').removeClass('active-tab');
-                $('.Login-box #social-login').addClass('social-active');
-                $('.Login-box #user-forgot-password-pane').css('display', 'none');
-                $('.Login-box #forgot-message-container').css('display', 'none');
-                $('.Login-box #invalid-username').css('display', 'none');
-                $('.Login-box #register-with-email-drop-down').css('display', 'none');
-                $('.Login-box #register-with-email-step-2').css('display', 'none');
-                $('.Login-box #register-with-email-step-3').css('display', 'none');
-                $('.Login-box #user-login-pane').css('display', 'block');
-
-            }
-        }
-    },
-    closePane: function() {
-        //   this.get("controller").get("controllers.mega").closeWindow();
-        //    $("#body_id").css("overflow","auto");
-        HubStar.set('checkLoginStatus', false);
-        HubStar.set('ctaView', true);
-    }
-    ,
-    Facebook: function() {
-        var left = (screen.width / 2) - (650 / 2);
-        var top = (screen.height / 2) - (400 / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook#_=_";
-        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-        localStorage.userType = "facebook";
-    },
-    Yahoo: function() {
-        var left = (screen.width / 2) - (650 / 2);
-        var top = (screen.height / 2) - (400 / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Yahoo";
-        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-        localStorage.userType = "yahoo";
-    },
-    Twitter: function() {
-        var left = (screen.width / 2) - (650 / 2);
-        var top = (screen.height / 2) - (400 / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Twitter";
-        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-        localStorage.userType = "twitter";
-    },
-    Sina: function() {
-        var left = (screen.width / 2) - (650 / 2);
-        var top = (screen.height / 2) - (400 / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Sina";
-        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-        localStorage.userType = "sina";
-    },
-    LinkedIn: function() {
-        var left = (screen.width / 2) - (650 / 2);
-        var top = (screen.height / 2) - (400 / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=LinkedIn";
-        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-        localStorage.userType = "linkedIn";
-    },
-    Google: function() {
-        var left = (screen.width / 2) - (650 / 2);
-        var top = (screen.height / 2) - (400 / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
-        var newwindow = window.open(api_url, 'name', 'height=' + 400 * 1.5 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-        localStorage.userType = "google";
     }
 });
 

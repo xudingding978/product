@@ -65,12 +65,13 @@ HubStar.ProfileRoute = Ember.Route.extend({
         this.controllerFor('application').set("newProfile", false);
         $("#user-dd-menu").attr("style", "display:none");
       
-        ProfileController.setProfile(model.id); 
+        ProfileController.setProfile(model.id);
+         if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', false);
+                } 
+            }
         
-         if (HubStar.get('ctaView') === true) {
-            this.controllerFor("checkingLoginStatus").popupLogin();
-            HubStar.set('ctaView', false);
-        }
     },
     model: function(params) {
 
@@ -84,7 +85,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
             that.transitionTo('fourOhFour', "404");
         });
     },
-    events: {
+    actions: {
         transitionToCollectionPhoto: function(collection_id) {
             HubStar.set("scrollCollectionPosition", $(window).scrollTop());
             var address = document.URL;
@@ -125,7 +126,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
     activate: function() {
 
         $(window).scrollTop(0);
-
+        
         $('#discovery_search_bar_wrapper').attr('style', "display:none");
         $('#masonry_wrapper').attr('style', "display:none");
         $(function() {

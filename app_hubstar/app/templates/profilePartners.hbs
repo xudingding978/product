@@ -1,13 +1,13 @@
 
 {{#if controller.loadingTime}}
 
-{{render loadingSpinner}}
+{{render "loadingSpinner"}}
 
 {{/if}}
 {{#if controller.is_authentic_user}}
-<div class="box style-box t-style-box col2" id="addNew" style="z-index: 0">    
+<div class="box style-box t-style-box col2 z-index-0" id="addNew" >    
     <div id="uploadObject" >
-         <div class="add-new-object-hoverarea easing">
+        <div class="add-new-object-hoverarea easing">
 
             <i class="fa fa-plus-circle"></i>
         </div>
@@ -15,7 +15,6 @@
             <div class="add-new-object-content">
                 <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png" />
             </div>
-          
         </div>
     </div>
     {{view HubStar.EditCollectionView}}
@@ -25,23 +24,13 @@
 {{#each  content}}
 <div class="box col2 noStyle1">
     <div class="masonry-object">            
-        {{render itemProfiles this}}
+        {{render "itemProfiles" this}}
 
         {{render "comment" this}}
     </div>
 </div>
 
-
 {{/each}}
-
-
-
-
-
-
-
-
-
 
 {{#if controller.makeSureDelete}}
 

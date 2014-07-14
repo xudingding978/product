@@ -1,13 +1,21 @@
 HubStar.ProfileView = Ember.View.extend({
     templateName: 'profile',
     didInsertElement: function() {
+        $(function() {
+            $('#masonry_user_container').masonry({
+                itemSelector: '.box',
+                columnWidth: 185,
+                isFitWidth: true,
+                transitionDuration: 0
+            });
+        });
         if (this.get('controller').get("profile_average_review_length") !== "" && this.get('controller').get("profile_average_review_length") !== null && this.get('controller').get("profile_average_review_length") !== undefined) {
             $('#starsize').attr("style", "width:" + this.get('controller').get("profile_average_review_length") + "px");
         }
         else {
             $('#starsize').attr("style", "width:100px");
         }
-       if (this.get('controller').get('about_us').objectAt(0) !== undefined && this.get('controller').get('about_us').objectAt(0).get('about_image').get('length'))
+        if (this.get('controller').get('about_us').objectAt(0) !== undefined && this.get('controller').get('about_us').objectAt(0).get('about_image').get('length'))
         {
             var count = 0;
             for (var i = 0; i < this.get('controller').get('about_us').objectAt(0).get('about_image').get('length'); i++) {
@@ -25,7 +33,7 @@ HubStar.ProfileView = Ember.View.extend({
                 }, 1000);
             });
         }
-       if (this.get('controller').get('about_us').objectAt(0) !== undefined) {
+        if (this.get('controller').get('about_us').objectAt(0) !== undefined) {
             for (var i = 0; i < this.get('controller').get('about_us').objectAt(0).get('about_embeded_object').get('length'); i++) {
                 var about_embeded_object = this.get('controller').get('about_us').objectAt(0).get('about_embeded_object').objectAt(i);
                 if (about_embeded_object.get('embeded_object_code') !== null && about_embeded_object.get('embeded_object_code') !== '' && about_embeded_object.get('embeded_object_code') !== undefined) {
@@ -45,14 +53,14 @@ HubStar.ProfileView = Ember.View.extend({
                 }
             }
         }
-       $(".navbar").css("box-shadow", "0 0 10px #333");
+        $(".navbar").css("box-shadow", "0 0 10px #333");
         $(document).ready(function() {
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
-                setTimeout(function() {
-                    $('#masonry_user_container').masonry();
-                }, 200);
-            }, 2000);
+//            setTimeout(function() {
+//                $('#masonry_user_container').masonry("reloadItems");
+//                setTimeout(function() {
+//                    $('#masonry_user_container').masonry();
+//                }, 200);
+//            }, 200);
 
             $(window).resize(function() {
                 setTimeout(function() {
@@ -65,10 +73,12 @@ HubStar.ProfileView = Ember.View.extend({
                     $("#search-bar").css('display', "block");
                     $("#topResidentialCommerical").css('display', "block");
                     $(".search-bar-on-small-screen").css('display', "none");
+                    $("#cta-popup").removeClass("cta-popup-small-top");
                 } else {
                     $("#search-bar").css('display', "none");
                     $("#topResidentialCommerical").css('display', "none");
                     $(".search-bar-on-small-screen").css('display', "block");
+                    $("#cta-popup").addClass("cta-popup-small-top");
                 }
             });
         });

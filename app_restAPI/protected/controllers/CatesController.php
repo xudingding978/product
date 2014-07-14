@@ -13,7 +13,7 @@ class CatesController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'cates';
 
     public function actionIndex() {
-        $domain = $this->getDomain();
+        $domain = $this->getDomainWihoutAPI();
 
         $configuration = $this->getProviderConfigurationByName($domain, "categories");
         $topicSelection = $configuration[0]['global'][0]['topics'];

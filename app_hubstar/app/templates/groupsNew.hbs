@@ -14,7 +14,7 @@
                 <div class="group-button or-help">OR</div>
                 <div id="group-com" class="group-button" {{action chooseCommercial}}>commercial </div>
             </div> 
-            <div  class="group-step-button" {{action groupStep  "1"}} >NEXT</div>
+            <div  class="group-step-button" {{action groupStep "1"}} >NEXT</div>
         </div>
         <div class="group-content easing">  
             <div class="subcategory-box">
@@ -34,7 +34,7 @@
                 <div class="select-group" style="opacity:1" {{action topicSelection this }}>
                      <div  class="group-image">         
                         <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing" {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>
-                        <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
+                        <div class="group-image-container"><img {{bind-attr src="image"}} /></div>
                     </div>
                     <div class="group-topic-name" >
                         {{topic}}  
@@ -44,7 +44,7 @@
                 <div class="select-group" {{action topicSelection this }}>
                      <div  class="group-image">         
                         <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing" {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>
-                        <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
+                        <div class="group-image-container"><img {{bind-attr src="image"}} /></div>
                     </div>
                     <div class="group-topic-name" >
                         {{topic}}  
@@ -63,7 +63,7 @@
                 <div class="select-group" style="opacity:1" {{action topicSelection this }}>
                      <div class="group-image">    
                         <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing"  {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>                
-                        <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
+                        <div class="group-image-container"><img {{bind-attr src="image"}} /></div>
                     </div>
                     <div class="group-topic-name">
                         {{topic}}  
@@ -73,7 +73,7 @@
                 <div class="select-group"  {{action topicSelection this }}>
                      <div class="group-image">    
                         <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing"  {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>                
-                        <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
+                        <div class="group-image-container"><img {{bind-attr src="image"}} /></div>
                     </div>
                     <div class="group-topic-name">
                         {{topic}}  
@@ -93,9 +93,9 @@
     <div id="group-step-2" class="group-step"> 
         <div class="group-profile-title-top">
 
-            <div  class="group-step-button" style="float:left" {{action groupStep "2"}} >BACK</div>
+            <div  class="group-step-button float-left" {{action groupStep "2"}} >BACK</div>
 
-            <div class="group-step-title" style=" width:60%; cursor: pointer;">
+            <div class="group-step-title width-60 cursor-pointer">
                 <div id="groupName" class="group-textarea">
                     {{view Ember.TextField valueBinding="groupName" class="textarea-style" placeholder="*Group Name" }}</div>
             </div>
@@ -143,9 +143,9 @@
     <div id="group-step-3" class="group-step"> 
         <div class="group-profile-title-top">
 
-            <div  class="group-step-button" style="float:left" {{action groupStep "1"}} >BACK</div>
+            <div  class="group-step-button float-left" {{action groupStep "1"}} >BACK</div>
 
-            <div class="group-step-title" style=" width:60%;">
+            <div class="group-step-title width-60" >
                  <div class="group-name group-desc-part" >
                     {{controller.name}}
                 </div>
@@ -154,8 +154,8 @@
         </div>
         <div class="group-content easing" >
 
-            <div class="group-upload-content" style="float:left">
-                <div style="width: 100%;">
+            <div class="group-upload-content float-left" >
+                <div class="width-100">
                     <div   class="subcategory-word upload-button" data-hint="Add Photo">Upload a Avatar
                         <div> 
                             {{view HubStar.MultiImageInputButtonView name="logo"}}
@@ -170,12 +170,12 @@
                     </div>
                     {{else}}        
                     <div class="remove-comment-photo easing remove-help-logo" {{action removePic "logo"}}><i class="fa fa-times"></i></div>
-                    <img  {{bindAttr src= "group_pic_url"}} class="img-help-logo">
+                    <img  {{bind-attr src= "group_pic_url"}} class="img-help-logo">
                         {{/if}}
                 </div>
             </div>
             <div class="group-upload-content">
-                <div style="width: 100%;">
+                <div class="width-100">
                     <div   class="subcategory-word upload-button"  data-hint="Add Photo">Upload a Cover
                         <div> 
                             {{view HubStar.MultiImageInputButtonView name="bg"}}
@@ -189,7 +189,7 @@
                     </div>
                     {{else}}
                     <div class="remove-comment-photo easing remove-help-bg" {{action removePic "bg"}}><i class="fa fa-times"></i></div>
-                    <img  {{bindAttr src= "group_bg_url"}} class="img-help-bg">
+                    <img  {{bind-attr src= "group_bg_url"}} class="img-help-bg">
                         {{/if}}
                 </div>
             </div> 

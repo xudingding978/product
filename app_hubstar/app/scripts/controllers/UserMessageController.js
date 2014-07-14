@@ -21,6 +21,133 @@ HubStar.UserMessageController = Ember.Controller.extend({
     isUserMessage: false,
     willDelete: false,
     oldPost: "",
+    actions: {
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
+        },
+        removePic: function() {
+            this.set('newStyleImageSource', null);
+            this.set('newStyleImageName', "");
+            this.set("isUploadPhoto", false);
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
+
+        },
+        addComment: function() {
+
+            this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            var commentContent = this.get('messageContent');
+            var postImageSource = this.get("newStyleImageSource");
+            var postImageName = this.get('newStyleImageName');
+
+            if (commentContent || postImageSource || postImageName) {
+
+                this.set("isPosting", false);
+                var commenter_id = this.get("currentUser").get('id');
+                var date = new Date();
+                var owner_id = this.get("currentOwner").get("id");
+                var newStyleImage = "";
+                var imageStyleName = "";
+                if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
+                {
+                    newStyleImage = this.get("newStyleImageSource");
+                }
+                else
+                {
+                    newStyleImage = null;
+                }
+                if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
+                {
+                    imageStyleName = this.get('newStyleImageName');
+                }
+                else
+                {
+                    imageStyleName = "";
+                }
+                var imageName = "";
+                var imageType = "";
+                if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
+                {
+                    imageName = imageStyleName.split('.');
+                    imageType = imageName[imageName.length - 1];
+                }
+                var messageID = createMessageid();
+                var replyID = createMessageid();
+                var tempComment = [commenter_id, date.toString(), commentContent, owner_id, newStyleImage, imageType, imageStyleName, messageID, replyID];
+                tempComment = JSON.stringify(tempComment);
+                var that = this;
+                var dataNew = [];
+                requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
+
+                    that.set("isPosting", true);
+                    dataNew.message_id = params.message_id;
+                    dataNew.reply_id = params.replyMessageCollection[0].reply_id;
+                    dataNew.user_id = params.replyMessageCollection[0].user_id;
+                    dataNew.time_stamp = params.replyMessageCollection[0].time_stamp;
+                    dataNew.msg = params.replyMessageCollection[0].msg;
+                    dataNew.user_name = params.replyMessageCollection[0].user_name;
+                    dataNew.photo_url_large = params.replyMessageCollection[0].photo_url_large;
+                    dataNew.url = params.replyMessageCollection[0].url;
+                    dataNew.enableToEdit = false;
+                    dataNew.replyEdit = true;
+                    dataNew.replyCount = 0;
+                    dataNew.replayCountZero = false;
+
+                    if (params.replyMessageCollection[0].user_id === localStorage.loginStatus)
+                    {
+                        dataNew.isUserself = true;
+                    }
+                    if (params.replyMessageCollection[0].url !== null)
+                    {
+                        dataNew.isUrl = true;
+                    }
+                    else
+                    {
+                        dataNew.isUrl = false;
+                    }
+                    dataNew.replyMessageCollection = [];
+                    that.get("contentMsg").insertAt(0, dataNew);
+                    var thatthat = that;
+                    var s = '#message_' + dataNew.message_id;
+                    setTimeout(function() {
+                        var old = thatthat.get("oldPost");
+                        $(old).removeClass("post-focus");
+
+                        $(s).addClass("post-focus");
+                        thatthat.set("oldPost", s);
+                    }, 200);
+                    that.set("isUploadPhoto", false);
+                    dataNew = [];
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry("reloadItems");
+                        setTimeout(function() {
+                            $('#masonry_user_container').masonry();
+                        }, 100);
+                    }, 200);
+                    that.set('messageContent', "");
+                    that.set('newStyleImageSource', null);
+                    that.set('newStyleImageName', "");
+                });
+            }
+        },
+        removeMessageItem: function(s)
+        {
+            var message = "Remove this post?";
+            this.set("message", message);
+            this.set('makeSureDelete', true);
+            this.set('isUserMessage', true);
+            if (this.get('willDelete') === true) {
+                this.removeMessage(s);
+                this.send("cancelDelete");
+            } else {
+                this.set("s", s);
+                this.set('willDelete', true);
+            }
+        }
+    },
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -161,7 +288,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
 
                     var thatthat = that;
                     setTimeout(function() {
-                        thatthat.get('controllers.message').seeMore(that.get("controllers.notification").get("reply"));
+                        thatthat.get('controllers.message').send("seeMore", that.get("controllers.notification").get("reply"));
                     }, 50);
                     that.get('controllers.notification').set("reply_ids", "");
                 }
@@ -182,7 +309,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 {
                     var thatthat = that;
                     setTimeout(function() {
-                        thatthat.get('controllers.message').seeMore(that.get("controllers.notificationTop").get("reply"));
+                        thatthat.get('controllers.message').send("seeMore", that.get("controllers.notificationTop").get("reply"));
                     }, 50);
                     that.get('controllers.notificationTop').set("reply_ids", "");
                 }
@@ -192,24 +319,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
         });
     }
     ,
-    removeMessageItem: function(s)
-    {
-        var message = "Remove this post?";
-        this.set("message", message);
-        this.set('makeSureDelete', true);
-        this.set('isUserMessage', true);
-        if (this.get('willDelete') === true) {
-            this.removeMessage(s);
-            this.cancelDelete();
-        } else {
-            this.set("s", s);
-            this.set('willDelete', true);
-        }
-    },
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
-    },
     removeMessage: function(Message_id)
     {
 
@@ -244,116 +353,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
         });
         $('#addcommetBut').attr('style', 'display:block');
         $('#commentBox').attr('style', 'display:none');
-    }
-    ,
-    removePic: function() {
-        this.set('newStyleImageSource', null);
-        this.set('newStyleImageName', "");
-        this.set("isUploadPhoto", false);
-
-
-        setTimeout(function() {
-            $('#masonry_user_container').masonry();
-        }, 100);
-
-    },
-    addComment: function() {
-
-        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
-        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-        var commentContent = this.get('messageContent');
-        var postImageSource = this.get("newStyleImageSource");
-        var postImageName = this.get('newStyleImageName');
-
-        if (commentContent || postImageSource || postImageName) {
-
-            this.set("isPosting", false);
-            var commenter_id = this.get("currentUser").get('id');
-            var date = new Date();
-            var owner_id = this.get("currentOwner").get("id");
-            var newStyleImage = "";
-            var imageStyleName = "";
-            if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
-            {
-                newStyleImage = this.get("newStyleImageSource");
-            }
-            else
-            {
-                newStyleImage = null;
-            }
-            if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
-            {
-                imageStyleName = this.get('newStyleImageName');
-            }
-            else
-            {
-                imageStyleName = "";
-            }
-            var imageName = "";
-            var imageType = "";
-            if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
-            {
-                imageName = imageStyleName.split('.');
-                imageType = imageName[imageName.length - 1];
-            }
-            var messageID = createMessageid();
-            var replyID = createMessageid();
-            var tempComment = [commenter_id, date.toString(), commentContent, owner_id, newStyleImage, imageType, imageStyleName, messageID, replyID];
-            tempComment = JSON.stringify(tempComment);
-            var that = this;
-            var dataNew = [];
-            requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
-
-                that.set("isPosting", true);
-                dataNew.message_id = params.message_id;
-                dataNew.reply_id = params.replyMessageCollection[0].reply_id;
-                dataNew.user_id = params.replyMessageCollection[0].user_id;
-                dataNew.time_stamp = params.replyMessageCollection[0].time_stamp;
-                dataNew.msg = params.replyMessageCollection[0].msg;
-                dataNew.user_name = params.replyMessageCollection[0].user_name;
-                dataNew.photo_url_large = params.replyMessageCollection[0].photo_url_large;
-                dataNew.url = params.replyMessageCollection[0].url;
-                dataNew.enableToEdit = false;
-                dataNew.replyEdit = true;
-                dataNew.replyCount = 0;
-                dataNew.replayCountZero = false;
-
-                if (params.replyMessageCollection[0].user_id === localStorage.loginStatus)
-                {
-                    dataNew.isUserself = true;
-                }
-                if (params.replyMessageCollection[0].url !== null)
-                {
-                    dataNew.isUrl = true;
-                }
-                else
-                {
-                    dataNew.isUrl = false;
-                }
-                dataNew.replyMessageCollection = [];
-                that.get("contentMsg").insertAt(0, dataNew);
-                var thatthat = that;
-                var s = '#message_' + dataNew.message_id;
-                setTimeout(function() {
-                    var old = thatthat.get("oldPost");
-                    $(old).removeClass("post-focus");
-
-                    $(s).addClass("post-focus");
-                    thatthat.set("oldPost", s);
-                }, 200);
-                that.set("isUploadPhoto", false);
-                dataNew = [];
-                setTimeout(function() {
-                    $('#masonry_user_container').masonry("reloadItems");
-                    setTimeout(function() {
-                        $('#masonry_user_container').masonry();
-                    }, 100);
-                }, 200);
-                that.set('messageContent', "");
-                that.set('newStyleImageSource', null);
-                that.set('newStyleImageName', "");
-            });
-        }
     },
     profileStyleImageDrop: function(e, name)
     {

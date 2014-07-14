@@ -7,6 +7,22 @@ HubStar.PhotoView = Ember.View.extend({
     PartnerTag: false,
     DiscussionTag: false,
     NameTag: false,
+    actions: {
+        setTitleTag: function() {
+            $('#article_action').slideToggle(1000);
+        },
+        setNameTag: function() {
+            $('#poster_action').slideToggle("slow");
+
+        },
+        setDiscussionTag: function() {
+            $('#discuss_action').slideToggle("slow");
+        },
+        popupAibum: function() {
+            $(".show-album").slideToggle("slow");
+
+        }
+    },
     didInsertElement: function() {
         this.ads();
         var that = this;
@@ -69,7 +85,7 @@ HubStar.PhotoView = Ember.View.extend({
                     //$("#showTagSavePhoto").css("left", "0px");
                     that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
                 }
-                that.get("controller").nextImage(e, mouseX, mouseY);
+                that.get("controller").send("nextImage", e, mouseX, mouseY);
             }
         });
         $('#previousphoto').mousedown(function(event) {
@@ -126,30 +142,22 @@ HubStar.PhotoView = Ember.View.extend({
                     //$("#showTagSavePhoto").css("left", "0px");
                     that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
                 }
-                that.get("controller").previesImage(event, mouseX, mouseY);
+                that.get("controller").send("previesImage", event, mouseX, mouseY);
             }
         });
 
         var that = this;
         window.onresize = function() {
-            var tags = that.get("controller").get("controllers.showTag").get("contentTags");
-            if (tags !== undefined && tags !== "" && tags !== null)
-            {
-                that.get("controller").photoSizeJudge(that.get("controller").get('selectedPhoto'));
-                that.get("controller").windowResizeTags(tags);
+            if (that.get("controller").get("controllers.showTag") !== undefined) {
+                var tags = that.get("controller").get("controllers.showTag").get("contentTags");
+                if (tags !== undefined && tags !== "" && tags !== null)
+                {
+                    that.get("controller").photoSizeJudge(that.get("controller").get('selectedPhoto'));
+                    that.get("controller").windowResizeTags(tags);
+                }
             }
         };
         return this.$().attr({tabindex: 1}), this.$().focus();
-    },
-    setTitleTag: function() {
-        $('#article_action').slideToggle(1000);
-    },
-    setDiscussionTag: function() {
-        $('#discuss_action').slideToggle("slow");
-    },
-    setNameTag: function() {
-        $('#poster_action').slideToggle("slow");
-
     },
     setPartnerTag: function() {
         $('#partner_action').slideToggle("slow");
@@ -175,9 +183,6 @@ HubStar.PhotoView = Ember.View.extend({
         });
 
     },
-    popupAibum: function() {
-        $(".show-album").slideToggle("slow");
-    },
     openComment: function() {
 
         $('#addcommetBut').attr('style', 'display:none');
@@ -193,7 +198,7 @@ HubStar.PhotoView = Ember.View.extend({
     keyUp: function(event) {
         if (event.which === 27)
         { // pressed 'esc'
-            //this.get("controller").transitionTo("search");
+            //this.get("controller").transitionToRoute("search");
             this.get("controller").set("enableTag", false);  //close the showTag template
             var address = document.URL;
             var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
@@ -203,15 +208,15 @@ HubStar.PhotoView = Ember.View.extend({
             var user_photo_id = address.split("#")[1].split("/")[8];
             if (type === "users")
             {
-                this.get("controller").closeWindow();
+                this.get("controller").send("closeWindow");
             }
             else if (type !== "search")
             {
-                this.get("controller").closeWindow();
+                this.get("controller").send("closeWindow");
             }
             else
             {
-                this.get("controller").closeWindow();
+                this.get("controller").send("closeWindow");
                 this.get("controller").set("selectPhoto", false);
                 $('#masonry_wrapper').attr('style', "top:100px;position:relative");
             }
@@ -261,7 +266,7 @@ HubStar.PhotoView = Ember.View.extend({
                         }
                     }
                 }
-            }, 300);
+            }, 1300);
         });
 
     }

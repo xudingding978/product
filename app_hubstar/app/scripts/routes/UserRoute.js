@@ -41,10 +41,11 @@ HubStar.UserRoute = Ember.Route.extend({
         $(window).scrollTop(0);
         this.controllerFor('user').set("model", model);
         this.controllerFor('user').setUser();
-         if (HubStar.get('ctaView') === true) {
-            this.controllerFor("checkingLoginStatus").popupLogin();
-            HubStar.set('ctaView', false);
-        }
+        if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', false);
+                } 
+            }
        
     },
     model: function(params) {
@@ -60,7 +61,7 @@ HubStar.UserRoute = Ember.Route.extend({
             that.transitionTo('fourOhFour', "404");
         });
     },
-    events: {
+    actions: {
         transitionToCollectionPhoto: function(collection_id) {
 
             var address = document.URL;
@@ -74,20 +75,29 @@ HubStar.UserRoute = Ember.Route.extend({
                 }
             }
             this.transitionTo("collection", data);
+            
+              if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', true);
+                } else {
+                    HubStar.set('ctaView', false);
+                }
+            }
         },
         transitionToArticle: function(article_id) {
             this.transitionTo("article", article_id);
             this.transitionTo("articlePhoto");
+            
+              if (HubStar.get("checkLoginStatus")) {
+                if (HubStar.get('showDiscoveryBar') === false) {
+                    HubStar.set('ctaView', true);
+                } else {
+                    HubStar.set('ctaView', false);
+                }
+            }
         }
     },
     redirect: function(params) {
-
-        if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-
-
-//            this.transitionTo('indexIndex');
-//            this.controllerFor('application').set('popup', true);
-        }
 
     },
     deactivate: function() {

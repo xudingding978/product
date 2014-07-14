@@ -48,19 +48,14 @@ HubStar.ArticlePhotoView = Ember.View.extend({
     },
     setNameTag: function() {
         $('#poster_action').slideToggle("slow");
-     
-
     },
     setPartnerTag: function() {
         $('#partner_action').slideToggle("slow");
-   
-
     },
     popupAibum: function() {
        $("#collection_tab1").slideToggle("slow");
     },
     openComment: function() {
-
 
         $('#addcommetBut').attr('style', 'display:none');
         $('#commentBox').attr('style', 'display:block');

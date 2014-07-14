@@ -9,7 +9,7 @@ HubStar.IndexIndexRoute = Ember.Route.extend({
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             }
         },
-        events: {
+        actions: {
             transitionToProfile: function() {
                 this.controllerFor('application').set("popup", true);
             },

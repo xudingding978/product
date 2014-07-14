@@ -16,25 +16,26 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     headerAbout: false,
     userProfile: false,
     contentTopicResidential: [
-        {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
-        {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
-        {id: "3", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/kitchen.png', topic: 'Kitchens'},
-        {id: "4", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/bathroom.png', topic: 'Bathrooms'},
-        {id: "5", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/interiordesign.png', topic: 'Interior design'},
-        {id: "6", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/outdoorliving.png', topic: 'Outdoor Living'},
-        {id: "13", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/hometheatre.png', topic: 'Home theatre'}
+        {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment Design'},
+        {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/bathroom.png', topic: 'Bathrooms'},
+        {id: "3", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/hometheatre.png', topic: 'Home Theatre'},
+        {id: "4", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/interiordesign.png', topic: 'Interior design'},
+        {id: "5", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/kitchen.png', topic: 'Kitchens'},
+        {id: "6", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
+        {id: "7", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/outdoorliving.png', topic: 'Outdoor Living'},
+        {id: "8", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'}
     ],
     contentTopicCommercial: [
-        {id: "7", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/office.png', topic: 'Office'},
-        {id: "8", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/civic.png', topic: 'Civic'},
-        {id: "9", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/education.png', topic: 'Education'},
-        {id: "10", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/hospitality.png', topic: 'Hospitality'},
-        {id: "11", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/retail.png', topic: 'Retail'},
-        {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment'},
-        {id: "14", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/refurbishment.png', topic: 'Refurbishment'}
+        {id: "9", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment Design'},
+        {id: "10", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/civic.png', topic: 'Civic Design'},
+        {id: "11", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/education.png', topic: 'Educational Design'},
+        {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/hospitality.png', topic: 'Hospitality Desgin'},
+        {id: "13", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/office.png', topic: 'Office Design'},
+        {id: "14", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/refurbishment.png', topic: 'Refurbishment'},
+        {id: "15", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/retail.png', topic: 'Retail Design'}
     ],
     classification: "All",
-    //commercial: "1",
+    loginModal:false,
     needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection', 'search'],
     content: [],
     loginInfo: "",
@@ -80,8 +81,291 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     localStorage: "",
     applicationCategoryDropdownType: 'geoLocation',
     total_profiels: 0,
+    actions: {
+        dropdown: function(checking) {
+            if (checking === "geoLocation") {
+                this.set("isNotification", false);
+                this.set('headerAbout', false);
+                this.set('userProfile', false);
+                this.set('isGeoDropdown', !this.get('isGeoDropdown'));
+                $('#geo-filter').toggleClass('Geo-Filter-active');
+                $('#notification-filter').removeClass('Geo-Filter-active');
+                $('#top-about-menu').removeClass('Geo-Filter-active');
+                //     $('#user-header-menu').removeClass('Geo-Filter-active');
+
+            } else if (checking === "notification") {
+                this.set("isNotification", !this.get("isNotification"));
+                this.set('headerAbout', false);
+                this.set('isGeoDropdown', false);
+                this.set('userProfile', false);
+                $('#notification-filter').addClass('Geo-Filter-active');
+                this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
+                $('#geo-filter').removeClass('Geo-Filter-active');
+                $('#top-about-menu').removeClass('Geo-Filter-active');
+                //      $('#user-header-menu').removeClass('Geo-Filter-active');
+            }
+            else if (checking === "about") {
+                this.set("isNotification", false);
+                this.set('isGeoDropdown', false);
+                this.set('headerAbout', !this.get('headerAbout'));
+                this.set('userProfile', false);
+                $('#geo-filter').removeClass('Geo-Filter-active');
+                $('#notification-filter').removeClass('Geo-Filter-active');
+                $('#top-about-menu').toggleClass('Geo-Filter-active');
+                //    $('#user-header-menu').removeClass('Geo-Filter-active');
+            }
+            else if (checking === "user") {
+                this.set("isNotification", false);
+                this.set('isGeoDropdown', false);
+                this.set('headerAbout', false);
+                this.set('userProfile', !this.get('userProfile'));
+                $('#geo-filter').removeClass('Geo-Filter-active');
+                $('#notification-filter').removeClass('Geo-Filter-active');
+                $('#top-about-menu').removeClass('Geo-Filter-active');
+            }
+        },
+        closeTopAd: function() {
+            $(".user-top").css("height", "120px");
+            $("#group-top").css("top", "70px");
+            this.searchSmallScreen();
+            var tempComment = [this.get("user").get("id")];
+            var that = this;
+            requiredBackEnd('users', 'SetTopAds', tempComment, 'POST', function() {
+                HubStar.set("isTopAdDisplay", false);
+                that.get("user").set("is_top_ad_display", false);
+            });
+        },
+        ctalogin: function() {
+            HubStar.set("loginModal", true);
+            $(document).ready(function() {
+                setTimeout(function() {
+                    localStorage.loginState = "login";
+                    if (localStorage.userType === "email") {
+                        $('.Login-box #login-btn').text('Sign up for a new account!');
+                        $('.Login-box .black-tool-tip').css('display', 'none');
+                        $('.Login-box #click-register-social').css('display', 'none');
+                        $('.Login-box #click-register').css('display', 'none');
+                        $('.Login-box #social-link').css('display', 'none');
+                        $('.Login-box #login-with-email-drop-down').css('display', 'block');
+                        $('.Login-box #social-login-container').css('display', 'none');
+                        $('.Login-box #click-login').addClass('active-tab');
+                        $('.Login-box #social-login').removeClass('social-active');
+                        $('.Login-box #user-forgot-password-pane').css('display', 'none');
+                        $('.Login-box #forgot-message-container').css('display', 'none');
+                        $('.Login-box #invalid-username').css('display', 'none');
+                        $('.Login-box #register-with-email-drop-down').css('display', 'none');
+                        $('.Login-box #register-with-email-step-2').css('display', 'none');
+                        $('.Login-box #register-with-email-step-3').css('display', 'none');
+                        $('.Login-box #user-login-pane').css('display', 'block');
+                        if (localStorage.userName !== undefined && localStorage.userName !== null && localStorage.userName !== "")
+                        {
+                            $("#loginPassword input").focus();
+                        }
+                        else {
+                            $("#loginUsername input").focus();
+                        }
+                    } else {
+                        $('.Login-box #login-btn').text('Sign up for a new account!');
+                        $('.Login-box .black-tool-tip').css('display', 'none');
+                        $('.Login-box #click-register-social').css('display', 'none');
+                        $('.Login-box #click-register').css('display', 'none');
+                        $('.Login-box #social-link').css('display', 'none');
+                        $('.Login-box #login-with-email-drop-down').css('display', 'none');
+                        $('.Login-box #social-login-container').css('display', 'block');
+                        $('.Login-box #click-login').removeClass('active-tab');
+                        $('.Login-box #social-login').addClass('social-active');
+                        $('.Login-box #user-forgot-password-pane').css('display', 'none');
+                        $('.Login-box #forgot-message-container').css('display', 'none');
+                        $('.Login-box #invalid-username').css('display', 'none');
+                        $('.Login-box #register-with-email-drop-down').css('display', 'none');
+                        $('.Login-box #register-with-email-step-2').css('display', 'none');
+                        $('.Login-box #register-with-email-step-3').css('display', 'none');
+                        $('.Login-box #user-login-pane').css('display', 'block');
+                        $("#first_name input").focus();
+                    }
+                }, 1);
+            });
+
+        },
+        ctaregister: function() {
+            HubStar.set("loginModal", true);
+            $(document).ready(function() {
+                setTimeout(function() {
+                    localStorage.loginState = "register";
+                    $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
+                    $('.Login-box .black-tool-tip').css('display', 'none');
+                    $('.Login-box #click-register-social').css('display', 'block');
+                    $('.Login-box #social-link').css('display', 'block');
+                    $('.Login-box #click-register').css('display', 'block');
+                    $('.Login-box #click-register-social').removeClass('social-active');
+                    $('.Login-box #click-register').addClass('active-tab');
+                    $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
+                    $('.Login-box #user-login-pane').css('display', 'none');
+                    if ($('.Login-box #social-link').css('display') === 'block') {
+                        $('.Login-box #social-link').animate({height: 'toggle'});
+                        $('.Login-box #social-link').css('display', 'none');
+                    }
+                    else {
+                    }
+
+                    setTimeout(function() {
+                        $("#first_name input").focus();
+                    }, 1);
+                }, 1);
+
+            });
+        },
+        showDiscoveryBar: function() {
+
+            HubStar.set("showDiscoveryBar", true);
+            if (HubStar.get("isTopAdDisplay")) {
+                $("#top_bar_ads").css({"position": "relative", "top": "10px"});
+            }
+            HubStar.set("escVideo", true);
+            HubStar.set("defaultSearch", true);
+            this.transitionToRoute('indexIndex');
+            this.defaultSearch();
+            $(".search-bar-on-small-screen").css('display', "none");
+            $("#search-bar").css('display', "none");
+            $("#topResidentialCommerical").css('display', "none");
+            $(".Navigator-box").fadeOut("320");
+            $(".navbar").css("box-shadow", "");
+            var that = this;
+            $(document).ready(function() {
+                setTimeout(function() {
+                    that.residentialCommercialStatus();
+                    that.changeBackground();
+
+                }, 50);
+
+            });
+
+            $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+            this.set("isNotification", false);
+            this.set('headerAbout', false);
+            this.set('userProfile', false);
+            this.set('isGeoDropdown', false);
+        },
+        closeDropdownNavigator: function() {
+            this.set('isNavigatorDropdown', false);
+            this.set('isHeaderNavigatorDropdown', false);
+        },
+        topicSelection: function(data) {
+            this.set('subcate', []);
+            this.set('subcategories', []);
+            for (var i = 0; i < data.get('subcate').get('length'); i++) {
+                //var str = data.get('subcate').objectAt(i).get('category_topic');
+
+                this.get('subcate').pushObject({'ids': data.get('subcate').objectAt(i).get("ids"), 'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
+            }
+            $('#navigator_id_' + this.get("navigator_id")).removeClass('selected-navigation');
+            this.set("navigator_id", data.get("ids"));
+            $('#navigator_id_' + data.get("ids")).addClass('selected-navigation');
+        },
+        topicSearch: function(search_topic) {
+            HubStar.set("escVideo", false);
+            this.transitionToRoute('search', {id: search_topic});
+            $("#search-bar").css('display', 'block');
+            this.set('search_string', search_topic);
+//        this.newSearch();
+            this.set('isNavigatorDropdown', false);
+            this.set('isHeaderNavigatorDropdown', false);
+            HubStar.set("showDiscoveryBar", false);
+        },
+        searchTopicSelection: function(data, ids) {
+
+            this.set('subcategories', []);
+            for (var i = 0; i < data.get('length'); i++) {
+                this.get('subcategories').pushObject({'search_topic': data.objectAt(i).get('search_topic')});
+            }
+            $('#navigator_id1_' + this.get("navigator_id1")).removeClass('selected-navigation');
+            this.set("navigator_id1", ids);
+            $('#navigator_id1_' + ids).addClass('selected-navigation');
+        },
+        scrollDownAction: function() {
+            //this.set('loadingTime', true);
+            this.set("nextPageSpinner", true);
+            HubStar.set("scrollDownSearch", true);
+            this.set("size", 20);
+            if (this.get("searchFromTopic") === false)
+            {
+                this.set("pageCount", this.get("pageCount") + 1);
+            }
+            else
+            {
+                this.set("searchFromTopic", false);
+            }
+            this.getPageNo();
+            this.set("from", this.get("from") + this.get("size"));
+            var results;
+            if (localStorage.geoLocation === "International") {
+                results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": "Global", "classification": localStorage.resOrcom});
+            } else {
+                results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": localStorage.geoLocation, "classification": localStorage.resOrcom});
+
+            }
+
+            var that = this;
+            results.then(function() {
+                var stat = results.objectAt(0);
+                var megasResults = stat.get("megas");
+                that.setContent(megasResults);
+                if (results.get("length") === 0) {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
+
+                    HubStar.set("scrollDownSearch", true);
+
+                    $(document).ready(function() {
+
+                        $("#show_more_button").css("display", "none");
+
+                    });
+                }
+            });
+
+        },
+        dropdownNavigator: function() {
+            this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
+            var that = this;
+            this.get("categorys").then(function() {
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        that.residentialCommercialStatus();
+                    }, 50);
+                });
+            });
+            this.set('subcate', []);
+            this.set('subcategories', []);
+
+            setTimeout(function() {
+                $('.Navigator-box').fadeIn("fast");
+            }, 30);
+        },
+        dropdownHeaderNavigator: function() {
+
+            this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
+            var that = this;
+            this.get("categorys").then(function() {
+
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        that.residentialCommercialStatus();
+                    }, 50);
+                });
+            });
+            this.set('subcate', []);
+            this.set('subcategories', []);
+
+            setTimeout(function() {
+                $('.Navigator-box').fadeIn("fast");
+            }, 30);
+        }
+    },
     init: function() {
         HubStar.set("isTopAdDisplay", true);
+        HubStar.set("isAddCollection", false);
+        HubStar.set("isShareEmail", false);
+
         var that = this;
 
         this.set('categorys', HubStar.Cate.find({}));
@@ -116,7 +400,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             ga('Trends.send', 'event', 'button', 'click', 'SignUp');
             HubStar.set('checkLoginStatus', true);
             setTimeout(function() {
-                $("#cta-popup").css("display", "none");
+                
                 $("#profiles-main-container").css("display", "block");
                 $('#register-with-social-select-interests').css('display', 'block');
                 $('#user-login-pane').css('display', 'none');
@@ -127,108 +411,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('loginUsername', localStorage.userName);
     },
     popupModal: function() {
-        HubStar.set('checkLoginStatus', true);
-    },
-    ctaregister: function() {
-        HubStar.set('checkLoginStatus', true);
-        $(document).ready(function() {
-            setTimeout(function() {
-                $("#cta-popup").css("display", "none");
-                $("#profiles-main-container").css("display", "block");
-                localStorage.loginState = "register";
-
-                $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
-                $('.Login-box .black-tool-tip').css('display', 'none');
-                $('.Login-box #click-register-social').css('display', 'block');
-                $('.Login-box #social-link').css('display', 'block');
-                $('.Login-box #click-register').css('display', 'block');
-                $('.Login-box #click-register-social').removeClass('social-active');
-                $('.Login-box #click-register').addClass('active-tab');
-                $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
-                $('.Login-box #user-login-pane').css('display', 'none');
-                if ($('.Login-box #social-link').css('display') === 'block') {
-                    $('.Login-box #social-link').animate({height: 'toggle'});
-                    $('.Login-box #social-link').css('display', 'none');
-                }
-                else {
-                }
-
-                setTimeout(function() {
-                    $("#first_name input").focus();
-                }, 1);
-            }, 1);
-
-        });
-    },
-    ctalogin: function() {
-        HubStar.set('checkLoginStatus', true);
-        $(document).ready(function() {
-            setTimeout(function() {
-
-
-                $("#cta-popup").css("display", "none");
-                $("#profiles-main-container").css("display", "block");
-                localStorage.loginState = "login";
-                if (localStorage.userType === "email") {
-                    $('.Login-box #login-btn').text('Sign up for a new account!');
-                    $('.Login-box .black-tool-tip').css('display', 'none');
-                    $('.Login-box #click-register-social').css('display', 'none');
-                    $('.Login-box #click-register').css('display', 'none');
-                    $('.Login-box #social-link').css('display', 'none');
-                    $('.Login-box #login-with-email-drop-down').css('display', 'block');
-                    $('.Login-box #social-login-container').css('display', 'none');
-                    $('.Login-box #click-login').addClass('active-tab');
-                    $('.Login-box #social-login').removeClass('social-active');
-                    $('.Login-box #user-forgot-password-pane').css('display', 'none');
-                    $('.Login-box #forgot-message-container').css('display', 'none');
-                    $('.Login-box #invalid-username').css('display', 'none');
-                    $('.Login-box #register-with-email-drop-down').css('display', 'none');
-                    $('.Login-box #register-with-email-step-2').css('display', 'none');
-                    $('.Login-box #register-with-email-step-3').css('display', 'none');
-                    $('.Login-box #user-login-pane').css('display', 'block');
-                    if (localStorage.userName !== undefined && localStorage.userName !== null && localStorage.userName !== "")
-                    {
-                        $("#loginPassword input").focus();
-                    }
-                    else {
-                        $("#loginUsername input").focus();
-                    }
-                } else {
-                    $('.Login-box #login-btn').text('Sign up for a new account!');
-                    $('.Login-box .black-tool-tip').css('display', 'none');
-                    $('.Login-box #click-register-social').css('display', 'none');
-                    $('.Login-box #click-register').css('display', 'none');
-                    $('.Login-box #social-link').css('display', 'none');
-                    $('.Login-box #login-with-email-drop-down').css('display', 'none');
-                    $('.Login-box #social-login-container').css('display', 'block');
-                    $('.Login-box #click-login').removeClass('active-tab');
-                    $('.Login-box #social-login').addClass('social-active');
-                    $('.Login-box #user-forgot-password-pane').css('display', 'none');
-                    $('.Login-box #forgot-message-container').css('display', 'none');
-                    $('.Login-box #invalid-username').css('display', 'none');
-                    $('.Login-box #register-with-email-drop-down').css('display', 'none');
-                    $('.Login-box #register-with-email-step-2').css('display', 'none');
-                    $('.Login-box #register-with-email-step-3').css('display', 'none');
-                    $('.Login-box #user-login-pane').css('display', 'block');
-                    $("#first_name input").focus();
-                }
-            }, 1);
-        });
-
+        HubStar.set("loginModal", false);
     },
     email_login: function() {
         this.set('mail', !this.get('mail'));
-    },
-    closeTopAd: function() {
-        $(".user-top").css("height", "120px");
-        $("#group-top").css("top", "70px");
-        this.searchSmallScreen();
-        var tempComment = [this.get("user").get("id")];
-        var that = this;
-        requiredBackEnd('users', 'SetTopAds', tempComment, 'POST', function() {
-            HubStar.set("isTopAdDisplay", false);
-            that.get("user").set("is_top_ad_display", false);
-        });
     },
     displayTopAds: function() {
         $(document).ready(function() {
@@ -327,10 +513,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         && (u.get("email")).match(/@trendsideas.com/g) !== ""
                         && (u.get("email")).match(/@trendsideas.com/g) !== null)
                 {
-                    that.set("is_trends_user", true);
+                    HubStar.set("is_trends_user", true);
                 }
                 else {
-                    that.set("is_trends_user", false);
+                    HubStar.set("is_trends_user", false);
                 }
                 if (HubStar.get("isTopAdDisplay")) {
                     setTimeout(function() {
@@ -415,17 +601,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 $("#topResidentialCommerical").css('display', "none");
             } else {
-                if (HubStar.get("isTopAdDisplay")) {
+                console.log(HubStar.get("isTopAdDisplay"));
+                 if (HubStar.get("isTopAdDisplay")) { 
                     $('#masonry_wrapper').css('top', "240px");
-                    if (HubStar.get("isTopAdDisplay")) {
-                        $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
-
-                    }
+                    console.log("3");
+                        $("#top_bar_ads").css({"position": "fixed", "top": "90px"});       
                 }
                 else
                 {
                     $('#masonry_wrapper').css('top', "100px");
                 }
+                HubStar.set("ctaView", false);
                 $("#search-bar").css('display', "block");
                 $("#topResidentialCommerical").css('display', "block");
             }
@@ -521,47 +707,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     reloadPage: function() {
         this.set("test", !this.get("test"));
     },
-    scrollDownAction: function() {
-        //this.set('loadingTime', true);
-        this.set("nextPageSpinner", true);
-        HubStar.set("scrollDownSearch", true);
-        this.set("size", 20);
-        if (this.get("searchFromTopic") === false)
-        {
-            this.set("pageCount", this.get("pageCount") + 1);
-        }
-        else
-        {
-            this.set("searchFromTopic", false);
-        }
-        this.getPageNo();
-        this.set("from", this.get("from") + this.get("size"));
-        var results;
-        if (localStorage.geoLocation === "International") {
-            results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": "Global", "classification": localStorage.resOrcom});
-        } else {
-            results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": localStorage.geoLocation, "classification": localStorage.resOrcom});
-        }
-
-        var that = this;
-        results.then(function() {
-            var stat = results.objectAt(0);
-            var megasResults = stat.get("megas");
-            that.setContent(megasResults);
-            if (results.get("length") === 0) {
-                that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
-
-                HubStar.set("scrollDownSearch", true);
-
-                $(document).ready(function() {
-
-                    $("#show_more_button").css("display", "none");
-
-                });
-            }
-        });
-
-    },
     setContent: function(results, flag)
     {
         for (var i = 0; i < results.get("length"); i++) {
@@ -605,6 +750,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     else if (tempmega.get("getVideo") === true)
                     {
                         $("#init_photo_" + tempmega.get("id")).css({height: 263});
+                    }
+                    else if (tempmega.get("getPdf") === true)
+                    {
+                        $("#init_photo_" + tempmega.get("id")).css({height: 495});
                     }
                     else if (tempmega.get("getProfile") === true)
                     {
@@ -957,150 +1106,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     setfemale: function() {
         this.set('gender', "female");
-    },
-    dropdown: function(checking) {
-        if (checking === "geoLocation") {
-            this.set("isNotification", false);
-            this.set('headerAbout', false);
-            this.set('userProfile', false);
-            this.set('isGeoDropdown', !this.get('isGeoDropdown'));
-            $('#geo-filter').toggleClass('Geo-Filter-active');
-            $('#notification-filter').removeClass('Geo-Filter-active');
-            $('#top-about-menu').removeClass('Geo-Filter-active');
-            //     $('#user-header-menu').removeClass('Geo-Filter-active');
-
-        } else if (checking === "notification") {
-            this.set("isNotification", !this.get("isNotification"));
-            this.set('headerAbout', false);
-            this.set('isGeoDropdown', false);
-            this.set('userProfile', false);
-            $('#notification-filter').addClass('Geo-Filter-active');
-            this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
-            $('#geo-filter').removeClass('Geo-Filter-active');
-            $('#top-about-menu').removeClass('Geo-Filter-active');
-            //      $('#user-header-menu').removeClass('Geo-Filter-active');
-        }
-        else if (checking === "about") {
-            this.set("isNotification", false);
-            this.set('isGeoDropdown', false);
-            this.set('headerAbout', !this.get('headerAbout'));
-            this.set('userProfile', false);
-            $('#geo-filter').removeClass('Geo-Filter-active');
-            $('#notification-filter').removeClass('Geo-Filter-active');
-            $('#top-about-menu').toggleClass('Geo-Filter-active');
-            //    $('#user-header-menu').removeClass('Geo-Filter-active');
-        }
-        else if (checking === "user") {
-            this.set("isNotification", false);
-            this.set('isGeoDropdown', false);
-            this.set('headerAbout', false);
-            this.set('userProfile', !this.get('userProfile'));
-            $('#geo-filter').removeClass('Geo-Filter-active');
-            $('#notification-filter').removeClass('Geo-Filter-active');
-            $('#top-about-menu').removeClass('Geo-Filter-active');
-        }
-    },
-    dropdownNavigator: function() {
-        this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
-        var that = this;
-        this.get("categorys").then(function() {
-            $(document).ready(function() {
-                setTimeout(function() {
-                    that.residentialCommercialStatus();
-                }, 50);
-            });
-        });
-        this.set('subcate', []);
-        this.set('subcategories', []);
-
-        setTimeout(function() {
-            $('.Navigator-box').fadeIn("fast");
-        }, 30);
-    },
-    showDiscoveryBar: function() {
-
-        HubStar.set("showDiscoveryBar", true);
-        if (HubStar.get("isTopAdDisplay")) {
-            $("#top_bar_ads").css({"position": "relative", "top": "10px"});
-        }
-        HubStar.set("escVideo", true);
-        HubStar.set("defaultSearch", true);
-        this.transitionToRoute('indexIndex');
-        this.defaultSearch();
-        $(".search-bar-on-small-screen").css('display', "none");
-        $("#search-bar").css('display', "none");
-        $("#topResidentialCommerical").css('display', "none");
-        $(".Navigator-box").fadeOut("320");
-        $(".navbar").css("box-shadow", "");
-        var that = this;
-        $(document).ready(function() {
-            setTimeout(function() {
-                that.residentialCommercialStatus();
-                that.changeBackground();
-
-            }, 50);
-
-        });
-
-        $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-        this.set("isNotification", false);
-        this.set('headerAbout', false);
-        this.set('userProfile', false);
-        this.set('isGeoDropdown', false);
-    },
-    closeDropdownNavigator: function() {
-        this.set('isNavigatorDropdown', false);
-        this.set('isHeaderNavigatorDropdown', false);
-    },
-    dropdownHeaderNavigator: function() {
-
-        this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
-        this.get("categorys").then(function() {
-            var that = this;
-            $(document).ready(function() {
-                setTimeout(function() {
-                    that.residentialCommercialStatus();
-                }, 50);
-            });
-        });
-        this.set('subcate', []);
-        this.set('subcategories', []);
-
-        setTimeout(function() {
-            $('.Navigator-box').fadeIn("fast");
-        }, 30);
-    },
-    topicSelection: function(data) {
-        this.set('subcate', []);
-        this.set('subcategories', []);
-        for (var i = 0; i < data.get('subcate').get('length'); i++) {
-            //var str = data.get('subcate').objectAt(i).get('category_topic');
-
-            this.get('subcate').pushObject({'ids': data.get('subcate').objectAt(i).get("ids"), 'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
-        }
-        $('#navigator_id_' + this.get("navigator_id")).removeClass('selected-navigation');
-        this.set("navigator_id", data.get("ids"));
-        $('#navigator_id_' + data.get("ids")).addClass('selected-navigation');
-    },
-    searchTopicSelection: function(data, ids) {
-
-        this.set('subcategories', []);
-        for (var i = 0; i < data.get('length'); i++) {
-            this.get('subcategories').pushObject({'search_topic': data.objectAt(i).get('search_topic')});
-        }
-        $('#navigator_id1_' + this.get("navigator_id1")).removeClass('selected-navigation');
-        this.set("navigator_id1", ids);
-        $('#navigator_id1_' + ids).addClass('selected-navigation');
-    },
-    topicSearch: function(search_topic) {
-        HubStar.set("escVideo", false);
-        this.transitionToRoute('search', {id: search_topic});
-        $("#search-bar").css('display', 'block');
-        this.set('search_string', search_topic);
-//        this.newSearch();
-        this.set('isNavigatorDropdown', false);
-        this.set('isHeaderNavigatorDropdown', false);
-        HubStar.set("showDiscoveryBar", false);
     },
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginUsername') !== "" && this.get('loginPassword') !== "")

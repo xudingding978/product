@@ -161,12 +161,10 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                     $('.' + file.get('photo_source_id')).attr("style", "display:none");
 
                     if (HubStar.get("totalFiles") === that.get("filesNumber")) {
-                        //console.log(HubStar.get("photoIds"));
                         var masonryCollectionItems = that.get('controllers.masonryCollectionItems');
                         var photoCreateInfoSettingController = that.get('controllers.photoCreateInfoSetting');
                         HubStar.set('UploadImageInfoData', masonryCollectionItems.get("uploadImageContent"));
                         that.set("filesNumber", 0);
-                        //console.log(that.get('controllers.masonryCollectionItems').get('collection_id'));
 
                         photoCreateInfoSettingController.setData();
                         photoCreateInfoSettingController.set('isEditingMode', true);

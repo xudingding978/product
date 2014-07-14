@@ -603,7 +603,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             } else {
                  if (HubStar.get("isTopAdDisplay")) { 
                     $('#masonry_wrapper').css('top', "240px");
-                    console.log("3");
                         $("#top_bar_ads").css({"position": "fixed", "top": "90px"});       
                 }
                 else
@@ -1259,7 +1258,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             {
                 l = l + 3;
             }
-            //console.log(this.get("pageCount"));
             var that = this;
             var x = document.getElementById("masonry_container");
             var cusid_ele = x.getElementsByClassName('box');
@@ -1342,7 +1340,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             return adSlots[pageCount];
         }
         catch (err) {
-//            console.log("container is empty");
         }
     },
     getPageNo: function()

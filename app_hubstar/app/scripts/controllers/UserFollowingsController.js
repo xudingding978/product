@@ -170,7 +170,6 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             tempUser.addObserver('isLoaded', function() {
 
                 if (tempUser.get('isLoaded')) {
-                    //console.log(tempUser.get("isLoaded"));
                     var commenter_profile_pic_url = null;
                     var commenter_id = localStorage.loginStatus;
                     var name = null;

@@ -49,7 +49,6 @@ class TestController extends Controller {
             'replace_interests' => false,
             'send_welcome' => false,
         ));
-      error_log(var_export($result,true));
     }
 
 }

@@ -1317,8 +1317,10 @@ class Controller extends CController {
                     $tempResult['stats'][0]['megas'][$i]['editors'] = $profile_editors;
                     $tempResult['stats'][0]['megas'][$i]['owner_title'] = $profile_name;
                     $tempResult['stats'][0]['megas'][$i]['owner_profile_pic'] = $profile_pic;
-                    $profile_classification = $mega_profile['classification'];
-                    $tempResult['stats'][0]['megas'][$i]['classification'] = $profile_classification;
+                    if (isset($mega_profile['classification'])) {
+                        $profile_classification = $mega_profile['classification'];
+                        $tempResult['stats'][0]['megas'][$i]['classification'] = $profile_classification;
+                    }
                     $profile_editor = (isset($mega_profile["profile"][0]["profile_editor"])) ? $mega_profile["profile"][0]["profile_editor"] : '';
                     $profile_administrator = (isset($mega_profile["profile"][0]["profile_administrator"])) ? $mega_profile["profile"][0]["profile_administrator"] : '';
                     $profile_creator = (isset($mega_profile["profile"][0]["profile_creator"])) ? $mega_profile["profile"][0]["profile_creator"] : '';

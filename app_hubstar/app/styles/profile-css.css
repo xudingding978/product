@@ -2133,7 +2133,7 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .width-60{
-    width: 60%;
+    width: 60% !important;
 }
 
 .width-75{
@@ -3514,7 +3514,7 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .float-left{
-    float:left;
+    float:left !important;
 }
 
 .height-100{

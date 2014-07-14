@@ -169,8 +169,8 @@ class Controller extends CController {
             $response = $this->getCollectionReults($collection_id, $owner_profile_id);
             $response = $this->profileSetting($response, $returnType, 'collection');
         } elseif ($requireType == 'partner') {
-            $response = $this->getPartnerResultsInOrder($requireParams[1]);
-            //$response = $this->getReponseResult($response, $returnType);
+            $response = $this->getPartnerResults($requireParams[1]);
+            $response = $this->getReponseResult($response, $returnType);
         } elseif ($requireType == 'partnerSearch') {
             $response = $this->getPartnerResults($requireParams[1], $requireParams[2]);
             $response = $this->getReponseResult($response, $returnType);

@@ -302,14 +302,14 @@ HubStar.LoginModalController = Ember.Controller.extend({
                     });
                 }
             });
+        },
+        closePopupLogin: function() {
+            HubStar.set('loginModal', false);
         }
 
     },
     init: function() {
         this.set('loginUsername', localStorage.userName);
-    },
-    closePopupLogin: function() {
-        HubStar.set('checkLoginStatus', false);
     },
     validateEmail: function(email)
     {

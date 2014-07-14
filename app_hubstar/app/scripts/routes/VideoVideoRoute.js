@@ -15,23 +15,9 @@ HubStar.VideoVideoRoute = Ember.Route.extend({
             tempid = tempid.replace("test", "");
 
         }
-//        console.log("11111111111");
-//                          var mega = HubStar.Mega.find(tempid);
-//                console.log(mega.get("view_count"));
-//        mega.then(function() {
-//            if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
-//            {
-//                mega.set("view_count", 0);
-//            }
-//            else
-//            {
-//                mega.set("view_count", mega.get("view_count") + 1);
-//            }
-//                    console.log(mega.get("view_count"));
-//            mega.store.save();
-//        });
+
          this.controllerFor('video').getinitdata(tempid);
-//                console.log("222222222");
+
 
       
     },

@@ -812,6 +812,9 @@ class Controller extends CController {
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         $result = curl_exec($ch);
         $result_arr = CJSON::decode($result, true);
+        
+
+        
         $record_arr = $result_arr['hits']['hits'];
         $new_arr = array();
         $new_arr['total'] = $result_arr['hits']['total'];

@@ -76,7 +76,7 @@
                     <div class="show-tag-left">
                         <div class='show-tag-font'>Collection :</div>
                         {{#if chooseProfileItem}}
-                        <div class="new-btn show-tag-select"  {{action collectionSwitch }} {{bindAttr text="controller.selectedTitle" }}>
+                        <div class="new-btn show-tag-select"  {{action collectionSwitch }} {{bind-attr text="controller.selectedTitle" }}>
                              {{controller.selectedTitle}}
                              &nbsp;<i class="fa fa-caret-down"></i>
                         </div>                   
@@ -99,7 +99,7 @@
                 <div class="show-tag-part-below-right" >
                     {{#if controller.selectedDesc}}
                     <div class="show-tag-image" >
-                        <img  {{bindAttr src="controller.selectedPhotoThumbnailUrl" }}>
+                        <img  {{bind-attr src="controller.selectedPhotoThumbnailUrl" }}>
                     </div>
                     {{/if}}
                 </div>

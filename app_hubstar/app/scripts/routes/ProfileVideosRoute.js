@@ -9,11 +9,11 @@ HubStar.ProfileVideosRoute = Ember.Route.extend({
             }
             else
             {
-                this.controllerFor('profile').selectVideo(model);
+                this.controllerFor('profile').send("selectVideo",model);
             }
         }
         else {
-            this.controllerFor('profile').selectVideo(model);
+            this.controllerFor('profile').send("selectVideo",model);
         }
     },
     model: function(params) {
@@ -22,5 +22,12 @@ HubStar.ProfileVideosRoute = Ember.Route.extend({
         var profile_id = address.split("#")[1].split("/")[2];
         var model = HubStar.Profile.find(profile_id);
         return model;
+    },
+    renderTemplate: function() {
+
+        this.render("profileVideos", {
+            outlet: "profileVideos",
+            into: "profile"
+        });
     }
 });

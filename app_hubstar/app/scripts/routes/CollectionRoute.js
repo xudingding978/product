@@ -8,7 +8,6 @@ HubStar.CollectionRoute = Ember.Route.extend({
         } else {
             id = model.get('id');
         }
-
         this.controllerFor('user').set('switchPhoto', false);
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
@@ -24,7 +23,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
             }
 
     },
-    events: {
+    actions: {
         transitionToPhoto: function(id) {
 
             this.controllerFor('mega').set("selectPhoto", false);

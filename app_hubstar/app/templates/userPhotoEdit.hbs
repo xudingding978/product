@@ -10,7 +10,7 @@
             <span class="user-picture-span-size"> {{controller.RequiredImageSize}}</span>
             <div>
                 <div>
-                    <img  {{bindAttr src= "newStyleImageSource"}}>
+                    <img  {{bind-attr src= "newStyleImageSource"}}>
                     <div id='uploadStyleImg'>
                         <img style="" src="../../../images/uploadphotos_spinner.gif"/>
                     </div>
@@ -43,7 +43,7 @@
     </div>
 
     <div id="crop-container" class="user-picture-crop-container">
-        <canvas id="panel" ><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
+        <canvas id="panel" ><img  {{bind-attr src= "newStyleImageSource"}} ></canvas>
     </div>
     <div class="user-picture-crop-button">
         <span class="new-btn green-btn " {{action savePhotoUpdate}} ><i class='fa fa-save'> &nbsp;</i>Save</span>

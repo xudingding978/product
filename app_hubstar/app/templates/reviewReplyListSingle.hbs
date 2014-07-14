@@ -5,7 +5,9 @@
 <div class="reply-comment-frame review-edit-reply">
     <div>
         <a  href="#/users/{{unbound model.review_user_id}}">
-            <img class="profilepic_comment" {{bindAttr src="model.review_photo_url_large"}} /> 
+
+            <img class="profilepic_comment" {{bind-attr src="model.review_photo_url_large"}} /> 
+
             <div class='user-reply-angle-before'></div>
             <div class='user-reply-angle-after'></div>
         </a>
@@ -29,8 +31,10 @@
 <div id="reply_{{unbound model.review_reply_id}}" class="your-relpy review-your-reply" {{action 'replyView' model.review_reply_id target='view' on="click"}}>
 
     {{#if model.review_userself}}
+
     <a class="your-relpy_profilepic" href="#/users/{{unbound model.review_user_id}}">
-        <img class="profilepic_comment"  {{bindAttr src= model.review_photo_url_large}} />
+        <img class="profilepic_comment"  {{bind-attr src= model.review_photo_url_large}} />
+
     </a>
 
     <div>
@@ -57,8 +61,10 @@
     </div>
 
     {{else}}
+
     <a class="review-your-reply-style" href="#/users/{{unbound model.review_user_id}}">
-        <img class="profilepic_comment"  {{bindAttr src= model.review_photo_url_large}} />
+        <img class="profilepic_comment"  {{bind-attr src= model.review_photo_url_large}} />
+
     </a> 
     <div>
         <div class="comment-namentime">

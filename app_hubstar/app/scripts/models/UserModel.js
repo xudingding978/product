@@ -25,6 +25,7 @@ HubStar.User = DS.Model.extend({
     pinterest_link: DS.attr('string'),
     linkedin_link: DS.attr('string'),
     youtube_link: DS.attr('string'),
+    instagram_link: DS.attr('string'),
     photo_url: DS.attr('string'),
     photo_url_large: DS.attr('string'),
     display_name: DS.attr('string'),

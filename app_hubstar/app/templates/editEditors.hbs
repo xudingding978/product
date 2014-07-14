@@ -16,7 +16,7 @@
         {{#each  contentAdministratorPhoto}}
         <div class="invite-friend hint--rounded hint--bottom" data-hint="{{unbound this.name}}" style="" {{action removeAdministrator record_id}}>             
              <div class="invite-this-friend radius-circle easing" ><i class="fa fa-user profile-editors-admin"></i></div>            
-            <img class="profilepic_comment radius-circle"  {{bindAttr src= this.photo_url}} /> 
+            <img class="profilepic_comment radius-circle"  {{bind-attr src= this.photo_url}} /> 
         </div>
         {{/each}}
 
@@ -33,7 +33,7 @@
         {{#each  contentEditorPhoto}}
         <div class="invite-friend hint--rounded hint--bottom" data-hint="{{unbound this.name}}" style="" {{action removeEditor record_id}}>
              <div class="invite-this-friend radius-circle easing" ><i class="fa fa-user profile-editors-edit" ></i></div>           
-            <img class="profilepic_comment radius-circle"  {{bindAttr src= this.photo_url}} /> 
+            <img class="profilepic_comment radius-circle"  {{bind-attr src= this.photo_url}} /> 
         </div>
         {{/each}}
 
@@ -56,7 +56,7 @@
                 <div class="invite-this-friend radius-circle easing"><i class="fa fa-user profile-editors-admin" {{action addToAdministrator record_id}}></i> </div>
                 {{/if}}
                 <div class="invite-this-friend radius-circle easing profile-editors-div"><i class="fa fa-user profile-editors-edit" {{action addToEditor record_id}}></i></div>
-                <img class="profilepic_comment radius-circle"   {{bindAttr src= this.photo_url}} /> 
+                <img class="profilepic_comment radius-circle"   {{bind-attr src= this.photo_url}} /> 
             </div>
         </div>
 

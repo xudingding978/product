@@ -31,7 +31,7 @@
                         <span class="user-edit-upload-box-span-size"> {{controller.RequiredImageSize}}</span>
                         <div>
                             <div>
-                                <img  {{bindAttr src="newStyleImageSource"}}>
+                                <img  {{bind-attr src="newStyleImageSource"}}>
                                     <div id="uploadStyleImg">
                                         <img src="../../../images/uploadphotos_spinner.gif"/>
                                     </div>
@@ -229,8 +229,8 @@
                             <td>Instagram:</td>
                             <td>
                                 <div style="display: block;">
-                                    <div  id="Instagram" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=Instagram placeholder="eg:www.instagram.com" }}
+                                    <div  id="instagram" style="margin: 0;width: 100%;">
+                                        {{input type="text" value=instagram placeholder="eg:www.instagram.com" }}
                                     </div>
                                 </div>
                             </td>
@@ -301,7 +301,7 @@
                     <span style="font-size: 15px; font-weight: bold; color: #555;">How You Get Notifications:</span>
                     {{#each controller.subcateMethod}}
                     <li class="checkbox-container" style="width: 100%;" {{action checkedMethodAction list_id this}}>
-                        <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox">
+                        <input type="checkbox" {{bind-attr id="list_id" checked="isSelection"}} class="css-checkbox">
                             <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check {{unbound list_id}}">{{category_topic}}</label>
                     </li>
                     {{/each}}
@@ -311,7 +311,7 @@
                         <span style="font-size: 15px; font-weight: bold; color: #555;">What You Get Notified About:</span>
                         {{#each controller.subcate}}
                         <li class="checkbox-container" style="width: 100%;" {{action checkedAction list_id this}}>
-                            <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox">
+                            <input type="checkbox" {{bind-attr id="list_id" checked="isSelection"}} class="css-checkbox">
                                 <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check {{unbound list_id}}">{{category_topic}}</label>
                         </li>
                         {{/each}}
@@ -331,7 +331,7 @@
 
                 <div id="user_profiles"> 
                     <div class="user-profile-hover">
-                        <div id="profile-creator-title" class="user-title-list" {{action clickToDisplay 'Creator' on="click" target="view"}}> 
+                        <div id="profile-creator-title" class="user-title-list" > 
                              <i class="fa fa-user-md" >&nbsp;</i>Creator &nbsp;(&nbsp;{{HubStar.userCreator}}&nbsp;)
                         </div>
                         <div id="user-profile-creator">
@@ -341,7 +341,7 @@
                                 <a href="#/profiles/{{unbound this.profile_id}}">
                                     <div  class="profile-image"> 
                                         <div class="profile-top-image-position">
-                                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                                            <img {{bind-attr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
                                         </div>
                                         <div class="profile-top-name-position">{{unbound this.profile_name}} </div>
                                     </div>
@@ -352,7 +352,7 @@
                         </div>
                     </div>
                     <div class="user-profile-hover">
-                        <div id="profile-admin-title" class="user-title-list " {{action clickToDisplay "Admin" on="click" target="view"}}>
+                        <div id="profile-admin-title" class="user-title-list " >
                              <i class="fa fa-user" ></i>&nbsp;Administrator &nbsp;(&nbsp;{{HubStar.userAdministrator}}&nbsp;)
 
                         </div>
@@ -364,7 +364,7 @@
                                 <a href="#/profiles/{{unbound this.profile_id}}">
                                     <div class="profile-image" > 
                                         <div class="profile-top-image-position">
-                                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                                            <img {{bind-attr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
                                         </div>
 
                                         <div class="profile-top-name-position">{{this.profile_name}}</div>
@@ -377,7 +377,7 @@
                         </div>
                     </div>
                     <div class="user-profile-hover">
-                        <div id="profile-editor-title" class="user-title-list" {{action clickToDisplay "Editor" on="click" target="view"}}>
+                        <div id="profile-editor-title" class="user-title-list" >
                              <i class="fa fa-users">&nbsp;</i>Editor  &nbsp;(&nbsp;{{HubStar.userEditor}}&nbsp;)
 
                         </div>
@@ -390,7 +390,7 @@
                                     <div class="profile-image" > 
 
                                         <div class="profile-top-image-position">
-                                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                                            <img {{bind-attr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
                                         </div>
                                         <div class="profile-top-name-position">{{this.profile_name}} </div>
                                     </div>
@@ -403,7 +403,7 @@
                 </div>
 
                 <div style="width: 100%;height: auto; min-height: 50px;padding-left: 25px;">
-                    {{#if view.is_trends_user}}
+                    {{#if HubStar.is_trends_user}}
                     <div class='new-profile-display-button'><a href="#/profiles/new"><i class="fa fa-plus">&nbsp;New Profile</i></a> </div>
                     {{/if}}
                 </div>
@@ -433,7 +433,7 @@
 
     <div id="crop-container" style="width: 600px;height: 350px;margin: 10px auto; text-align: center">
         <div class="contr"></div>
-        <canvas id="panel" class="crop-canvas" style="height: 100%;width: auto;margin: 0 auto; "><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
+        <canvas id="panel" class="crop-canvas" style="height: 100%;width: auto;margin: 0 auto; "><img  {{bind-attr src= "newStyleImageSource"}} ></canvas>
 
     </div>
     <div style="margin:20px auto;width: 150px;">

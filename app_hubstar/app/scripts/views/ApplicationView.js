@@ -1,6 +1,7 @@
 HubStar.ApplicationView = Ember.View.extend({
     templateName: 'application',
     didInsertElement: function() {
+
         $("#loading").attr('style', 'display:none');
         $("#select-text").fadeIn(300).css("display", "block");
         $("#welcome-text").fadeOut(300).css("display", "none");
@@ -191,7 +192,7 @@ HubStar.ApplicationView = Ember.View.extend({
             });
         }
         if (this.isScrolledToBottom() && HubStar.get('isMansonryPageLoad')) {
-            this.get('controller').scrollDownAction();
+            this.get('controller').send("scrollDownAction");
 
         }
     },

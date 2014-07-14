@@ -1,19 +1,18 @@
 
 {{#if controller.loadingTime}}
 
-{{render loadingSpinner}}
+{{render "loadingSpinner"}}
 
 {{/if}}
 <div class="masonry-container">
 
     {{#if controller.groupPage}}
-      <div class="new-masonry-bar" >
+    <div class="new-masonry-bar" >
         <ul  id="new-user-stats">
-          <li id="networkGroup"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position="top" {{action selectPartner}}>Network <span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>
-          <li id="networkGroup1"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position="top" {{action selectPartner1}}>Collections <span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>
-          </ul>
-      </div>
-    
+            <li id="networkGroup"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position="top" {{action selectPartner}}>Recommendation <span class="masonry-submenu-txt" >&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>           
+        </ul>
+    </div>
+
     {{else}}
 
     <div id="profile_submenu" class="style-box t-style-box masonry-profilesubmenu" >
@@ -62,12 +61,12 @@
 
         </ul>
         {{/if}}    
-       
+
     </div>
-    
-    
-    
-        {{/if}}
+
+
+
+    {{/if}}
 
     <div id="masonry_user_container" class="centered clearfix masonry_push_down" >
         <!-- masonry from here -->
@@ -75,43 +74,44 @@
         {{view HubStar.CollectionsView}}
         {{/if}} 
         {{#if videoTag}}
-        {{render profileVideos}}
+        {{outlet profileVideos}}
         {{/if}} 
 
         {{#if pdfTag}}
-        {{render profilePdf}}
+        {{outlet profilePdf}}
         {{/if}} 
 
         {{#if partnerTag}}
-        {{render profilePartners}}
+        {{render "profilePartners"}}
         {{/if}} 
 
         {{#if followerProfileTag}}
-        {{render userFollowers}}
+        {{render "userFollowers"}}
         {{/if}} 
 
         {{#if reviewTag}}
-        {{render reviewList}}
+        {{render "reviewList"}}
         {{/if}} 
 
         {{#if followerTag}}
-        {{render userFollowers}}
+        {{render "userFollowers"}}
         {{/if}} 
 
         {{#if followingTag}}
-        {{render userFollowings}}
+        {{render "userFollowings"}}
         {{/if}} 
 
         {{#if messageTag}}
-        {{render messageCenter}}
-        {{/if}}
+        {{outlet messageCenter}}
+        {{/if}} 
+
 
         {{#if postTag}}
-        {{render userMessage}}
-        {{/if}}
-        
+        {{outlet userMessage}}
+        {{/if}} 
+
         {{#if controller.groupNetwork}}
-        {{render groupNetwork}}
+        {{outlet "groupNetwork"}}
         {{/if}}
     </div>
 

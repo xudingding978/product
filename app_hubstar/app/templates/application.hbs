@@ -8,9 +8,11 @@
     {{#if HubStar.showDiscoveryBar}}
     {{view HubStar.DiscoveryView}}    
     {{/if}}
+    
     {{#if HubStar.checkLoginStatus}}
-    {{render callToAction}}
+    {{view HubStar.CallToActionView}}
     {{/if}}
+    
     {{#if HubStar.top_ad_display}}
     {{#if HubStar.isTopAdDisplay}}
     <div id ="top_bar_ads" style="height:140px;width:100%;background-color: black; opacity: 0.6;margin:0 auto; top:10px; position: relative;z-index: 3">
@@ -22,9 +24,11 @@
     {{/if}}
     {{view HubStar.MasonryView}}
     {{else}}
+    
     {{#if HubStar.checkLoginStatus}}
-    {{render callToAction}}
+    {{view HubStar.CallToActionView}}
     {{/if}}
+    
     {{#if HubStar.top_ad_display}}
     {{#if HubStar.isTopAdDisplay}}
     <div id ="top_bar_ads" style="height:140px;width:100%;background-color: black; opacity: 0.6;margin:0 auto; top:90px; position: fixed;z-index:3">
@@ -55,11 +59,11 @@
 
 
     {{#if controller.loadingTime}}
-    {{render loadingSpinner}}
+    {{render "loadingSpinner"}}
     {{/if}}
-    {{render applicationFeedback}}
+    {{render "applicationFeedback"}}
     {{#if controller.loginTime}}
-    {{render loadingSpinner}}
+    {{render "loadingSpinner"}}
     {{/if}}
     {{/if}}
 </div>
@@ -74,9 +78,17 @@
 </script>
 <div id="fixed-bg" class="fixed-bg"></div>
 
+
 {{#if HubStar.loginModal}}
-  
-{{render loginModal}}
+{{render "loginModal"}}       
+{{/if}}
+
+{{#if HubStar.isAddCollection}}
+{{render "addCollection"}}
+{{/if}}
+
+{{#if HubStar.isShareEmail}}
+{{render "shareEmail"}}
 {{/if}}
 
 <script type="text/javascript">

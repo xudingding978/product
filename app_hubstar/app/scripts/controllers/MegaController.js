@@ -368,16 +368,16 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
         },
         closeWindow: function() {
-    
+
             HubStar.set('ctaView', false);
-        
-              setTimeout(function(){
-           if ($(window).width() > 1200) {
+
+            setTimeout(function() {
+                if ($(window).width() > 1200) {
                     $("#cta-popup").removeClass("cta-popup-small-top");
                 } else {
                     $("#cta-popup").addClass("cta-popup-small-top");
                 }
-       },1);     
+            }, 1);
             this.set('image_no', 1);
             this.set('collectable', false);
             this.set('contact', false);
@@ -457,183 +457,187 @@ HubStar.MegaController = Ember.ArrayController.extend({
         },
         previesImage: function(event, pic_x, pic_y) {
             // this.set("contentTags", "");
-            if (!this.get("isRead")) {
-                this.set("showEachTagContent", false);
-                if (this.get("enableTag") === true)
-                {
-                    if (this.get("inImage") === true) {
-                        var that = this;
-                        setTimeout(function() {
-                            $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
-                            $('#tagit').fadeIn();
-                            if (that.get("controllers.showTag").get("change_tag_show_2"))
-                            {
-                                $(document).ready(function() {
-                                    $("#showTagSavePhoto").css("left", "265px");
-                                });
-                            }
-                            else
-                            {
-                                $(document).ready(function() {
-                                    $("#showTagSavePhoto").css("left", "0px");
-                                });
-                            }
-                            $('#tagname').focus();
-                        }, 15);
-                    }
-                } else
-                {
-                    this.set("contentTags", "");
-                    this.get("controllers.showTag").set("contentTags", "");
-                    // this.get("controllers.showTag").readTags();
-                    if (!this.get('selectedPhoto')) {
-                        this.set('selectedPhoto', this.get('content').get('lastObject'));
-                    }
-                    var selectedIndex = this.findSelectedItemIndex();
-                    selectedIndex--;
-                    if (selectedIndex < -1) {
-                        this.get("controllers.checkingLoginStatus").popupLogin();
-                    }
-                    if (selectedIndex < 0) {
-                        selectedIndex = this.get('content').get('length') - 1;
-                        this.set('image_no', this.get('content').get('length'));
-                    }
-                    this.set("selectPhoto", true);
-                    this.set('image_no', selectedIndex + 1);
-                    this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
-                    this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
-                    //this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
-                    this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
-                    this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
-                    var address = document.URL;
-                    if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+            if (this.get("controllers.masonryCollectionItems").get("content").length > 1) {
+                if (!this.get("isRead")) {
+                    this.set("showEachTagContent", false);
+                    if (this.get("enableTag") === true)
                     {
-                        this.transitionToRoute("userPhoto", this.get("megaResouce"));
-                    }
-                    else if (this.get("selectType") === "profile")
-                    {
-                        var owner_id = address.split("#")[1].split("/")[2];
-                        var collection_id = address.split("#")[1].split("/")[4];
-                        var profile = HubStar.Profile.find(owner_id);
-                        for (var i = 0; i < profile.get('collections').get("length"); i++) {
-                            var data = profile.get('collections').objectAt(i);
-                            if (data.get("id") === collection_id) {
-                                break;
-                            }
+                        if (this.get("inImage") === true) {
+                            var that = this;
+                            setTimeout(function() {
+                                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                                $('#tagit').fadeIn();
+                                if (that.get("controllers.showTag").get("change_tag_show_2"))
+                                {
+                                    $(document).ready(function() {
+                                        $("#showTagSavePhoto").css("left", "265px");
+                                    });
+                                }
+                                else
+                                {
+                                    $(document).ready(function() {
+                                        $("#showTagSavePhoto").css("left", "0px");
+                                    });
+                                }
+                                $('#tagname').focus();
+                            }, 15);
                         }
-
-                        this.transitionToRoute("profileCollection", data);
-                        this.transitionToRoute("profilePhoto", this.get("megaResouce"));
-                    }
-                    else
+                    } else
                     {
-                        var type = address.split("#")[1].split("/")[1];
-                        var search = address.split("#")[1].split("/")[2];
-                        if (type === "photos")
+                        this.set("contentTags", "");
+                        this.get("controllers.showTag").set("contentTags", "");
+                        // this.get("controllers.showTag").readTags();
+                        if (!this.get('selectedPhoto')) {
+                            this.set('selectedPhoto', this.get('content').get('lastObject'));
+                        }
+                        var selectedIndex = this.findSelectedItemIndex();
+                        selectedIndex--;
+                        if (selectedIndex < -1) {
+                            this.get("controllers.checkingLoginStatus").popupLogin();
+                        }
+                        if (selectedIndex < 0) {
+                            selectedIndex = this.get('content').get('length') - 1;
+                            this.set('image_no', this.get('content').get('length'));
+                        }
+                        this.set("selectPhoto", true);
+                        this.set('image_no', selectedIndex + 1);
+                        this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+                        this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
+                        //this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
+                        this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
+                        this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
+                        var address = document.URL;
+                        if (this.get("controllers.masonryCollectionItems").get("type") === "user")
                         {
-                            this.transitionToRoute("photo", this.get("megaResouce").get('photo').objectAt(0));
+                            this.transitionToRoute("userPhoto", this.get("megaResouce"));
                         }
-                        else {
-                            if (search === "default")
+                        else if (this.get("selectType") === "profile")
+                        {
+                            var owner_id = address.split("#")[1].split("/")[2];
+                            var collection_id = address.split("#")[1].split("/")[4];
+                            var profile = HubStar.Profile.find(owner_id);
+                            for (var i = 0; i < profile.get('collections').get("length"); i++) {
+                                var data = profile.get('collections').objectAt(i);
+                                if (data.get("id") === collection_id) {
+                                    break;
+                                }
+                            }
+
+                            this.transitionToRoute("profileCollection", data);
+                            this.transitionToRoute("profilePhoto", this.get("megaResouce"));
+                        }
+                        else
+                        {
+                            var type = address.split("#")[1].split("/")[1];
+                            var search = address.split("#")[1].split("/")[2];
+                            if (type === "photos")
                             {
-                                this.transitionToRoute("searchDefaultPhoto", this.get("megaResouce"));
-                            } else {
-                                this.transitionToRoute("newSearchPhoto", this.get("megaResouce"));
+                                this.transitionToRoute("photo", this.get("megaResouce").get('photo').objectAt(0));
+                            }
+                            else {
+                                if (search === "default")
+                                {
+                                    this.transitionToRoute("searchDefaultPhoto", this.get("megaResouce"));
+                                } else {
+                                    this.transitionToRoute("newSearchPhoto", this.get("megaResouce"));
+                                }
                             }
                         }
+                        this.selectedImage(this.get('selectedPhoto').id);
                     }
-                    this.selectedImage(this.get('selectedPhoto').id);
                 }
             }
         },
         nextImage: function(event, pic_x, pic_y) {
-            if (!this.get("isRead")) {
-                var counter = 2;
-                this.set("showEachTagContent", false);
-                if (this.get("enableTag") === true)
-                {
-                    if (this.get("inImage") === true) {
-                        var that = this;
-                        setTimeout(function() {
-                            $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
-                            $('#tagit').fadeIn();
-                            if (that.get("controllers.showTag").get("change_tag_show_2"))
-                            {
-                                $(document).ready(function() {
-                                    $("#showTagSavePhoto").css("left", "-265px");
-                                });
-                            }
-                            else
-                            {
-                                $(document).ready(function() {
-                                    $("#showTagSavePhoto").css("left", "0px");
-                                });
-                            }
-                            $('#tagname').focus();
-                        }, 15);
-                    }
-                } else
-                {
-                    this.set("contentTags", "");
-                    this.get("controllers.showTag").set("contentTags", "");
-                    if (!this.get('selectedPhoto')) {
-                        this.set('selectedPhoto', this.get('content').get('firstObject'));
-                    }
-                    var selectedIndex = this.findSelectedItemIndex();
-                    selectedIndex++;
-                    if (selectedIndex >= this.get('content').get('length') - 1) {
-                        this.get("controllers.checkingLoginStatus").popupLogin();
-                    }
-                    if (selectedIndex >= (this.get('content').get('length'))) {
-
-                        this.set('image_no', 1);
-                        selectedIndex = 0;
-                    }
-                    this.set("selectPhoto", true);
-                    this.set('image_no', selectedIndex + 1);
-                    this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
-                    this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
-                    //this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
-                    var address = document.URL;
-                    if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+            if (this.get("controllers.masonryCollectionItems").get("content").length > 1) {
+                if (!this.get("isRead")) {
+                    var counter = 2;
+                    this.set("showEachTagContent", false);
+                    if (this.get("enableTag") === true)
                     {
-                        this.transitionToRoute("userPhoto", this.get("megaResouce"));
-                    }
-                    else if (this.get("selectType") === "profile")
-                    {
-
-                        var owner_id = address.split("#")[1].split("/")[2];
-                        var collection_id = address.split("#")[1].split("/")[4];
-                        var profile = HubStar.Profile.find(owner_id);
-                        for (var i = 0; i < profile.get('collections').get("length"); i++) {
-                            var data = profile.get('collections').objectAt(i);
-                            if (data.get("id") === collection_id) {
-                                break;
-                            }
+                        if (this.get("inImage") === true) {
+                            var that = this;
+                            setTimeout(function() {
+                                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                                $('#tagit').fadeIn();
+                                if (that.get("controllers.showTag").get("change_tag_show_2"))
+                                {
+                                    $(document).ready(function() {
+                                        $("#showTagSavePhoto").css("left", "-265px");
+                                    });
+                                }
+                                else
+                                {
+                                    $(document).ready(function() {
+                                        $("#showTagSavePhoto").css("left", "0px");
+                                    });
+                                }
+                                $('#tagname').focus();
+                            }, 15);
                         }
-                        this.transitionToRoute("profileCollection", data);
-                        this.transitionToRoute("profilePhoto", this.get("megaResouce"));
-                    }
-                    else
+                    } else
                     {
-                        var type = address.split("#")[1].split("/")[1];
-                        var search = address.split("#")[1].split("/")[2];
-                        if (type === "photos")
+                        this.set("contentTags", "");
+                        this.get("controllers.showTag").set("contentTags", "");
+                        if (!this.get('selectedPhoto')) {
+                            this.set('selectedPhoto', this.get('content').get('firstObject'));
+                        }
+                        var selectedIndex = this.findSelectedItemIndex();
+                        selectedIndex++;
+                        if (selectedIndex >= this.get('content').get('length') - 1) {
+                            this.get("controllers.checkingLoginStatus").popupLogin();
+                        }
+                        if (selectedIndex >= (this.get('content').get('length'))) {
+
+                            this.set('image_no', 1);
+                            selectedIndex = 0;
+                        }
+                        this.set("selectPhoto", true);
+                        this.set('image_no', selectedIndex + 1);
+                        this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+                        this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
+                        //this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
+                        var address = document.URL;
+                        if (this.get("controllers.masonryCollectionItems").get("type") === "user")
                         {
-                            this.transitionToRoute("photo", this.get("megaResouce").get('photo').objectAt(0));
+                            this.transitionToRoute("userPhoto", this.get("megaResouce"));
                         }
-                        else {
-                            if (search === "default")
+                        else if (this.get("selectType") === "profile")
+                        {
+
+                            var owner_id = address.split("#")[1].split("/")[2];
+                            var collection_id = address.split("#")[1].split("/")[4];
+                            var profile = HubStar.Profile.find(owner_id);
+                            for (var i = 0; i < profile.get('collections').get("length"); i++) {
+                                var data = profile.get('collections').objectAt(i);
+                                if (data.get("id") === collection_id) {
+                                    break;
+                                }
+                            }
+                            this.transitionToRoute("profileCollection", data);
+                            this.transitionToRoute("profilePhoto", this.get("megaResouce"));
+                        }
+                        else
+                        {
+                            var type = address.split("#")[1].split("/")[1];
+                            var search = address.split("#")[1].split("/")[2];
+                            if (type === "photos")
                             {
-                                this.transitionToRoute("searchDefaultPhoto", this.get("megaResouce"));
-                            } else {
-                                this.transitionToRoute("newSearchPhoto", this.get("megaResouce"));
+                                this.transitionToRoute("photo", this.get("megaResouce").get('photo').objectAt(0));
+                            }
+                            else {
+                                if (search === "default")
+                                {
+                                    this.transitionToRoute("searchDefaultPhoto", this.get("megaResouce"));
+                                } else {
+                                    this.transitionToRoute("newSearchPhoto", this.get("megaResouce"));
+                                }
                             }
                         }
+                        this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
+                        this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
+                        this.selectedImage(this.get('selectedPhoto').id);
                     }
-                    this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
-                    this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
-                    this.selectedImage(this.get('selectedPhoto').id);
                 }
             }
         },
@@ -1133,8 +1137,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
             requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
             });
         });
-        
-         if (HubStar.get("checkLoginStatus")) {
+
+        if (HubStar.get("checkLoginStatus")) {
             if (HubStar.get('showDiscoveryBar')) {
                 HubStar.set('ctaView', false);
             } else {

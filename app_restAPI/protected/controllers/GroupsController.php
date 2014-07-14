@@ -74,7 +74,7 @@ class GroupsController extends Controller {
 
     public function getTopic($c) {
         $categories = explode(",", $c);
-        $domain = $this->getDomain();
+        $domain = $this->getDomainWihoutAPI();
         $partners = "";
         $configuration = $this->getProviderConfigurationByName($domain, "categories");
         $topicSelection = $configuration[0]['global'][0]['topics'];

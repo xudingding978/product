@@ -81,7 +81,17 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
             this.transitionTo("profilePhoto", obj);
         },
         transitionToProfile: function(id) {
-            this.transitionTo("profile", HubStar.Profile.find(id));
+            var address = document.URL;
+            var owner_id = address.split("#")[1].split("/")[2];
+            if (id !== owner_id) {
+                this.transitionTo("profile", HubStar.Profile.find(id));
+            }
+            else
+            {
+                this.controllerFor('profile').set("goBackType", true);
+                var model = {id: id};
+                this.transitionTo('profile', model);
+            }
         },
         transitionToArticle: function(id) {
 

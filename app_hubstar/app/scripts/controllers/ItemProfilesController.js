@@ -12,7 +12,41 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
     is_authentic_user: false,
     is_profile_editing_mode: false,
     follow_status: false,
-    needs: ['profile', 'permission', 'profilePartners', 'userFollowings','checkingLoginStatus'],
+    needs: ['profile', 'permission', 'profilePartners', 'userFollowings', 'checkingLoginStatus'],
+    actions: {
+        dropdownPhotoSetting: function(id) {
+            var s = '#dropdown_id_' + id;
+            $(s).toggleClass('hideClass');
+            $(s).click(function() {
+                $(this).removeClass('hideClass');
+            }).mouseleave(function() {
+                $(this).addClass('hideClass');
+            });
+        },
+        removeCollectedItem: function(idDel) {
+            this.get('controllers.profilePartners').deleteSelectedPartner(idDel);
+        },
+        toProfilePage: function(model) {
+            HubStar.set("scrollPartenerPosition", $(window).scrollTop());
+            this.transitionToRoute('profile', model);
+            $(window).scrollTop(0);
+        },
+        followThisUser: function(profile)
+        {
+            if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+                if (profile.get("isFollowCurrentUser") === false)
+                {
+                    this.get("controllers.userFollowings").followProfile(profile.get("id"));
+                    profile.set('isFollowCurrentUser', true);
+                }
+                else
+                {
+                    this.get("controllers.userFollowings").unFollowProfile(profile.get("id"));
+                    profile.set('isFollowCurrentUser', false);
+                }
+            }
+        }
+    },
     init: function() {
         var address = document.URL;
         var isPartner = false;
@@ -26,49 +60,21 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
         temp = address.substr(0, temp + 8);
         this.set("profileUrl", temp);
     },
-    followThisUser: function(profile)
-    {
-        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
-            if (profile.get("isFollowCurrentUser") === false)
-            {
-                this.get("controllers.userFollowings").followProfile(profile.get("id"));
-                profile.set('isFollowCurrentUser', true);
-            }
-            else
-            {
-                this.get("controllers.userFollowings").unFollowProfile(profile.get("id"));
-                profile.set('isFollowCurrentUser', false);
-            }
-    }         
-    },
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
-        var role = permissionController.checkAuthenticEdit(that.get("pageModel").get("profile_creator"), that.get("pageModel").get("profile_administrator"), that.get("pageModel").get("profile_editor"));       
+        var role = permissionController.checkAuthenticEdit(that.get("pageModel").get("profile_creator"), that.get("pageModel").get("profile_administrator"), that.get("pageModel").get("profile_editor"));
         var is_edit = false;
         if (role !== "")
         {
             is_edit = true;
         }
-        var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
-
-        currentUser.addObserver('isLoaded', function() {
+        currentUser.then(function() {
             var current_user_email = currentUser.get('email');
-            if (currentUser.get('isLoaded')) {
-                is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
-            }
-        });
-        return is_authentic_user||is_edit;
-    },
-    dropdownPhotoSetting: function(id) {
-        var s='#dropdown_id_' + id;
-        $(s).toggleClass('hideClass');
-        $(s).click(function() {
-            $(this).removeClass('hideClass');
-        }).mouseleave(function() {
-            $(this).addClass('hideClass');
+            var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
+            that.set("is_authentic_user", is_authentic_user || is_edit);
         });
     },
     checkEditingMode: function()
@@ -78,23 +84,11 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
             this.set('is_profile_editing_mode', true);
             var proController = this.get('controllers.profile');
             this.set('pageModel', proController.get('model'));
-            this.set("is_authentic_user", this.checkAuthenticUser());
+            this.checkAuthenticUser();
         }
         else {
             this.set('is_profile_editing_mode', false);
         }
-
-    },
-    removeCollectedItem: function(idDel) {
-
-        this.get('controllers.profilePartners').deleteSelectedPartner(idDel);
-        //console.log();
-    },
-    toProfilePage: function(model) {
-
-        HubStar.set("scrollPartenerPosition", $(window).scrollTop());
-        this.transitionToRoute('profile', model);
-        $(window).scrollTop(0);
     },
     setPartnerRemove: function() {
         this.set('partnerRemove', false);
@@ -108,9 +102,6 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
             this.set('itemProfileCollectionStatistics', 0);
         }
     },
-            
-          
-            
     partnerStatistic: function() {
         //  this.set("profile_partner_ids", profile.get("profile_partner_ids"));
         if (this.get('profile_partner_ids') !== null) {

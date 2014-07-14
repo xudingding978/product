@@ -4,7 +4,7 @@ HubStar.SingleFileUploaderController = Ember.Controller.extend({
                 event.preventDefault();
                 return false;
             };
-            HubStar.SingleFileUploaderController.Droppable = Ember.Mixin.create(HubStar.SingleFileUploaderController, {
+            HubStar.SingleFileUploaderController.Droppable = Ember.Mixin.create({
                 dragEnter: HubStar.SingleFileUploaderController.cancel,
                 dragOver: HubStar.SingleFileUploaderController.cancel
 

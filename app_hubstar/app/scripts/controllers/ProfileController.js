@@ -156,14 +156,1006 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     backgroundImage: "",
     editorAdd: false,
     isShareEmail: false,
+    actions: {
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
+        },
+        closeContact: function() {
+            this.set('contactChecking', false);
+            document.getElementById("body_id").style.overflow = "auto";
+        },
+        getVideoURL: function() {
+            var video_url = this.get('about_us').objectAt(0).get('about_video').objectAt(0).get('video_url').split('?');
+            if (video_url.get('length') > 1) {
+                var VideoURL = '//www.youtube.com/embed/' + video_url[1].split('=')[1];
+                this.set('embeded_url', VideoURL);
+            } else {
+                this.set('embeded_url', '');
+            }
+        },
+        noSelection: function() {
+            this.set('editing', false);
+            this.set('makeSelection', false);
+        },
+        rateEditing: function() {
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+
+                if (this.get('model').get('reviews').get('length') === 0) {
+                    this.set("rateTime", true);
+                }
+                else if (this.get('model').get('reviews').get('length') > 0) {
+                    if (this.get('model').get('reviews').objectAt(0).get("review_user_id").indexOf(localStorage.loginStatus) !== -1)
+                    {
+                        this.set("rateTime", false);
+                        this.transitionToRoute('reviews');
+                        $(window).scrollTop(2500);
+                        this.get('controllers.applicationFeedback').statusObserver(null, "You have already reviewed this profile, thank you!", "warnning");
+                    } else {
+                        this.set("rateTime", true);
+                    }
+                }
+            }
+        },
+        partnerSearch: function()
+        {
+            if (this.get('partnerSearchString') !== null && this.get('partnerSearchString') !== '') {
+                var profilePartnersController = this.get("controllers.profilePartners");
+                profilePartnersController.searchPartner(this.get('partnerSearchString'));
+            }
+        },
+        partnerSearchReset: function(model)
+        {
+            var profilePartnersController = this.get("controllers.profilePartners");
+            this.set('partnerSearchString', '');
+            profilePartnersController.getClientId(model);
+        },
+        deleteSelectedCollection: function()
+        {
+
+            var message = "Remove this collection?";
+            this.set("message", message);
+            this.set('makeSureDelete', true);
+            if (this.get('willDelete')) {
+                var tempCollection = this.get("selectedCollection");
+                var delInfo = [tempCollection.get("id"), this.get('model').get('id'), 'profile'];
+                delInfo = JSON.stringify(delInfo);
+                requiredBackEnd('collections', 'delete', delInfo, 'POST', function() {
+                });
+                this.get("collections").removeObject(this.get("selectedCollection"));
+                this.statstics();
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry("reloadItems");
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry();
+                    }, 100);
+                }, 100);
+                this.send("cancelDelete");
+            } else {
+                this.set('willDelete', true);
+            }
+        },
+        selectCollection: function() {
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $('#defualt').addClass('selected-user-stats');
+            this.sendEventTracking('event', 'button', 'click', 'Collections');
+            this.set('partnerPage', 'Collections');
+            this.set('profileSelectionStatus', 'Collections');
+            this.set('partnerTag', false);
+            this.set('followerProfileTag', false);
+            this.set('collectionTag', true);
+            this.set('reviewTag', false);
+            this.set('videoTag', false);
+            this.set('pdfTag', false);
+            this.transitionToRoute('profileCollections');
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                    $('html,body').animate({
+                        scrollTop: $("#profile_submenu").offset().top - 100
+                    });
+                }, 200);
+            }, 250);
+        },
+        selectVideo: function(model) {
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                this.sendEventTracking('event', 'button', 'click', 'Video');
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $('#video').addClass('selected-user-stats');
+                this.set('profileSelectionStatus', 'Videos');
+                this.get('controllers.profileVideos').getClientId(model);
+                this.set('videoTag', true);
+                this.set('pdfTag', false);
+                this.set('partnerTag', false);
+                this.set('collectionTag', false);
+                this.set('reviewTag', false);
+                this.set('followerProfileTag', false);
+                this.transitionToRoute('profileVideos');
+            }
+        },
+        selectPartner: function() {
+
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                this.sendEventTracking('event', 'button', 'click', 'Partners');
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $('#network').addClass('selected-user-stats');
+                this.set('profileSelectionStatus', 'Network');
+                this.set('partnerTag', true);
+                this.set('collectionTag', false);
+                this.set('followerProfileTag', false);
+                this.set('reviewTag', false);
+                this.get('controllers.itemProfiles').setPartnerRemove();
+                this.set('videoTag', false);
+                this.set('pdfTag', false);
+                this.transitionToRoute('partners');
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry("reloadItems");
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry();
+
+                        $('html,body').animate({
+                            scrollTop: $("#profile_submenu").offset().top - 100
+                        });
+                    }, 100);
+                }, 250);
+            }
+        },
+        submit: function() {
+            var collectionController = this.get('controllers.collection');
+            var collection = collectionController.getCreateCollection(this.get('newTitle'), this.get('newDesc'), this.get("collections"));
+            if (this.get('newDesc').length < 256) {
+                if (collection !== null && collection !== "") {
+                    collection.set('type', 'profile');
+                    collection.set('optional', this.get('model').get('id'));
+                    this.get("collections").insertAt(0, collection);
+                    collection.store.commit();
+                    $(".Targeting_Object_front").attr("style", "display:inline-block");
+                    $(" #uploadArea").attr('style', "display:none");
+                    $(" #uploadObject").attr('style', "display:block");
+                    this.statstics();
+                    this.set("newTitle", "");
+                    this.set("newDesc", "");
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry("reloadItems");
+                        setTimeout(function() {
+                            $('#masonry_user_container').masonry();
+                        }, 300);
+                    }, 250);
+                }
+            } else {
+                this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
+            }
+        },
+        updateCollectionInfo: function() {
+            if (this.get('newDesc').length < 256) {
+                this.get('selectedCollection').set('title', this.get('newTitle'));
+                this.get('selectedCollection').set('desc', this.get('newDesc'));
+                var collectionController = this.get('controllers.collection');
+                var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
+                collection.set('optional', this.get('model').get('id'));
+                collection.set('type', 'profile');
+                this.set('selectedCollection', collection);
+                this.get("selectedCollection").store.save();
+                $(".Targeting_Object_front").attr("style", "display:inline-block");
+                $(" #uploadArea").attr('style', "display:none");
+                $(" #uploadObject").attr('style', "display:block");
+                this.set('newTitle', '');
+                this.set('newDesc', '');
+            }
+            else
+            {
+                this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
+            }
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 20);
+        },
+        selectFollower: function() {
+
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                this.sendEventTracking('event', 'button', 'click', 'Followers');
+                this.set('profileSelectionStatus', 'Followers');
+                this.set('partnerTag', false);
+                this.set('collectionTag', false);
+                this.set('followerProfileTag', true);
+                this.set('reviewTag', false);
+                this.set('videoTag', false);
+                this.set('pdfTag', false);
+                this.transitionToRoute('profileFollowers');
+            }
+        },
+        selectReview: function() {
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                this.sendEventTracking('event', 'button', 'click', 'Reviews');
+                this.set('profileSelectionStatus', 'Reviews');
+                this.set('partnerTag', false);
+                this.set('collectionTag', false);
+                this.set('followerProfileTag', false);
+                this.set('reviewTag', true);
+                this.set('videoTag', false);
+                this.set('pdfTag', false);
+                this.transitionToRoute('reviews');
+            }
+        },
+        selectPdf: function(model) {
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                this.sendEventTracking('event', 'button', 'click', 'PDF');
+                this.set('profileSelectionStatus', 'Pdf');
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        $('#user-stats > li').removeClass('selected-user-stats');
+                        $('#pdf').addClass('selected-user-stats');
+                    }, 50);
+                });
+                this.get('controllers.profilePdf').getClientId(model);
+                this.set('videoTag', false);
+                this.set('pdfTag', true);
+                this.set('partnerTag', false);
+                this.set('collectionTag', false);
+                this.set('reviewTag', false);
+                this.set('followerProfileTag', false);
+                this.transitionToRoute('profilePdf');
+            }
+        },
+        yesAbout: function(checkingInfo) {
+            $(window).scrollTop(650);
+            if (checkingInfo === "aboutMe") {
+
+                this.set('editingAbout', !this.get('editingAbout'));
+            }
+            if (this.get('model').get('show_template')) {
+//            for (var i = 0; i < this.get('about_us').objectAt(0).get('about_book').get('length'); i++) {
+//                var about_book = this.get('about_us').objectAt(0).get('about_book').objectAt(i);
+//                if (about_book.get('book_read_url') !== null && about_book.get('book_read_url') !== '' && about_book.get('book_read_url') !== undefined) {
+//                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('read_available', true);
+//                } else {
+//                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('read_available', false);
+//                }
+//
+//                if (about_book.get('book_buy_url') !== null && about_book.get('book_buy_url') !== '' && about_book.get('book_buy_url') !== undefined) {
+//                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('buy_available', true);
+//                } else {
+//                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('buy_available', false);
+//                }
+//            }
+                for (var i = 0; i < this.get('about_us').objectAt(0).get('about_embeded_object').get('length'); i++) {
+                    var about_embeded_object = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i);
+                    if (about_embeded_object.get('embeded_object_code') !== null && about_embeded_object.get('embeded_object_code') !== '' && about_embeded_object.get('embeded_object_code') !== undefined) {
+                        this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embed_object_enabled', true);
+                        var embeded_object_code = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).get('embeded_object_code');
+                        var embeded_object_id = embeded_object_code.split('?')[1].split('=')[1];
+                        this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embeded_object_id', embeded_object_id);
+                        if (about_embeded_object.get('embeded_object_url') !== null && about_embeded_object.get('embeded_object_url') !== '' && about_embeded_object.get('embeded_object_url') !== undefined) {
+                            setTimeout(function() {
+                                $(".getapp-btn").css("width", "380px");
+                            }, 500);
+                        } else {
+                            setTimeout(function() {
+                                $(".getapp-btn").css("width", "180px");
+                            }, 500);
+                        }
+                    } else {
+                        this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embed_object_enabled', false);
+                    }
+                }
+
+                if (this.get('about_us').objectAt(0).get('about_image'))
+                {
+                    var count = 0;
+                    for (var i = 0; i < this.get('about_us').objectAt(0).get('about_image').get('length'); i++) {
+                        var img_url = this.get('about_us').objectAt(0).get('about_image').objectAt(i).get("image_url");
+                        if (img_url !== "" && img_url !== null && img_url !== undefined) {
+                            count = count + 1;
+                        }
+                    }
+
+                    if (count === 2) {
+                        setTimeout(function() {
+                            $(".left-bottom-area").css("width", "530px");
+                        }, 500);
+                    } else if (count === 1) {
+                        setTimeout(function() {
+                            $(".left-bottom-area").css("width", "260px");
+                        }, 500);
+                    }
+
+
+                }
+
+                if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0) {
+                    this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));
+                }
+
+
+                this.get('about_us').objectAt(0).save();
+                this.get('model').store.save();
+                this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+            } else {
+                this.saveUpdateAboutUs();
+            }
+        },
+        no: function(checkingInfo) {
+            $(window).scrollTop(650);
+            if (checkingInfo === "profileName") {
+                this.set('profile_name', profile_record);
+                this.set('editing', !this.get('editing'));
+            }
+            else if (checkingInfo === "aboutMe") {
+                var author = this.get('model');
+                author.get('transaction').rollback();
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry("reloadItems");
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry();
+                    }, 300);
+                }, 800);
+                this.setAboutUsObject();
+                this.set('editingAbout', !this.get('editingAbout'));
+                if (this.get('about_us').objectAt(0) === null || this.get('about_us').objectAt(0) === 'undefined') {
+                    for (var i = 0; i < this.get('about_us').objectAt(0).get('about_embeded_object').get('length'); i++) {
+                        var about_embeded_object = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i);
+                        if (about_embeded_object.get('embeded_object_code') !== null && about_embeded_object.get('embeded_object_code') !== '' && about_embeded_object.get('embeded_object_code') !== undefined) {
+                            if (about_embeded_object.get('embeded_object_url') !== null && about_embeded_object.get('embeded_object_url') !== '' && about_embeded_object.get('embeded_object_url') !== undefined) {
+                                setTimeout(function() {
+                                    $(".getapp-btn").css("width", "380px");
+                                }, 500);
+                            } else {
+                                setTimeout(function() {
+                                    $(".getapp-btn").css("width", "180px");
+                                }, 500);
+                            }
+                        }
+                    }
+                    if (this.get('about_us').objectAt(0).get('about_image'))
+                    {
+                        var count = 0;
+                        for (var i = 0; i < this.get('about_us').objectAt(0).get('about_image').get('length'); i++) {
+                            var img_url = this.get('about_us').objectAt(0).get('about_image').objectAt(i).get("image_url");
+                            if (img_url !== "" && img_url !== null && img_url !== undefined) {
+                                count = count + 1;
+                            }
+                        }
+                        if (count === 2) {
+                            setTimeout(function() {
+                                $(".left-bottom-area").css("width", "530px");
+                            }, 500);
+                        } else if (count === 1) {
+                            setTimeout(function() {
+                                $(".left-bottom-area").css("width", "260px");
+                            }, 500);
+                        }
+
+
+                    }
+
+                }
+            }
+            else if (checkingInfo === "contact") {
+                this.set('first_name', first_name_record);
+                this.set('last_name', last_name_record);
+                this.set('model.profile_category', category_record);
+                this.set('address', address_record);
+                this.set('suburb', suburb_record);
+                this.set('profile_contact_number', phone_record);
+                this.set('website', website_record);
+                this.set('website_url', website_url_record);
+                this.set('editingContact', !this.get('editingContact'));
+            }
+            else if (checkingInfo === "timeSetting") {
+                this.updateWorkingHourData(this.get('model.profile_hours'));
+                this.set('editingTime', !this.get('editingTime'));
+            }
+
+
+        },
+        toggleEditing: function(data, checkingInfo) {
+            if (checkingInfo === "profileName") {
+                profile_record = data;
+                this.set('editing', !this.get('editing'));
+            } else if (checkingInfo === "aboutMe") {
+                about_record = data;
+                this.selectAboutVersion();
+            } else if (checkingInfo === "contact") {
+                first_name_record = this.get('first_name');
+                last_name_record = this.get('last_name');
+                category_record = this.get('model.profile_category');
+                address_record = this.get('address');
+                suburb_record = this.get('suburb');
+                phone_record = this.get('profile_contact_number');
+                website_record = this.get('website');
+                website_url_record = this.get('website_url');
+                this.set('editingContact', !this.get('editingContact'));
+            }
+            else if (checkingInfo === "timeSetting") {
+                this.set('editingTime', !this.get('editingTime'));
+            }
+        },
+        socialLink: function(link) {
+            if (link === 'facebook') {
+                window.open(this.get("facebook"));
+            }
+            else if (link === 'twitter') {
+                window.open(this.get("twitter"));
+            }
+            else if (link === 'googleplus') {
+                window.open(this.get("googleplus"));
+            }
+            else if (link === 'pinterest') {
+                window.open(this.get("pinterest"));
+            }
+            else if (link === 'youtube') {
+                window.open(this.get("youtube"));
+            }
+            else if (link === 'linkedin') {
+                window.open(this.get("linkedin"));
+            }
+            else if (link === 'instagram') {
+                window.open(this.get("instagram"));
+            }
+        },
+        flipFrontClick: function() {
+            $("#profilePanel").addClass('flip');
+            this.selectionForDashborad();
+        },
+        yes: function(checkingInfo) {
+            if (checkingInfo === "profileName") {
+                var title_modify_time = Date.parse(new Date());
+                var update_profile_record = HubStar.Profile.find(this.get('model.id'));
+                this.set('editing', !this.get('editing'));
+                update_profile_record.set("profile_name", this.get('profile_name'));
+                update_profile_record.set("title_modify_time", title_modify_time);
+                this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+                update_profile_record.store.save();
+            }
+            else if (checkingInfo === "contact") {
+                if (this.get("website_url") !== null) {
+                    if (this.get("website_url").match(/[http]/g) !== -1 || this.get("website_url").match(/[http]/g) !== null)
+                    {
+                        this.set("website_url", this.get("website_url"));
+                    } else {
+                        this.set("website_url", "http://" + this.get("website_url"));
+                    }
+                }
+
+
+                this.set('editingContact', !this.get('editingContact'));
+                this.send("saveUpdateGeneral");
+            }
+            else if (checkingInfo === "timeSetting") {
+                var updateHour = this.get('hours');
+                var data = "";
+                for (var i = 0; i < updateHour.length; i++) {
+                    data = data + updateHour.objectAt(i).day + "=" + updateHour.objectAt(i).time + ",";
+                }
+                this.set('model.profile_hours', data.substring(0, data.length - 1));
+                this.set('editingTime', !this.get('editingTime'));
+                this.send("saveUpdate");
+            }
+        },
+        editingContactForm: function() {
+
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                this.sendEventTracking('event', 'button', 'click', 'Contact us');
+                var contactController = this.get('controllers.contact');
+                this.get("controllers.contact").set('secondStepOfContactEmail', false);
+                this.get("controllers.contact").set('firstStepOfContactEmail', false);
+                contactController.setSelectedMega(this.get('currentUserID'));
+                document.getElementById("body_id").style.overflow = "hidden";
+                this.set('contactChecking', !this.get('contactChecking'));
+            }
+        },
+        dropdownPhotoSetting: function() {
+            $("#dropdown_id_").toggleClass('hideClass');
+            $("#dropdown_id_").click(function() {
+                $(this).removeClass('hideClass');
+            }).mouseleave(function() {
+                $(this).addClass('hideClass');
+            });
+        },
+        editingEditor: function() {
+            this.set("editorAdd", true);
+            this.get("controllers.editEditors").getClientId(this.get("Id"));
+        },
+        // share to social facebook
+        fbShare: function() {
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                var that = this;
+                var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
+                var caption = '';
+                if (this.get('profile_cover_text') !== null)
+                {
+                    caption = this.get('profile_cover_text');
+                }
+                else
+                {
+                    caption = '';
+                }
+
+                var obj = {
+                    method: 'feed',
+                    link: currntUrl,
+                    picture: this.get('profile_pic_url'),
+                    name: this.get('profile_name'),
+                    caption: 'Trends Ideas',
+                    description: caption
+                };
+                function callback(response) {
+                    if (response && response.post_id) {
+                        var mega = HubStar.Mega.find(that.get('currentUserID'));
+                        mega.then(function() {
+                            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                            {
+                                mega.set("share_count", 0);
+                            }
+                            else
+                            {
+                                mega.set("share_count", mega.get("share_count") + 1);
+                            }
+                            mega.store.save();
+                        });
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
+                    } else {
+                        that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
+                    }
+                }
+
+                FB.ui(obj, callback);
+                return false;
+            }
+        },
+        //share to social google plus
+        gpShare: function() {
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                var caption = '';
+                if (this.get('profile_cover_text') !== null)
+                {
+                    caption = this.get('profile_cover_text');
+                }
+                else
+                {
+                    caption = '';
+                }
+
+                $("meta[property='og\\:title']").attr("content", this.get('profile_name'));
+                $("meta[property='og\\:description']").attr("content", caption);
+                $("meta[property='og\\:image']").attr("content", this.get('profile_pic_url'));
+                var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
+                var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+                var mega = HubStar.Mega.find(this.get('currentUserID'));
+                mega.then(function() {
+                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                    {
+                        mega.set("share_count", 0);
+                    }
+                    else
+                    {
+                        mega.set("share_count", mega.get("share_count") + 1);
+                    }
+                    mega.store.save();
+                });
+                window.open(
+                        url,
+                        'popupwindow',
+                        'scrollbars=yes,width=800,height=400'
+                        ).focus();
+                return false;
+            }
+        },
+        //share to social twitter
+        tShare: function() {
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
+                var url = 'https://twitter.com/share?text=' + this.get('profile_name') + '&url=' + encodeURIComponent(currntUrl);
+                var mega = HubStar.Mega.find(this.get('currentUserID'));
+                mega.then(function() {
+                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                    {
+                        mega.set("share_count", 0);
+                    }
+                    else
+                    {
+                        mega.set("share_count", mega.get("share_count") + 1);
+                    }
+                    mega.store.save();
+                });
+                window.open(
+                        url,
+                        'popupwindow',
+                        'height=436,width=626'
+                        ).focus();
+                return false;
+            }
+        },
+        pShare: function() {
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
+                var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                        '&media=' + encodeURIComponent(this.get('profile_pic_url')) +
+                        '&description=' + encodeURIComponent(this.get('profile_name'));
+                var mega = HubStar.Mega.find(this.get('currentUserID'));
+                mega.then(function() {
+                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                    {
+                        mega.set("share_count", 0);
+                    }
+                    else
+                    {
+                        mega.set("share_count", mega.get("share_count") + 1);
+                    }
+                    mega.store.save();
+                });
+                window.open(
+                        url,
+                        'popupwindow',
+                        'height=436,width=626'
+                        ).focus();
+                return false;
+            }
+        },
+        eShare: function() {
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                var currentUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
+                var mega = HubStar.Mega.find(this.get('currentUserID'));
+                mega.then(function() {
+                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                    {
+                        mega.set("share_count", 0);
+                    }
+                    else
+                    {
+                        mega.set("share_count", mega.get("share_count") + 1);
+                    }
+                    mega.store.save();
+                });
+                var shareEmailController = this.get('controllers.shareEmail');
+                shareEmailController.setSelectedMega(this.get('currentUserID'));
+//            var selectid = this.get('selectedPhoto').id; 
+                shareEmailController.setThumbnailUrl(this.get('profile_pic_url'));
+                shareEmailController.setUrl(currentUrl);
+                shareEmailController.setUser();
+                shareEmailController.setRelatedController('profile');
+//            shareEmailController.setSelectedMega(selectid);
+                shareEmailController.setTitle(this.get('profile_name'));
+                this.set("isShareEmail", true);
+            }
+        },
+        followThisProfile: function() {
+
+            if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+                var profile_id = this.get('model').get('id');
+                if (this.checkFollowStatus() === false) {
+                    this.get("controllers.userFollowings").followProfile(profile_id);
+                    this.sendEventTracking('event', 'button', 'click', 'Follow');
+                    this.set('follow_status', true);
+                } else {
+                    this.get("controllers.userFollowings").unFollowProfile(profile_id);
+                    this.sendEventTracking('event', 'button', 'click', 'unFollow');
+                    this.set('follow_status', false);
+                }
+            }
+        },
+        keywordSearch: function(keyword) {
+            this.transitionToRoute('searchIndexTom');
+            this.get("controllers.application").set('search_string', keyword);
+            this.get("controllers.application").newSearch();
+        },
+        dropdown: function(checking) {
+            if (checking === "package") {
+                this.set('isActiveDropdown', false);
+                this.set('isDeleteDropdown', false);
+                this.set('isPackgetDropdown', !this.get('isPackgetDropdown'));
+            } else if (checking === "active") {
+                this.set('isDeleteDropdown', false);
+                this.set('isPackgetDropdown', false);
+                this.set('isActiveDropdown', !this.get('isActiveDropdown'));
+            }
+            else if (checking === "delete") {
+                this.set('isPackgetDropdown', false);
+                this.set('isActiveDropdown', false);
+                this.set('isDeleteDropdown', !this.get('isDeleteDropdown'));
+            }
+            if (checking === "category") {
+                this.set('profileSubcategoryDropdown', false);
+                this.set('profileCategoryDropdown', !this.get('profileCategoryDropdown'));
+            }
+            else if (checking === "subcategory") {
+                this.set('profileCategoryDropdown', false);
+                this.set('profileSubcategoryDropdown', !this.get('profileSubcategoryDropdown'));
+            }
+        },
+        gotoSize: function()
+        {
+            if (this.get('website_url') !== null && this.get('website_url') !== "") {
+                window.open(this.get('website_url'));
+            }
+        },
+        popUpGoogleMap: function() {
+
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+            {
+                this.set('popUpMap', true);
+                document.getElementById("body_id").style.overflow = "hidden";
+            }
+        },
+        changeSize: function() {
+            var that = this;
+            setTimeout(function() {
+                that.selectionForDashborad();
+            }, 1);
+        },
+        saveUpdateGeneral: function() {
+            var update_profile_record = HubStar.Profile.find(this.get('model.id'));
+            update_profile_record.set('profile_contact_first_name', this.get('first_name'));
+            update_profile_record.set('profile_contact_last_name', this.get('last_name'));
+            update_profile_record.set("profile_name", this.get('profile_name'));
+            update_profile_record.set('profile_physical_address', this.get('address'));
+            update_profile_record.set('profile_suburb', this.get('suburb'));
+            update_profile_record.set('profile_contact_number', this.get('profile_contact_number'));
+            update_profile_record.set('profile_regoin', this.get('region'));
+            update_profile_record.set('profile_country', this.get('country'));
+            update_profile_record.set('profile_cover_text', this.get('profile_cover_text'));
+            update_profile_record.set('profile_analytics_code', this.get('profile_analytics_code'));
+            update_profile_record.set('profile_website', this.get('website'));
+            update_profile_record.set('profile_website_url', this.get('website_url'));
+            update_profile_record.set('profile_category', this.get('profileCategorySelection'));
+            update_profile_record.set('profile_subcategory', this.get('profileSubcategorySelection'));
+            this.createGooglemap();
+            this.set('toAddress', update_profile_record.get('profile_physical_address') + ", " + update_profile_record.get('profile_suburb') + ", " + update_profile_record.get('profile_regoin') + ", " + update_profile_record.get('profile_country'));
+            this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+            update_profile_record.store.save();
+        },
+        saveUpdate: function() {
+            var update_profile_record = HubStar.Profile.find(this.get('model.id'));
+            update_profile_record.set('profile_editors', this.get('editors'));
+            update_profile_record.set('profile_keywords', this.get('keywords'));
+            update_profile_record.set('profile_regoin', this.get('region'));
+            update_profile_record.set('profile_country', this.get('country'));
+            update_profile_record.set('profile_boost', this.get('boost'));
+            update_profile_record.set('profile_domains', this.get('domains'));
+            update_profile_record.set('profile_hero_url', this.get('profile_hero_url'));
+            update_profile_record.set('profile_pic_url', this.get('profile_pic_url'));
+            update_profile_record.set('profile_bg_url', this.get('profile_bg_url'));
+            update_profile_record.set('show_keyword_id', this.get('show_keyword_id'));
+            this.saveLink('profile_facebook_link', 'facebook');
+            this.saveLink('profile_twitter_link', 'twitter');
+            this.saveLink('profile_googleplus_link', 'googleplus');
+            this.saveLink('profile_pinterest_link', 'pinterest');
+            this.saveLink('profile_linkedin_link', 'linkedin');
+            this.saveLink('profile_youtube_link', 'youtube');
+            this.saveLink('profile_instagram_link', 'instagram');
+            if (this.get('controllers.profilePartners').get("partnerNew") !== undefined && this.get('controllers.profilePartners').get("partnerNew") !== null && this.get('controllers.profilePartners').get("partnerNew") !== "")
+            {
+                if (update_profile_record.get('profile_partner_ids').length !== this.get('controllers.profilePartners').get("partnerNew").length) {
+                    update_profile_record.set('profile_partner_ids', this.get('controllers.profilePartners').get("partnerNew"));
+                    this.get('controllers.profilePartners').set("partnerNew", "");
+                }
+            }
+            update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
+            update_profile_record.set('owner_contact_cc_emails', this.get('secondary_email'));
+            if (this.get('contact_email') !== null || this.get('contact_email') !== undefined || this.get('contact_email') !== "") {
+                update_profile_record.set('owner_contact_email', this.get('contact_email'));
+            }
+            update_profile_record.set("profile_is_active", this.get("projectActiveDropdownContent"));
+            update_profile_record.set("profile_is_deleted", this.get("projectDeleteDropdownContent"));
+            this.createGooglemap();
+            this.set('toAddress', update_profile_record.get('profile_physical_address') + ", " + update_profile_record.get('profile_suburb') + ", " + update_profile_record.get('profile_regoin') + ", " + update_profile_record.get('profile_country'));
+            if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
+                update_profile_record.get('stateManager').transitionToRoute('loaded.saved');
+            }
+            $('#errorMessage2').attr('style', 'display:none');
+            if (this.checkKeywordNum(this.get('projectCategoryDropdownContent'), update_profile_record.get('profile_package_name')) && this.getKeywordsNum(this.get('projectCategoryDropdownContent')) - update_profile_record.get('keywords').get('length') < 0) {
+
+                this.get('controllers.applicationFeedback').statusObserver(null, "Please delete keywords, it can't exceed " +
+                        this.getKeywordsNum(this.get('projectCategoryDropdownContent')));
+                $('#errorMessage2').attr('style', 'display:block;height:30px;color:#ff0000;');
+                this.set('projectCategoryDropdownContent', update_profile_record.get('profile_package_name'));
+            } else {
+
+                update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
+                this.setKeywordsNum(this.get('model').get('profile_package_name'));
+                update_profile_record.set('profile_keywords_num', parseInt(this.get('keyword_num')));
+                update_profile_record.set('profile_boost', parseInt(this.get('boost')));
+                this.set('keyword_left', parseInt(this.get("keyword_num")) - update_profile_record.get('keywords').get('length'));
+                if (this.get('contact_email') === null || this.get('contact_email') === undefined || this.get('contact_email') === "")
+                {
+                    this.get('controllers.applicationFeedback').statusObserver(null, "Please type in Direct Enquiry Primary Email.");
+                } else {
+                    this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+                    update_profile_record.store.save();
+                }
+
+            }
+
+        },
+        deleteKeywords: function(keyword_id, type) {
+            if (type === "all") {
+                for (var i = 0; i < this.get('keywords_array').get('length'); i++) {
+                    if (this.get('keywords_array').objectAt(i).get('keyword_id') === keyword_id) {
+                        requiredBackEnd('keywords', 'delete', JSON.stringify(this.get('keywords_array').objectAt(i)), 'POST', function() {
+                        });
+                        this.get('keywords_array').removeObject(this.get('keywords_array').objectAt(i));
+                        this.set('keyword_left', this.get('keyword_left') + 1);
+                    }
+                }
+                if (this.get('show_keyword_id').indexOf(keyword_id) > -1) {
+                    this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
+                    this.set('show_keyword_id', this.get('show_keyword_id').replace(keyword_id, ''));
+                    for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
+                        if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {
+                            this.get('show_keyword_array').removeObject(this.get('show_keyword_array').objectAt(i));
+                            this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
+                        }
+                    }
+                }
+            } else {
+                for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
+                    if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {
+                        this.get('show_keyword_array').removeObject(this.get('show_keyword_array').objectAt(i));
+                        this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
+                        this.set('show_keyword_id', this.get('show_keyword_id').replace(keyword_id, ''));
+                    }
+                }
+            }
+        },
+        addKeywords: function() {
+            var keywords_JSON = [];
+            var add_keywords_array = this.get('add_keywords').split(',');
+            if (this.get('keywords_array').get('length') + add_keywords_array.get('length') <= this.get('keyword_num')) {
+                for (var i = 0; i < add_keywords_array.get('length'); i++) {
+                    if (add_keywords_array[i].trim() !== '' && add_keywords_array[i] !== null && add_keywords_array[i] !== undefined) {
+                        var keyword = this.addKeyword(add_keywords_array[i].trim());
+                        keywords_JSON.push(JSON.stringify(keyword));
+                    }
+                }
+                requiredBackEnd('keywords', 'addKeywords', keywords_JSON, 'POST', function() {
+                });
+                this.set('add_keywords', "");
+                this.set('keyword_left', this.get('keyword_left') - add_keywords_array.get('length'));
+            } else {
+                this.get('controllers.applicationFeedback').statusObserver(null, "You can not add keywords more than " + this.get('keyword_num'), 'failed');
+            }
+        },
+        cropButton: function()
+        {
+
+            this.set('cropsize', $('#panel').text());
+            this.set('isPhotoUploadMode', false);
+            this.set('isPhotoEditingMode', true);
+            this.set('isFinished', false);
+            this.set('isUpload', false);
+            if (this.get('UploadImageMode') === "Profile Picture")
+            {
+                this.set('isProfilePicture', true);
+                this.set('isProfileHero', false);
+                this.set('isProfileBackground', false);
+            } else if (this.get('UploadImageMode') === "Profile Hero")
+            {
+                this.set('isProfilePicture', false);
+                this.set('isProfileHero', true);
+                this.set('isProfileBackground', false);
+            } else if (this.get('UploadImageMode') === "Background")
+            {
+                this.set('isProfilePicture', false);
+                this.set('isProfileHero', false);
+                this.set('isProfileBackground', true);
+            }
+            var that = this;
+            Ember.run.later(function() {
+                crop(that.get('newStyleImageSource'));
+            }, 0);
+        },
+        photoUpload: function() {
+            if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
+            {
+
+                var src = this.get('newStyleImageSource');
+                var that = this;
+                that.set('loadingTime', true);
+                getImageWidth(src, function(width, height) {
+                    that.set('currentWidth', width);
+                    that.set('currentHeight', height);
+                    var data = {"RequireIamgeType": that.get('UploadImageMode')};
+                    requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
+                        if ((width >= params.width) && (height >= params.height))
+                        {
+
+                            if (that.get('isUpload') === true) {
+                                that.setTempImage();
+                            }
+                            else if (that.get('isCrop') === true)
+                            {
+                                that.setCropImage();
+                            }
+
+                            var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
+                                'newStyleImageName': that.get('newStyleImageName'),
+                                'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
+                                'id': that.get('model.id')};
+                            requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function() {
+                                that.set('isPhotoEditingMode', false);
+                                that.set('isPhotoUploadMode', false);
+                                that.set('isUpload', false);
+                                that.set("isCrop", false);
+                                that.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+                                that.set('loadingTime', false);
+                                that.set('isFinished', true);
+                            });
+                        }
+                        else if (width < params.width || height < params.height) {
+                            that.set('loadingTime', false);
+                            that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
+                            $("#smallUploadImage").css("display", "none");
+                            that.set('newStyleImageSource', "");
+                            that.set('newStyleImageName', "");
+                            that.set('CurrentImageSize', "");
+                            that.set('isCrop', false);
+                            that.set('isUpload', false);
+                        }
+                    });
+                });
+            }
+        },
+        resetNewStyleImageSource: function()
+        {
+            this.set('newStyleImageSource', "");
+            $("#smallUploadImage").css("display", "none");
+            this.set('newStyleImageName', "");
+            this.set('CurrentImageSize', "");
+            this.set('isCrop', false);
+            this.set('isUpload', false);
+            this.send("changeSize");
+        },
+        flipFrontBack: function() {
+            $("#profilePanel").removeClass('flip');
+            $('.front').attr("style", "text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative;");
+        },
+        setUploadImageMode: function(mode)
+        {
+            this.set('isPhotoUploadMode', true);
+            this.set('isPhotoEditingMode', false);
+            this.set('isFinished', false);
+            this.set('UploadImageMode', mode);
+            if (mode === "Profile Picture") {
+                this.set("backgroundImage", "http://develop.devbox.s3.amazonaws.com/uploaddemo-profilepicture.png");
+            } else if (mode === "Profile Hero") {
+                this.set("backgroundImage", "http://develop.devbox.s3.amazonaws.com/uploaddemo-profilehero.png");
+            } else {
+                this.set("backgroundImage", "http://develop.devbox.s3.amazonaws.com/uploaddemo-profilebackground.png");
+            }
+            var data = {"RequireIamgeType": mode};
+            var that = this;
+            requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
+
+                var requiredSize = "Your required image size is " + params.width + "x" + params.height;
+                that.set('RequiredImageSize', requiredSize);
+            });
+        },
+        topicSelection: function(data) {
+            this.set('subcate', []);
+            for (var i = 0; i < data.get('subcate').get('length'); i++)
+            {
+                this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')
+                });
+            }
+        }
+    },
     init: function() {
 
         this.set('is_authentic_user', false);
         this.setTopicModel(HubStar.Cate.find({}));
-    },
-    editingEditor: function() {
-        this.set("editorAdd", true);
-        this.get("controllers.editEditors").getClientId(this.get("Id"));
     },
     goToProfileRoute: function(id)
     {
@@ -203,6 +1195,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             $("#search-bar").css('display', "block");
                             $("#topResidentialCommerical").css('display', "block");
                             $(".search-bar-on-small-screen").css('display', "none");
+
                         } else {
                             $("#search-bar").css('display', "none");
                             $("#topResidentialCommerical").css('display', "none");
@@ -314,7 +1307,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.isFollowed();
         this.checkAuthenticUser();
         this.labelBarRefresh();
-        this.flipFrontBack();
+        this.send("flipFrontBack");
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);
@@ -344,7 +1337,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setAboutUsObject: function() {
         if (this.get('model').get('about_us') !== null && this.get('model').get('about_us') !== 'undefined' && this.get('model').get('about_us').get('length') > 0) {
             this.set("about_us", this.get('model').get("about_us"));
-            this.getVideoURL();
+            this.send("getVideoURL");
             this.set("isAboutUsObjectExist", true);
         } else {
             this.set('about_us', []);
@@ -429,15 +1422,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         );
     },
-    topicSelection: function(data) {
-        this.set('subcate', []);
-        for (var i = 0; i < data.get('subcate').get('length'); i++)
-        {
-            this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')
-            });
-        }
-
-    },
     createGooglemap: function() {
 
         var geocoder = new google.maps.Geocoder();
@@ -449,14 +1433,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             requiredBackEnd('profiles', 'googleMap', [that.get('profile_google_map'), that.get('model').get('id')], 'POST', function() {
             });
         });
-    },
-    popUpGoogleMap: function() {
-
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            this.set('popUpMap', true);
-            document.getElementById("body_id").style.overflow = "hidden";
-        }
     },
     followerPhoto: function(id)
     {
@@ -516,32 +1492,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.statstics();
     },
-    submit: function() {
-        var collectionController = this.get('controllers.collection');
-        var collection = collectionController.getCreateCollection(this.get('newTitle'), this.get('newDesc'), this.get("collections"));
-        if (this.get('newDesc').length < 256) {
-            if (collection !== null && collection !== "") {
-                collection.set('type', 'profile');
-                collection.set('optional', this.get('model').get('id'));
-                this.get("collections").insertAt(0, collection);
-                collection.store.commit();
-                $(".Targeting_Object_front").attr("style", "display:inline-block");
-                $(" #uploadArea").attr('style', "display:none");
-                $(" #uploadObject").attr('style', "display:block");
-                this.statstics();
-                this.set("newTitle", "");
-                this.set("newDesc", "");
-                setTimeout(function() {
-                    $('#masonry_user_container').masonry("reloadItems");
-                    setTimeout(function() {
-                        $('#masonry_user_container').masonry();
-                    }, 300);
-                }, 250);
-            }
-        } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
-        }
-    },
     checkingIdisExsinting: function(desc, id, postOrPut) {
         var isExsinting = true;
         if (postOrPut === "create") {
@@ -559,28 +1509,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setLocalLoginRecrod: function() {
         HubStar.set('afterSearch', true);
         localStorage.user_id = this.get('model.id'); //??why model.id is user_id??
-    },
-    toggleEditing: function(data, checkingInfo) {
-        if (checkingInfo === "profileName") {
-            profile_record = data;
-            this.set('editing', !this.get('editing'));
-        } else if (checkingInfo === "aboutMe") {
-            about_record = data;
-            this.selectAboutVersion();
-        } else if (checkingInfo === "contact") {
-            first_name_record = this.get('first_name');
-            last_name_record = this.get('last_name');
-            category_record = this.get('model.profile_category');
-            address_record = this.get('address');
-            suburb_record = this.get('suburb');
-            phone_record = this.get('profile_contact_number');
-            website_record = this.get('website');
-            website_url_record = this.get('website_url');
-            this.set('editingContact', !this.get('editingContact'));
-        }
-        else if (checkingInfo === "timeSetting") {
-            this.set('editingTime', !this.get('editingTime'));
-        }
     },
     selectAboutVersion: function() {
         var message = "Choose the <b>Template editor</b> to easily modify this section using the default About Us template. <br>Choose the <b>HTML5 editor</b> for more advanced editing options. <br>Please note: <br>- If you choose the <b>Template editor</b> after adding content to this section using the <b>HTML5 editor</b>, you will need to re-enter this content. <br>- Once changes made with the <b>Template editor</b> have been saved, you will no longer be able to access the <b>HTML5 editor</b>.";
@@ -653,192 +1581,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.get('model').set('show_template', true);
         this.set('editingAbout', !this.get('editingAbout'));
     },
-    yesAbout: function(checkingInfo) {
-        $(window).scrollTop(650);
-        if (checkingInfo === "aboutMe") {
-
-            this.set('editingAbout', !this.get('editingAbout'));
-        }
-        if (this.get('model').get('show_template')) {
-//            for (var i = 0; i < this.get('about_us').objectAt(0).get('about_book').get('length'); i++) {
-//                var about_book = this.get('about_us').objectAt(0).get('about_book').objectAt(i);
-//                if (about_book.get('book_read_url') !== null && about_book.get('book_read_url') !== '' && about_book.get('book_read_url') !== undefined) {
-//                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('read_available', true);
-//                } else {
-//                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('read_available', false);
-//                }
-//
-//                if (about_book.get('book_buy_url') !== null && about_book.get('book_buy_url') !== '' && about_book.get('book_buy_url') !== undefined) {
-//                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('buy_available', true);
-//                } else {
-//                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('buy_available', false);
-//                }
-//            }
-            for (var i = 0; i < this.get('about_us').objectAt(0).get('about_embeded_object').get('length'); i++) {
-                var about_embeded_object = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i);
-                if (about_embeded_object.get('embeded_object_code') !== null && about_embeded_object.get('embeded_object_code') !== '' && about_embeded_object.get('embeded_object_code') !== undefined) {
-                    this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embed_object_enabled', true);
-                    var embeded_object_code = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).get('embeded_object_code');
-                    var embeded_object_id = embeded_object_code.split('?')[1].split('=')[1];
-                    this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embeded_object_id', embeded_object_id);
-                    if (about_embeded_object.get('embeded_object_url') !== null && about_embeded_object.get('embeded_object_url') !== '' && about_embeded_object.get('embeded_object_url') !== undefined) {
-                        setTimeout(function() {
-                            $(".getapp-btn").css("width", "380px");
-                        }, 500);
-                    } else {
-                        setTimeout(function() {
-                            $(".getapp-btn").css("width", "180px");
-                        }, 500);
-                    }
-                } else {
-                    this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embed_object_enabled', false);
-                }
-            }
-
-            if (this.get('about_us').objectAt(0).get('about_image'))
-            {
-                var count = 0;
-                for (var i = 0; i < this.get('about_us').objectAt(0).get('about_image').get('length'); i++) {
-                    var img_url = this.get('about_us').objectAt(0).get('about_image').objectAt(i).get("image_url");
-                    if (img_url !== "" && img_url !== null && img_url !== undefined) {              
-                        count = count + 1;
-                    }         
-                }
-            
-                if (count === 2) {
-                    setTimeout(function() {
-                        $(".left-bottom-area").css("width", "530px");
-                    }, 500);
-                } else if (count === 1) {
-                    setTimeout(function() {
-                        $(".left-bottom-area").css("width", "260px");
-                    }, 500);
-                }
-
-
-            }
-
-            if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0) {
-                this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));
-            }
-
-
-            this.get('about_us').objectAt(0).save();
-            this.get('model').store.save();
-            this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
-        } else {
-            this.saveUpdateAboutUs();
-        }
-    },
-    yes: function(checkingInfo) {
-        if (checkingInfo === "profileName") {
-            var title_modify_time = Date.parse(new Date());
-            var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-            this.set('editing', !this.get('editing'));
-            update_profile_record.set("profile_name", this.get('profile_name'));
-            update_profile_record.set("title_modify_time", title_modify_time);
-            this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
-            update_profile_record.store.save();
-        }
-        else if (checkingInfo === "contact") {
-            if (this.get("website_url") !== null) {
-                if (this.get("website_url").match(/[http]/g) !== -1 || this.get("website_url").match(/[http]/g) !== null)
-                {
-                    this.set("website_url", this.get("website_url"));
-                } else {
-                    this.set("website_url", "http://" + this.get("website_url"));
-                }
-            }
-
-
-            this.set('editingContact', !this.get('editingContact'));
-            this.saveUpdateGeneral();
-        }
-        else if (checkingInfo === "timeSetting") {
-            var updateHour = this.get('hours');
-            var data = "";
-            for (var i = 0; i < updateHour.length; i++) {
-                data = data + updateHour.objectAt(i).day + "=" + updateHour.objectAt(i).time + ",";
-            }
-            this.set('model.profile_hours', data.substring(0, data.length - 1));
-            this.set('editingTime', !this.get('editingTime'));
-            this.saveUpdate();
-        }
-    },
-    noSelection: function() {
-        this.set('editing', false);
-        this.set('makeSelection', false);
-    },
-    no: function(checkingInfo) {
-        $(window).scrollTop(650);
-        if (checkingInfo === "profileName") {
-            this.set('profile_name', profile_record);
-            this.set('editing', !this.get('editing'));
-        }
-        else if (checkingInfo === "aboutMe") {
-            var author = this.get('model');
-            author.get('transaction').rollback();
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
-                setTimeout(function() {
-                    $('#masonry_user_container').masonry();
-                }, 300);
-            }, 800);
-            this.setAboutUsObject();
-            this.set('editingAbout', !this.get('editingAbout'));
-        }
-        else if (checkingInfo === "contact") {
-            this.set('first_name', first_name_record);
-            this.set('last_name', last_name_record);
-            this.set('model.profile_category', category_record);
-            this.set('address', address_record);
-            this.set('suburb', suburb_record);
-            this.set('profile_contact_number', phone_record);
-            this.set('website', website_record);
-            this.set('website_url', website_url_record);
-            this.set('editingContact', !this.get('editingContact'));
-        }
-        else if (checkingInfo === "timeSetting") {
-            this.updateWorkingHourData(this.get('model.profile_hours'));
-            this.set('editingTime', !this.get('editingTime'));
-        }
-        
-        for (var i = 0; i < this.get('about_us').objectAt(0).get('about_embeded_object').get('length'); i++) {
-                var about_embeded_object = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i);
-                if (about_embeded_object.get('embeded_object_code') !== null && about_embeded_object.get('embeded_object_code') !== '' && about_embeded_object.get('embeded_object_code') !== undefined) {
-                    if (about_embeded_object.get('embeded_object_url') !== null && about_embeded_object.get('embeded_object_url') !== '' && about_embeded_object.get('embeded_object_url') !== undefined) {
-                        setTimeout(function() {
-                            $(".getapp-btn").css("width", "380px");
-                        },500);
-                    } else {
-                        setTimeout(function() {
-                            $(".getapp-btn").css("width", "180px");
-                        }, 500);
-                    }
-                }
-            }
-        if (this.get('about_us').objectAt(0).get('about_image'))
-        {
-            var count = 0;
-            for (var i = 0; i < this.get('about_us').objectAt(0).get('about_image').get('length'); i++) {
-                var img_url = this.get('about_us').objectAt(0).get('about_image').objectAt(i).get("image_url");
-                if (img_url !== "" && img_url !== null && img_url !== undefined) {
-                    count = count + 1;
-                }
-            }
-                    if (count === 2) {
-                        setTimeout(function() {
-                        $(".left-bottom-area").css("width", "530px");
-                        }, 500);
-                    } else if (count === 1) {
-                        setTimeout(function() {
-                        $(".left-bottom-area").css("width", "260px");
-                        }, 500);
-                    }
-                
-           
-        }
-    },
     updateWorkingHourData: function(times) {
         this.set('hours', []);
         if (times !== null && times !== "" && typeof times !== "undefined") {
@@ -881,79 +1623,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     followersStatistics: function(length) {
         this.set('profileFollowerStatistics', length);
     },
-    deleteSelectedCollection: function()
-    {
-
-        var message = "Remove this collection?";
-        this.set("message", message);
-        this.set('makeSureDelete', true);
-        if (this.get('willDelete')) {
-            var tempCollection = this.get("selectedCollection");
-            var delInfo = [tempCollection.get("id"), this.get('model').get('id'), 'profile'];
-            delInfo = JSON.stringify(delInfo);
-            requiredBackEnd('collections', 'delete', delInfo, 'POST', function() {
-            });
-            this.get("collections").removeObject(this.get("selectedCollection"));
-            this.statstics();
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
-                setTimeout(function() {
-                    $('#masonry_user_container').masonry();
-                }, 300);
-            }, 800);
-            this.cancelDelete();
-        } else {
-            this.set('willDelete', true);
-        }
-    },
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
-    },
-    updateCollectionInfo: function() {
-        if (this.get('newDesc').length < 256) {
-            this.get('selectedCollection').set('title', this.get('newTitle'));
-            this.get('selectedCollection').set('desc', this.get('newDesc'));
-            var collectionController = this.get('controllers.collection');
-            var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
-            collection.set('optional', this.get('model').get('id'));
-            collection.set('type', 'profile');
-            this.set('selectedCollection', collection);
-            this.get("selectedCollection").store.save();
-            $(".Targeting_Object_front").attr("style", "display:inline-block");
-            $(" #uploadArea").attr('style', "display:none");
-            $(" #uploadObject").attr('style', "display:block");
-            this.set('newTitle', '');
-            this.set('newDesc', '');
-        }
-        else
-        {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
-        }
-        setTimeout(function() {
-            $('#masonry_user_container').masonry();
-        }, 20);
-    },
     toggleUpload: function() {
         $('.corpbanner_mask').toggleClass('hideClass');
         this.set('uploadChecking', !this.get('uploadChecking'));
-    },
-    editingContactForm: function() {
-
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            this.sendEventTracking('event', 'button', 'click', 'Contact us');
-            var contactController = this.get('controllers.contact');
-            this.get("controllers.contact").set('secondStepOfContactEmail', false);
-            this.get("controllers.contact").set('firstStepOfContactEmail', false);
-            contactController.setSelectedMega(this.get('currentUserID'));
-            document.getElementById("body_id").style.overflow = "hidden";
-            this.set('contactChecking', !this.get('contactChecking'));
-        }
-    },
-    closeContact: function() {
-        this.set('contactChecking', false);
-        document.getElementById("body_id").style.overflow = "auto";
     },
     closeShareEmail: function() {
         this.set('shareEmail', false);
@@ -969,7 +1641,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if ($('.picture').val() !== "") {
             user.set("profile_pic_url", $('.picture').val());
         }
-        this.saveUpdate();
+        this.send("saveUpdate");
         this.toggleUpload();
     },
     checkAuthenticUser: function() {
@@ -999,7 +1671,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //                this.set('isAdmin', isAdmin || is_edit);
                 that.set("is_authentic_user", is_authentic_user || is_edit);
             } else {
-
                 currentUser.then(function() {
                     var current_user_email = currentUser.get('email');
                     if (currentUser.get('isLoaded')) {
@@ -1008,6 +1679,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         that.set("is_authentic_user", is_authentic_user || is_edit);
                         var isAdmin = permissionController.setIsAdmin(current_user_email);
                         that.set('isAdmin', isAdmin);
+                        setTimeout(function() {
+                            $('#masonry_user_container').masonry("reloadItems");
+                            setTimeout(function() {
+                                $('#masonry_user_container').masonry();
+                            }, 4);
+                        }, 10);
                     }
                 });
             }
@@ -1022,46 +1699,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         else {
             this.set('follow_status', false);
         }
-    },
-    followThisProfile: function() {
-
-        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
-            var profile_id = this.get('model').get('id');
-            if (this.checkFollowStatus() === false) {
-                this.get("controllers.userFollowings").followProfile(profile_id);
-                this.sendEventTracking('event', 'button', 'click', 'Follow');
-                this.set('follow_status', true);
-            } else {
-                this.get("controllers.userFollowings").unFollowProfile(profile_id);
-                this.sendEventTracking('event', 'button', 'click', 'unFollow');
-                this.set('follow_status', false);
-            }
-        }
-
-    },
-    socialLink: function(link) {
-        if (link === 'facebook') {
-            window.open(this.get("facebook"));
-        }
-        else if (link === 'twitter') {
-            window.open(this.get("twitter"));
-        }
-        else if (link === 'googleplus') {
-            window.open(this.get("googleplus"));
-        }
-        else if (link === 'pinterest') {
-            window.open(this.get("pinterest"));
-        }
-        else if (link === 'youtube') {
-            window.open(this.get("youtube"));
-        }
-        else if (link === 'linkedin') {
-            window.open(this.get("linkedin"));
-        }
-        else if (link === 'instagram') {
-            window.open(this.get("instagram"));
-        }
-
     },
     checkFollowStatus: function()
     {
@@ -1095,119 +1732,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }, 200);
         }, 250);
     },
-    selectCollection: function() {
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#defualt').addClass('selected-user-stats');
-        this.sendEventTracking('event', 'button', 'click', 'Collections');
-        this.set('partnerPage', 'Collections');
-        this.set('profileSelectionStatus', 'Collections');
-        this.set('partnerTag', false);
-        this.set('followerProfileTag', false);
-        this.set('collectionTag', true);
-        this.set('reviewTag', false);
-        this.set('videoTag', false);
-        this.set('pdfTag', false);
-        this.transitionToRoute('profileCollections');
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-            setTimeout(function() {
-                $('#masonry_user_container').masonry();
-                $('html,body').animate({
-                    scrollTop: $("#profile_submenu").offset().top - 100
-                });
-            }, 200);
-        }, 250);
-    },
-    selectVideo: function(model) {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            this.sendEventTracking('event', 'button', 'click', 'Video');
-            $('#user-stats > li').removeClass('selected-user-stats');
-            $('#video').addClass('selected-user-stats');
-            this.set('profileSelectionStatus', 'Videos');
-            this.get('controllers.profileVideos').getClientId(model);
-            this.set('videoTag', true);
-            this.set('pdfTag', false);
-            this.set('partnerTag', false);
-            this.set('collectionTag', false);
-            this.set('reviewTag', false);
-            this.set('followerProfileTag', false);
-            this.transitionToRoute('profileVideos');
-        }
-    },
-    selectPartner: function() {
-
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            this.sendEventTracking('event', 'button', 'click', 'Partners');
-            $('#user-stats > li').removeClass('selected-user-stats');
-            $('#network').addClass('selected-user-stats');
-            this.set('profileSelectionStatus', 'Network');
-            this.set('partnerTag', true);
-            this.set('collectionTag', false);
-            this.set('followerProfileTag', false);
-            this.set('reviewTag', false);
-            this.get('controllers.itemProfiles').setPartnerRemove();
-            this.set('videoTag', false);
-            this.set('pdfTag', false);
-            this.transitionToRoute('partners');
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
-                setTimeout(function() {
-                    $('#masonry_user_container').masonry();
-                    $('html,body').animate({
-                        scrollTop: $("#profile_submenu").offset().top - 100
-                    });
-                }, 100);
-            }, 250);
-        }
-    },
-    selectFollower: function() {
-
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            this.sendEventTracking('event', 'button', 'click', 'Followers');
-            this.set('profileSelectionStatus', 'Followers');
-            this.set('partnerTag', false);
-            this.set('collectionTag', false);
-            this.set('followerProfileTag', true);
-            this.set('reviewTag', false);
-            this.set('videoTag', false);
-            this.set('pdfTag', false);
-            this.transitionToRoute('profileFollowers');
-        }
-    },
-    selectReview: function() {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            this.sendEventTracking('event', 'button', 'click', 'Reviews');
-            this.set('profileSelectionStatus', 'Reviews');
-            this.set('partnerTag', false);
-            this.set('collectionTag', false);
-            this.set('followerProfileTag', false);
-            this.set('reviewTag', true);
-            this.set('videoTag', false);
-            this.set('pdfTag', false);
-            this.transitionToRoute('reviews');
-        }
-    },
-    selectPdf: function(model) {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            this.sendEventTracking('event', 'button', 'click', 'PDF');
-            this.set('profileSelectionStatus', 'Pdf');
-            this.get('controllers.profilePdf').getClientId(model);
-            this.set('videoTag', false);
-            this.set('pdfTag', true);
-            this.set('partnerTag', false);
-            this.set('collectionTag', false);
-            this.set('reviewTag', false);
-            this.set('followerProfileTag', false);
-            $('#user-stats > li').removeClass('selected-user-stats');
-            $('#pdf').addClass('selected-user-stats');
-            this.transitionToRoute('profilePdf');
-        }
-    },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
         var textarea = document.getElementById("wysihtml5-editor");
@@ -1216,108 +1740,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
         update_About_record.store.save();
     },
-    saveUpdateGeneral: function() {
-        var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-        update_profile_record.set('profile_contact_first_name', this.get('first_name'));
-        update_profile_record.set('profile_contact_last_name', this.get('last_name'));
-        update_profile_record.set("profile_name", this.get('profile_name'));
-        update_profile_record.set('profile_physical_address', this.get('address'));
-        update_profile_record.set('profile_suburb', this.get('suburb'));
-        update_profile_record.set('profile_contact_number', this.get('profile_contact_number'));
-        update_profile_record.set('profile_regoin', this.get('region'));
-        update_profile_record.set('profile_country', this.get('country'));
-        update_profile_record.set('profile_cover_text', this.get('profile_cover_text'));
-        update_profile_record.set('profile_analytics_code', this.get('profile_analytics_code'));
-        update_profile_record.set('profile_website', this.get('website'));
-        update_profile_record.set('profile_website_url', this.get('website_url'));
-        update_profile_record.set('profile_category', this.get('profileCategorySelection'));
-        update_profile_record.set('profile_subcategory', this.get('profileSubcategorySelection'));
-        this.createGooglemap();
-        this.set('toAddress', update_profile_record.get('profile_physical_address') + ", " + update_profile_record.get('profile_suburb') + ", " + update_profile_record.get('profile_regoin') + ", " + update_profile_record.get('profile_country'));
-        this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
-        update_profile_record.store.save();
-    },
-    saveUpdate: function() {
-        var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-        update_profile_record.set('profile_editors', this.get('editors'));
-        update_profile_record.set('profile_keywords', this.get('keywords'));
-        update_profile_record.set('profile_regoin', this.get('region'));
-        update_profile_record.set('profile_country', this.get('country'));
-        update_profile_record.set('profile_boost', this.get('boost'));
-        update_profile_record.set('profile_domains', this.get('domains'));
-        update_profile_record.set('profile_hero_url', this.get('profile_hero_url'));
-        update_profile_record.set('profile_pic_url', this.get('profile_pic_url'));
-        update_profile_record.set('profile_bg_url', this.get('profile_bg_url'));
-        update_profile_record.set('show_keyword_id', this.get('show_keyword_id'));
-        this.saveLink('profile_facebook_link', 'facebook');
-        this.saveLink('profile_twitter_link', 'twitter');
-        this.saveLink('profile_googleplus_link', 'googleplus');
-        this.saveLink('profile_pinterest_link', 'pinterest');
-        this.saveLink('profile_linkedin_link', 'linkedin');
-        this.saveLink('profile_youtube_link', 'youtube');
-        this.saveLink('profile_instagram_link', 'instagram');
-        if (this.get('controllers.profilePartners').get("partnerNew") !== undefined && this.get('controllers.profilePartners').get("partnerNew") !== null && this.get('controllers.profilePartners').get("partnerNew") !== "")
-        {
-            if (update_profile_record.get('profile_partner_ids').length !== this.get('controllers.profilePartners').get("partnerNew").length) {
-                update_profile_record.set('profile_partner_ids', this.get('controllers.profilePartners').get("partnerNew"));
-                this.get('controllers.profilePartners').set("partnerNew", "");
-            }
-        }
-        update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
-        update_profile_record.set('owner_contact_cc_emails', this.get('secondary_email'));
-        if (this.get('contact_email') !== null || this.get('contact_email') !== undefined || this.get('contact_email') !== "") {
-            update_profile_record.set('owner_contact_email', this.get('contact_email'));
-        }
-        update_profile_record.set("profile_is_active", this.get("projectActiveDropdownContent"));
-        update_profile_record.set("profile_is_deleted", this.get("projectDeleteDropdownContent"));
-        this.createGooglemap();
-        this.set('toAddress', update_profile_record.get('profile_physical_address') + ", " + update_profile_record.get('profile_suburb') + ", " + update_profile_record.get('profile_regoin') + ", " + update_profile_record.get('profile_country'));
-        if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
-            update_profile_record.get('stateManager').transitionTo('loaded.saved');
-        }
-        $('#errorMessage2').attr('style', 'display:none');
-        if (this.checkKeywordNum(this.get('projectCategoryDropdownContent'), update_profile_record.get('profile_package_name')) && this.getKeywordsNum(this.get('projectCategoryDropdownContent')) - update_profile_record.get('keywords').get('length') < 0) {
-
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please delete keywords, it can't exceed " +
-                    this.getKeywordsNum(this.get('projectCategoryDropdownContent')));
-            $('#errorMessage2').attr('style', 'display:block;height:30px;color:#ff0000;');
-            this.set('projectCategoryDropdownContent', update_profile_record.get('profile_package_name'));
-        } else {
-
-            update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
-            this.setKeywordsNum(this.get('model').get('profile_package_name'));
-            update_profile_record.set('profile_keywords_num', parseInt(this.get('keyword_num')));
-            update_profile_record.set('profile_boost', parseInt(this.get('boost')));
-            this.set('keyword_left', parseInt(this.get("keyword_num")) - update_profile_record.get('keywords').get('length'));
-            if (this.get('contact_email') === null || this.get('contact_email') === undefined || this.get('contact_email') === "")
-            {
-                this.get('controllers.applicationFeedback').statusObserver(null, "Please type in Direct Enquiry Primary Email.");
-            } else {
-                this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
-                update_profile_record.store.save();
-            }
-
-        }
-
-    },
-    addKeywords: function() {
-        var keywords_JSON = [];
-        var add_keywords_array = this.get('add_keywords').split(',');
-        if (this.get('keywords_array').get('length') + add_keywords_array.get('length') <= this.get('keyword_num')) {
-            for (var i = 0; i < add_keywords_array.get('length'); i++) {
-                if (add_keywords_array[i].trim() !== '' && add_keywords_array[i] !== null && add_keywords_array[i] !== undefined) {
-                    var keyword = this.addKeyword(add_keywords_array[i].trim());
-                    keywords_JSON.push(JSON.stringify(keyword));
-                }
-            }
-            requiredBackEnd('keywords', 'addKeywords', keywords_JSON, 'POST', function() {
-            });
-            this.set('add_keywords', "");
-            this.set('keyword_left', this.get('keyword_left') - add_keywords_array.get('length'));
-        } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "You can not add keywords more than " + this.get('keyword_num'), 'failed');
-        }
-    },
     addKeyword: function(keyword_name) {
         var keyword_id = new Date().getTime() + Math.random().toString().substring(2, 7);
         var keyword = HubStar.Keyword.createRecord({"keyword_id": keyword_id, "keyword_name": keyword_name, "create_date": new Date().getTime(),
@@ -1325,74 +1747,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.get('keywords_array').pushObject(keyword);
         return keyword;
     },
-    deleteKeywords: function(keyword_id, type) {
-        if (type === "all") {
-            for (var i = 0; i < this.get('keywords_array').get('length'); i++) {
-                if (this.get('keywords_array').objectAt(i).get('keyword_id') === keyword_id) {
-                    requiredBackEnd('keywords', 'delete', JSON.stringify(this.get('keywords_array').objectAt(i)), 'POST', function() {
-                    });
-                    this.get('keywords_array').removeObject(this.get('keywords_array').objectAt(i));
-                    this.set('keyword_left', this.get('keyword_left') + 1);
-                }
-            }
-            if (this.get('show_keyword_id').indexOf(keyword_id) > -1) {
-                this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
-                this.set('show_keyword_id', this.get('show_keyword_id').replace(keyword_id, ''));
-                for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
-                    if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {
-                        this.get('show_keyword_array').removeObject(this.get('show_keyword_array').objectAt(i));
-                        this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
-                    }
-                }
-            }
-        } else {
-            for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
-                if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {
-                    this.get('show_keyword_array').removeObject(this.get('show_keyword_array').objectAt(i));
-                    this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
-                    this.set('show_keyword_id', this.get('show_keyword_id').replace(keyword_id, ''));
-                }
-            }
-        }
-    },
-    flipFrontClick: function() {
-        $("#profilePanel").addClass('flip');
-        this.selectionForDashborad();
-    },
     selectionForDashborad: function() {
         $('.front').attr("style", "text-align: inherit; width: auto;  box-shadow: none; border: none; position: relative;height:" + $('.back').height() + "px");
         $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius:3px;border:none;position:absolute;top:0;left:0; display:block");
     },
-    changeSize: function() {
-        var that = this;
-        setTimeout(function() {
-            that.selectionForDashborad();
-        }, 1);
-    },
-    flipFrontBack: function() {
-        $("#profilePanel").removeClass('flip');
-        $('.front').attr("style", "text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative;");
-    }, setUploadImageMode: function(mode)
-    {
-        this.set('isPhotoUploadMode', true);
-        this.set('isPhotoEditingMode', false);
-        this.set('isFinished', false);
-        this.set('UploadImageMode', mode);
-        if (mode === "Profile Picture") {
-            this.set("backgroundImage", "http://develop.devbox.s3.amazonaws.com/uploaddemo-profilepicture.png");
-        } else if (mode === "Profile Hero") {
-            this.set("backgroundImage", "http://develop.devbox.s3.amazonaws.com/uploaddemo-profilehero.png");
-        } else {
-            this.set("backgroundImage", "http://develop.devbox.s3.amazonaws.com/uploaddemo-profilebackground.png");
-        }
-        var data = {"RequireIamgeType": mode};
-        var that = this;
-        requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
-
-            var requiredSize = "Your required image size is " + params.width + "x" + params.height;
-            that.set('RequiredImageSize', requiredSize);
-        });
-    }, profileStyleImageDrop: function(e, name)
+    profileStyleImageDrop: function(e, name)
     {
         var target = getTarget(e, "single");
         var src = target.result;
@@ -1431,88 +1790,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         return update_profile_record;
     },
-    cropButton: function()
-    {
-
-        this.set('cropsize', $('#panel').text());
-        this.set('isPhotoUploadMode', false);
-        this.set('isPhotoEditingMode', true);
-        this.set('isFinished', false);
-        this.set('isUpload', false);
-        if (this.get('UploadImageMode') === "Profile Picture")
-        {
-            this.set('isProfilePicture', true);
-            this.set('isProfileHero', false);
-            this.set('isProfileBackground', false);
-        } else if (this.get('UploadImageMode') === "Profile Hero")
-        {
-            this.set('isProfilePicture', false);
-            this.set('isProfileHero', true);
-            this.set('isProfileBackground', false);
-        } else if (this.get('UploadImageMode') === "Background")
-        {
-            this.set('isProfilePicture', false);
-            this.set('isProfileHero', false);
-            this.set('isProfileBackground', true);
-        }
-        var that = this;
-        Ember.run.later(function() {
-            crop(that.get('newStyleImageSource'));
-        }, 0);
-    },
-    photoUpload: function() {
-        if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
-        {
-
-            var src = this.get('newStyleImageSource');
-            var that = this;
-            that.set('loadingTime', true);
-            getImageWidth(src, function(width, height) {
-                that.set('currentWidth', width);
-                that.set('currentHeight', height);
-                var data = {"RequireIamgeType": that.get('UploadImageMode')};
-                requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
-                    if ((width >= params.width) && (height >= params.height))
-                    {
-
-                        if (that.get('isUpload') === true) {
-                            that.setTempImage();
-                        }
-                        else if (that.get('isCrop') === true)
-                        {
-                            that.setCropImage();
-                        }
-
-                        var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
-                            'newStyleImageName': that.get('newStyleImageName'),
-                            'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
-                            'id': that.get('model.id')};
-                        requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function() {
-                            that.set('isPhotoEditingMode', false);
-                            that.set('isPhotoUploadMode', false);
-                            that.set('isUpload', false);
-                            that.set("isCrop", false);
-                            that.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
-                            that.set('loadingTime', false);
-                            that.set('isFinished', true);
-                        });
-                    }
-                    else if (width < params.width || height < params.height) {
-                        that.set('loadingTime', false);
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
-                        $("#smallUploadImage").css("display", "none");
-                        that.set('newStyleImageSource', "");
-                        that.set('newStyleImageName', "");
-                        that.set('CurrentImageSize', "");
-                        that.set('isCrop', false);
-                        that.set('isUpload', false);
-                    }
-
-                });
-            });
-        }
-
-    },
     setCropImage: function() {
         var cropData = getResults();
         this.set('newStyleImageSource', cropData);
@@ -1545,59 +1822,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 
     },
-    resetNewStyleImageSource: function()
-    {
-        this.set('newStyleImageSource', "");
-        $("#smallUploadImage").css("display", "none");
-        this.set('newStyleImageName', "");
-        this.set('CurrentImageSize', "");
-        this.set('isCrop', false);
-        this.set('isUpload', false);
-        this.changeSize();
-    }, dropdown: function(checking) {
-        if (checking === "package") {
-            this.set('isActiveDropdown', false);
-            this.set('isDeleteDropdown', false);
-            this.set('isPackgetDropdown', !this.get('isPackgetDropdown'));
-        } else if (checking === "active") {
-            this.set('isDeleteDropdown', false);
-            this.set('isPackgetDropdown', false);
-            this.set('isActiveDropdown', !this.get('isActiveDropdown'));
-        }
-        else if (checking === "delete") {
-            this.set('isPackgetDropdown', false);
-            this.set('isActiveDropdown', false);
-            this.set('isDeleteDropdown', !this.get('isDeleteDropdown'));
-        }
-        if (checking === "category") {
-            this.set('profileSubcategoryDropdown', false);
-            this.set('profileCategoryDropdown', !this.get('profileCategoryDropdown'));
-        }
-        else if (checking === "subcategory") {
-            this.set('profileCategoryDropdown', false);
-            this.set('profileSubcategoryDropdown', !this.get('profileSubcategoryDropdown'));
-        }
-    },
-    rateEditing: function() {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-
-            if (this.get('model').get('reviews').get('length') === 0) {
-                this.set("rateTime", true);
-            }
-            else if (this.get('model').get('reviews').get('length') > 0) {
-                if (this.get('model').get('reviews').objectAt(0).get("review_user_id").indexOf(localStorage.loginStatus) !== -1)
-                {
-                    this.set("rateTime", false);
-                    this.transitionToRoute('reviews');
-                    $(window).scrollTop(2500);
-                    this.get('controllers.applicationFeedback').statusObserver(null, "You have already reviewed this profile, thank you!", "warnning");
-                } else {
-                    this.set("rateTime", true);
-                }
-            }
-        }
-    },
     setCollectionAttr: function() {
         this.set("newTitle", this.get('selectedCollection').get('title'));
         this.set("newDesc", this.get('selectedCollection').get('desc'));
@@ -1609,12 +1833,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.get('selectedCollection').set('desc', collection_desc_record);
         this.set("newTitle", collection_title_record);
         this.set("newDesc", collection_desc_record);
-    },
-    gotoSize: function()
-    {
-        if (this.get('website_url') !== null && this.get('website_url') !== "") {
-            window.open(this.get('website_url'));
-        }
     },
     sendEventTracking: function(hitType, category, action, label) {
         if (this.isTracking && this.get('model').get('profile_analytics_code') !== null) {
@@ -1628,187 +1846,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 });
             }
         }
-    },
-    dropdownPhotoSetting: function() {
-        $("#dropdown_id_").toggleClass('hideClass');
-        $("#dropdown_id_").click(function() {
-            $(this).removeClass('hideClass');
-        }).mouseleave(function() {
-            $(this).addClass('hideClass');
-        });
-    },
-    // share to social facebook
-    fbShare: function() {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            var that = this;
-            var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
-            var caption = '';
-            if (this.get('profile_cover_text') !== null)
-            {
-                caption = this.get('profile_cover_text');
-            }
-            else
-            {
-                caption = '';
-            }
-
-            var obj = {
-                method: 'feed',
-                link: currntUrl,
-                picture: this.get('profile_pic_url'),
-                name: this.get('profile_name'),
-                caption: 'Trends Ideas',
-                description: caption
-            };
-            function callback(response) {
-                if (response && response.post_id) {
-                    var mega = HubStar.Mega.find(that.get('currentUserID'));
-                    mega.then(function() {
-                        if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-                        {
-                            mega.set("share_count", 0);
-                        }
-                        else
-                        {
-                            mega.set("share_count", mega.get("share_count") + 1);
-                        }
-                        mega.store.save();
-                    });
-                    that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
-                } else {
-                    that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
-                }
-            }
-
-            FB.ui(obj, callback);
-            return false;
-        }
-    },
-    //share to social google plus
-    gpShare: function() {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            var caption = '';
-            if (this.get('profile_cover_text') !== null)
-            {
-                caption = this.get('profile_cover_text');
-            }
-            else
-            {
-                caption = '';
-            }
-
-            $("meta[property='og\\:title']").attr("content", this.get('profile_name'));
-            $("meta[property='og\\:description']").attr("content", caption);
-            $("meta[property='og\\:image']").attr("content", this.get('profile_pic_url'));
-            var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
-            var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
-            var mega = HubStar.Mega.find(this.get('currentUserID'));
-            mega.then(function() {
-                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-                {
-                    mega.set("share_count", 0);
-                }
-                else
-                {
-                    mega.set("share_count", mega.get("share_count") + 1);
-                }
-                mega.store.save();
-            });
-            window.open(
-                    url,
-                    'popupwindow',
-                    'scrollbars=yes,width=800,height=400'
-                    ).focus();
-            return false;
-        }
-    },
-    //share to social twitter
-    tShare: function() {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
-            var url = 'https://twitter.com/share?text=' + this.get('profile_name') + '&url=' + encodeURIComponent(currntUrl);
-            var mega = HubStar.Mega.find(this.get('currentUserID'));
-            mega.then(function() {
-                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-                {
-                    mega.set("share_count", 0);
-                }
-                else
-                {
-                    mega.set("share_count", mega.get("share_count") + 1);
-                }
-                mega.store.save();
-            });
-            window.open(
-                    url,
-                    'popupwindow',
-                    'height=436,width=626'
-                    ).focus();
-            return false;
-        }
-    },
-    pShare: function() {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
-            var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
-                    '&media=' + encodeURIComponent(this.get('profile_pic_url')) +
-                    '&description=' + encodeURIComponent(this.get('profile_name'));
-            var mega = HubStar.Mega.find(this.get('currentUserID'));
-            mega.then(function() {
-                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-                {
-                    mega.set("share_count", 0);
-                }
-                else
-                {
-                    mega.set("share_count", mega.get("share_count") + 1);
-                }
-                mega.store.save();
-            });
-            window.open(
-                    url,
-                    'popupwindow',
-                    'height=436,width=626'
-                    ).focus();
-            return false;
-        }
-    },
-    eShare: function() {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            var currentUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
-            var mega = HubStar.Mega.find(this.get('currentUserID'));
-            mega.then(function() {
-                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-                {
-                    mega.set("share_count", 0);
-                }
-                else
-                {
-                    mega.set("share_count", mega.get("share_count") + 1);
-                }
-                mega.store.save();
-            });
-            var shareEmailController = this.get('controllers.shareEmail');
-            shareEmailController.setSelectedMega(this.get('currentUserID'));
-//            var selectid = this.get('selectedPhoto').id; 
-            shareEmailController.setThumbnailUrl(this.get('profile_pic_url'));
-            shareEmailController.setUrl(currentUrl);
-            shareEmailController.setUser();
-            shareEmailController.setRelatedController('profile');
-//            shareEmailController.setSelectedMega(selectid);
-            shareEmailController.setTitle(this.get('profile_name'));
-            this.set("isShareEmail", true);
-        }
-    },
-    keywordSearch: function(keyword) {
-        this.transitionToRoute('searchIndexTom');
-        this.get("controllers.application").set('search_string', keyword);
-        this.get("controllers.application").newSearch();
     },
     dragIntoFront: function() {
         if (this.get('dragTargetIndex') < 0) {
@@ -1827,29 +1864,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.get('controllers.applicationFeedback').statusObserver(null, "This keyword has already been added to your display list.", "warnning");
             }
         }
-    },
-    partnerSearch: function()
-    {
-        if (this.get('partnerSearchString') !== null && this.get('partnerSearchString') !== '') {
-            var profilePartnersController = this.get("controllers.profilePartners");
-            profilePartnersController.searchPartner(this.get('partnerSearchString'));
-        }
-    },
-    partnerSearchReset: function(model)
-    {
-        var profilePartnersController = this.get("controllers.profilePartners");
-        this.set('partnerSearchString', '');
-        profilePartnersController.getClientId(model);
-    },
-    getVideoURL: function() {
-        var video_url = this.get('about_us').objectAt(0).get('about_video').objectAt(0).get('video_url').split('?');
-        if (video_url.get('length') > 1) {
-            var VideoURL = '//www.youtube.com/embed/' + video_url[1].split('=')[1];
-            this.set('embeded_url', VideoURL);
-        } else {
-            this.set('embeded_url', '');
-        }
     }
+
 }
 );
 

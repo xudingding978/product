@@ -1,4 +1,4 @@
-HubStar.ConversationRoute = Ember.Route.extend({
+HubStar.ConversationSingleRoute = Ember.Route.extend({
     setupController: function(controller, model) {
      
         $(window).scrollTop(550);

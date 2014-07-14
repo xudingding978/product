@@ -20,6 +20,13 @@ HubStar.NewConversationRoute = Ember.Route.extend({
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
         return user_id;
+    },
+    renderTemplate: function() {
+
+        this.render("newConversation", {
+            outlet: "newConversation",
+            into: "messageCenter"
+        });
     }
 });
 

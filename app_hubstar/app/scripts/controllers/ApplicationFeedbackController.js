@@ -2,6 +2,21 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
     needs: ['application'],
     photo_url: '',
     is_remove: false,
+    actions: {
+        removeButton: function() {
+
+            if (this.get('is_remove') === true) {
+
+                $('.fresh-message').hide('1000').animate({
+                }, 400);
+
+
+                this.set('is_remove', false);
+
+            }
+
+        }
+    },
     setFeedback: function(status) {
 
         this.set('is_remove', false);
@@ -20,24 +35,11 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
                     top: -5
                 }, 400);
             }, 200);
-        }      
+        }
 
 //        Ember.run.next(function() {
 //
 //        });
-
-    },
-    removeButton: function() {
-
-        if (this.get('is_remove') === true) {
-
-            $('.fresh-message').hide('1000').animate({
-            }, 400);
-
-
-            this.set('is_remove', false);
-
-        }
 
     },
     statusObserver: function(record, infoChecking, status) {

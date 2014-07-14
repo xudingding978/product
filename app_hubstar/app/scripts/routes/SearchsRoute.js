@@ -60,7 +60,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
             }
         }
     },
-    events: {
+    actions: {
         transitionToPhoto: function(id) {
             this.controllerFor('article').set("accessFromSearchBoard", true);
             this.transitionTo("searchDefaultPhoto", HubStar.Mega.find(id)); //it will got to default search without go to the new search

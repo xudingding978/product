@@ -1,6 +1,6 @@
 {{#if controller.loadingTime}}
 
-{{render loadingSpinner}}
+{{render "loadingSpinner"}}
 
 {{/if}}
 <!--Add new post-->
@@ -11,7 +11,7 @@
 
         <div class="user-post-wrapper">
             <a>
-                <img class="profilepic_comment user-post-img" {{bindAttr src= this.commenter_photo_url}} /> 
+                <img class="profilepic_comment user-post-img" {{bind-attr src= this.commenter_photo_url}} /> 
                 <div class="user-says-angle-before user-post-angle"></div>
                 <div class="user-says-angle-after user-post-angle"></div>
             </a>
@@ -23,7 +23,7 @@
                 {{#if controller.isUploadPhoto}}
                 <div class="user-post-content-upload-photo">
                     <div class='remove-comment-photo easing' {{action removePic}}><i class="fa fa-times"></i></div>
-                    <img  {{bindAttr src= "newStyleImageSource"}} >
+                    <img  {{bind-attr src= "newStyleImageSource"}} >
                 </div>
                 {{/if}}
                 <div class="user-post-content-button">

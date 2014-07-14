@@ -1,8 +1,3 @@
-{{#if controller.loadingTime}}
-
-{{render loadingSpinner}}
-
-{{/if}}
 <div class="Notification-Board box Message-Board" >
     <div class="messagecenter-container">
         <div class="messagecenter-title"><i class="fa fa-bell">&nbsp;&nbsp;&nbsp;</i>Notifications</div>
@@ -15,9 +10,11 @@
         {{#if this.isRead}}
 
         <div class="each-conversation easing">
+
             <div class="notification-content" {{action go this.notification_id}}>
-                 <a {{bindAttr href="controller.photo_url"}}>
-                    <img {{bindAttr src= this.photo_url}} /> 
+                 <a {{bind-attr href="controller.photo_url"}}>
+                    <img {{bind-attr src= this.photo_url}} /> 
+
                 </a>
                 <div>
                     <div class="comment-namentime">
@@ -75,9 +72,11 @@
 
         {{else}}
         <div class="each-conversation easing unread-style">
+
             <div class="notification-content" {{action go this.notification_id}}>
-                 <a  {{bindAttr href="controller.photo_url"}}>
-                    <img  {{bindAttr src= this.photo_url}} /> 
+                 <a  {{bind-attr href="controller.photo_url"}}>
+                    <img  {{bind-attr src= this.photo_url}} /> 
+
                 </a>
                 <div>
                     <div class="comment-namentime">

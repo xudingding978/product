@@ -5,19 +5,21 @@ HubStar.VideoView = Ember.View.extend({
     PartnerTag: false,
     DiscussionTag: false,
     NameTag: false,
+    actions: {
+        setNameTag: function() {
+            $('#poster_action').slideToggle("slow");
+
+        },
+        setTitleTag: function() {
+            $('#article_action').slideToggle(1000);
+        },
+        setDiscussionTag: function() {
+            $('#discuss_action').slideToggle("slow");
+
+        }
+    },
     didInsertElement: function() {
         return this.$().attr({tabindex: 1}), this.$().focus();
-    },
-    setTitleTag: function() {
-        $('#article_action').slideToggle(1000);
-    },
-    setDiscussionTag: function() {
-        $('#discuss_action').slideToggle("slow");
-
-    },
-    setNameTag: function() {
-        $('#poster_action').slideToggle("slow");
-
     },
     setPartnerTag: function() {
         $('#partner_action').slideToggle("slow");
@@ -71,7 +73,7 @@ HubStar.VideoView = Ember.View.extend({
                             break;
                         }
                     }
-                    this.get("controller").transitionTo("collection", data); //user
+                    this.get("controller").transitionToRoute("collection", data); //user
                 }
                 else
                 {
@@ -94,13 +96,13 @@ HubStar.VideoView = Ember.View.extend({
                     }
                     if (videosOrCollection === "collections")
                     {
-                        this.get("controller").transitionTo("profileCollection", data);
+                        this.get("controller").transitionToRoute("profileCollection", data);
                     }
                     else if (videosOrCollection === "videos")
                     {
 
-                        this.get("controller").transitionTo("profile", {id: id});
-                        this.get("controller").transitionTo("profileVideos");
+                        this.get("controller").transitionToRoute("profile", {id: id});
+                        this.get("controller").transitionToRoute("profileVideos");
                     }
 
                 }
@@ -113,7 +115,7 @@ HubStar.VideoView = Ember.View.extend({
                     }
                     else
                     {
-                        this.get("controller").transitionTo("search", {id: id});
+                        this.get("controller").transitionToRoute("search", {id: id});
                     }
                 }
                 $('#masonry_wrapper').attr('style', "top:100px;position:relative");

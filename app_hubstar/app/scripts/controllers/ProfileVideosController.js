@@ -5,6 +5,49 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     videoesContent: [],
     isRenderDeleteItemTemplate: false,
     needs: ['profile', 'permission', 'applicationFeedback'],
+    actions: {
+        videoCreateModeSwitch: function()
+        {
+            if (!this.get('is_video_create_mode'))
+            {
+                document.getElementById("body_id").style.overflow = "hidden";
+            }
+            else {
+                document.getElementById("body_id").style.overflow = "auto";
+            }
+            this.set('is_video_create_mode', !this.get('is_video_create_mode'));
+        },
+        dropdownPhotoSetting: function(id)
+        {
+            this.set('delete_id', id);
+            var ids = '#dropdown_id_' + id;
+            $(ids).toggleClass('hideClass');
+            $(ids).click(function() {
+                $(this).removeClass('hideClass');
+            }).mouseleave(function() {
+                $(this).addClass('hideClass');
+            });
+        },
+        removeCollectedItem: function()
+        {
+            this.set('message', "Remove this video?");
+            this.set('makeSureDelete', !this.get('makeSureDelete'));
+
+        },
+        deleteConfirm: function()
+        {
+            this.deleteSelectedCollection();
+            this.send("cancelDelete");
+        },
+        cancelDelete: function() {
+            this.set('makeSureDelete', !this.get('makeSureDelete'));
+            this.set('message', "");
+            HubStar.set('data', null);
+            $('#dropdown_id_' + this.get('delete_id')).toggleClass('hideClass');
+            this.set('delete_id', null);
+            this.relayout();
+        }
+    },
     getClientId: function(model) {
         var results = HubStar.Mega.find({"RquireType": "video", 'ownerid': model.get("id")});
 
@@ -21,30 +64,6 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
             that.relayout();
         });
         this.checkEditingMode();
-    },
-    videoCreateModeSwitch: function()
-    {
-        if (!this.get('is_video_create_mode'))
-        {
-            document.getElementById("body_id").style.overflow = "hidden";
-        }
-        else {
-            document.getElementById("body_id").style.overflow = "auto";
-        }
-        this.set('is_video_create_mode', !this.get('is_video_create_mode'));
-    },
-    dropdownPhotoSetting: function(id)
-    {
-        this.set('delete_id', id);
-        var ids = '#dropdown_id_' + id;
-        $(ids).toggleClass('hideClass');
-        $(ids).click(function() {
-            $(this).removeClass('hideClass');
-        }).mouseleave(function() {
-            $(this).addClass('hideClass');
-        });
-
-
     },
     checkEditingMode: function()
     {
@@ -74,8 +93,8 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
-                 $('html,body').animate({
-                    scrollTop: $("#profile_submenu").offset().top-100
+                $('html,body').animate({
+                    scrollTop: $("#profile_submenu").offset().top - 100
                 });
             }, 100);
         }, 200);
@@ -94,20 +113,7 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
             var current_user_email = currentUser.get('email');
             var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
             that.set("is_authentic_user", is_authentic_user || is_edit);
-
         });
-    },
-    removeCollectedItem: function()
-    {
-        this.set('message', "Remove this video?");
-        this.set('makeSureDelete', !this.get('makeSureDelete'));
-
-    },
-    deleteConfirm: function()
-    {
-
-        this.deleteSelectedCollection();
-        this.cancelDelete();
     },
     deleteSelectedCollection: function()
     {
@@ -125,25 +131,12 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
                     tempmega.deleteRecord();
                     tempmega.store.save();
                 }
-                                
                 var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
-
                 profile.set("profile_video_num", this.get('videoesContent').get("length"));
-
                 profile.store.save();
                 this.get("controllers.profile").set("profileVideoStatistics", this.get('videoesContent').get("length"));
                 break;
             }
         }
-
-
-    },
-    cancelDelete: function() {
-        this.set('makeSureDelete', !this.get('makeSureDelete'));
-        this.set('message', "");
-        HubStar.set('data', null);
-        $('#dropdown_id_' + this.get('delete_id')).toggleClass('hideClass');
-        this.set('delete_id', null);
-        this.relayout();
     }
 });

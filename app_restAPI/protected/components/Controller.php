@@ -1328,6 +1328,10 @@ class Controller extends CController {
                     if (isset($tempResult['stats'][0]['megas'][$i]['photo'][0]['tags'])) {
                         $tempResult['stats'][0]['megas'][$i]['photo'][0]['tags'] = array();
                     }
+                    if($tempResult['stats'][0]['megas'][$i]['type']!=="profile")
+                    {
+                        $tempResult['stats'][0]['megas'][$i]['keyword'] = array();
+                    }
                 }
             }
         } else {
@@ -1361,6 +1365,10 @@ class Controller extends CController {
                     $tempResult['megas'][$i]['owner_contact_bcc_emails'] = (isset($mega_profile["profile"][0]["owner_contact_bcc_emails"])) ? $mega_profile["profile"][0]["owner_contact_bcc_emails"] : "";
                     if (isset($tempResult['megas'][$i]['photo'][0]['tags'])) {
                         $tempResult['megas'][$i]['photo'][0]['tags'] = array();
+                    }
+                    if($tempResult['megas'][$i]['type']!=="profile")
+                    {
+                        $tempResult['megas'][$i]['keyword'] = array();
                     }
                 }
             }

@@ -8,7 +8,19 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     uploadOrsubmit: false,
     fileSize: null,
     collection_id: "",
-    needs: ['profile', 'masonryCollectionItems', 'photoCreateInfoSetting', 'megaCreate'],
+    needs: ['profile', 'masonryCollectionItems', 'photoCreateInfoSetting', 'megaCreate', 'applicationFeedback'],
+    actions: {
+        back: function()
+        {
+            HubStar.set('isNewUpload', true);
+
+            this.set("filesNumber", 0);
+            $('#dragAndDroppArea').attr('style', "display:none");
+            var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
+
+            masonryCollectionItems.send("back");
+        }
+    },
     init: function() {
         this.setMega();
     },
@@ -33,21 +45,25 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 var fileSize = file.size;
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    that.addPhotoObject(e, name, type, fileSize);
+                    if (fileSize >= 25000000)
+                    {
+                        that.get('controllers.applicationFeedback').statusObserver(null, "The limit size of uploading is 25MB");
+                    }
+                    else if (type !== undefined && type !== null) {
+                        var t = type.split("/")[1];
+                        if (t === "bmp" || t === "gif" || t === "jpg" || t === "jpeg" || t === "png")
+                        {
+                            that.addPhotoObject(e, name, type, fileSize);
+                        }
+                        else
+                        {
+                            that.get('controllers.applicationFeedback').statusObserver(null, "Undefined Format");
+                        }
+                    }
                 }, reader.readAsDataURL(files[i]);
             })(files[i]);
             evt.preventDefault();
         }
-    },
-    back: function()
-    {
-        HubStar.set('isNewUpload', true);
-
-        this.set("filesNumber", 0);
-        $('#dragAndDroppArea').attr('style', "display:none");
-        var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
-
-        masonryCollectionItems.back();
     },
     photoUpload: function()
     {
@@ -119,6 +135,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 "photo_source_id": photoName.toLowerCase().replace(/\./g, "_"),
                 "photo_image_original_url": src,
                 "photo_file_name": photoName.toLowerCase(),
+                "photo_caption": "",
                 "photo_type": type,
                 "photo_keywords": keywords});
             mega.get("photo").pushObject(file);
@@ -150,7 +167,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                         HubStar.set('UploadImageInfoData', masonryCollectionItems.get("uploadImageContent"));
                         that.set("filesNumber", 0);
                         //console.log(that.get('controllers.masonryCollectionItems').get('collection_id'));
-                        
+
                         photoCreateInfoSettingController.setData();
                         photoCreateInfoSettingController.set('isEditingMode', true);
                         that.saveToCollection(that.get('controllers.masonryCollectionItems').get('collection_id'), HubStar.get("photoIds"));
@@ -163,7 +180,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             });
             var masonryCollectionItemsController = this.get('controllers.masonryCollectionItems');
             masonryCollectionItemsController.get("uploadImageContent").addObject(mega);
-            masonryCollectionItemsController.set("createTime", ""+new Date());
+            masonryCollectionItemsController.set("createTime", "" + new Date());
         }
         else
         {
@@ -192,7 +209,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         }
         this.addCollection(collection, testID);
         var photoCreateInfoSettingController = this.get('controllers.photoCreateInfoSetting');
-        photoCreateInfoSettingController.set("collection",collection);
+        photoCreateInfoSettingController.set("collection", collection);
         HubStar.set("photoIds", "");
     },
     addCollection: function(collection, photoId)

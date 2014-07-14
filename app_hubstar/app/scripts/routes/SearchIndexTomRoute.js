@@ -24,7 +24,7 @@ HubStar.SearchIndexTom = Ember.Route.extend({
         });
  
     },
-    events: {
+    actions: {
     },
     redirect: function() {
     },

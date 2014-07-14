@@ -17,6 +17,47 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
     isUploadPhoto: false,
     isInvitePeople: false,
     owner: "newConversation",
+    actions: {
+        reviewCancel: function() {
+            if (this.get("owner") === "newConversation") {
+                this.get("controllers.newConversation").set("isInvitePeople", false);
+            }
+            else if (this.get("owner") === "conversationItem")
+            {
+                this.get("controllers.conversationItem").set("isInvitePeople", false);
+            }
+
+            this.set("contentFollowerPhoto", null);
+        },
+        addToList: function(id) {
+            for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
+            {
+                if (this.get("contentFollowerPhoto").objectAt(i).get("id") === id)
+                {
+                    this.get("contentFollowerPhoto").objectAt(i).set("isAdd", !this.get("contentFollowerPhoto").objectAt(i).get("isAdd"));
+                }
+            }
+
+        },
+        reviewPost: function() {
+            if (this.get("owner") === "newConversation") {
+                this.get("controllers.newConversation").set("isAdded", true);
+                this.get("controllers.newConversation").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
+                //console.log(this.get("contentFollowerPhoto"));
+                //  this.get("controllers.conversationItem").set("contentFollowerPhotoOld", this.get("contentFollowerPhoto"));
+                this.get("controllers.newConversation").set("isInvitePeople", false);
+
+            }
+            else if (this.get("owner") === "conversationItem")
+            {
+                this.get("controllers.conversationItem").set("isAdded", true);
+                this.get("controllers.conversationItem").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
+                this.get("controllers.conversationItem").set("isNewPeople", true);
+                this.get("controllers.conversationItem").set("isInvitePeople", false);
+            }
+            this.set("contentFollowerPhoto", null);
+        }
+    },
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -49,7 +90,7 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
             {
 
                 if (conversationID !== undefined) {
-                    var participation_id =[];
+                    var participation_id = [];
                     participation_id = that.get("conversationItem").get("participation_ids").split(',');
 
                 }
@@ -60,7 +101,7 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
                         dataNew.isAdd = false;
                         dataNew.id = params[i].record_id;
                         dataNew.name = params[i].name;
-                        
+
                         dataNew.photo_url = params[i].photo_url;
                         that.get("contentFollowerPhoto").pushObject(dataNew);
                     }
@@ -90,45 +131,6 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
             }
             that.set('loadingTime', false);
         });
-    },
-    addToList: function(id) {
-        for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
-        {
-            if (this.get("contentFollowerPhoto").objectAt(i).get("id") === id)
-            {
-                this.get("contentFollowerPhoto").objectAt(i).set("isAdd", !this.get("contentFollowerPhoto").objectAt(i).get("isAdd"));
-            }
-        }
-
-    },
-    reviewPost: function() {
-        if (this.get("owner") === "newConversation") {
-            this.get("controllers.newConversation").set("isAdded", true);
-            this.get("controllers.newConversation").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
-            //console.log(this.get("contentFollowerPhoto"));
-          //  this.get("controllers.conversationItem").set("contentFollowerPhotoOld", this.get("contentFollowerPhoto"));
-            this.get("controllers.newConversation").set("isInvitePeople", false);
-
-        }
-        else if (this.get("owner") === "conversationItem")
-        {
-            this.get("controllers.conversationItem").set("isAdded", true);
-            this.get("controllers.conversationItem").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
-            this.get("controllers.conversationItem").set("isNewPeople", true);
-            this.get("controllers.conversationItem").set("isInvitePeople", false);
-        }
-        this.set("contentFollowerPhoto", null);
-    },
-    reviewCancel: function() {
-        if (this.get("owner") === "newConversation") {
-            this.get("controllers.newConversation").set("isInvitePeople", false);
-        }
-        else if (this.get("owner") === "conversationItem")
-        {
-            this.get("controllers.conversationItem").set("isInvitePeople", false);
-        }
-
-        this.set("contentFollowerPhoto", null);
     }
 }
 );

@@ -1,4 +1,4 @@
-HubStar.NewProfileDisplayController = Ember.ArrayController.extend({
+HubStar.NewProfileDisplayController = Ember.Controller.extend({
     needs: ['application'],
     init: function() {
     }

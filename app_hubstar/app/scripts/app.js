@@ -20,23 +20,24 @@ var HubStar = window.HubStar = Ember.Application.create({
             HubStar.set('top_ad_display', params[3]);
             HubStar.set('object_ad_display', params[4]);
             HubStar.set('group_switch', params[5]);
-        });
-        requiredBackEnd('tenantConfiguration', 'objectAdDisplay', null, 'post', function(callbck) {
-            var array = $.map(callbck, function(value, index) {
-                return [value];
-            });
-            if (HubStar.get("ads") !== null && HubStar.get("ads") !== undefined) {
-            }
-            else
-            {
-                for (var i = 0; i < array.length; i++) {
-                    for (var j = 0; j < array[i].length; j++) {
-                        array[i][j].isNew = true;
+            requiredBackEnd('tenantConfiguration', 'objectAdDisplay', null, 'post', function(callbck) {
+                var array = $.map(callbck, function(value, index) {
+                    return [value];
+                });
+                if (HubStar.get("ads") !== null && HubStar.get("ads") !== undefined) {
+                }
+                else
+                {
+                    for (var i = 0; i < array.length; i++) {
+                        for (var j = 0; j < array[i].length; j++) {
+                            array[i][j].isNew = true;
+                        }
                     }
                 }
-            }
-            HubStar.set('objectAds', array);
+                HubStar.set('objectAds', array);
+            });
         });
+
         if (Modernizr.touch) {
             HubStar.set('touchDevice', true);
         } else {
@@ -71,8 +72,9 @@ var HubStar = window.HubStar = Ember.Application.create({
 /* Order and include as you please. */
 require('scripts/helper');
 require('scripts/models/*');
-require('scripts/routes/*');
-require('scripts/store');
 require('scripts/controllers/*');
-require('scripts/views/*');
+require('scripts/store');
 require('scripts/router');
+require('scripts/routes/*');
+require('scripts/views/*');
+

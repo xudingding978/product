@@ -1,6 +1,6 @@
 {{#if controller.loadingTime}}
 
-{{render loadingSpinner}}
+{{render "loadingSpinner"}}
 
 {{/if}}
 <div id="conversation_content">
@@ -14,28 +14,28 @@
             <div class="radius-circle conversation-img">
                 {{#if this.one}}
                 
-                <img class="conversation-img1" {{bindAttr src=  this.onePic}} />
+                <img class="conversation-img1" {{bind-attr src=  this.onePic}} />
                 
                 {{/if}}
                 {{#if this.two}}
                 
-                <img class="conversation-img2a" {{bindAttr src=  this.onePic}} />
-                <img class="conversation-img2b" {{bindAttr src=  this.twoPic}} />
+                <img class="conversation-img2a" {{bind-attr src=  this.onePic}} />
+                <img class="conversation-img2b" {{bind-attr src=  this.twoPic}} />
                 
                 {{/if}}
                 {{#if this.three}}
                 
-                <img class="conversation-img3a" {{bindAttr src=  this.onePic}} />
-                <img class="conversation-img3a" {{bindAttr src=  this.twoPic}} />
-                <img class="conversation-img3b" {{bindAttr src=  this.threePic}} />
+                <img class="conversation-img3a" {{bind-attr src=  this.onePic}} />
+                <img class="conversation-img3a" {{bind-attr src=  this.twoPic}} />
+                <img class="conversation-img3b" {{bind-attr src=  this.threePic}} />
                 
                 {{/if}}
                 {{#if this.four}}
                 
-                <img class="conversation-img3a" {{bindAttr src=  this.onePic}} />
-                <img class="conversation-img3a" {{bindAttr src= this.twoPic}} />
-                <img class="conversation-img4a" {{bindAttr src=  this.threePic}} />
-                <img class="conversation-img4a conversation-img4b" {{bindAttr src=  this.fourPic}} />
+                <img class="conversation-img3a" {{bind-attr src=  this.onePic}} />
+                <img class="conversation-img3a" {{bind-attr src= this.twoPic}} />
+                <img class="conversation-img4a" {{bind-attr src=  this.threePic}} />
+                <img class="conversation-img4a conversation-img4b" {{bind-attr src=  this.fourPic}} />
                 
                 {{/if}}
                 

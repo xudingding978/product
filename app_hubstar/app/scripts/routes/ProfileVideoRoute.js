@@ -33,7 +33,7 @@ HubStar.ProfileVideoRoute = Ember.Route.extend({
         }, 100);
 
     },
-    events: {
+    actions: {
         transitionToProfile: function(id) {
 
             this.transitionTo("profile", HubStar.Profile.find(id));

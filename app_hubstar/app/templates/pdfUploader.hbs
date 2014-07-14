@@ -5,38 +5,39 @@
 
     <div class="t-style-box pdfuploader-inner" >
 
-        <div id="pdfUploaderContent" class="pdfuploader-txtContainer">
-            <i class="fa fa-arrow-circle-o-up pdfuploader-icon" ></i>
-            <span class="pdfuploader-txt1">
-                Drag & Drop Your PDF Here
-            </span>
-            <span class="pdfuploader-txt2">Please upload no more than 20 photos at a time, and maximum size of 20MB per photo.</span> 
+        {{#view HubStar.SingleFileUploaderView}}
+        <div id="pdfUploaderData" class="pdfuploader-back" >
+            <div id="pdfUploaderContent" class="pdfuploader-txtContainer">
+                <i class="fa fa-arrow-circle-o-up pdfuploader-icon" ></i>
+                <span class="pdfuploader-txt1">
+                    Drag & Drop Your PDF Here
+                </span>
+                <span class="pdfuploader-txt2">Please upload no more than 20 photos at a time, and maximum size of 20MB per photo.</span> 
+            </div>
         </div>
-
+        
 
         <div  id="pdfInformation" >
-            {{#if controller.loadingTime}}
 
-            {{render loadingSpinner}}
-
-            {{/if}}
             {{#each pdfArray}}          
-            
-            
+
+
+
             <div class="pdfuploader-preview-container">
                 <div id="pdf_id_{{unbound id}}">
-                    <span class="pdfuploader-preview"{{action modifyDetail pdf_id}}><img alt="Click!" {{bindAttr src="pdf_cover_image"}}></span> 
+                    <span class="pdfuploader-preview"{{action modifyDetail pdf_id}}><img alt="Click!" {{bind-attr src="pdf_cover_image"}}></span> 
                     <span class="pdfuploader-preview pdfuploader-preview-title" {{action modifyDetail id}}>{{pdf_title}}</span>
                     <span><i class="fa fa-trash-o pdfuploader-trash" style=""></i></span> 
                     <span><i class="fa fa-edit pdfuploader-edit" {{action modifyDetail id}}></i></span>             
                 </div>
 
-                <div {{bindAttr id="id"}} class="pdfuploader-editing-container">
+                <div {{bind-attr id="id"}} class="pdfuploader-editing-container">
                     <div class="pdfuploader-editing-preview">
+
                         <div class="changePDFpic easing hint--right hint--rounded" data-hint="Change Cover" {{action changeCover id}}>
                              <i class="fa fa-plus-circle"></i>     
                         </div>  
-                        <img alt=""  {{bindAttr src="pdf_cover_image"}}>
+                        <img alt=""  {{bind-attr src="pdf_cover_image"}}>
                     </div>
                     <div class="pdfuploader-editing-info">
                         <div class="pdfuploader-title">
@@ -57,21 +58,11 @@
     </div>
     {{/each}}
 </div>
-
-</div>
-
-
-{{#view HubStar.SingleFileUploaderView}}
-<div id="pdfUploaderData" class="pdfuploader-back" >
-    <div id="pdfUploaderContent" class="pdfuploader-txtContainer">
-        <i class="fa fa-arrow-circle-o-up pdfuploader-icon" ></i>
-        <span class="pdfuploader-txt1">
-            Drag & Drop Your PDF Here
-        </span>
-        <span class="pdfuploader-txt2">Please upload no more than 20 photos at a time, and maximum size of 20MB per photo.</span> 
-    </div>
-</div>
 {{/view}}
+</div>
+
+
+
 
 <div class="pdfuploader-action-container" >
     <div class="message-btn easing pdfuploader-action-btn" {{action closeUploader}}>
@@ -89,3 +80,8 @@
 
 
 </div>
+{{#if controller.loadingTime}}
+
+{{render "loadingSpinner"}}
+
+{{/if}}

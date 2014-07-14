@@ -4,12 +4,15 @@
  */
 
 
-HubStar.NotificationsRoute = Ember.Route.extend({
+HubStar.NotificationRoute = Ember.Route.extend({
     setupController: function(controller, model) {
 
         var newmodel = localStorage.loginStatus;
-        this.controllerFor('messageCenter').selectNotification(newmodel);
-        
+        this.controllerFor('messageCenter').send("selectNotification", newmodel);        
+        //controller.getClientId(newmodel);
+        $('#notificationselected').addClass('selected-conversation');
+
+
         $(window).scrollTop(550);
 
     },
@@ -18,6 +21,13 @@ HubStar.NotificationsRoute = Ember.Route.extend({
         var user_id = address.split("#")[1].split("/")[2];        
         this.controllerFor('notificationTop').set("notificationSeeAll", true);
         return user_id;
+    },
+    renderTemplate: function() {
+
+        this.render("notification", {
+            outlet: "notification",
+            into: "messageCenter"
+        });
     }
 });
 

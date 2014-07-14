@@ -3,6 +3,55 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
     templateName: 'googleMapPopup',
     routeModeSelection: "DRIVING",
     showTransportation: true,
+    actions: {
+        setGooglePopup: function() {
+
+            this.get('controller').set('fromAddress', "");
+
+
+            this.get("controller").set('popUpMap', false);
+            document.getElementById("body_id").style.overflow = "auto";
+
+            $('#directionsPanel').attr({"style": "display:none; position: absolute; width: 265px; direction: ltr; height: 425px; overflow: auto; overflow-x: hidden;right: 0px; top: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); border-bottom: 1px solid #ddd;"});
+            directionsDisplay.setDirections({routes: []});
+        },
+        dropdownRoute: function() {
+            $("#routeModeDropdown").toggleClass('hideClass');
+
+        },
+        selectRoute: function() {
+            var that = this;
+            $('#routeModeDropdown > .ite').click(function() {
+                that.set('routeModeSelection', $(this).text());
+            });
+            $("#routeModeDropdown").toggleClass('hideClass');
+            this.set('showTransportation', false);
+            $("#map_canvas_pop").animate({width: "800px"}, 1000, 'linear');
+            $('#routeClear').attr({"style": "display:none;width: 33%;height: 45px;line-height: 45px;'"});
+            $('#routeGo').attr({"style": "display:block; width: 33%;height: 45px;line-height: 45px;'"});
+            directionsDisplay.setDirections({routes: []});
+            $('#directionsPanel').attr({"style": "display:none; "});
+        },
+        routeGo: function() {
+            $("#map_canvas_pop").animate({width: "535px"}, 1000, 'linear');
+            directionsDisplay.setPanel(document.getElementById("directionsPanel"));
+            $('#routeGo').attr({"style": "display:none; width: 33%;height: 45px;line-height: 45px;'"});
+            $('#routeClear').attr({"style": "display:block;width: 33%;height: 45px;line-height: 45px;'"});
+
+            setTimeout(function() {
+                $('#directionsPanel').attr({"style": "display:block; position: absolute; width: 265px; direction: ltr; height: 425px; overflow: auto; overflow-x: hidden;right: 0px; top: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); border-bottom: 1px solid #ddd;"});
+
+            }, 1000);
+            this.calcRoute(this.get('routeModeSelection'));
+        },
+        routeClear: function() {
+            $("#map_canvas_pop").animate({width: "800px"}, 1000, 'linear');
+            $('#routeClear').attr({"style": "display:none;width: 33%;height: 45px;line-height: 45px;'"});
+            $('#routeGo').attr({"style": "display:block; width: 33%;height: 45px;line-height: 45px;'"});
+            directionsDisplay.setDirections({routes: []});
+            $('#directionsPanel').attr({"style": "display:none; "});
+        }
+    },
     didInsertElement: function() {
         var map;
         var that = this;
@@ -41,36 +90,6 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
         });
 
     },
-    setGooglePopup: function() {
-
-        this.get('controller').set('fromAddress', "");
-   
-       
-            this.get("controller").set('popUpMap', false);
-            document.getElementById("body_id").style.overflow = "auto";
-        
-        $('#directionsPanel').attr({"style": "display:none; position: absolute; width: 265px; direction: ltr; height: 425px; overflow: auto; overflow-x: hidden;right: 0px; top: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); border-bottom: 1px solid #ddd;"});
-        directionsDisplay.setDirections({routes: []});
-    },
-    routeClear: function() {
-        $("#map_canvas_pop").animate({width: "800px"}, 1000, 'linear');
-        $('#routeClear').attr({"style": "display:none;width: 33%;height: 45px;line-height: 45px;'"});
-        $('#routeGo').attr({"style": "display:block; width: 33%;height: 45px;line-height: 45px;'"});
-        directionsDisplay.setDirections({routes: []});
-        $('#directionsPanel').attr({"style": "display:none; "});
-    },
-    routeGo: function() {
-        $("#map_canvas_pop").animate({width: "535px"}, 1000, 'linear');
-        directionsDisplay.setPanel(document.getElementById("directionsPanel"));
-        $('#routeGo').attr({"style": "display:none; width: 33%;height: 45px;line-height: 45px;'"});
-        $('#routeClear').attr({"style": "display:block;width: 33%;height: 45px;line-height: 45px;'"});
-
-        setTimeout(function() {
-            $('#directionsPanel').attr({"style": "display:block; position: absolute; width: 265px; direction: ltr; height: 425px; overflow: auto; overflow-x: hidden;right: 0px; top: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); border-bottom: 1px solid #ddd;"});
-
-        }, 1000);
-        this.calcRoute(this.get('routeModeSelection'));
-    },
     calcRoute: function(routeModeSelection) {
         var directionsService = new google.maps.DirectionsService();
         var request = {
@@ -103,22 +122,6 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
                 set_height: 425
             });
         }, 800);
-    },
-    dropdownRoute: function() {
-        $("#routeModeDropdown").toggleClass('hideClass');
-      
-    },
-    selectRoute: function() {
-        var that = this;
-        $('#routeModeDropdown > .ite').click(function() {
-            that.set('routeModeSelection', $(this).text());
-        });
-        $("#routeModeDropdown").toggleClass('hideClass');
-          this.set('showTransportation',false);
-            $("#map_canvas_pop").animate({width: "800px"}, 1000, 'linear');
-        $('#routeClear').attr({"style": "display:none;width: 33%;height: 45px;line-height: 45px;'"});
-        $('#routeGo').attr({"style": "display:block; width: 33%;height: 45px;line-height: 45px;'"});
-        directionsDisplay.setDirections({routes: []});
-        $('#directionsPanel').attr({"style": "display:none; "});
     }
+
 });

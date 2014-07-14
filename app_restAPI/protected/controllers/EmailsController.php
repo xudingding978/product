@@ -132,7 +132,7 @@ class EmailsController extends Controller {
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
         $platformEmail = $platformSettings['support']['email'];
-        $sendPersonNameEmail = ucfirst($sendPersonName);
+        $sendPersonNameEmail = ucwords($sendPersonName);
         $subject_prefix = "$sendPersonNameEmail Sent You a Content";
         $args = array(
             "Source" => $platformEmail,

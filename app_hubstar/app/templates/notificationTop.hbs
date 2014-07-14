@@ -16,10 +16,12 @@
     <div id="notifitopbar" class="notificationtop-txtContainer">
         {{#each controller.notificationTopContent}}
         {{#if this.isRead}}
+
         <div class="each-conversation easing notificationtop-txt-height" >
             <div class="notificationtop-innertxt"{{action go this.notification_id}}>
                  <a class="notificationtop-imgbox" >
-                    <img {{bindAttr src= this.photo_url}} /> 
+                    <img {{bind-attr src= this.photo_url}} /> 
+
                 </a>
                 <div>
                     <div class="comment-namentime">
@@ -54,8 +56,9 @@
 
         <div class="each-conversation easing unread-style notificationtop-txt-height" >
             <div class="notificationtop-innertxt" {{action go this.notification_id}}>
-                 <a class="notificationtop-imgbox" {{bindAttr href="controller.photo_url"}}>
-                    <img {{bindAttr src= this.photo_url}} /> 
+                 <a class="notificationtop-imgbox" {{bind-attr href="controller.photo_url"}}>
+                    <img {{bind-attr src= this.photo_url}} /> 
+
                 </a>
                 <div>
                     <div class="comment-namentime">

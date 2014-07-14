@@ -6,6 +6,32 @@ HubStar.ConversationController = Ember.Controller.extend({
     makeSureDelete: false,
     willDelete: false,
     isNewConversation: false,
+    actions: {
+        cancelDelete: function() {
+            this.set('willDelete', false);
+            this.set('makeSureDelete', false);
+        },
+        removeConversationItem: function(s)
+        {
+            var message = "Remove this conversation?";
+            this.set("message", message);
+
+            this.set('makeSureDelete', true);
+            if (this.get('willDelete') === true) {
+                this.deleteConversationItem(s);
+                this.send("cancelDelete");
+            } else {
+                this.set("s", s);
+                this.set('willDelete', true);
+            }
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 10);
+            }, 50);
+        }
+    },
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -37,33 +63,10 @@ HubStar.ConversationController = Ember.Controller.extend({
             if (this.get("isNewConversation") === false)
             {
                 this.get('controllers.messageCenter').selectConversationItem(id);
+                this.transitionToRoute("conversationSingle",id);
                 this.get('controllers.conversationItem').getClientId(id);
             }
         }
-    },
-    removeConversationItem: function(s)
-    {
-        var message = "Remove this conversation?";
-        this.set("message", message);
-
-        this.set('makeSureDelete', true);
-        if (this.get('willDelete') === true) {
-            this.deleteConversationItem(s);
-            this.cancelDelete();
-        } else {
-            this.set("s", s);
-            this.set('willDelete', true);
-        }
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-            setTimeout(function() {
-                $('#masonry_user_container').masonry();
-            }, 10);
-        }, 50);
-    },
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
     },
     deleteConversationItem: function(id)
     {
@@ -76,7 +79,7 @@ HubStar.ConversationController = Ember.Controller.extend({
         var that = this;
 
         requiredBackEnd('conversations', 'DeleteConversation', tempComment, 'POST', function() {
-            that.get("controllers.messageCenter").selectNewConversation();
+            that.get("controllers.messageCenter").send("selectNewConversation");
             for (var i = 0; i < that.get("conversationContent").length; i++)
             {
                 if (that.get("conversationContent").objectAt(i).get("conversationID") === id)
@@ -164,7 +167,7 @@ HubStar.ConversationController = Ember.Controller.extend({
                         conversationItem.time_stamp = params[i].ConversationCollection[j].time_stamp;
                         if (params[i].ConversationCollection[j].msg !== null) {
                             conversationItem.msg = multiRow(params[i].ConversationCollection[j].msg);
-                        }                        
+                        }
                         conversationItem.name = params[i].ConversationCollection[j].name;
                         conversationItem.sender_photo_url_large = params[i].ConversationCollection[j].sender_photo_url_large;
                         if (params[i].ConversationCollection[j].url === null)
@@ -195,19 +198,18 @@ HubStar.ConversationController = Ember.Controller.extend({
                 var user_id = address.split("#")[1].split("/")[4];
                 if (user_id === "notifications")
                 {
-                    that.transitionToRoute("notifications");
+                    that.transitionToRoute("notification");
                     that.get('controllers.notificationTop').set("notificationSeeAll", false);
                 }
                 else {
                     if (that.get("conversationContent").length > 0) {
                         if (that.get('controllers.notificationTop').get("notificationSeeAll") === true)
                         {
-                            that.transitionToRoute("notifications");
+                            that.transitionToRoute("notification");
                             that.get('controllers.notificationTop').set("notificationSeeAll", false);
                         }
                         else
                         {
-
                             that.selectConversation(that.get("conversationContent").objectAt(0).conversationID);
                         }
                     }
@@ -215,7 +217,7 @@ HubStar.ConversationController = Ember.Controller.extend({
                     {
                         if (that.get('controllers.notificationTop').get("notificationSeeAll") === true)
                         {
-                            that.transitionToRoute("notifications");
+                            that.transitionToRoute("notification");
                             that.get('controllers.notificationTop').set("notificationSeeAll", false);
                         }
                         else

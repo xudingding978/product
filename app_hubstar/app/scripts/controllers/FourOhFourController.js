@@ -5,31 +5,32 @@
  */
 
 HubStar.FourOhFourController = Ember.Controller.extend({
-    searching: function() {
+    actions: {
+        searching: function() {
 
-        setTimeout(function() {
-            $(".Navigator-box").css('display', 'none');
-            $("#top-about-menu").fadeOut("320");
-           // $("#search-bar").fadeIn("320");
-        }, 10);
+            setTimeout(function() {
+                $(".Navigator-box").css('display', 'none');
+                $("#top-about-menu").fadeOut("320");
+                // $("#search-bar").fadeIn("320");
+            }, 10);
 
 
-        HubStar.set("showDiscoveryBar", false);
-        var area = $("#search_key").val();
-        var search_key = $("#errorpage_search").val();
-        var object;
-        if (search_key !== "" || area !== "") {
-            if (area !== "" && search_key !== "") {
-                object = {"region": area, "search_string": search_key};
-            } else if (area === "" && search_key !== "") {
-                object = {"region": area, "search_string": search_key};
-            } else if (area !== "" && search_key === "") {
-                object = {"region": area, "search_string": search_key};
+            HubStar.set("showDiscoveryBar", false);
+            var area = $("#search_key").val();
+            var search_key = $("#errorpage_search").val();
+            var object;
+            if (search_key !== "" || area !== "") {
+                if (area !== "" && search_key !== "") {
+                    object = {"region": area, "search_string": search_key};
+                } else if (area === "" && search_key !== "") {
+                    object = {"region": area, "search_string": search_key};
+                } else if (area !== "" && search_key === "") {
+                    object = {"region": area, "search_string": search_key};
+                }
+            } else {
+                object = {"region": "", "search_string": ""};
             }
-        } else {
-            object = {"region": "", "search_string": ""};
+            this.transitionToRoute('search', {id: search_key});
         }
-        this.transitionToRoute('search', {id: search_key});
     }
-
 });

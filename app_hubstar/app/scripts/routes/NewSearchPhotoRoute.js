@@ -30,7 +30,7 @@ HubStar.NewSearchPhotoRoute = Ember.Route.extend({
             $('#footer').attr("style", "display:none");
         }, 100);
     },
-    events: {
+    actions: {
         transitionToProfile: function(id) {
             this.transitionTo("profile", HubStar.Profile.find(id));
         }

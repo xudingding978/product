@@ -6,13 +6,8 @@
 
 HubStar.PartnersRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-        // this.controllerFor('ProfileController').set('is_authentic_user', true);
         if (this.controllerFor('checkingLoginStatus').popupLogin())
         {
-
-            // this.controllerFor('profile').selectPartner(model);
-
-
             this.controllerFor('profile').set('profileSelectionStatus', 'Partners');
             this.controllerFor('profile').set('reviewTag', false);
             this.controllerFor('profile').set('partnerTag', true);
@@ -27,12 +22,10 @@ HubStar.PartnersRoute = Ember.Route.extend({
                 }, 50);
             });
             this.controllerFor('profilePartners').getClientId(model);
-            this.controllerFor('profile').selectPartner(model);
-
+            this.controllerFor('profile').send("selectPartner",model);
         }
     },
     model: function(params) {
-
         var address = document.URL;
         var profile_id = address.split("#")[1].split("/")[2];
         var model = HubStar.Profile.find(profile_id);

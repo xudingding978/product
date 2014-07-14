@@ -498,42 +498,44 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 }, 800);
                 this.setAboutUsObject();
                 this.set('editingAbout', !this.get('editingAbout'));
-                for (var i = 0; i < this.get('about_us').objectAt(0).get('about_embeded_object').get('length'); i++) {
-                    var about_embeded_object = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i);
-                    if (about_embeded_object.get('embeded_object_code') !== null && about_embeded_object.get('embeded_object_code') !== '' && about_embeded_object.get('embeded_object_code') !== undefined) {
-                        if (about_embeded_object.get('embeded_object_url') !== null && about_embeded_object.get('embeded_object_url') !== '' && about_embeded_object.get('embeded_object_url') !== undefined) {
-                            setTimeout(function() {
-                                $(".getapp-btn").css("width", "380px");
-                            }, 500);
-                        } else {
-                            setTimeout(function() {
-                                $(".getapp-btn").css("width", "180px");
-                            }, 500);
+                if (this.get('about_us').objectAt(0) === null || this.get('about_us').objectAt(0) === 'undefined') {
+                    for (var i = 0; i < this.get('about_us').objectAt(0).get('about_embeded_object').get('length'); i++) {
+                        var about_embeded_object = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i);
+                        if (about_embeded_object.get('embeded_object_code') !== null && about_embeded_object.get('embeded_object_code') !== '' && about_embeded_object.get('embeded_object_code') !== undefined) {
+                            if (about_embeded_object.get('embeded_object_url') !== null && about_embeded_object.get('embeded_object_url') !== '' && about_embeded_object.get('embeded_object_url') !== undefined) {
+                                setTimeout(function() {
+                                    $(".getapp-btn").css("width", "380px");
+                                }, 500);
+                            } else {
+                                setTimeout(function() {
+                                    $(".getapp-btn").css("width", "180px");
+                                }, 500);
+                            }
                         }
                     }
-                }
-                if (this.get('about_us').objectAt(0).get('about_image'))
-                {
-                    var count = 0;
-                    for (var i = 0; i < this.get('about_us').objectAt(0).get('about_image').get('length'); i++) {
-                        var img_url = this.get('about_us').objectAt(0).get('about_image').objectAt(i).get("image_url");
-                        if (img_url !== "" && img_url !== null && img_url !== undefined) {
-                            count = count + 1;
+                    if (this.get('about_us').objectAt(0).get('about_image'))
+                    {
+                        var count = 0;
+                        for (var i = 0; i < this.get('about_us').objectAt(0).get('about_image').get('length'); i++) {
+                            var img_url = this.get('about_us').objectAt(0).get('about_image').objectAt(i).get("image_url");
+                            if (img_url !== "" && img_url !== null && img_url !== undefined) {
+                                count = count + 1;
+                            }
                         }
-                    }
-                    if (count === 2) {
-                        setTimeout(function() {
-                            $(".left-bottom-area").css("width", "530px");
-                        }, 500);
-                    } else if (count === 1) {
-                        setTimeout(function() {
-                            $(".left-bottom-area").css("width", "260px");
-                        }, 500);
-                    }
+                        if (count === 2) {
+                            setTimeout(function() {
+                                $(".left-bottom-area").css("width", "530px");
+                            }, 500);
+                        } else if (count === 1) {
+                            setTimeout(function() {
+                                $(".left-bottom-area").css("width", "260px");
+                            }, 500);
+                        }
 
+
+                    }
 
                 }
-
             }
             else if (checkingInfo === "contact") {
                 this.set('first_name', first_name_record);

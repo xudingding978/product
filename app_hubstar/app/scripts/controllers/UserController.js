@@ -948,7 +948,6 @@ HubStar.UserController = Ember.Controller.extend({
     },
     saveUpdateInterest: function() {
         var checkString = this.interestTrim(this.get('interests'));
-        //console.log(checkString);
         this.set('interests', checkString);
         if ((checkString.substring(checkString.length - 1, checkString.length) !== ',') && (!/,,/.test(checkString))) {
             var update_interest_record = HubStar.User.find(this.get('user.id'));

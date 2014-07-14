@@ -121,7 +121,6 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
             var tempmega = this.get('videoesContent').objectAt(i);
             if (tempmega.get('id') === this.get('delete_id'))
             {
-                console.log(tempmega.get("save_count"));
                 this.get('videoesContent').removeObject(tempmega);
                 if (tempmega.get("save_count") > 0)
                 {

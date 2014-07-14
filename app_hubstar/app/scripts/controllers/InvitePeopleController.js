@@ -43,7 +43,6 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
             if (this.get("owner") === "newConversation") {
                 this.get("controllers.newConversation").set("isAdded", true);
                 this.get("controllers.newConversation").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
-                //console.log(this.get("contentFollowerPhoto"));
                 //  this.get("controllers.conversationItem").set("contentFollowerPhotoOld", this.get("contentFollowerPhoto"));
                 this.get("controllers.newConversation").set("isInvitePeople", false);
 

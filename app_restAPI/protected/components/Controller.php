@@ -813,7 +813,7 @@ class Controller extends CController {
         $result = curl_exec($ch);
         $result_arr = CJSON::decode($result, true);
         
-        error_log(var_export($result_arr, true));
+
         
         $record_arr = $result_arr['hits']['hits'];
         $new_arr = array();

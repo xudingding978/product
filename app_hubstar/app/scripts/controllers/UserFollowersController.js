@@ -50,7 +50,6 @@ HubStar.UserFollowersController = Ember.Controller.extend({
 
     },
     getClientId: function(model) {
-        //console.log(localStorage.loginStatus);
         this.set('loadingTime', true);
         this.set("model", model);
         this.set('clientID', model.id);

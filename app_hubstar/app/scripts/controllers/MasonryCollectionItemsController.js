@@ -185,7 +185,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
                                             currentCollection.set('collection_ids', delResult);
                                             if (this.get("profileId") === item.get("owner_id") && item.get("collection_id") === this.get('collectionID')) {
-                                                //console.log(item);
                                                 if (item.get("save_count") > 0)
                                                 {
                                                     item.set("is_deleted", true);

@@ -34,7 +34,6 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
             var url = "";
             for (var i = 0; i < this.get('pdfContent').get('length'); i++) {
                 if (this.get('pdfContent').objectAt(i).get('id') === id) {
-                    console.log(i);
                     url = this.get('pdfContent').objectAt(i).get('pdf').objectAt(0).get('pdf_url');
                 }
             }

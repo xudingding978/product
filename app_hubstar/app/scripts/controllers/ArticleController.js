@@ -791,7 +791,6 @@ HubStar.ArticleController = Ember.Controller.extend({
     {
         this.set("enableEditTag", true);
         this.get("controllers.updateTag").updateTag(tag_id, this.get('selectedPhoto').id);
-        console.log("aaaaaa");
     },
     windowResizeTags: function(tags)
     {

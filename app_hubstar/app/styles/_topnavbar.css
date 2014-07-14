@@ -780,11 +780,13 @@ div#forgot-password-container{
 .white-text-hover{
     color: #fff;
     opacity: .7;
+    text-decoration: underline;
 }
 
 .white-text-hover:hover{
     opacity: 1;
     color: #fff;
+    text-decoration: underline;
 }
 
 .black-tool-tip{
@@ -1120,7 +1122,7 @@ search-bar-on-small-screen #topResidentialCommerical{
 }
 
 .navigator-topic-content{
-    margin:0;
+    text-align: left;
 }
 
 .navigator-topic3{

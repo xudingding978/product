@@ -531,6 +531,11 @@ textarea.add-interests{
     left: 0;
 }
 
+.user-edit-password{
+    padding: 1px 6px;
+}
+
+
 .useredit-table{
     padding-right: 147px; 
     width: 100%; 

@@ -457,33 +457,34 @@ HubStar.MegaController = Ember.ArrayController.extend({
         },
         previesImage: function(event, pic_x, pic_y) {
             // this.set("contentTags", "");
-            if (this.get("controllers.masonryCollectionItems").get("content").length > 1) {
-                if (!this.get("isRead")) {
-                    this.set("showEachTagContent", false);
-                    if (this.get("enableTag") === true)
-                    {
-                        if (this.get("inImage") === true) {
-                            var that = this;
-                            setTimeout(function() {
-                                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
-                                $('#tagit').fadeIn();
-                                if (that.get("controllers.showTag").get("change_tag_show_2"))
-                                {
-                                    $(document).ready(function() {
-                                        $("#showTagSavePhoto").css("left", "265px");
-                                    });
-                                }
-                                else
-                                {
-                                    $(document).ready(function() {
-                                        $("#showTagSavePhoto").css("left", "0px");
-                                    });
-                                }
-                                $('#tagname').focus();
-                            }, 15);
-                        }
-                    } else
-                    {
+
+            if (!this.get("isRead")) {
+                this.set("showEachTagContent", false);
+                if (this.get("enableTag") === true)
+                {
+                    if (this.get("inImage") === true) {
+                        var that = this;
+                        setTimeout(function() {
+                            $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                            $('#tagit').fadeIn();
+                            if (that.get("controllers.showTag").get("change_tag_show_2"))
+                            {
+                                $(document).ready(function() {
+                                    $("#showTagSavePhoto").css("left", "265px");
+                                });
+                            }
+                            else
+                            {
+                                $(document).ready(function() {
+                                    $("#showTagSavePhoto").css("left", "0px");
+                                });
+                            }
+                            $('#tagname').focus();
+                        }, 15);
+                    }
+                } else
+                {
+                    if (this.get('content').get('length') > 1) {
                         this.set("contentTags", "");
                         this.get("controllers.showTag").set("contentTags", "");
                         // this.get("controllers.showTag").readTags();
@@ -549,34 +550,35 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
         },
         nextImage: function(event, pic_x, pic_y) {
-            if (this.get("controllers.masonryCollectionItems").get("content").length > 1) {
-                if (!this.get("isRead")) {
-                    var counter = 2;
-                    this.set("showEachTagContent", false);
-                    if (this.get("enableTag") === true)
-                    {
-                        if (this.get("inImage") === true) {
-                            var that = this;
-                            setTimeout(function() {
-                                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
-                                $('#tagit').fadeIn();
-                                if (that.get("controllers.showTag").get("change_tag_show_2"))
-                                {
-                                    $(document).ready(function() {
-                                        $("#showTagSavePhoto").css("left", "-265px");
-                                    });
-                                }
-                                else
-                                {
-                                    $(document).ready(function() {
-                                        $("#showTagSavePhoto").css("left", "0px");
-                                    });
-                                }
-                                $('#tagname').focus();
-                            }, 15);
-                        }
-                    } else
-                    {
+
+            if (!this.get("isRead")) {
+                var counter = 2;
+                this.set("showEachTagContent", false);
+                if (this.get("enableTag") === true)
+                {
+                    if (this.get("inImage") === true) {
+                        var that = this;
+                        setTimeout(function() {
+                            $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                            $('#tagit').fadeIn();
+                            if (that.get("controllers.showTag").get("change_tag_show_2"))
+                            {
+                                $(document).ready(function() {
+                                    $("#showTagSavePhoto").css("left", "-265px");
+                                });
+                            }
+                            else
+                            {
+                                $(document).ready(function() {
+                                    $("#showTagSavePhoto").css("left", "0px");
+                                });
+                            }
+                            $('#tagname').focus();
+                        }, 15);
+                    }
+                } else
+                {
+                    if (this.get('content').get('length') > 1) {
                         this.set("contentTags", "");
                         this.get("controllers.showTag").set("contentTags", "");
                         if (!this.get('selectedPhoto')) {

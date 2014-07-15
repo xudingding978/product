@@ -2663,7 +2663,7 @@ div.album-description-bg{
 }
 
 .edit-object-ul {
-    position: relative;
+    position: absolute;
     z-index: 102;
     background-color: white;
     border: 1px solid rgba(0, 0, 0, 0.08);
@@ -2685,7 +2685,8 @@ div.album-description-bg{
 .share-box{
     width: 150px; 
     margin: 0 auto; 
-    left: -70px;
+    left: -40px;
+    top:40px;
     padding: 0;
 }
 .share-box2a{
@@ -2705,7 +2706,8 @@ div.album-description-bg{
 .share-box4{
     width: 150px; 
     margin: 0 auto;
-    left: 45px;
+    left: -35px;
+    top: 45px;
     padding: 0;
 }
 

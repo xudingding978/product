@@ -52,40 +52,38 @@ HubStar.CallToActionView = Ember.View.extend({
                 }, 1);
             });
 
+        },
+        ctaregister: function() {
+            HubStar.set("loginModal", true);
+            $(document).ready(function() {
+                setTimeout(function() {
+                    localStorage.loginState = "register";
+
+                    $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
+                    $('.Login-box .black-tool-tip').css('display', 'none');
+                    $('.Login-box #click-register-social').css('display', 'block');
+                    $('.Login-box #social-link').css('display', 'block');
+                    $('.Login-box #click-register').css('display', 'block');
+                    $('.Login-box #click-register-social').removeClass('social-active');
+                    $('.Login-box #click-register').addClass('active-tab');
+                    $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
+                    $('.Login-box #user-login-pane').css('display', 'none');
+                    if ($('.Login-box #social-link').css('display') === 'block') {
+                        $('.Login-box #social-link').animate({height: 'toggle'});
+                        $('.Login-box #social-link').css('display', 'none');
+                    }
+                    else {
+                    }
+
+                    setTimeout(function() {
+                        $("#first_name input").focus();
+                    }, 1);
+                }, 1);
+
+            });
         }
     },
     didInsertElement: function() {
 
-    },
-    ctaregister: function() {
-        HubStar.set("loginModal", true);
-        $(document).ready(function() {
-            setTimeout(function() {
-                localStorage.loginState = "register";
-
-                $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
-                $('.Login-box .black-tool-tip').css('display', 'none');
-                $('.Login-box #click-register-social').css('display', 'block');
-                $('.Login-box #social-link').css('display', 'block');
-                $('.Login-box #click-register').css('display', 'block');
-                $('.Login-box #click-register-social').removeClass('social-active');
-                $('.Login-box #click-register').addClass('active-tab');
-                $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
-                $('.Login-box #user-login-pane').css('display', 'none');
-                if ($('.Login-box #social-link').css('display') === 'block') {
-                    $('.Login-box #social-link').animate({height: 'toggle'});
-                    $('.Login-box #social-link').css('display', 'none');
-                }
-                else {
-                }
-
-                setTimeout(function() {
-                    $("#first_name input").focus();
-                }, 1);
-            }, 1);
-
-        });
     }
-
-
 });

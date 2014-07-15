@@ -160,25 +160,25 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
                     ).focus();
             return false;
         },
-        eShare: function() {
-            if (this.get("controllers.checkingLoginStatus").popupLogin())
-            {
-
-                var mega = HubStar.Mega.find(this.get('currentUserID'));
-                mega.then(function() {
-                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-                    {
-                        mega.set("share_count", 0);
-                    }
-                    else
-                    {
-                        mega.set("share_count", mega.get("share_count") + 1);
-                    }
-                    mega.store.save();
-                });
-                this.set("isShareEmail", true);
-            }
-        },
+//        eShare: function() {
+//            if (this.get("controllers.checkingLoginStatus").popupLogin())
+//            {
+//
+//                var mega = HubStar.Mega.find(this.get('currentUserID'));
+//                mega.then(function() {
+//                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+//                    {
+//                        mega.set("share_count", 0);
+//                    }
+//                    else
+//                    {
+//                        mega.set("share_count", mega.get("share_count") + 1);
+//                    }
+//                    mega.store.save();
+//                });
+//                this.set("isShareEmail", true);
+//            }
+//        },
         removeReview: function() {
             this.set('message', "Remove this Review?");
             this.set('makeSureDelete', !this.get('makeSureDelete'));

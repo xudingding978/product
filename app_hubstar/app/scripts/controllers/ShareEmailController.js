@@ -20,6 +20,7 @@ HubStar.ShareEmailController = Ember.Controller.extend({
     contentTitle: "",
     selectedUrl: "",
     ownerTitle: "",
+    ownerPic: "",
     needs: ['permission', 'applicationFeedback', 'user', 'profile', "mega", 'article', 'video', 'application', 'itemFunction'],
 //    init: function()
 //    {
@@ -43,7 +44,7 @@ HubStar.ShareEmailController = Ember.Controller.extend({
         },
         emailSend: function()
         {
-            var tempEmail = [this.get("emailDestination"), this.get("emailBody"), this.get('displayName'), this.get('displayEmail'), this.get("currentUser").get('photo_url_large'), this.get("owner_profile_pic"), this.get("selectedPhotoThumbnailUrl"), this.get("selectedUrl"), this.get('contentTitle'), this.get("ownerTitle"), this.get("selectedMega").get("owner_profile_pic")];
+            var tempEmail = [this.get("emailDestination"), this.get("emailBody"), this.get('displayName'), this.get('displayEmail'), this.get("currentUser").get('photo_url_large'), this.get("owner_profile_pic"), this.get("selectedPhotoThumbnailUrl"), this.get("selectedUrl"), this.get('contentTitle'), this.get("ownerTitle"), this.get("ownerPic")];
             requiredBackEnd('emails', 'shareemail', tempEmail, 'POST', function(params) {
             });
             this.get('controllers.applicationFeedback').statusObserver(null, "Your message has been sent.");
@@ -75,10 +76,12 @@ HubStar.ShareEmailController = Ember.Controller.extend({
             {
                 that.set("owner_profile_pic", that.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
                 that.set("ownerTitle", that.get("contentTitle"));
+                that.set("ownerPic", that.get("owner_profile_pic"));
             }
             else {
                 that.set("owner_profile_pic", that.get("selectedMega").get("owner_profile_pic"));
                 that.set("ownerTitle", that.get("selectedMega").get("owner_title"));
+                that.set("ownerPic", that.get("selectedMega").get("owner_profile_pic"));
             }
         });
     },

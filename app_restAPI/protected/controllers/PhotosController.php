@@ -568,13 +568,13 @@ class PhotosController extends Controller {
 
     function compressPhotoData($type, $image) {
 
-        if ($type == "image/png") {
-            imagepng($image);
-        } elseif ($type == "image/jpeg") {
-            imagejpeg($image, null, 80);
-        } else if ($type == "image/gif") {
-            imagegif($image);
-        }
+//        if ($type == "image/png") {
+//            imagepng($image);
+//        } elseif ($type == "image/jpeg") {
+//            imagejpeg($image, null, 80);
+//        } else if ($type == "image/gif") {
+//            imagegif($image);
+//        } 
         return $image;
     }
 
@@ -678,5 +678,4 @@ class PhotosController extends Controller {
     }
 
 }
-
 ?>

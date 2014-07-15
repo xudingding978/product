@@ -594,6 +594,7 @@ HubStar.CommentController = Ember.Controller.extend({
         }
     },
     eShare: function() {
+        this.shareHide(model.id);
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
             var mega = HubStar.Mega.find(this.get('currentUserID'));

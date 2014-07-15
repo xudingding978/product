@@ -27,6 +27,11 @@ HubStar.VideoController = Ember.Controller.extend({
             this.set('sharePhotoUrl', tempUrl);
             this.set('sharePhotoName', "test");
             $('#dropdown_id_' + param).toggleClass('hideClass');
+            $('#dropdown_id_' + param).click(function() {
+                //$(this).removeClass('hideClass');
+            }).mouseleave(function() {
+                $('#dropdown_id_' + param).addClass('hideClass');
+            });
         },
         // share to social facebook
         fbShare: function(param) {
@@ -200,16 +205,16 @@ HubStar.VideoController = Ember.Controller.extend({
             }
         },
         closeWindow: function() {
-    
+
             HubStar.set('ctaView', false);
-       setTimeout(function(){
-           if ($(window).width() > 1200) {
+            setTimeout(function() {
+                if ($(window).width() > 1200) {
                     $("#cta-popup").removeClass("cta-popup-small-top");
                 } else {
                     $("#cta-popup").addClass("cta-popup-small-top");
                 }
-       },1);          
-    
+            }, 1);
+
             this.set('collectable', false);
             this.set('contact', false);
             var address = document.URL;
@@ -410,7 +415,7 @@ HubStar.VideoController = Ember.Controller.extend({
             });
         }
         );
-         if (HubStar.get("checkLoginStatus")) {
+        if (HubStar.get("checkLoginStatus")) {
             if (HubStar.get('showDiscoveryBar')) {
                 HubStar.set('ctaView', false);
             } else {

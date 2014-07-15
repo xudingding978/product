@@ -19,7 +19,7 @@ HubStar.StatusView = Ember.View.extend({
     },
     actions: {
         registerlogin: function() {
-            HubStar.set('checkLoginStatus', true);
+            HubStar.set('loginModal', true);
         }
     }
 });

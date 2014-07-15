@@ -43,6 +43,16 @@ HubStar.ProfileNewController = Ember.Controller.extend({
     subcate: [],
     needs: ['profile', 'applicationFeedback', 'application'],
     actions: {
+        topicSelection: function(data) {
+
+            this.set('subcate', []);
+            for (var i = 0; i < data.get('subcate').get('length'); i++)
+            {
+                this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')
+                });
+            }
+
+        },
         packageSelection: function(checking) {
             if (checking === "gold") {
                 this.set("profile_package", "Gold");
@@ -508,16 +518,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
         this.set('categorys', null);
         this.set('categorys', model);
 
-    },
-    topicSelection: function(data) {
-
-        this.set('subcate', []);
-        for (var i = 0; i < data.get('subcate').get('length'); i++)
-        {
-            this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')
-            });
-        }
-
     }
+
 });
 

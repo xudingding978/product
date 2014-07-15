@@ -28,7 +28,6 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
                         that.set('videoDesc', feedback.data.description);
                     }, error: function() {
                         that.set('videoid', null);
-//                  console.log("some wrong with youtube id");
                         that.get('controllers.applicationFeedback').statusObserver(null, "something wrong with youtube link");
                     }
                 });

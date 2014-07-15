@@ -820,10 +820,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     }
                     mega.store.save();
                 });
+                var profile = HubStar.Profile.find(this.get('currentUserID'));
                 var shareEmailController = this.get('controllers.shareEmail');
                 shareEmailController.setSelectedMega(this.get('currentUserID'));
 //            var selectid = this.get('selectedPhoto').id; 
-                shareEmailController.setThumbnailUrl(this.get('profile_pic_url'));
+                shareEmailController.setThumbnailUrl(profile.get('profile_pic_url'));
                 shareEmailController.setUrl(currentUrl);
                 shareEmailController.setUser();
                 shareEmailController.setRelatedController('profile');
@@ -1064,6 +1065,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 var src = this.get('newStyleImageSource');
                 var that = this;
                 that.set('loadingTime', true);
+                var update_profile_record = HubStar.Profile.find(this.get('model.id'));
                 getImageWidth(src, function(width, height) {
                     that.set('currentWidth', width);
                     that.set('currentHeight', height);
@@ -1084,7 +1086,20 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                                 'newStyleImageName': that.get('newStyleImageName'),
                                 'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                                 'id': that.get('model.id')};
-                            requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function() {
+                            requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
+                                var model = HubStar.Profile.find(that.get('model.id'));
+                                if (that.get('UploadImageMode') === "Profile Picture")
+                                {
+                                    model.set('profile_pic_url', params);
+                                    that.set('profile_pic_url',params);
+                                } else if (that.get('UploadImageMode') === "Profile Hero")
+                                {
+                                    model.set('profile_hero_url', params);
+                                } else if (that.get('UploadImageMode') === "Background")
+                                {
+                                    model.set('profile_bg_url', params);
+                                }
+                                model.save();
                                 that.set('isPhotoEditingMode', false);
                                 that.set('isPhotoUploadMode', false);
                                 that.set('isUpload', false);

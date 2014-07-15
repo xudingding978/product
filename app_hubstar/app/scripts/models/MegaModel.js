@@ -101,7 +101,6 @@ HubStar.Mega = DS.Model.extend({
         for (var i = 0; i < 3 && this.get("keyword").get("length"); i++)
         {
             var b = [];
-            //console.log(this.get("keyword").get("length"));
             if (this.get("keyword").objectAt(i) !== undefined && this.get("keyword").objectAt(i) !== null) {
                 b.keyword_name = this.get("keyword").objectAt(i).get("keyword_name");
                 a[i] = b;

@@ -56,7 +56,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             this.set("isReadProfile", true);
             requiredBackEnd('users', 'ReadProfileData', data, 'POST', function(params) {
                 that.set("profiles", params);
-                //console.log(that.get('profiles'));
                 that.set("isReadProfile", false);
                 that.set('selectTagProfile', !that.get('selectTagProfile'));
             });

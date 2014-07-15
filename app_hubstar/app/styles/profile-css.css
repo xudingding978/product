@@ -3204,11 +3204,11 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .pdfuploader-back{
-    position: absolute; 
+    position: absolute;
     top: 0;
-    background-color: rgba(204, 204, 204, 0.75); 
-    height: 490px; 
-    z-index: 100; 
+    background-color: rgba(255, 255, 255, 0.75);
+    height: 440px;
+    z-index: 0;
     width: 600px;
 }
 .pdfuploader-inner{
@@ -3221,7 +3221,7 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .pdfuploader-txtContainer{
-    top: 30.5%;
+    top: 25%;
     position: absolute;
     width: 100%;
     text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;

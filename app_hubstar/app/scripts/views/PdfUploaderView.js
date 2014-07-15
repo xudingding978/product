@@ -28,22 +28,22 @@ HubStar.PdfUploaderView = Ember.View.extend( HubStar.PdfUploaderController.Dropp
 //   this.get("controller").set("pdfInfromationEdit", true);
 //  });
 
-$("#pdfUploaderData").hide();
-        var dragTimer;
-        $(document).on('dragover', function (e) {
-            var dt = e.originalEvent.dataTransfer;
-            if (dt.types !== null && (dt.types.indexOf ? dt.types.indexOf('Files') !== -1 : dt.types.contains('application/x-moz-file'))) {
-                $("#pdfUploaderData").show();
-                window.clearTimeout(dragTimer);
-            }
-        });
-        $(document).on('dragleave', function (e) {
-            window.clearTimeout(dragTimer);
-            dragTimer = window.setTimeout(function () {
-                $("#pdfUploaderData").hide();
-            }, 300);
-        });
-        
+//$("#pdfUploaderData").hide();
+//        var dragTimer;
+//        $(document).on('dragover', function (e) {
+//            var dt = e.originalEvent.dataTransfer;
+//            if (dt.types !== null && (dt.types.indexOf ? dt.types.indexOf('Files') !== -1 : dt.types.contains('application/x-moz-file'))) {
+//                $("#pdfUploaderData").show();
+//                window.clearTimeout(dragTimer);
+//            }
+//        });
+//        $(document).on('dragleave', function (e) {
+//            window.clearTimeout(dragTimer);
+//            dragTimer = window.setTimeout(function () {
+//                $("#pdfUploaderData").hide();
+//            }, 300);
+//        });
+//        
         
 
      }

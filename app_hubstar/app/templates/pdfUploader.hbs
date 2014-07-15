@@ -3,15 +3,22 @@
 
 <div class="review-wrapper pdfuploader-container" >
 
+    <div style="width:100%; height: 50px; background-color: #ccc; text-align: center; font-size: 25px; font-weight: bold;padding: 14px 0;">Add Resource</div>
+
+  
+    {{#view HubStar.SingleFileUploaderView }}
     <div class="t-style-box pdfuploader-inner" >
 
-        <div id="pdfUploaderContent" class="pdfuploader-txtContainer">
-            <i class="fa fa-arrow-circle-o-up pdfuploader-icon" ></i>
-            <span class="pdfuploader-txt1">
-                Drag & Drop Your PDF Here
-            </span>
-            <span class="pdfuploader-txt2">Please upload no more than 20 photos at a time, and maximum size of 20MB per photo.</span> 
+        <div id="pdfUploaderData" class="pdfuploader-back" >
+            <div id="pdfUploaderContent" class="pdfuploader-txtContainer">
+                <i class="fa fa-arrow-circle-o-up pdfuploader-icon" ></i>
+                <span class="pdfuploader-txt1">
+                    Drag & Drop Your PDF Here
+                </span>
+                <span class="pdfuploader-txt2">Please upload no more than 20 photos at a time, and maximum size of 20MB per photo.</span> 
+            </div>
         </div>
+      
 
 
         <div  id="pdfInformation" >
@@ -21,8 +28,8 @@
 
             {{/if}}
             {{#each pdfArray}}          
-            
-            
+
+
 
             <div class="pdfuploader-preview-container">
                 <div id="pdf_id_{{unbound id}}">
@@ -60,23 +67,11 @@
 </div>
 
 </div>
-
-
-{{#view HubStar.SingleFileUploaderView}}
-<div id="pdfUploaderData" class="pdfuploader-back" >
-    <div id="pdfUploaderContent" class="pdfuploader-txtContainer">
-        <i class="fa fa-arrow-circle-o-up pdfuploader-icon" ></i>
-        <span class="pdfuploader-txt1">
-            Drag & Drop Your PDF Here
-        </span>
-        <span class="pdfuploader-txt2">Please upload no more than 20 photos at a time, and maximum size of 20MB per photo.</span> 
-    </div>
-</div>
-{{/view}}
+    {{/view}}
 
 <div class="pdfuploader-action-container" >
     <div class="message-btn easing pdfuploader-action-btn" {{action closeUploader}}>
-         skip  
+         Skip  
 </div>
 <div class="message-btn easing pdfuploader-action-choose" >
     Choose 

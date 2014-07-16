@@ -1,9 +1,7 @@
 <div class="objectview-wrapper" >
     <div class="objectview-left">
 
-        {{#if controller.collectable}}
-        {{render "addCollection"}}
-        {{/if}}
+
 
         <div class="top-controlbar easing">
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this video to a collection"  {{action switchCollection on="click" target="controller"}} >
@@ -77,9 +75,7 @@
                 </div>
             </div>
 
-            {{#if controller.contact}}
-            {{render "contact"}}
-            {{/if}}
+
 
         </div>
 
@@ -264,3 +260,10 @@
 {{render "shareEmail"}}
 {{/if}}
 
+{{#if controller.contact}}
+{{render "contact"}}
+{{/if}}
+
+{{#if controller.collectable}}
+{{render "addCollection"}}
+{{/if}}

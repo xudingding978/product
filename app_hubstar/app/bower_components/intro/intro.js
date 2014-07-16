@@ -241,8 +241,7 @@
         if (typeof (this._currentStep) === 'undefined') {
             this._currentStep = 0;
         } else {
-            ++this._currentStep;
-
+          
         }
         
            var address = document.URL;
@@ -251,7 +250,7 @@
           
              if (this._currentStep === 5) {
                 
-                 $(".Navigator-box").css("display", "block");
+                 $(".Navigator-box").cs"display "block");
                       
         }
         else {

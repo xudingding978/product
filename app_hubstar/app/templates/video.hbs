@@ -1,9 +1,7 @@
 <div class="objectview-wrapper" >
     <div class="objectview-left">
 
-        {{#if controller.collectable}}
-        {{render "addCollection"}}
-        {{/if}}
+
 
         <div class="top-controlbar easing">
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this video to a collection"  {{action switchCollection on="click" target="controller"}} >
@@ -12,25 +10,26 @@
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this video" {{action dropdownPhotoSetting "1"}}>
 
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
+                <ul class="hideClass edit-object-ul share-box4" id="dropdown_id_1">
+                    <li class="ite" {{action  fbShare "1"}} >
+                        <i class="fa fa-facebook share-type share-type-pos2"></i><span class="share-type-txt2">Facebook</span>
+                    </li>
+                    <li class='ite' {{action tShare "1"}} >
+                        <i class="fa fa-twitter share-type share-type-pos2"></i><span class="share-type-txt2">Twitter</span>
+                    </li>
+                    <li class='ite' {{action pShare "1"}} >
+                        <i class="fa fa-pinterest share-type share-type-pos2"></i><span class="share-type-txt2">Pinterest</span>
+                    </li>
+                    <li class="ite" {{action gpShare "1"}}>
+                        <i class="fa fa-google-plus share-type share-type-pos2"></i><span class="share-type-txt2">Google+</span>
+                    </li>
+                    <li class="ite" {{action eShare "1"}}>
+                        <img src="../../../images/sent.png" class="share-type-email">
+                        <i class="send_email share-type share-type-pos2" ></i><span class="share-type-txt1" >E-mail</span>
+                    </li>
+                </ul>
             </div>
-            <ul class="hideClass edit-object-ul share-box4" id="dropdown_id_1">
-                <li class="ite" {{action  fbShare "1"}} >
-                    <i class="fa fa-facebook share-type share-type-pos2"></i><span class="share-type-txt2">Facebook</span>
-                </li>
-                <li class='ite' {{action tShare "1"}} >
-                    <i class="fa fa-twitter share-type share-type-pos2"></i><span class="share-type-txt2">Twitter</span>
-                </li>
-                <li class='ite' {{action pShare "1"}} >
-                    <i class="fa fa-pinterest share-type share-type-pos2"></i><span class="share-type-txt2">Pinterest</span>
-                </li>
-                <li class="ite" {{action gpShare "1"}}>
-                    <i class="fa fa-google-plus share-type share-type-pos2"></i><span class="share-type-txt2">Google+</span>
-                </li>
-                <li class="ite" {{action eShare "1"}}>
-                    <img src="../../../images/sent.png" class="share-type-email">
-                    <i class="send_email share-type share-type-pos2" ></i><span class="share-type-txt1" >E-mail</span>
-                </li>
-            </ul>
+
 
             <script type="text/javascript">
                 (function(d) {
@@ -43,9 +42,9 @@
             </script>
 
         </div>
-        
+
         {{#if HubStar.checkLoginStatus}}
-          {{view HubStar.CallToActionView}}
+        {{view HubStar.CallToActionView}}
         {{/if}}
 
         <div id="close_video_wrapper" class="closeview" {{action closeWindow on="click" target="controller"}} >
@@ -76,9 +75,7 @@
                 </div>
             </div>
 
-            {{#if controller.contact}}
-            {{render "contact"}}
-            {{/if}}
+
 
         </div>
 
@@ -263,3 +260,10 @@
 {{render "shareEmail"}}
 {{/if}}
 
+{{#if controller.contact}}
+{{render "contact"}}
+{{/if}}
+
+{{#if controller.collectable}}
+{{render "addCollection"}}
+{{/if}}

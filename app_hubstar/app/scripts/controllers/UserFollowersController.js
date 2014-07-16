@@ -15,6 +15,21 @@ HubStar.UserFollowersController = Ember.Controller.extend({
     is_authentic_user: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
     test: "test",
+    actions: {
+        followThisUser: function(follow_object)
+        {
+
+            if (follow_object.get("follow_status") === false)
+            {
+                this.followUser(follow_object.get("id"), "follower", follow_object);
+            }
+            else
+            {
+                this.unFollowUser(follow_object.get("id"), "follower", follow_object);
+
+            }
+        }
+    },
     setUserFollowers: function(followers) {
 
         var model = HubStar.User.find(followers);
@@ -35,7 +50,6 @@ HubStar.UserFollowersController = Ember.Controller.extend({
 
     },
     getClientId: function(model) {
-        //console.log(localStorage.loginStatus);
         this.set('loadingTime', true);
         this.set("model", model);
         this.set('clientID', model.id);
@@ -103,19 +117,6 @@ HubStar.UserFollowersController = Ember.Controller.extend({
             that.relayout();
         });
 
-    },
-    followThisUser: function(follow_object)
-    {
-
-        if (follow_object.get("follow_status") === false)
-        {
-            this.followUser(follow_object.get("id"), "follower", follow_object);
-        }
-        else
-        {
-            this.unFollowUser(follow_object.get("id"), "follower", follow_object);
-
-        }
     },
     checkFollowStatus: function(currentUser, that, follow_object)
     {
@@ -449,9 +450,11 @@ HubStar.UserFollowersController = Ember.Controller.extend({
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
-                 $('html,body').animate({
-                    scrollTop: $("#profile_submenu").offset().top-100
-                });
+                if ($("#profile_submenu") !== null && $("#profile_submenu").offset() !== undefined) {
+                    $('html,body').animate({
+                        scrollTop: $("#profile_submenu").offset().top - 100
+                    });
+                }
             }, 400);
         }, 300);
     }

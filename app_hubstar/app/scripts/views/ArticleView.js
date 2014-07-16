@@ -6,6 +6,32 @@ HubStar.ArticleView = Ember.View.extend({
     fullName: (function() {
         return "test";
     }).property(),
+    actions: {
+        checkReading: function() {
+            this.set('readContent', !this.get("readContent"));
+            $('#article_text_action').css('height', 'auto');
+            var height = $('#article_text_action').height();
+            $("#article_text_action").height('215px').animate({height: height}, "slow");
+            $('#read_more_cue').attr("style", "display:none;");
+        },
+        checkClosed: function() {
+            var height = $('#article_text_action').offset().height;
+            $("#article_text_action").css({height: height}).animate({"height": "210px"}, "slow");
+            this.set('readContent', !this.get("readContent"));
+            $('#read_more_cue').attr("style", "display:block;");
+
+        },
+        setDiscussionTag: function() {
+            $('#discuss_action').slideToggle("slow");
+
+        },
+        popupAibum: function() {
+            $(".show-album").slideToggle("slow");
+        },
+        setNameTag: function() {
+            $('#poster_action').slideToggle("slow");
+        }
+    },
     didInsertElement: function() {
         this.ads();
         var that = this;
@@ -30,7 +56,7 @@ HubStar.ArticleView = Ember.View.extend({
                 {
                     var pic_w = HubStar.get("pic_current_width");
                     var pic_h = HubStar.get("pic_current_height");
-                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) && 
+                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) &&
                             (Math.ceil(event.clientY) > Math.ceil(top) && Math.ceil(event.clientY) < Math.ceil(top) + Math.ceil(pic_h))) {
                         that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
                     }
@@ -66,7 +92,7 @@ HubStar.ArticleView = Ember.View.extend({
                     //$("#showTagSavePhoto").css("left", "0px");
                     that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
                 }
-                that.get("controller").nextImage(event, mouseX, mouseY);
+                that.get("controller").send("nextImage", event, mouseX, mouseY);
             }
         });
         $('#previousarticlephoto').mousedown(function(event) {
@@ -86,7 +112,7 @@ HubStar.ArticleView = Ember.View.extend({
                 {
                     var pic_w = HubStar.get("pic_current_width");
                     var pic_h = HubStar.get("pic_current_height");
-                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) && 
+                    if ((Math.ceil(event.clientX) > Math.ceil(left) && event.clientX < Math.ceil(left) + Math.ceil(pic_w)) &&
                             (Math.ceil(event.clientY) > Math.ceil(top) && Math.ceil(event.clientY) < Math.ceil(top) + Math.ceil(pic_h))) {
                         that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
                     }
@@ -121,35 +147,23 @@ HubStar.ArticleView = Ember.View.extend({
                     // $("#showTagSavePhoto").css("left", "0px");
                     that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
                 }
-                that.get("controller").previesImage(event, mouseX, mouseY);
+                that.get("controller").send("previesImage", event, mouseX, mouseY);
             }
         });
 
         var that = this;
         window.onresize = function() {
-            var tags = that.get("controller").get("controllers.showTag").get("contentTags");
-            if (tags !== undefined && tags !== "" && tags !== null)
-            {
-                that.get("controller").get("controllers.mega").photoSizeJudge(that.get("controller").get('selectedPhoto'));
-                that.get("controller").windowResizeTags(tags);
+            if (that.get("controller").get("controllers.showTag") !== undefined) {
+                var tags = that.get("controller").get("controllers.showTag").get("contentTags");
+                if (tags !== undefined && tags !== "" && tags !== null)
+                {
+                    that.get("controller").get("controllers.mega").photoSizeJudge(that.get("controller").get('selectedPhoto'));
+                    that.get("controller").windowResizeTags(tags);
+                }
             }
         };
         return this.$().attr({tabindex: 1}), this.$().focus();
 
-
-    },
-    checkReading: function() {
-        this.set('readContent', !this.get("readContent"));
-        $('#article_text_action').css('height', 'auto');
-        var height = $('#article_text_action').height();
-        $("#article_text_action").height('215px').animate({height: height}, "slow");
-        $('#read_more_cue').attr("style", "display:none;");
-    },
-    checkClosed: function() {
-        var height = $('#article_text_action').offset().height;
-        $("#article_text_action").css({height: height}).animate({"height": "210px"}, "slow");
-        this.set('readContent', !this.get("readContent"));
-        $('#read_more_cue').attr("style", "display:block;");
 
     },
     setArticleTag: function() {
@@ -172,20 +186,10 @@ HubStar.ArticleView = Ember.View.extend({
             }, 500);
         });
     },
-    setDiscussionTag: function() {
-        $('#discuss_action').slideToggle("slow");
-
-    },
-    setNameTag: function() {
-        $('#poster_action').slideToggle("slow");
-    },
     setPartnerTag: function() {
 
         $('#partner_action').slideToggle("slow");
 
-    },
-    popupAibum: function() {
-        $(".show-album").slideToggle("slow");
     },
     openComment: function() {
 
@@ -207,7 +211,7 @@ HubStar.ArticleView = Ember.View.extend({
         if (event.which === 27)
         { // pressed 'esc'
 
-            //this.get("controller").transitionTo("search");
+            //this.get("controller").transitionToRoute("search");
             this.get("controller").get("controllers.article").set("contentTagsArticle", "");
             var address = document.URL;
             var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
@@ -222,7 +226,7 @@ HubStar.ArticleView = Ember.View.extend({
 
                     var data = HubStar.Mega.find(colectionPhoto);
 
-                    this.get("controller").transitionTo("userPhoto", data); //user
+                    this.get("controller").transitionToRoute("userPhoto", data); //user
                 }
                 else
                 {
@@ -241,16 +245,16 @@ HubStar.ArticleView = Ember.View.extend({
                 HubStar.set("escVideo", true);
                 if (type === "profiles")
                 {
-                    this.get("controller").transitionTo("search", {id: id});
+                    this.get("controller").transitionToRoute("search", {id: id});
                 }
                 else if (id === "default") //it is the search index
                 {
-                    this.get("controller").transitionTo("searchIndexTom");
+                    this.get("controller").transitionToRoute("searchIndexTom");
                 }
                 else
                 {
 
-                    this.get("controller").transitionTo("search", {id: id});
+                    this.get("controller").transitionToRoute("search", {id: id});
                 }
                 $('#masonry_wrapper').attr('style', "top:100px;position:relative");
                 setTimeout(function() {
@@ -303,7 +307,7 @@ HubStar.ArticleView = Ember.View.extend({
                         }
                     }
                 }
-            }, 300);
+            }, 1300);
         });
     }
 });

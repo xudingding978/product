@@ -38,6 +38,72 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     {
         HubStar.set("isProfile", false);
     },
+    actions: {
+        cancelTag: function()
+        {
+            $('#tagname').val("");
+            $('#tagit').fadeOut();
+            this.setDescription("");
+            this.setLinkTo("");
+            this.set("product_name", "");
+            this.set('selectTagProfile', false);
+        },
+        profileSwitch: function() {
+            var data = [localStorage.loginStatus];
+            var dataNew = new Array();
+            var that = this;
+            this.set('selectionPop', false);
+            this.set("isReadProfile", true);
+            requiredBackEnd('users', 'ReadProfileData', data, 'POST', function(params) {
+                that.set("profiles", params);
+                that.set("isReadProfile", false);
+                that.set('selectTagProfile', !that.get('selectTagProfile'));
+            });
+        },
+        profileCanel: function() {
+            this.set('selectTagProfile', false);
+        },
+        chooseProfile: function(title, id) {
+            this.set('selectedDesc', title);
+            this.set("selectedID", id);
+            var link = 'http://' + document.domain + '/#/profiles/' + this.get("selectedID") + "/collections/";
+            this.setLinkTo(link);
+            for (var i = 0; i < this.get("profiles").get("length"); i++)
+            {
+                if (this.get("profiles").objectAt(i).profile_id === id)
+                {
+                    if (id === localStorage.loginStatus && this.get("profiles").objectAt(i).type === "user")
+                    {
+                    }
+                    else
+                    {
+                        this.set("chosenProfile", id);
+                        this.set("profileCollection", this.get("profiles").objectAt(i).collection);
+                        this.set("chooseProfileItem", true);
+                    }
+
+                    this.setDesc(title);
+                    if (this.get("selectedDesc") !== "")
+                    {
+                        this.setThumbnailUrl(this.get("profiles").objectAt(i).profile_hero_cover_url);
+                    }
+
+                    this.setTitle("Choose your Collection");
+                }
+            }
+            this.set('selectTagProfile', !this.get('selectTagProfile'));
+        },
+        collectionSwitch: function() {
+            this.set('selectionPop', !this.get("selectionPop"));
+            this.set('selectTagProfile', false);
+        },
+        chooseRecord: function(title, id) {
+            this.set('selectedTitle', title);
+            this.setSelectedCollection(id);
+            var link = 'http://' + document.domain + '/#/profiles/' + this.get("selectedID") + "/collections/" + id;
+            this.setLinkTo(link);
+            this.set('selectionPop', !this.get("selectionPop"));
+        },
     saveTag: function(time)
     {
 //  var name = $('#tagname').val();  //get the input txt value
@@ -111,6 +177,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             });
             this.get('controllers.applicationFeedback').statusObserver(null, "Great job! A message to the content owner requesting activation of your tag.", "warnning");
         }
+    }
     },
     activateUserTag: function(tag_id, photo_id)
     {
@@ -256,67 +323,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     cancelUpdateTag: function()
     {
         this.set("isUpdateTag", false);
-        this.cancelTag();
-    },
-    cancelTag: function()
-    {
-        $('#tagname').val("");
-        $('#tagit').fadeOut();
-        this.setDescription("");
-        this.setLinkTo("");
-        this.set("product_name", "");
-        this.set('selectTagProfile', false);
-    }
-    ,
-    profileSwitch: function() {
-        var data = [localStorage.loginStatus];
-        var dataNew = new Array();
-        var that = this;
-        this.set('selectionPop', false);
-        this.set("isReadProfile", true);
-        requiredBackEnd('users', 'ReadProfileData', data, 'POST', function(params) {
-            that.set("profiles", params);
-            //console.log(that.get('profiles'));
-            that.set("isReadProfile", false);
-            that.set('selectTagProfile', !that.get('selectTagProfile'));
-        });
-    },
-    chooseProfile: function(title, id) {
-        this.set('selectedDesc', title);
-        this.set("selectedID", id);
-        var link = 'http://' + document.domain + '/#/profiles/' + this.get("selectedID") + "/collections/";
-        this.setLinkTo(link);
-        for (var i = 0; i < this.get("profiles").get("length"); i++)
-        {
-            if (this.get("profiles").objectAt(i).profile_id === id)
-            {
-                if (id === localStorage.loginStatus && this.get("profiles").objectAt(i).type === "user")
-                {
-                }
-                else
-                {
-                    this.set("chosenProfile", id);
-                    this.set("profileCollection", this.get("profiles").objectAt(i).collection);
-                    this.set("chooseProfileItem", true);
-                }
-
-                this.setDesc(title);
-                if (this.get("selectedDesc") !== "")
-                {
-                    this.setThumbnailUrl(this.get("profiles").objectAt(i).profile_hero_cover_url);
-                }
-
-                this.setTitle("Choose your Collection");
-            }
-        }
-        this.set('selectTagProfile', !this.get('selectTagProfile'));
-    },
-    chooseRecord: function(title, id) {
-        this.set('selectedTitle', title);
-        this.setSelectedCollection(id);
-        var link = 'http://' + document.domain + '/#/profiles/' + this.get("selectedID") + "/collections/" + id;
-        this.setLinkTo(link);
-        this.set('selectionPop', !this.get("selectionPop"));
+        this.send("cancelTag");
     },
     setSelectedCollection: function(id) {
         var selectedCollection = null;
@@ -327,9 +334,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             }
         }
         this.set('selectedCollection', selectedCollection);
-    },
-    profileCanel: function() {
-        this.set('selectTagProfile', false);
     },
     setDesc: function(desc) {  //it is the select profile
         this.set("selectedDesc", desc);
@@ -375,10 +379,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         else {
             this.get("controllers.mega").switchCollection();
         }
-    },
-    collectionSwitch: function() {
-        this.set('selectionPop', !this.get("selectionPop"));
-        this.set('selectTagProfile', false);
     },
     checkingValidInput: function(title) {
 

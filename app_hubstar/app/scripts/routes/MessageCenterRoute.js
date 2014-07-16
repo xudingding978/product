@@ -62,7 +62,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             }
         }
     },
-    events: {
+    actions: {
         transitionToConversation: function(conversation_id) {
             var address = document.URL;
 //            var user_id = address.split("#")[1].split("/")[2];
@@ -91,8 +91,15 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             HubStar.set("newConversation", false);
             HubStar.set("talkConversation", false);
             this.controllerFor("conversation").selectConversation(data.get("id"));
-            this.transitionTo("conversation", data);
+            this.transitionTo("conversationSingle", data);
         }
+    },
+    renderTemplate: function() {
+
+        this.render("messageCenter", {
+            outlet: "messageCenter",
+            into: "user"
+        });
     }
 });
 

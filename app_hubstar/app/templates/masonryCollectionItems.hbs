@@ -1,7 +1,7 @@
 
 {{#if controller.loadingTime}}
 
-{{render loadingSpinner}}
+{{render "loadingSpinner"}}
 
 {{/if}}
  
@@ -68,10 +68,12 @@
                         <div class="masonry-upload-imgBox">
                             <div> 
                                 {{#each photo}}
-                                <img  {{bindAttr src= "photo_image_original_url"}}  alt="Logo" class="masonry-upload-img">
 
-                                <div {{bindAttr class="photo_source_id"}} style="display:none;">
+                                <img  {{bind-attr src= "photo_image_original_url"}}  alt="Logo" class="masonry-upload-img">
+
+                                <div {{bind-attr class="photo_source_id"}} style="display:none;">
                                     <img class="masonry-upload-spinner" src="../../../images/uploadphotos_spinner.gif"/>
+
                                 </div>
                                 {{/each}}
                             </div>
@@ -89,7 +91,7 @@
 
                 {{/view}}
                 {{else}}
-                {{render photoCreateInfoSetting}}
+                {{render "photoCreateInfoSetting"}}
                 {{/unless}}
             </div>
         </div>

@@ -8,7 +8,7 @@ HubStar.CollectionController = Ember.Controller.extend({
     {
         if (title !== null && title !== "" && title !== undefined) {
             this.set('collections', collections);
-            var ID = createMessageid();
+            var ID = createCollectionid();
             var isExsinting = this.checkingIdisExsinting(ID, "create");
             var collection = null;
             if (isExsinting) {

@@ -1,7 +1,7 @@
 
 <div id="group-top" class="group-top">
 <div class="group-wallpaper">
-    <img  {{bindAttr src= model.group_bg_url}}>
+    <img  {{bind-attr src= model.group_bg_url}}>
 </div> 
 {{#unless controller.editGroup}}
 <div class="group-wrapper"  >
@@ -16,7 +16,7 @@
         </div>
         <div class="group-panel-right">
             <div  class="group-creator">
-                <img class="group-creator-image" class="easing" {{bindAttr src="model.group_hero_cover_url"}}  /> 
+                <img class="group-creator-image" class="easing" {{bind-attr src="model.group_hero_cover_url"}}  /> 
                 <div class="group-creator-text">
                     <div class="group-creator-name">   {{model.group_creator_name}} </div>  
                     <div class="group-creator-time">  {{date controller.createTime}} </div>                 
@@ -30,11 +30,11 @@
               <i class="fa fa-cogs"></i>
         </div>
         <div class="group-cover-image">
-            <img {{bindAttr src=model.group_hero_url}}"/>
+            <img {{bind-attr src=model.group_hero_url}}"/>
         </div>
         {{model.group_pic_size}}
         <div class="group-pic-image masonry-object_profilepic"  >
-            <img id ="group_pic" class="easing" {{bindAttr src="model.group_pic_url"}}  />  
+            <img id ="group_pic" class="easing" {{bind-attr src="model.group_pic_url"}}  />  
         </div>
         <div class="group-title-part">
             <div class="group-name" >          
@@ -79,7 +79,7 @@
                 <div class="select-group" style="opacity:1" {{action topicSelection this }}>
                      <div class="group-image">         
                         <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing" {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>
-                        <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
+                        <div class="group-image-container"><img {{bind-attr src="image"}} /></div>
                     </div>
                     <div class="group-topic-name" >
                         {{topic}}  
@@ -89,7 +89,7 @@
                 <div class="select-group" {{action topicSelection this }}>
                      <div class="group-image">         
                         <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing" {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>
-                        <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
+                        <div class="group-image-container"><img {{bind-attr src="image"}} /></div>
                     </div>
                     <div class="group-topic-name" >
                         {{topic}}  
@@ -108,7 +108,7 @@
                 <div class="select-group" style="opacity:1" {{action topicSelection this }}>
                      <div class="group-image">    
                         <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing"  {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>                
-                        <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
+                        <div class="group-image-container"><img {{bind-attr src="image"}} /></div>
                     </div>
                     <div class="group-topic-name">
                         {{topic}}  
@@ -118,7 +118,7 @@
                 <div class="select-group" {{action topicSelection this }}>
                      <div class="group-image">    
                         <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing"  {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>                
-                        <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
+                        <div class="group-image-container"><img {{bind-attr src="image"}} /></div>
                     </div>
                     <div class="group-topic-name">
                         {{topic}}  
@@ -213,7 +213,7 @@
                     </div>
                     {{else}}
                     <div class="remove-comment-photo easing remove-help-logo" {{action removePic "logo"}}><i class="fa fa-times"></i></div>   
-                    <img  {{bindAttr src= "group_pic_url"}} class="img-help-logo">
+                    <img  {{bind-attr src= "group_pic_url"}} class="img-help-logo">
                         {{/if}}
                 </div>
             </div>
@@ -232,7 +232,7 @@
                     </div>
                     {{else}}
                     <div class="remove-comment-photo easing remove-help-bg" {{action removePic "bg"}}><i class="fa fa-times"></i></div>
-                    <img  {{bindAttr src= "group_bg_url"}} class="img-help-bg">
+                    <img  {{bind-attr src= "group_bg_url"}} class="img-help-bg">
                         {{/if}}
                 </div>
             </div>
@@ -254,4 +254,4 @@
 
 {{/unless}}
 
-{{view HubStar.MasonryCollectionView}}
+{{partial "masonryCollection"}}

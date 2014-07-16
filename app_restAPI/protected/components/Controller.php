@@ -169,8 +169,8 @@ class Controller extends CController {
             $response = $this->getCollectionReults($collection_id, $owner_profile_id);
             $response = $this->profileSetting($response, $returnType, 'collection');
         } elseif ($requireType == 'partner') {
-            $response = $this->getPartnerResultsInOrder($requireParams[1]);
-            //$response = $this->getReponseResult($response, $returnType);
+            $response = $this->getPartnerResults($requireParams[1]);
+            $response = $this->getReponseResult($response, $returnType);
         } elseif ($requireType == 'partnerSearch') {
             $response = $this->getPartnerResults($requireParams[1], $requireParams[2]);
             $response = $this->getReponseResult($response, $returnType);
@@ -812,6 +812,9 @@ class Controller extends CController {
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         $result = curl_exec($ch);
         $result_arr = CJSON::decode($result, true);
+        
+
+        
         $record_arr = $result_arr['hits']['hits'];
         $new_arr = array();
         $new_arr['total'] = $result_arr['hits']['total'];
@@ -1314,8 +1317,10 @@ class Controller extends CController {
                     $tempResult['stats'][0]['megas'][$i]['editors'] = $profile_editors;
                     $tempResult['stats'][0]['megas'][$i]['owner_title'] = $profile_name;
                     $tempResult['stats'][0]['megas'][$i]['owner_profile_pic'] = $profile_pic;
-                    $profile_classification = $mega_profile['classification'];
-                    $tempResult['stats'][0]['megas'][$i]['classification'] = $profile_classification;
+                    if (isset($mega_profile['classification'])) {
+                        $profile_classification = $mega_profile['classification'];
+                        $tempResult['stats'][0]['megas'][$i]['classification'] = $profile_classification;
+                    }
                     $profile_editor = (isset($mega_profile["profile"][0]["profile_editor"])) ? $mega_profile["profile"][0]["profile_editor"] : '';
                     $profile_administrator = (isset($mega_profile["profile"][0]["profile_administrator"])) ? $mega_profile["profile"][0]["profile_administrator"] : '';
                     $profile_creator = (isset($mega_profile["profile"][0]["profile_creator"])) ? $mega_profile["profile"][0]["profile_creator"] : '';
@@ -1327,6 +1332,10 @@ class Controller extends CController {
                     $tempResult['stats'][0]['megas'][$i]['owner_contact_bcc_emails'] = (isset($mega_profile["profile"][0]["owner_contact_bcc_emails"])) ? $mega_profile["profile"][0]["owner_contact_bcc_emails"] : "";
                     if (isset($tempResult['stats'][0]['megas'][$i]['photo'][0]['tags'])) {
                         $tempResult['stats'][0]['megas'][$i]['photo'][0]['tags'] = array();
+                    }
+                    if($tempResult['stats'][0]['megas'][$i]['type']!=="profile")
+                    {
+                        $tempResult['stats'][0]['megas'][$i]['keyword'] = array();
                     }
                 }
             }
@@ -1361,6 +1370,10 @@ class Controller extends CController {
                     $tempResult['megas'][$i]['owner_contact_bcc_emails'] = (isset($mega_profile["profile"][0]["owner_contact_bcc_emails"])) ? $mega_profile["profile"][0]["owner_contact_bcc_emails"] : "";
                     if (isset($tempResult['megas'][$i]['photo'][0]['tags'])) {
                         $tempResult['megas'][$i]['photo'][0]['tags'] = array();
+                    }
+                    if($tempResult['megas'][$i]['type']!=="profile")
+                    {
+                        $tempResult['megas'][$i]['keyword'] = array();
                     }
                 }
             }

@@ -1,4 +1,4 @@
-HubStar.CommentView = Ember.View.extend({
+ HubStar.CommentView = Ember.View.extend({
     templateName: 'comment',
     didInsertElement: function() {
         $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');

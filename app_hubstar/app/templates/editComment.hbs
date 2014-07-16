@@ -2,9 +2,9 @@
     <div class="reply-comment-frame reply-comment-frame2">
         <div class="reply-comment-innerframe">
             <a href="#/users/{{unbound model.user_id}}">
-                <img class="profilepic_comment comment-item-img2"{{bindAttr src="controller.currentUser.photo_url_large"}} /> 
-                <div class="user-reply-angle-before user-reply-angle-before3"></div>
-                <div class="user-reply-angle-after user-reply-angle-after3"></div>
+                <img class="profilepic_comment comment-item-img2"{{bind-attr src="controller.currentUser.photo_url_large"}} /> 
+                <div class="user-reply-angle-before user-says-angle-before3"></div>
+                <div class="user-reply-angle-after user-says-angle-after3"></div>
             </a>
 
             <div class="reply-comment-container reply-comment-container-w">
@@ -29,7 +29,7 @@
             {{#if controller.isUploadPhoto}}
             <div class="upload-img">
                 <div class="remove-comment-photo easing" {{action removePic}}><i class="fa fa-times"></i></div>
-                <img {{bindAttr src= "newStyleImageSource"}} >
+                <img {{bind-attr src= "newStyleImageSource"}} >
             </div>
             {{/if}}
         </div>

@@ -4,7 +4,7 @@
 <div id="user-header-menu" {{action dropdown "user"}} >
 
      <div data-toggle="dropdown" >
-        <div class="circle-btn circle-btn-border"><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user  easing" /></div>    
+        <div class="circle-btn circle-btn-border"><img {{bind-attr src="controller.user.photo_url_large"}} class="profilepic_user  easing" /></div>    
     </div>
     <div class="circle-btn-description">My Profile</div>
 
@@ -12,15 +12,15 @@
 {{#if controller.userProfile}}
 <div id="cancel" class="blank-top-bar"  {{action dropdown "user"}}>&nbsp;</div>
 <ul id="user-dd-menu" class="user-dd-menu  edit-object-ul">
-    <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myUserProfile"}} {{action userDisplaynone "myUserProfile" on="click"  target="view"}}>
+    <li class="ite" ><a tabindex="-1" {{bind-attr href="controller.myUserProfile"}} {{action userDisplaynone "myUserProfile" on="click"  target="view"}}>
                         <i class="fa fa-user">&nbsp;&nbsp;</i>
             <span>My Profile</span>
         </a></li>
-    <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myMessageBoard"}} {{action userDisplaynone "myMessageBoard" on="click"  target="view"}}>
+    <li class="ite" ><a tabindex="-1" {{bind-attr href="controller.myMessageBoard"}} {{action userDisplaynone "myMessageBoard" on="click"  target="view"}}>
                         <i class="fa fa-envelope" >&nbsp;&nbsp;</i>
             <span>Messages</span>
         </a></li>
-    {{#if controller.is_trends_user}}
+    {{#if HubStar.is_trends_user}}
     <li class="ite" >
         {{#if HubStar.profile_manager}}
         <a tabindex="-1"  href="" {{action userDisplaynone "new" on="click"  target="view"}}>
@@ -50,7 +50,7 @@
             <span>Group</span>
         </a>
     </li>
-     {{render newGroupTopDisplay HubStar.groups}}
+     {{render "newGroupTopDisplay" HubStar.groups}}
    
     {{/if}}
 
@@ -71,5 +71,5 @@
 
 
 {{#if controller.newProfile}} 
-{{render newProfileDisplay HubStar.profiles}} 
+{{render "newProfileDisplay" HubStar.profiles}} 
 {{/if}}

@@ -2133,7 +2133,7 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .width-60{
-    width: 60%;
+    width: 60% !important;
 }
 
 .width-75{
@@ -3277,7 +3277,12 @@ div#appfeedback .fresh-message > i.fa-times{
     width: 50px;
 }
 .pdfuploader-preview-title{
+    width: 70%;
+    overflow: hidden;
+    text-align: left;
     margin-left: 20px;
+    position: relative;
+    top: 10px;
 }
 
 .pdfuploader-trash{
@@ -3520,7 +3525,7 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .float-left{
-    float:left;
+    float:left !important;
 }
 
 .height-100{

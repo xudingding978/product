@@ -36,7 +36,6 @@ HubStar.Review = DS.Model.extend({
             }
         } else {
             this.set("isLike", false);
-            console.log("review isLike is false");
         }
     }.property("review_people_like")
  

@@ -1,5 +1,18 @@
 HubStar.EditCollectionView = Ember.View.extend({
     templateName: 'editCollection',
+    actions: {
+        returnCollection: function(id) {
+            var div_id = "#" + id;
+            var div_class = ".C" + id + "  #uploadArea";
+            $(div_id).attr("style", "display:block");
+            $(div_class).attr('style', "display:none");
+            this.get('controller').set('newTitle', '');
+            this.get('controller').set('newDesc', '');
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 5);
+        }
+    },
     didInsertElement: function() {
         // var container = document.querySelector('#masonry_user_container');
 
@@ -33,16 +46,6 @@ HubStar.EditCollectionView = Ember.View.extend({
             $(this).addClass('selected-user-stats');
 
         });
-    },
-    returnCollection: function(id) {
-        var div_id = "#" + id;
-        var div_class = ".C" + id + "  #uploadArea";
-        $(div_id).attr("style", "display:block");
-        $(div_class).attr('style', "display:none");
-        this.get('controller').set('newTitle', '');
-        this.get('controller').set('newDesc', '');
-        setTimeout(function() {
-            $('#masonry_user_container').masonry();
-        }, 5);
     }
+
 });

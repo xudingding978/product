@@ -19,12 +19,38 @@ HubStar.ShareEmailController = Ember.Controller.extend({
     email_title: "",
     contentTitle: "",
     selectedUrl: "",
+    ownerTitle: "",
+    ownerPic: "",
     needs: ['permission', 'applicationFeedback', 'user', 'profile', "mega", 'article', 'video', 'application', 'itemFunction'],
 //    init: function()
 //    {
 ////        if (localStorage.loginStatus) {
 ////            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
 //    },
+    actions: {
+        exit: function() {
+            var that = this;
+            this.get("controllers.profile").set("isShareEmail", false);
+            this.get("controllers.article").set("isShareEmail", false);
+            this.get("controllers.mega").set("isShareEmail", false);
+            this.get("controllers.video").set("isShareEmail", false);
+            HubStar.set("isShareEmail", false);
+            if (that.get('parentTController') === 'itemFunction')
+            {
+                var id = this.get("objectID");
+                $('#addEmail_' + id).attr('style', 'display: none');
+            }
+            $("#body_id").css("overflow", "auto");
+        },
+        emailSend: function()
+        {
+            var tempEmail = [this.get("emailDestination"), this.get("emailBody"), this.get('displayName'), this.get('displayEmail'), this.get("currentUser").get('photo_url_large'), this.get("owner_profile_pic"), this.get("selectedPhotoThumbnailUrl"), this.get("selectedUrl"), this.get('contentTitle'), this.get("ownerTitle"), this.get("ownerPic")];
+            requiredBackEnd('emails', 'shareemail', tempEmail, 'POST', function(params) {
+            });
+            this.get('controllers.applicationFeedback').statusObserver(null, "Your message has been sent.");
+            this.send("exit");
+        }
+    },
     setSelectedMega: function(id)
     {
 
@@ -49,35 +75,20 @@ HubStar.ShareEmailController = Ember.Controller.extend({
             if (that.get("selectedMega").get("type") === 'profile')
             {
                 that.set("owner_profile_pic", that.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
+                that.set("ownerTitle", that.get("contentTitle"));
+                that.set("ownerPic", that.get("owner_profile_pic"));
             }
             else {
                 that.set("owner_profile_pic", that.get("selectedMega").get("owner_profile_pic"));
+                that.set("ownerTitle", that.get("selectedMega").get("owner_title"));
+                that.set("ownerPic", that.get("selectedMega").get("owner_profile_pic"));
             }
         });
-    },
-
-    emailSend: function()
-    {
-        var tempEmail = [this.get("emailDestination"), this.get("emailBody"), this.get('displayName'), this.get('displayEmail'), this.get("currentUser").get('photo_url_large'), this.get("owner_profile_pic"), this.get("selectedPhotoThumbnailUrl"), this.get("selectedUrl"), this.get('contentTitle'), this.get("selectedMega").get("owner_title"), this.get("selectedMega").get("owner_profile_pic")];
-
-        requiredBackEnd('emails', 'shareemail', tempEmail, 'POST', function(params) {
-        });
-//        console.log(this.get('displayName'));
-//        console.log(this.get('displayEmail'));
-//        console.log(this.get("currentUser").get('photo_url_large'));
-//        console.log(this.get("owner_profile_pic"));
-//        console.log(this.get("selectedPhotoThumbnailUrl"));
-//        console.log(this.get("selectedUrl"));
-//        console.log(this.get('contentTitle'));
-//        console.log(this.get("selectedMega").get("owner_title"));
-//        console.log(this.get("selectedMega").get("owner_profile_pic"));
-        this.get('controllers.applicationFeedback').statusObserver(null, "Your message has been sent.");
-        this.exit();
     },
     setImageID: function(id) {
         this.set("objectID", id);
     },
-    setUrl: function(url){
+    setUrl: function(url) {
         this.set("selectedUrl", url);
     },
     setThumbnailUrl: function(photo_image_original_url) {
@@ -97,34 +108,5 @@ HubStar.ShareEmailController = Ember.Controller.extend({
     },
     setDesc: function(desc) {
         this.set("selectedDesc", desc);
-    },
-
-    exit: function() {
-        var that = this;
-        this.get("controllers.profile").set("isShareEmail", false);
-        this.get("controllers.article").set("isShareEmail", false);
-        this.get("controllers.mega").set("isShareEmail", false);
-        this.get("controllers.video").set("isShareEmail", false);
-
-//        if (this.get('parentTController') === 'article')
-//        {
-//            this.get("controllers.article").eShare();
-//        }
-//
-//        else 
-        if (that.get('parentTController') === 'itemFunction')
-        {
-            var id = this.get("objectID");
-            $('#addEmail_' + id).attr('style', 'display: none');
-        }
-
-//        else if (this.get('parentTController') === 'video')
-//        {
-//            this.get("controllers.video").eShare();
-//        }
-//        else {
-//            this.get("controllers.mega").eShare();
-//        }
-        $("#body_id").css("overflow", "auto");
     }
 });

@@ -39,8 +39,6 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
         this.controllerFor('profile').set('switchPhoto', false);
         this.controllerFor('masonryCollectionItems').set('uploadStuff', true);
         this.controllerFor('masonryCollectionItems').set('canEditbyOwner', true);
-
-
     },
     model: function(params) {
         this.controllerFor('profile').set('switchPhoto', false);
@@ -56,12 +54,10 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
         }
         var model = HubStar.Mega.find({RquireType: "profileCollection", owner_profile_id: id, collection_id: params.profileCollection_id});
         model.set("id", params.profileCollection_id);
-
         return model;
     },
-    events: {
+    actions: {
         transitionToPhoto: function(id) {
-            //      this.transitionTo("profile",HubStar.)
             this.controllerFor('mega').set("type", "profile");
             var obj = HubStar.Mega.find(id);
             var address = document.URL;
@@ -82,12 +78,20 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
                     HubStar.set('ctaView', false);
                 }
             }
-
-//            this.transitionTo("profileCollection", data);
             this.transitionTo("profilePhoto", obj);
         },
         transitionToProfile: function(id) {
-            this.transitionTo("profile", HubStar.Profile.find(id));
+            var address = document.URL;
+            var owner_id = address.split("#")[1].split("/")[2];
+            if (id !== owner_id) {
+                this.transitionTo("profile", HubStar.Profile.find(id));
+            }
+            else
+            {
+                this.controllerFor('profile').set("goBackType", true);
+                var model = {id: id};
+                this.transitionTo('profile', model);
+            }
         },
         transitionToArticle: function(id) {
 
@@ -100,10 +104,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
             }
             this.controllerFor("article").set("collectionArticleId", id);
             var obj = HubStar.Mega.find(id);
-
-
             this.transitionTo("profileArticle", obj);
-
         },
         transitionToVideo: function(video_id) {
             if (HubStar.get("checkLoginStatus")) {
@@ -113,21 +114,6 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
                     HubStar.set('ctaView', false);
                 }
             }
-//            
-//            var address = document.URL;
-//            var owner_id = address.split("#")[1].split("/")[2];
-//
-//
-//            var collection_id = address.split("#")[1].split("/")[4];
-//            var profile = HubStar.Profile.find(owner_id);
-//            for (var i = 0; i < profile.get('collections').get("length"); i++) {
-//                var data = profile.get('collections').objectAt(i);
-//                if (data.id === collection_id) {
-//                    break;
-//                }
-//            }
-//            this.transitionTo("profileCollection", data);
-            //           this.controllerFor('masonryCollectionItems').set('isUser', true);
             this.transitionTo("profileVideo", video_id);
         }
     },

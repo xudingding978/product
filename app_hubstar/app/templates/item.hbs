@@ -1,7 +1,7 @@
 {{#if getProfile}}
 <div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}} >
     <div class="masonry-object">
-        {{render itemProfiles this}}
+        {{render "itemProfiles" this}}
         {{render "comment" this}}
     </div>
 </div>
@@ -25,13 +25,13 @@
             </div>
         </div>
     </div>
-    {{render itemFunction this}}
+    {{render "itemFunction" this}}
 
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
             <a class="mainfeature-container" href="#/photos/{{unbound id}}" style="cursor: pointer">
                 <div id="init_photo_{{unbound id}}">
-                    <img  class="this-is-the-object" {{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
+                    <img  class="this-is-the-object" {{bind-attr src="object_image_url" }} {{action transitionToPhoto id}} />
                 </div>
             </a>
 
@@ -64,7 +64,7 @@
 
             <div class="profilepic-on-masonry">
                 <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  
-                    <img style="width:{{unbound profile_width}}; height: {{unbound profile_height}};"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                    <img style="width:{{unbound profile_width}}; height: {{unbound profile_height}};"  {{action transitionToProfile owner_id}} {{bind-attr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="cursor: pointer; word-break: break-word;" href="#/profiles/{{unbound owner_id}}/collections" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
@@ -79,7 +79,7 @@
                 <div style="font-weight: bold;margin-bottom: 5px;font-size:16px;word-break: break-word;">{{#each photo}}{{photo_title}}{{/each}} </div>
             </div>
 
-            <div class="more_detail" style="margin:0;"{{bindAttr id="id"}} >
+            <div class="more_detail" style="margin:0;"{{bind-attr id="id"}} >
                 <div class="more_text-container" >
                     <div style="display:block;">
                         {{#each photo}}
@@ -89,7 +89,7 @@
                 </div>
             </div>
             {{#if moreDisplay}}
-            <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action transitionToPhoto id}} >more &nbsp;</span>
+            <span role="button" class="masonry_more-btn easing"  {{bind-attr id="more_button"}} {{action transitionToPhoto id}} >more &nbsp;</span>
             {{/if}}
         </div>
     </div>
@@ -115,7 +115,7 @@
             </div>
         </div>
     </div>
-    {{render itemFunction this}}
+    {{render "itemFunction" this}}
 
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
@@ -126,7 +126,7 @@
                     <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
                 </div>
                 <div id="init_photo_{{unbound id}}">
-                    <img class="this-is-the-object"{{bindAttr src="object_image_url"  }}  />      
+                    <img class="this-is-the-object"{{bind-attr src="object_image_url"  }}  />      
                 </div>
             </a>
             {{else}}
@@ -135,7 +135,7 @@
                     <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
                 </div>
                 <div id="init_photo_{{unbound id}}">
-                    <img {{bindAttr src="object_image_url" }} class="this-is-the-object" />
+                    <img {{bind-attr src="object_image_url" }} class="this-is-the-object" />
                 </div>
             </a>
             {{/if}}
@@ -172,7 +172,7 @@
 
 
             <div class="profilepic-on-masonry">
-                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  style="width:{{unbound profile_width}}; height: {{unbound profile_height}};" {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  style="width:{{unbound profile_width}}; height: {{unbound profile_height}};" {{action transitionToProfile owner_id}} {{bind-attr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="cursor: pointer; word-break: break-word;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
@@ -190,7 +190,7 @@
             </div>
 
             {{#if moreDisplay}}
-            <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action transitionToVideo id}} >more &nbsp;</span>
+            <span role="button" class="masonry_more-btn easing"  {{bind-attr id="more_button"}} {{action transitionToVideo id}} >more &nbsp;</span>
             {{/if}}
 
         </div>
@@ -223,7 +223,7 @@
                     <i  style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3; color:#fff; font-size:50px;">PDF</i>
                 </div>
                 <div id="init_photo_{{unbound id}}">
-                    <img class="this-is-the-object"{{bindAttr src="object_image_url"  }}  />      
+                    <img class="this-is-the-object"{{bind-attr src="object_image_url"  }}  />      
                 </div>
         </a>
             {{else}}
@@ -232,7 +232,7 @@
                     <i  style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3; color:#fff; font-size:50px;">PDF</i>
                 </div>
                <div id="init_photo_{{unbound id}}">
-                <img {{bindAttr src="object_image_url" }} class="this-is-the-object" />
+                <img {{bind-attr src="object_image_url" }} class="this-is-the-object" />
                  </div>
             </a>
             {{/if}}
@@ -261,7 +261,7 @@
 
 
             <div class="profilepic-on-masonry">
-                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bind-attr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="cursor: pointer; word-break: break-word;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
@@ -279,7 +279,7 @@
             </div>
             
              {{#if moreDisplay}}
-            <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action transitionToPdf id}} >more &nbsp;</span>
+            <span role="button" class="masonry_more-btn easing"  {{bind-attr id="more_button"}} {{action transitionToPdf id}} >more &nbsp;</span>
             {{/if}}
             
         </div>
@@ -303,15 +303,15 @@
             </div>
         </div>
     </div>
-    {{render itemFunction this}}
+    {{render "itemFunction" this}}
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
             <a class="mainfeature-container" href="#/articles/{{unbound id}}" >
                 <div id="init_photo_{{unbound id}}">
                     {{#if controller.isUser}}             
-                    <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />
+                    <img class="this-is-the-object"{{bind-attr src="object_image_url"  }} {{action transitionToPhoto id}} />
                          {{else}}
-                         <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} /> <!--it is the cover of the article-->
+                         <img class="this-is-the-object"{{bind-attr src="object_image_url"  }} {{action transitionToArticle id}} /> <!--it is the cover of the article-->
                          {{/if}}
                 </div>
             </a>   
@@ -338,7 +338,7 @@
 
         <div class="masonry-object_poster">
             <div class="profilepic-on-masonry">
-                <img   style="width:{{unbound profile_width}}; height: {{unbound profile_height}};"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+                <img   style="width:{{unbound profile_width}}; height: {{unbound profile_height}};"  {{action transitionToProfile owner_id}} {{bind-attr src="owner_profile_pic"}}/>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="word-break: break-word;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{owner_title}}</a>
@@ -356,13 +356,13 @@
                 <p style="text-overflow: ellipsis"; {{action transitionToArticle id}}>{{{object_description}}}</p>
             </div>
 
-            <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
+            <div class="more_detail" {{bind-attr id="id"}} style="display:none;width:auto">
                 <h1>{{object_title}}</h1>
                 {{{object_description}}}
 
             </div>
             {{#if moreDisplay}}
-            <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action transitionToArticle id}}>more</span>
+            <span role="button" class="masonry_more-btn easing"  {{bind-attr id="more_button"}} {{action transitionToArticle id}}>more</span>
             {{/if}}
         </div>
     </div>

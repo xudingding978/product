@@ -1,6 +1,6 @@
 
 <div class="profile-wallpaper profile-box">
-    <img  {{bindAttr src= model.profile_bg_url}} class="profile-bg-url">
+    <img  {{bind-attr src= model.profile_bg_url}} class="profile-bg-url">
 </div>
 <div class="profile-top"></div>
 
@@ -11,7 +11,7 @@
             <!--corpbanner-->
 
             <div class="profilecorpbanner">
-                <img {{bindAttr src= model.profile_hero_url}} class="profile-wid"/>
+                <img {{bind-attr src= model.profile_hero_url}} class="profile-wid"/>
                 {{#if controller.is_authentic_user}}
 
                 <div id="flip-front" data-hint="Dashboard" class="blue-btn new-btn hint--left hint--rounded edit-dashboard-btn blue-btn-ard" {{action flipFrontClick}}>
@@ -116,7 +116,7 @@
                                     
                                 </div>
                             <div style="float: right;position: relative; display: inline-block; vertical-align: top;margin: 5px 0;">
-                        <a href="#"><img {{bindAttr src="controller.owner_profile_pic"}} class="profilepic"/></a>              
+                        <a href="#"><img {{bind-attr src="controller.owner_profile_pic"}} class="profilepic"/></a>              
                     </div>
                         </div>
                         <div id="fade" class="black_overlay"></div>-->
@@ -135,7 +135,7 @@
                                         <div class="aside-profilepic" data-step="4" data-intro="Start following this profile by clicking <b>+ Follow</b>." data-position="right">
                                             <div style="min-height: 175px; overflow: visible; line-height: 175px;margin-bottom: 20px;" data-hint="{{unbound model.profile_name}}">
                                                 <a href="#/profiles/{{unbound model.id}}">
-                                                    <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;min-height: 0;width: 100%">
+                                                    <img {{bind-attr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;min-height: 0;width: 100%">
                                                 </a>
                                             </div>
                                             {{#if controller.follow_status}}
@@ -153,7 +153,7 @@
                                                 {{#each contentFollowerPhoto}}
                                                 <a class="radius-circle" href="#/users/{{unbound this.id}}">
                                                     <div class="hint--bottom hint--rounded" data-hint="{{unbound this.name}}">
-                                                        <img {{bindAttr src= this.photo_url}}/>
+                                                        <img {{bind-attr src= this.photo_url}}/>
                                                     </div>
                                                 </a>
                                                 {{/each}}
@@ -361,7 +361,7 @@
                                         <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;" data-step="7" data-intro=" Click the <b>Location Map</b> to find out how to reach the profile owner’s address from your location." data-position="right">
                                             <div id="google-map"  style="width: 290px;height: 260px; border: 5px solid #fff;cursor: pointer" >
                                                 <div class="enlarge-map easing" style=""{{action popUpGoogleMap}}><k class="fa fa-expand"></k></div>
-                                                <img  {{bindAttr src="controller.profile_google_map"}} style="width: 100%; height:auto;" {{action popUpGoogleMap}}>
+                                                <img  {{bind-attr src="controller.profile_google_map"}} style="width: 100%; height:auto;" {{action popUpGoogleMap}}>
                                             </div>
                                         </div>
                                     </div>
@@ -388,7 +388,7 @@
     {{#unless controller.userTour}}
     <div id="profileDashboard" class="back t-style-box">
         <div class="profile-tab-profilehero">
-            <img {{bindAttr src= model.profile_hero_url}}/>
+            <img {{bind-attr src= model.profile_hero_url}}/>
             <div class="profile-tab-profilehero2">
                 <div class="profile-tab-dashboard">
                     <i class="fa fa-cogs">&nbsp;</i>Dashboard
@@ -424,7 +424,7 @@
                             </div>
                         </a>
                         <div class="profile-tab1-imgcontainer">
-                            <img {{bindAttr src="profile_pic_url"}} />
+                            <img {{bind-attr src="profile_pic_url"}} />
                         </div>
                     </div>
 
@@ -436,7 +436,7 @@
                             </div>
                         </a>
                         <div class="profile-tab1-imgcontainer">
-                            <img {{bindAttr src="profile_hero_url"}}/>
+                            <img {{bind-attr src="profile_hero_url"}}/>
                         </div>
                     </div>
 
@@ -448,7 +448,7 @@
                             </div>
                         </a>
                         <div class="profile-tab1-imgcontainer">
-                            <img {{bindAttr src="profile_bg_url"}} />
+                            <img {{bind-attr src="profile_bg_url"}} />
                         </div>
                     </div>
                     <div class="profile-tab-save1">
@@ -802,7 +802,7 @@
 
                         <div class="keyword-pool">
                             {{#each controller.keywords_array}}
-                            {{#view HubStar.KeywordView elementIdBinding="keyword_id"}}
+                            {{#view HubStar.KeywordView }}
                             <div class="hashtags profile-tab5-keyword">{{keyword_name}}{{#if controller.is_authentic_user}}<i class="remove-hashtages" {{action deleteKeywords keyword_id "all"}}>x</i>{{/if}}</div>
                             {{/view}}
                             {{/each}}
@@ -829,7 +829,7 @@
                     {{#view HubStar.SingleFileUploaderView }}
                     <div class="profile-tab1-uploadContainer">
                         <div class="profile-tab1-upload">
-                            <img  {{bindAttr src= "backgroundImage"}}>
+                            <img  {{bind-attr src= "backgroundImage"}}>
 
                             <p class="profile-tab1-title">
                                 {{controller.UploadImageMode}}
@@ -849,7 +849,7 @@
                         <div id="dragAndDroppArea" class="dragndropbox">
                             <div id="smallUploadImage" class="profile-tab1-smallimgctn">
                                 <div>
-                                    <img  {{bindAttr src= "newStyleImageSource"}}  class="profile-tab1-smallimg">
+                                    <img  {{bind-attr src= "newStyleImageSource"}}  class="profile-tab1-smallimg">
                                     <div id="uploadStyleImg" class="profile-tab1-img1">
                                         <img class="profile-tab1-img2" src="../../../images/uploadphotos_spinner.gif"/>
                                     </div>
@@ -901,7 +901,7 @@
                             {{#if controller.isProfileBackground}}
                             <div id="crop-container" class="profile-tab1-edit-profilebg">
                                 {{/if}}
-                                <canvas id="panel" class="crop-canvas profile-tab1-edit-canvas"><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
+                                <canvas id="panel" class="crop-canvas profile-tab1-edit-canvas"><img  {{bind-attr src= "newStyleImageSource"}} ></canvas>
                             </div>
 
                             <div class="profile-tab1-edit-action">
@@ -925,7 +925,7 @@
                             <div class="profile-tab1-final-container">
                                 <div class="profile-tab1-final-imgcontainer">
 
-                                    <img  {{bindAttr src= "newStyleImageSource"}}>
+                                    <img  {{bind-attr src= "newStyleImageSource"}}>
                                 </div>
                             </div>
                             <div class="profile-tab1-edit-action">
@@ -949,22 +949,22 @@
 
 
         {{#if editorAdd}}
-        {{render editEditors}}
+        {{render "editEditors"}}
         {{/if}}
 
         {{#if isShareEmail}}
-        {{render shareEmail}}
+        {{render "shareEmail"}}
         {{/if}}
         
         {{#if controller.switchPhoto}}
 
 
-        {{view HubStar.MasonryCollectionView}}
+        {{partial "masonryCollection"}}
 
         {{else}}
 
 
-        {{render masonryCollectionItems}}
+        {{render "masonryCollectionItems"}}
 
 
         {{/if}}
@@ -982,7 +982,7 @@
 
         {{#if controller.rateTime}}
 
-        {{render review this}}
+        {{render "review" this}}
 
 
         {{/if}}
@@ -1008,5 +1008,6 @@
 
 
         {{#if controller.contactChecking}}
-        {{render contact}}
+
+        {{render "contact"}}
         {{/if}}

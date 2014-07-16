@@ -5,8 +5,8 @@
 
 <div class="new-profile-display" >
     <div class="new-profile-display-top">
-     {{#if view.is_trends_user}}
-        <div class="new-profile-display-button"><a href="#/profiles/new"><i class="fa fa-plus">&nbsp;New Profile</i></a> </div>
+     {{#if HubStar.is_trends_user}}
+        <div class='new-profile-display-button'><a href="#/profiles/new"><i class="fa fa-plus">&nbsp;New Profile</i></a> </div>
         {{/if}}
         <div class="new-profile-display-title">Profile List</div>
         
@@ -24,7 +24,7 @@
                 <a href="#/profiles/{{unbound this.profile_id}}">
                     <div  class="profile-image"> 
                         <div class="profile-top-image-position">
-                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                            <img {{bind-attr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
                         </div>
                         <div class="profile-top-name-position">{{unbound this.profile_name}} </div>
                     </div>
@@ -46,7 +46,7 @@
                 <a href="#/profiles/{{unbound this.profile_id}}">
                     <div class="profile-image" > 
                         <div class="profile-top-image-position">
-                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                            <img {{bind-attr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
                         </div>
 
                         <div class="profile-top-name-position">{{this.profile_name}}</div>
@@ -71,7 +71,7 @@
                     <div class="profile-image" > 
 
                         <div class="profile-top-image-position">
-                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                            <img {{bind-attr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
                         </div>
                         <div class="profile-top-name-position">{{this.profile_name}} </div>
                     </div>

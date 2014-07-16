@@ -405,14 +405,14 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_hero_cover_url'] = $smallimage;
         }
 
-        $url = $this->getDomain() . '/profiles/' . $owner_id;
+        $url_profile = $this->getDomain() . '/profiles/' . $owner_id;
 
         $copy_of_oldRecord = unserialize(serialize($oldRecord));
         $tempUpdateResult = CJSON::encode($copy_of_oldRecord, true);
 
-        if ($cb->delete($url)) {
-            if ($cb->set($url, $tempUpdateResult)) {
-                $this->sendResponse(204, $url);
+        if ($cb->delete($url_profile)) {
+            if ($cb->set($url_profile, $tempUpdateResult)) {
+                $this->sendResponse(200, CJSON::encode($url));
             } else {
                 $this->sendResponse(500, 'something wrong');
             }

@@ -14,8 +14,10 @@
         {{else}} 
 
         <div id="afterLogin">
+
             <div class="status-user-pic">
-                <a {{bindAttr href="controller.myUserProfile"}} ><img {{bindAttr src="controller.user.photo_url_large"}}/></a>                              
+                <a {{bind-attr href="controller.myUserProfile"}} ><img {{bind-attr src="controller.user.photo_url_large"}}/></a>                              
+
             </div>
             <p> Hi <b>{{controller.user.display_name}}</b> </p>
             <h4>{{controller.response}}</h4>

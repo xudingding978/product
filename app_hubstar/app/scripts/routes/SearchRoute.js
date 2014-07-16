@@ -61,7 +61,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         HubStar.set("escVideo", false);
         return {id: search_id};
     },
-    events: {
+    actions: {
         transitionToPhoto: function(id) {
 
             this.controllerFor('masonryCollectionItems').set("type", "profile");
@@ -176,7 +176,6 @@ HubStar.SearchRoute = Ember.Route.extend({
                     if (HubStar.get("isTopAdDisplay")) {
                         $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
                         $('#masonry_wrapper').css('top', "240px");
-                        console.log("2");
                     }
                     else
                     {

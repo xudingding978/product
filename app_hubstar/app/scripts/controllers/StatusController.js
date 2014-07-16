@@ -19,7 +19,6 @@ HubStar.StatusController = Ember.Controller.extend({
         grapData: function() {
             this.set("user", HubStar.User.find(localStorage.loginStatus));
             this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
-           
         },
         changeDescription: function()
         {

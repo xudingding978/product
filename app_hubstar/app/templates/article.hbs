@@ -1,7 +1,7 @@
 
 
 {{#if controller.collectable}}
-{{render addCollection}}
+{{render "addCollection"}}
 {{/if}}
 <div class="objectview-wrapper this-is-an-article" >
 
@@ -76,7 +76,7 @@
         </div>
         
          {{#if HubStar.checkLoginStatus}}
-           {{render callToAction}}
+            {{view HubStar.CallToActionView}}
         {{/if}}
 
         <div id="close_article_wrapper" class="closeview" {{action closeWindow on="click" target="controller"}} >
@@ -149,7 +149,7 @@
         <div class="cursor-pointer">
             <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
                 <div class="profilepic-container" >                   
-                    <a href="#/profiles/{{unbound controller.megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} class="profilepic"/></a>                              
+                    <a href="#/profiles/{{unbound controller.megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}><img {{bind-attr src="controller.megaResouce.owner_profile_pic"}} class="profilepic"/></a>                              
                 </div>
                 <div class="poster_user">
                     <a class="poster-name" href="#/profiles/{{unbound controller.megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
@@ -296,7 +296,7 @@
                         <div class="discuss-input-innerbox">
                             <a>
                                 <img class="profilepic_comment comment-item-img comment-item-img-z1" src="http://develop.devbox.s3.amazonaws.com/profile_pic/default/defaultpic1.jpg" /> 
-                                <img class="profilepic_comment comment-item-img comment-item-img-z2" {{bindAttr src="controller.currentUser.photo_url_large"}} /> 
+                                <img class="profilepic_comment comment-item-img comment-item-img-z2" {{bind-attr src="controller.currentUser.photo_url_large"}} /> 
                                 <div class="user-says-angle-before user-says-angle-before2"></div>
                                 <div class="user-says-angle-after user-says-angle-after2"></div>
                             </a>
@@ -318,7 +318,7 @@
 
                         <div class="comment-position">
                             <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
-                                <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+                                <img class="profilepic_comment" {{bind-attr src="commenter_profile_pic_url"}} />
                             </a>
                             <div >
                                 <div class="comment-namentime">
@@ -350,7 +350,7 @@
                         </div>
                     </div>
                     {{else}}
-                    {{render editComment this}}   
+                    {{render "editComment" this}}   
                     {{/unless}}
 
                     {{/each}}
@@ -369,25 +369,25 @@
 
 
 {{#if controller.contact}}
-{{render contact}}
+{{render "contact"}}
 {{/if}}
 
 
 {{#if isShareEmail}}
-{{render shareEmail}}
+{{render "shareEmail"}}
 {{/if}}
 
 <!--     show add new  tag template-->   
 {{#if HubStar.tagging_display}}
 {{#if controller.enableEditTag}}
-{{render updateTag}}
+{{render "updateTag"}}
 {{/if}}
 {{#if controller.makeSureActivateTag}}
 {{view HubStar.ActivateTagFunctionView}}
 {{/if}}
 {{#if  controller.enableTag}}      
 {{#if controller.inImage}} <!--only when it within the image place can add the tag-->
-{{  render showTag }}
+{{  render "showTag"}}
 {{/if}}
 {{/if}}
 <!--     show   tag's detail content  template-->   

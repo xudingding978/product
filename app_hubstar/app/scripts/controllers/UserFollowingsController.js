@@ -11,6 +11,36 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowers', 'profile'],
     test: "test",
     followings: "",
+    actions: {
+        followThisUser: function(follow_object)
+        {
+
+            if (follow_object.get("follow_status") === false)
+            {
+                if (follow_object.get("type") === "user") {
+                    this.get("controllers.userFollowers").followUser(follow_object.get("id"), "following", follow_object);
+                }
+                else
+                {
+                    this.followProfile(follow_object.get("id"), "user");
+                    follow_object.set('follow_status', true);
+                }
+            }
+
+            else
+            {
+                if (follow_object.get("type") === "user") {
+                    this.get("controllers.userFollowers").unFollowUser(follow_object.get("id"), "following", follow_object);
+                }
+                else
+                {
+                    this.unFollowProfile(follow_object.get("id"), "user");
+                    follow_object.set('follow_status', false);
+                }
+            }
+
+        }
+    },
     setUserFollowings: function(followingId) {
 
         var model = HubStar.User.find(followingId);
@@ -87,34 +117,6 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
         });
 
     },
-    followThisUser: function(follow_object)
-    {
-
-        if (follow_object.get("follow_status") === false)
-        {
-            if (follow_object.get("type") === "user") {
-                this.get("controllers.userFollowers").followUser(follow_object.get("id"), "following", follow_object);
-            }
-            else
-            {
-                this.followProfile(follow_object.get("id"), "user");
-                follow_object.set('follow_status', true);
-            }
-        }
-
-        else
-        {
-            if (follow_object.get("type") === "user") {
-                this.get("controllers.userFollowers").unFollowUser(follow_object.get("id"), "following", follow_object);
-            }
-            else
-            {
-                this.unFollowProfile(follow_object.get("id"), "user");
-                follow_object.set('follow_status', false);
-            }
-        }
-
-    },
     followProfile: function(profile_id, type) {
         var tempUser = HubStar.Profile.find(profile_id);
         var that = this;
@@ -168,7 +170,6 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             tempUser.addObserver('isLoaded', function() {
 
                 if (tempUser.get('isLoaded')) {
-                    //console.log(tempUser.get("isLoaded"));
                     var commenter_profile_pic_url = null;
                     var commenter_id = localStorage.loginStatus;
                     var name = null;
@@ -315,9 +316,11 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
-                 $('html,body').animate({
-                    scrollTop: $("#profile_submenu").offset().top-100
-                });
+                if ($("#profile_submenu") !== null && $("#profile_submenu").offset() !== undefined) {
+                    $('html,body').animate({
+                        scrollTop: $("#profile_submenu").offset().top - 100
+                    });
+                }
             }, 400);
         }, 300);
     }

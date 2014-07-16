@@ -20,8 +20,6 @@
             {{/if}}
             {{/if}}
         </div>
-
-
         <div class="radius-circle message-profileimg" >
             <img class="profilepic_comment" href="#/users/{{unbound model.user_id}}" {{bindAttr src= model.photo_url_large}} /> 
         </div>
@@ -49,7 +47,7 @@
     <div class="reply-comment-frame message-replyedit-container">
         <div class="editreply-innercontainer">
             <a  href="#/users/{{unbound model.user_id}}">
-                <img class="profilepic_comment profilepic-comment-img" {{bindAttr src="controller.commenter_photo_url"}} /> 
+                <img class="profilepic_comment profilepic-comment-img" {{bind-attr src="controller.commenter_photo_url"}} /> 
                 <div class="user-reply-angle-before user-reply-angle-before4"></div>
                 <div class="user-reply-angle-after user-reply-angle-after4"></div>
             </a>
@@ -84,7 +82,7 @@
             {{#if controller.isUploadPhoto}}
             <div class="upload-img">
                 <div class="remove-comment-photo easing" {{action removePic}}><i class="fa fa-times"></i></div>
-                <img  {{bindAttr src= "newStyleImageSource"}} >
+                <img  {{bind-attr src= "newStyleImageSource"}} >
             </div>
             {{/if}}
         </div>
@@ -134,7 +132,7 @@
                 </div>
             </div>
             {{else}}
-            {{render editReply this}}
+            {{render "editReply" this}}
             {{/unless}}
             {{/each}}     
         </div>
@@ -154,7 +152,7 @@
 
     {{else}}
 
-    {{render editMessage model}}
+    {{render "editMessage" model}}
     {{/unless}}
 </div>
 

@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="contact-user-img">
-            <a href="#"><img {{bindAttr src="controller.owner_profile_pic"}} class="profilepic"/></a>              
+            <a href="#"><img {{bind-attr src="controller.owner_profile_pic"}} class="profilepic"/></a>              
         </div>
         <div>
             <span class="contact-subject">Subject:</span>
@@ -135,7 +135,7 @@
                 {{#each controller.subcate}}
                 <li class="checkbox-container" {{action checkedAction list_id this}}>
 
-                    <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox" >
+                    <input type="checkbox" {{bind-attr id="list_id" checked="isSelection"}} class="css-checkbox" >
                     <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check {{unbound list_id}}">{{category_topic}}</label>
 
 

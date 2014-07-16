@@ -1,13 +1,13 @@
 
 {{#if controller.loadingTime}}
 
-{{render loadingSpinner}}
+{{render "loadingSpinner"}}
 
 {{/if}}
 {{#each  content}}
 <div class="box col2 noStyle1">
     <div class="masonry-object">            
-        {{render itemProfiles this}}
+        {{render "itemProfiles" this}}
 
         {{render "comment" this}}
     </div>

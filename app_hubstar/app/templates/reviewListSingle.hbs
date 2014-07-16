@@ -1,8 +1,10 @@
 
+
 <div class="review-list box">
     <div class="review-list-profile-pic" >
         <a href="#/users/{{unbound model.review_user_id}}"  >
-            <img {{bindAttr src="model.review_user_photo_url"}} />
+            <img {{bind-attr src="model.review_user_photo_url"}} />
+
         </a>
     </div>
     <div id="review_{{unbound model.review_id}}" class="review-list-content easing" >
@@ -53,11 +55,6 @@
                     <li class="ite" {{action gpShare model}}>
                         <i class="fa fa-google-plus share-type share-type-pos2" ></i><span class="share-type-txt2">Google+</span>
                     </li>
-
-                    <li class="ite" {{action eShare model}}>
-                        <img src="../../../images/sent.png" class="share-type-email">
-                            <i class="send_email share-type share-type-pos2" ></i><span class="share-type-txt1">E-mail</span>
-                    </li>
                 </ul>
                 {{#if model.getUser}}
                 <div class="new-btn review-list-share-button-left" {{action removeReview}}><i class="fa fa-trash-o"></i></div>                 
@@ -74,7 +71,9 @@
                 <div class="review-reply-content">
                     <a  href="#/users/{{unbound controller.currentUser.id}}">
 
-                        <img class="profilepic_comment" {{bindAttr src="controller.currentUser.photo_url_large"}} />
+
+                        <img class="profilepic_comment" {{bind-attr src="controller.currentUser.photo_url_large"}} />
+
                         <div class="user-reply-angle-before"></div>
                         <div class="user-reply-angle-after"></div>
 
@@ -94,7 +93,9 @@
                     </div>
                 </div>
             </div>
+
             <div id="view-comments_{{unbound model.review_id}}" class="hover-opacity review-replay-view-comment" {{action 'showOneReview' model.review_id "viewReply" target='view' on="click"}} >
+
                  view comments {{this.model.reply_reviews.length}}
                  <i class="fa fa-caret-down">&nbsp;</i>
             </div>
@@ -102,7 +103,7 @@
 
 
                 {{#each model.reply_reviews}}
-                {{render reviewReplyListSingle this}}
+                {{render "reviewReplyListSingle" this}}
                 {{/each}}
 
             </div>
@@ -128,8 +129,10 @@
 
 <div class="blur_black"></div>
 
+
 <div class="review-edit-user-picture">
-    <img {{bindAttr src="model.review_user_photo_url"}} />
+    <img {{bind-attr src="model.review_user_photo_url"}} />
+
 </div>
 
 <div class="review-wrapper">

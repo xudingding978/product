@@ -28,7 +28,7 @@
                         <span class="user-edit-upload-box-span-size"> {{controller.RequiredImageSize}}</span>
                         <div>
                             <div>
-                                <img  {{bindAttr src="newStyleImageSource"}}>
+                                <img  {{bind-attr src="newStyleImageSource"}}>
                                     <div id="uploadStyleImg">
                                         <img src="../../../images/uploadphotos_spinner.gif"/>
                                     </div>
@@ -254,7 +254,7 @@
                                 <a href="#/profiles/{{unbound this.profile_id}}">
                                     <div  class="profile-image"> 
                                         <div class="profile-top-image-position">
-                                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                                            <img {{bind-attr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
                                         </div>
                                         <div class="profile-top-name-position">{{unbound this.profile_name}} </div>
                                     </div>
@@ -299,7 +299,7 @@
                                     <div class="profile-image" > 
 
                                         <div class="profile-top-image-position">
-                                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                                            <img {{bind-attr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
                                         </div>
                                         <div class="profile-top-name-position">{{this.profile_name}} </div>
                                     </div>
@@ -338,7 +338,6 @@
     <div id="crop-container" class="useredit-crop-container">
         <div class="contr"></div>
         <canvas id="panel" class="crop-canvas useredit-canvas" ><img {{bindAttr src="newStyleImageSource"}} ></canvas>
-
     </div>
     <div class="useredit-action">
 

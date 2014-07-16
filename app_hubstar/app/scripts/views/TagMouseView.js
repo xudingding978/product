@@ -1,7 +1,6 @@
 HubStar.TagMouseView = Ember.View.extend({
     templateName: 'tagMouse',
     didInsertElement: function() {
-        //console.log("222233333333333322222222222222");
 
     },
     showTagContent1: function(evt)

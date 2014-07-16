@@ -11,7 +11,7 @@ HubStar.GroupNetworkRoute = Ember.Route.extend({
             var that = this;
             model.then(function() {
                 that.controllerFor('groupNetwork').getClientId(model.get("group_partner_ids"));
-                that.controllerFor('group').selectPartner();
+                that.controllerFor('group').send("selectPartner");
             });
         }
     },
@@ -20,5 +20,11 @@ HubStar.GroupNetworkRoute = Ember.Route.extend({
         var group_id = address.split("#")[1].split("/")[2];
         var model = HubStar.Group.find(group_id);
         return model;
+    },
+    renderTemplate: function() {
+        this.render("groupNetwork", {
+            outlet: "groupNetwork",
+            into: "group"
+        });
     }
 });

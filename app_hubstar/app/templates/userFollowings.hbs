@@ -1,6 +1,6 @@
 {{#if controller.loadingTime}}
 
-{{render loadingSpinner}}
+{{render "loadingSpinner"}}
 
 {{/if}}
 {{#each contentProfile}}
@@ -9,7 +9,7 @@
 
 <div class=" box col1 style-box t-style-box user-following-position">
     <div class="user-following-profile-hero">
-        <img {{bindAttr src= this.photo_url_large}} />
+        <img {{bind-attr src= this.photo_url_large}} />
     </div>
 
     <!--right top TAGS-->
@@ -60,7 +60,7 @@
 {{#each  contentUser}}
 <div class=" box col1 style-box t-style-box user-following-position">
     <div class="user-following-profile-hero">
-        <img {{bindAttr src= this.photo_url_large}}/>
+        <img {{bind-attr src= this.photo_url_large}}/>
     </div>
     <div class="user-profilepic-container user-following-user-pic">
         <a class="radius-circle" href="#/users/{{unbound this.id}}">

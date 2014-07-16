@@ -5,7 +5,7 @@
         <div class="reply-comment-innerframe">
             <a  href="#/users/{{unbound controller.currentUser.id}}">
                 <img class="profilepic_comment comment-item-img2 comment-item-img-z1" src="http://develop.devbox.s3.amazonaws.com/profile_pic/default/defaultpic1.jpg"  /> 
-                <img class="profilepic_comment comment-item-img2 comment-item-img-z2" {{bindAttr src="controller.currentUser.photo_url_large"}}/> 
+                <img class="profilepic_comment comment-item-img2 comment-item-img-z2" {{bind-attr src="controller.currentUser.photo_url_large"}}/> 
                 <div class="user-reply-angle-before user-says-angle-before3"></div>
                 <div class="user-reply-angle-after user-says-angle-after3"></div>
             </a>
@@ -32,7 +32,7 @@
 
                 <div class="comment-position">
                     <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
-                       <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+                       <img class="profilepic_comment" {{bind-attr src="commenter_profile_pic_url"}} />
                     </a>
                     <div>
                         <div class="comment-namentime">
@@ -63,7 +63,7 @@
 
             <div class="comment-position">
                 <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
-                   <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+                   <img class="profilepic_comment" {{bind-attr src="commenter_profile_pic_url"}} />
                 </a>
                 <div>
                     <div class="comment-namentime">
@@ -90,7 +90,7 @@
 
     </div>
     <div id="commentEdit_{{unbound message_id}}" class="display-none">
-        {{render editComment this}}       
+        {{render "editComment" this}}       
     </div>
     {{/unless}}
     {{/each}}

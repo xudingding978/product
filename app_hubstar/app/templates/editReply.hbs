@@ -2,7 +2,7 @@
 <div class="reply-comment-frame editreply-container">
     <div class="editreply-innercontainer">
         <a  href="#/users/{{unbound model.user_id}}">
-            <img class="profilepic_comment profilepic-comment-img" {{bindAttr src="controller.commenter_photo_url"}} /> 
+            <img class="profilepic_comment profilepic-comment-img" {{bind-attr src="controller.commenter_photo_url"}} /> 
             <div class="user-reply-angle-before user-reply-angle-before4" ></div>
             <div class="user-reply-angle-after user-reply-angle-after4" ></div>
         </a>
@@ -35,13 +35,13 @@
         <div class="editMessage-addimg">
             <div class="remove-comment-photo easing" {{action removePic model.reply_id}}><i class="fa fa-times"></i></div>   
 
-            <img  {{bindAttr src= "newStyleImageSource"}} >
+            <img  {{bind-attr src= "newStyleImageSource"}} >
         </div>
         {{else}}
         {{#if model.isUrl }}
         <div class="editMessage-addimg">
             <div class="remove-comment-photo easing" {{action removeOriginPic model.reply_id}}><i class="fa fa-times"></i></div>   
-            <img {{bindAttr src= model.url}} />
+            <img {{bind-attr src= model.url}} />
         </div>
         {{/if}}
 

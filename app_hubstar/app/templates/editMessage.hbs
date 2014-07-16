@@ -2,7 +2,7 @@
 <div  class="editMessage-container">
     <div class="editMessage-innercontainer">
         <a>
-            <img class="profilepic_comment editMessage-img" {{bindAttr src= this.commenter_photo_url}} /> 
+            <img class="profilepic_comment editMessage-img" {{bind-attr src= this.commenter_photo_url}} /> 
             <div class="user-says-angle-before user-says-angle-before5"></div>
             <div class="user-says-angle-after user-says-angle-after5"></div>
         </a>
@@ -20,7 +20,7 @@
             {{#if model.isUrl }}
             <div class="editMessage-addimg" >
                 <div class="remove-comment-photo easing"  {{action removeOriginalPic model.message_id}}><i class="fa fa-times"></i></div>             
-                <img {{bindAttr src= model.url}}/>
+                <img {{bind-attr src= model.url}}/>
             </div>
             {{/if}}
             {{/if}}

@@ -42,6 +42,223 @@ HubStar.ProfileNewController = Ember.Controller.extend({
     categorys: [],
     subcate: [],
     needs: ['profile', 'applicationFeedback', 'application'],
+    actions: {
+        topicSelection: function(data) {
+
+            this.set('subcate', []);
+            for (var i = 0; i < data.get('subcate').get('length'); i++)
+            {
+                this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')
+                });
+            }
+
+        },
+        packageSelection: function(checking) {
+            if (checking === "gold") {
+                this.set("profile_package", "Gold");
+                this.set("keywordNumber", "100");
+                $("#gold").removeClass("hover-opacity easing");
+                $("#silver").addClass("hover-opacity easing");
+                $("#bronze").addClass("hover-opacity easing");
+            } else if (checking === "silver") {
+                this.set("profile_package", "Silver");
+                this.set("keywordNumber", "50");
+                $("#gold").addClass("hover-opacity easing");
+                $("#silver").removeClass("hover-opacity easing");
+                $("#bronze").addClass("hover-opacity easing");
+            } else if (checking === "bronze") {
+                this.set("profile_package", "Bronze");
+                this.set("keywordNumber", "25");
+                $("#gold").addClass("hover-opacity easing");
+                $("#silver").addClass("hover-opacity easing");
+                $("#bronze").removeClass("hover-opacity easing");
+            }
+        },
+        classSelection: function(checking) {
+            if (checking === "Residential") {
+                $("#residential").addClass("selected easing");
+                $("#commercial").removeClass("selected easing");
+                this.set("classification", "residential");
+            } else if (checking === "Commercial") {
+                $("#residential").removeClass("selected easing");
+                $("#commercial").addClass("selected easing");
+                this.set("classification", "commercial");
+            }
+        },
+        dropdown: function(checking) {
+
+            if (checking === "category") {
+                this.set('countryDropdown', false);
+                this.set('numberDropdown', false);
+                this.set('regionDropdown', false);
+                this.set('subcategoryDropdown', false);
+                this.set('categoryDropdown', !this.get('categoryDropdown'));
+            }
+            else if (checking === "country") {
+                this.set('categoryDropdown', false);
+                this.set('numberDropdown', false);
+                this.set('regionDropdown', false);
+                this.set('subcategoryDropdown', false);
+                this.set('countryDropdown', !this.get('countryDropdown'));
+            }
+            else if (checking === "region") {
+                this.set('countryDropdown', false);
+                this.set('numberDropdown', false);
+                this.set('categoryDropdown', false);
+                this.set('subcategoryDropdown', false);
+                this.set('regionDropdown', !this.get('regionDropdown'));
+            }
+            else if (checking === "number") {
+                this.set('countryDropdown', false);
+                this.set('categoryDropdown', false);
+                this.set('regionDropdown', false);
+                this.set('subcategoryDropdown', false);
+                this.set('numberDropdown', !this.get('numberDropdown'));
+            }
+            else if (checking === "subcategory") {
+                this.set('categoryDropdown', false);
+                this.set('numberDropdown', false);
+                this.set('regionDropdown', false);
+                this.set('countryDropdown', false);
+                this.set('subcategoryDropdown', !this.get('subcategoryDropdown'));
+            }
+        },
+        addTRmore: function() {
+
+            if (counter <= 7) {
+                var newdiv = document.createElement('tr');
+                newdiv.innerHTML = "<div style='display:table-cell;text-align: right;'></div><div style='display:table-cell'><div style='display: block;'><div id='adminsField_" + counter
+                        + "'"
+                        + "style='margin: 10px 10px 5px 10px;;width: 70%; display: inline-block;'>"
+                        + "<input id='admins_" + counter + "'" + "type='text' class='admins' placeholder='emailaddress@yourdomain.com'></div>"
+                        + "<div id='remove_" + counter + "'" + "style='display: inline-block; padding:4px;'><k class='icon-minus' ></k></div></div>"
+                        + "<div class='mustfull' id='adminsEmailFormat_" + counter
+                        + "'"
+                        + "style='display: none'>not correct email format.....</div>"
+                        + "</div>";
+                document.getElementById("step3").appendChild(newdiv);
+                var remove = $("#remove_" + counter);
+                remove.click(function() {
+                    $(this).parent().parent().parent().remove();
+                    counter = counter - 1;
+                });
+                counter++;
+            }
+
+
+        },
+        save: function() {
+            this.fillInChecking();
+            if (passSubmit) {
+
+                var newMegaNewModel = HubStar.Meganew.createRecord({
+                    "id": this.get("profile_url"),
+                    "type": "profile",
+                    boost: this.get("keywordNumber"),
+                    accessed: new Date(),
+                    is_active: true,
+                    is_indexed: true,
+                    is_deleted: false,
+                    categories: $('#categorySelection').text(),
+                    subcategories: $('#subcategorySelection').text(),
+                    created: new Date(),
+                    creator: localStorage.loginStatus,
+                    classification: this.get("classification"),
+                    country: $('#countrySelection').text(),
+                    region: $('#regionSelection').text(),
+                    suburb: this.get("suburb"),
+                    domains: getDomain(),
+                    editors: this.get("owner") + "," + this.get("editors"),
+                    keywords: this.get("keywords"),
+                    keyword_num: this.get("keywordNumber"),
+                    owner_type: "profiles", // profiles or user can upload files, this could help to link back to their profile.
+                    owner_profile_pic: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
+                    owner_title: this.get("profile_name"), //profile name
+                    owner_id: this.get("profile_url"), //profile id
+                    owner_contact_email: this.get("direct_enquiry_emails"),
+                    owner_contact_bcc_emails: this.get("direct_enquiry_emails_2"),
+                    owner_contact_cc_emails: this.get("direct_enquiry_emails_3"),
+                    updated: 0,
+                    view_count: 0,
+                    share_count: 0,
+                    save_count: 0,
+                    likes_count: 0,
+                    comment_count: 0,
+                    keyword: [],
+                    profile: []
+                });
+
+                var newProfile = HubStar.Profile.createRecord({
+                    id: this.get("profile_url"),
+                    profile_name: this.get("profile_name"),
+                    profile_contact_last_name: this.get("last_name"),
+                    profile_contact_first_name: this.get("first_name"),
+                    profile_about_us: "<br>Welcome!<br>",
+                    profile_package_name: this.get("profile_package"),
+                    profile_bg_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg",
+                    profile_hero_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg",
+                    profile_pic_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
+                    profile_boost: this.get("keywordNumber"),
+                    owner: this.get("owner"),
+                    profile_creator: localStorage.loginStatus,
+                    profile_administrator: "",
+                    profile_editor: "",
+                    profile_editors: this.get("owner") + "," + this.get("editors"),
+                    profile_contact_number: this.get("profile_contact_number"),
+                    owner_contact_email: this.get("direct_enquiry_emails"),
+                    owner_contact_bcc_emails: this.get("direct_enquiry_emails_2"),
+                    owner_contact_cc_emails: this.get("direct_enquiry_emails_3"),
+                    profile_category: $('#categorySelection').text(),
+                    profile_subcategory: $('#subcategorySelection').text(),
+                    profile_physical_address: this.get("address"),
+                    profile_is_active: "true",
+                    profile_is_deleted: "false",
+                    profile_suburb: this.get("suburb"),
+                    profile_keywords: this.get("keywords"),
+                    profile_video_num: 0,
+                    profile_keywords_num: this.get("keywordNumber"),
+                    profile_regoin: $('#regionSelection').text(),
+                    profile_country: $('#countrySelection').text(),
+                    profile_hours: "Monday=9:00am-5:00pm,Tuesday=9:00am-5:00pm,Wednesday=9:00am-5:00pm,Thursday=9:00am-5:00pm,Friday=9:00am-5:00pm,Saturday=closed,Sunday=closed,Holidays=closed",
+                    profile_partner_ids: null,
+                    profile_website_url: this.get("website_url"),
+                    profile_website: this.get("website"),
+                    keywords: []
+
+                });
+
+
+                //newMegaNewModel.get("profile").pushObject(newProfile);
+
+                var that = this;
+                requiredBackEnd('meganews', 'createNewProfile', newMegaNewModel, 'POST', function(params) {
+                    if (params === true) {
+                        that.get('controllers.applicationFeedback').statusObserver(null, "The profile has been created with the same profile URL, Please change a new profile name, thank you!", "warnning");
+                    }
+                    else {
+                        newMegaNewModel.save();
+                        newMegaNewModel.get('isSaving');
+                        newMegaNewModel.addObserver('isDirty', function() {
+                            if (!newMegaNewModel.get('isDirty')) {
+                                newProfile.save();
+                                newProfile.get('isSaving');
+                                newProfile.addObserver('isDirty', function() {
+                                    if (!newProfile.get('isDirty')) {
+                                        location.href = "#/profiles/" + that.get("profile_url");
+                                        location.reload();
+                                    }
+                                });
+                            }
+                            else
+                            {
+                            }
+
+                        });
+                    }
+                });
+            }
+        }
+    },
     init: function()
     {
         this.setTopicModel(HubStar.Cate.find({}));
@@ -291,6 +508,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
             }
         }
 
+
         if ($('#regionSelection').text() === "Region/State") {
             this.set("profile_url", this.spaceChecking(this.get("profile_name").toLowerCase().replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')) 
                     + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
@@ -299,11 +517,14 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                     + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase()) 
                     + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
         }
+
+
     },
     setTopicModel: function(model) {
         this.set('categorys', null);
         this.set('categorys', model);
 
+<<<<<<< HEAD
     },
     topicSelection: function(data) {
 
@@ -543,6 +764,10 @@ HubStar.ProfileNewController = Ember.Controller.extend({
         }
 
 
+=======
+
+>>>>>>> 46282f8dcd0298f52d1f5e0ef2a3e1dc554a6e2d
     }
+
 });
 

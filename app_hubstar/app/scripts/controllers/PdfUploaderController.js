@@ -31,8 +31,8 @@ HubStar.PdfUploaderController = Ember.ArrayController.extend({
         if (pdf !== null) {
             this.set("pdf_title", pdf.get('pdf_title'));
             this.set("pdf_desc", pdf.get('pdf_desc'));
-            $('#pdf_id_' + pdf_id).slideToggle(200);
-            $('#' + pdf_id).slideToggle(1000);
+//            $('#pdf_id_' + pdf_id).slideToggle(200);
+//            $('#' + pdf_id).slideToggle(1000);
         }
     },
     deletePdf: function(id) {
@@ -44,21 +44,20 @@ HubStar.PdfUploaderController = Ember.ArrayController.extend({
             pdf.set("pdf_title", this.get('pdf_title'));
             pdf.set("pdf_desc", this.get('pdf_desc'));
             pdf.store.save();
-            $('#' + pdf_id).slideToggle(1000);
-            $('#pdf_id_' + pdf_id).slideToggle(200);
+//            $('#' + pdf_id).slideToggle(1000);
+//            $('#pdf_id_' + pdf_id).slideToggle(200);
         }
     },
     cancelDetail: function(param) {
-        $('#' + param).slideToggle(1000);
-        $('#pdf_id_' + param).slideToggle(200);
+//        $('#' + param).slideToggle(1000);
+//        $('#pdf_id_' + param).slideToggle(200);
 
     },
     changeCover: function(param) {
     },
-            
     seekCurrentPdf: function(pdf_id) {
         var pdf = null;
-        for (var i = 0; i < this.get("pdfArray").get('length'); i ++) {
+        for (var i = 0; i < this.get("pdfArray").get('length'); i++) {
             if (this.get("pdfArray").objectAt(i).get('id') === pdf_id) {
                 pdf = this.get("pdfArray").objectAt(i);
             }
@@ -71,12 +70,12 @@ HubStar.PdfUploaderController = Ember.ArrayController.extend({
         var target = getTarget(e, "single");
         this.set('loadingTime', true);
         var src = target.result;
-        
+
         var testID = createGuid();
-        testID = testID.replace('test','');
+        testID = testID.replace('test', '');
         var MegaCreateController = this.get('controllers.megaCreate');
 
-        var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, null, 'pdf');        
+        var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, null, 'pdf');
 //        mega.set("object_title", pdf.get('pdf_title'));
 //        mega.set("object_description", pdf.get('pdf_desc'));
 //        mega.set("object_image_url", pdf.get('pdf_cover_image'));
@@ -87,19 +86,21 @@ HubStar.PdfUploaderController = Ember.ArrayController.extend({
         mega.get('isSaving');
         var that = this;
         a.then(function() {
-            requiredBackEnd('pdfs', 'saveToS3', {'id':mega.get('id'),
-            'pdf_cover_image': "http://www.soompi.com/wp-content/uploads/2013/07/IU-tumblr.jpg", 'pdf_title': name.split('.')[0],
-            'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')}, 'POST', function(params) {
+            requiredBackEnd('pdfs', 'saveToS3', {'id': mega.get('id'),
+                'pdf_cover_image': "http://www.soompi.com/wp-content/uploads/2013/07/IU-tumblr.jpg", 'pdf_title': name.split('.')[0],
+                'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')}, 'POST', function(params) {
                 var pdf_url = params.pdf_url;
                 var pdf_cover_image = params.pdf_cover_image;
-                var pdf = HubStar.Pdf.createRecord({'id':mega.get('id'),
-                'pdf_cover_image': pdf_cover_image, 'pdf_title': name.split('.')[0],
-                'pdf_desc': "", 'pdf_url': pdf_url, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')});
+                var pdf = HubStar.Pdf.createRecord({'id': mega.get('id'),
+                    'pdf_cover_image': pdf_cover_image, 'pdf_title': name.split('.')[0],
+                    'pdf_desc': "", 'pdf_url': pdf_url, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')});
                 pdf.store.save();
-                 that.get("pdfArray").insertAt(0,pdf);
-                 that.set('loadingTime', false);
+                that.get("pdfArray").insertAt(0, pdf);
+                that.set('loadingTime', false);
+                that.set("pdf_title", name.split('.')[0]);
+                that.set("pdf_desc", "");
             });
-                        
+
 //            
 
         });
@@ -156,7 +157,6 @@ HubStar.PdfUploaderController = Ember.ArrayController.extend({
         }
         this.closeUploader();
     },
-    
     setMega: function() {
         var profileController = this.get('controllers.profile');
         var tempmega = profileController.get("model");

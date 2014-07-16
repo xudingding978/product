@@ -3,9 +3,9 @@
 
 <div class="review-wrapper pdfuploader-container" >
 
-    <div style="width:100%; height: 50px; background-color: #ccc; text-align: center; font-size: 25px; font-weight: bold;padding: 14px 0;">Add Resource</div>
+    <div class="pdfuploader-add-resource">Add Resource</div>
 
-  
+
     {{#view HubStar.SingleFileUploaderView }}
     <div class="t-style-box pdfuploader-inner" >
 
@@ -18,7 +18,7 @@
                 <span class="pdfuploader-txt2">Please upload no more than 20 photos at a time, and maximum size of 20MB per photo.</span> 
             </div>
         </div>
-      
+
 
 
         <div  id="pdfInformation" >
@@ -32,12 +32,12 @@
 
 
             <div class="pdfuploader-preview-container">
-                <div id="pdf_id_{{unbound id}}">
-                    <span class="pdfuploader-preview"{{action modifyDetail pdf_id}}><img alt="Click!" {{bindAttr src="pdf_cover_image"}}></span> 
-                    <span class="pdfuploader-preview pdfuploader-preview-title" {{action modifyDetail id}}>{{pdf_title}}</span>
-                    <span><i class="fa fa-trash-o pdfuploader-trash" style="" {{action deletePdf id}}></i></span> 
-                    <span><i class="fa fa-edit pdfuploader-edit" {{action modifyDetail id}}></i></span>             
-                </div>
+                <!--                <div id="pdf_id_{{unbound id}}" >
+                                    <span class="pdfuploader-preview"{{action modifyDetail pdf_id}}><img alt="Click!" {{bindAttr src="pdf_cover_image"}}></span> 
+                                    <span class="pdfuploader-preview pdfuploader-preview-title" {{action modifyDetail id}}>{{pdf_title}}</span>
+                                    <span><i class="fa fa-trash-o pdfuploader-trash" style="" {{action deletePdf id}}></i></span> 
+                                    <span><i class="fa fa-edit pdfuploader-edit" {{action modifyDetail id}}></i></span>             
+                                </div>-->
 
                 <div {{bindAttr id="id"}} class="pdfuploader-editing-container">
                     <div class="pdfuploader-editing-preview">
@@ -67,7 +67,7 @@
 </div>
 
 </div>
-    {{/view}}
+{{/view}}
 
 <div class="pdfuploader-action-container" >
     <div class="message-btn easing pdfuploader-action-btn" {{action closeUploader}}>

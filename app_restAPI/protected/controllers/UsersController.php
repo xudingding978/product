@@ -314,8 +314,10 @@ class UsersController extends Controller {
             $domain = $this->getDomain();
             $reponse = $cb->get($doc_id);
             $respone_user = CJSON::decode($reponse, true);
-            if (!isset($respone_user['user'][0]['is_top_ad_display'])) {
-                $respone_user['user'][0]['is_top_ad_display'] = true;
+            if (sizeof($respone_user['user']) !== 0) {
+                if (!isset($respone_user['user'][0]['is_top_ad_display'])) {
+                    $respone_user['user'][0]['is_top_ad_display'] = true;
+                }
             }
             if (isset($respone_user['user'][0]['profiles'])) {
                 for ($i = 0; $i < sizeof($respone_user['user'][0]['profiles']); $i++) {
@@ -580,7 +582,7 @@ class UsersController extends Controller {
         if ($cb->delete($url)) {
             if ($cb->set($url, $tempUpdateResult)) {
                 error_log(var_export($photos, true));
-                $this->sendResponse(200,CJSON::encode($photos));
+                $this->sendResponse(200, CJSON::encode($photos));
             } else {
                 $this->sendResponse(500, 'something wrong');
             }

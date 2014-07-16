@@ -31,7 +31,7 @@ HubStar.UserArticleRoute = Ember.Route.extend({
 
     },
     model: function(params) {
-        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.article_id});
+        var model = HubStar.Mega.find(params.article_id);
         model.set("id", params.article_id);
         return model;
     },
@@ -47,6 +47,9 @@ HubStar.UserArticleRoute = Ember.Route.extend({
         transitionToProfile: function(id) {
 
             this.transitionTo("profile", HubStar.Profile.find(id));
+        }, 
+        error: function(error, transition) {
+            return  this.transitionTo('fourOhFour', "404");
         }
 
     },

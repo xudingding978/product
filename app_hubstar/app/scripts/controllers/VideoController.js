@@ -362,57 +362,53 @@ HubStar.VideoController = Ember.Controller.extend({
     {
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var that = this;
-        var megaResouce = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": videoObject});
-        this.set('megaResouce', megaResouce.objectAt(0));
-
+        var megaResouce = HubStar.Mega.find(videoObject);
         megaResouce.then(function() {
-            var megaModel = HubStar.Mega.find(videoObject);
-            megaModel.then(function() {
-                that.set('megaResouce', megaModel);
-                that.ads();
-                var tempVideoObject = megaModel.get('videoes').objectAt(0);
-                that.set('videoObject', tempVideoObject);
-                var videoIframe = tempVideoObject.get("videoIframeCode");
-                var height = $(window).height() - 54;
-                var width = 480 / 360 * height;
-                if (width > $(window).width() - 320)
+            var megaModel = megaResouce;
+            that.set('megaResouce', megaModel);
+            that.ads();
+            var tempVideoObject = megaModel.get('videoes').objectAt(0);
+            that.set('videoObject', tempVideoObject);
+            var videoIframe = tempVideoObject.get("videoIframeCode");
+            var height = $(window).height() - 54;
+            var width = 480 / 360 * height;
+            if (width > $(window).width() - 320)
+            {
+                width = $(window).width() - 320;
+                height = 360 / 480 * width;
+            }
+            var v = videoIframe.split(" src=\"")[1].split("\" frameborder")[0];
+            var old = v;
+            if (v.indexOf("?rel=0") === -1)
+            {
+                v = v + "?rel=0";
+            }
+            videoIframe = videoIframe.replace(old, v);
+            videoIframe = videoIframe.replace("480", Math.ceil(width));
+            videoIframe = videoIframe.replace("360", Math.ceil(height));
+            that.set('video_iframe_code', videoIframe);
+            $(window).resize(function() {
+                var videoIframe = that.get('video_iframe_code');
+                var width = videoIframe.split("width=\"")[1].split("\" height=\"")[0];
+                var height = videoIframe.split("width=\"")[1].split("\" height=\"")[1].split("\"")[0];
+                var heightNew = $(window).height() - 54;
+                var widthNew = 480 / 360 * heightNew;
+                if (widthNew > $(window).width() - 320)
                 {
-                    width = $(window).width() - 320;
-                    height = 360 / 480 * width;
+                    widthNew = $(window).width() - 320;
+                    heightNew = 360 / 480 * widthNew;
                 }
-                var v = videoIframe.split(" src=\"")[1].split("\" frameborder")[0];
-                var old = v;
-                if (v.indexOf("?rel=0") === -1)
-                {
-                    v = v + "?rel=0";
-                }
-                videoIframe = videoIframe.replace(old, v);
-                videoIframe = videoIframe.replace("480", Math.ceil(width));
-                videoIframe = videoIframe.replace("360", Math.ceil(height));
-                that.set('video_iframe_code', videoIframe);
-                $(window).resize(function() {
-                    var videoIframe = that.get('video_iframe_code');
-                    var width = videoIframe.split("width=\"")[1].split("\" height=\"")[0];
-                    var height = videoIframe.split("width=\"")[1].split("\" height=\"")[1].split("\"")[0];
-                    var heightNew = $(window).height() - 54;
-                    var widthNew = 480 / 360 * heightNew;
-                    if (widthNew > $(window).width() - 320)
-                    {
-                        widthNew = $(window).width() - 320;
-                        heightNew = 360 / 480 * widthNew;
-                    }
-                    videoIframe = videoIframe.replace(width, Math.ceil(widthNew));
-                    videoIframe = videoIframe.replace(height, Math.ceil(heightNew));
+                videoIframe = videoIframe.replace(width, Math.ceil(widthNew));
+                videoIframe = videoIframe.replace(height, Math.ceil(heightNew));
 
-                    that.set('video_iframe_code', videoIframe);
-                });
-                var tempComment = [that.get('megaResouce').id];
-                requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
-                });
-                that.checkAuthenticUser();
-            }, function() {
-                that.transitionToRoute('fourOhFour', "404");
+                that.set('video_iframe_code', videoIframe);
             });
+            var tempComment = [that.get('megaResouce').id];
+            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
+            });
+            that.checkAuthenticUser();
+        }, function() {
+            that.transitionToRoute('fourOhFour', "404");
         }
         );
         if (HubStar.get("checkLoginStatus")) {

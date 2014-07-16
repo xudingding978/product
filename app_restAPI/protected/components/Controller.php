@@ -812,9 +812,9 @@ class Controller extends CController {
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         $result = curl_exec($ch);
         $result_arr = CJSON::decode($result, true);
-        
 
-        
+
+
         $record_arr = $result_arr['hits']['hits'];
         $new_arr = array();
         $new_arr['total'] = $result_arr['hits']['total'];
@@ -1333,9 +1333,44 @@ class Controller extends CController {
                     if (isset($tempResult['stats'][0]['megas'][$i]['photo'][0]['tags'])) {
                         $tempResult['stats'][0]['megas'][$i]['photo'][0]['tags'] = array();
                     }
-                    if($tempResult['stats'][0]['megas'][$i]['type']!=="profile")
-                    {
+                    if ($tempResult['stats'][0]['megas'][$i]['type'] !== "profile") {
                         $tempResult['stats'][0]['megas'][$i]['keyword'] = array();
+                    }
+                }
+            }
+        } else if ($type === 'singleMega') {
+            if (isset($tempResult['mega'])) {
+                $hit = $tempResult['mega'];
+                if (isset($hit['owner_id'])) {
+                    $profile_id = $hit['owner_id'];
+                    $domain = $this->getDomain();
+                    $docID_profile = $domain . "/profiles/" . trim($profile_id);
+                    $tempMega_profile = $cb->get($docID_profile);
+                    $mega_profile = CJSON::decode($tempMega_profile, true);
+                    $profile_editors = (isset($mega_profile["profile"][0]["profile_editors"])) ? $mega_profile["profile"][0]["profile_editors"] : '*@trendsideas.com';
+                    $profile_name = (isset($mega_profile["profile"][0]["profile_name"])) ? $mega_profile["profile"][0]["profile_name"] : 'Trends Ideas';
+                    $profile_pic = (isset($mega_profile["profile"][0]["profile_pic_url"])) ? $mega_profile["profile"][0]["profile_pic_url"] : 'http://s3.hubsrv.com/trendsideas.com/profiles/new-home-trends/profile_picture/profile_picture_192x192.jpg';
+                    $tempResult['mega']['editors'] = $profile_editors;
+                    $tempResult['mega']['owner_title'] = $profile_name;
+                    $tempResult['mega']['owner_profile_pic'] = $profile_pic;
+                    if (isset($mega_profile['classification'])) {
+                        $profile_classification = $mega_profile['classification'];
+                    }
+                    $tempResult['mega']['classification'] = $profile_classification;
+                    $profile_editor = (isset($mega_profile["profile"][0]["profile_editor"])) ? $mega_profile["profile"][0]["profile_editor"] : '';
+                    $profile_administrator = (isset($mega_profile["profile"][0]["profile_administrator"])) ? $mega_profile["profile"][0]["profile_administrator"] : '';
+                    $profile_creator = (isset($mega_profile["profile"][0]["profile_creator"])) ? $mega_profile["profile"][0]["profile_creator"] : '';
+                    $tempResult['mega']['profile_editor'] = $profile_editor;
+                    $tempResult['mega']['profile_administrator'] = $profile_administrator;
+                    $tempResult['mega']['profile_creator'] = $profile_creator;
+                    $tempResult['mega']['owner_contact_email'] = (isset($mega_profile["profile"][0]["owner_contact_email"])) ? $mega_profile["profile"][0]["owner_contact_email"] : "";
+                    $tempResult['mega']['owner_contact_cc_emails'] = (isset($mega_profile["profile"][0]["owner_contact_cc_emails"])) ? $mega_profile["profile"][0]["owner_contact_cc_emails"] : "";
+                    $tempResult['mega']['owner_contact_bcc_emails'] = (isset($mega_profile["profile"][0]["owner_contact_bcc_emails"])) ? $mega_profile["profile"][0]["owner_contact_bcc_emails"] : "";
+                    if (isset($tempResult['mega']['photo'][0]['tags'])) {
+                        $tempResult['mega']['photo'][0]['tags'] = array();
+                    }
+                    if ($tempResult['mega']['type'] !== "profile") {
+                        $tempResult['mega']['keyword'] = array();
                     }
                 }
             }
@@ -1371,8 +1406,7 @@ class Controller extends CController {
                     if (isset($tempResult['megas'][$i]['photo'][0]['tags'])) {
                         $tempResult['megas'][$i]['photo'][0]['tags'] = array();
                     }
-                    if($tempResult['megas'][$i]['type']!=="profile")
-                    {
+                    if ($tempResult['megas'][$i]['type'] !== "profile") {
                         $tempResult['megas'][$i]['keyword'] = array();
                     }
                 }

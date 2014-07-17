@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="group-item-profile">
-        <div  id="flip-front" class='group-edit-button'  data-hint="Dashboard"
+        <div id="flip-front" class="group-edit-button" data-hint="Dashboard"
               {{action goToGroupDashboard}}>
               <i class="fa fa-cogs"></i>
         </div>
@@ -76,7 +76,7 @@
                 {{#each controller.categorys}}
                 {{#if this.isResidential}}
                 {{#if this.isSelected}}
-                <div class="select-group" style="opacity:1" {{action topicSelection this }}>
+                <div class="selected-group" {{action topicSelection this }}>
                      <div class="group-image">         
                         <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing" {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>
                         <div class="group-image-container"><img {{bind-attr src="image"}} /></div>
@@ -105,7 +105,7 @@
                 {{#each controller.categorys}}
                 {{#if this.isCommercial}}
                 {{#if this.isSelected}}
-                <div class="select-group" style="opacity:1" {{action topicSelection this }}>
+                <div class="selected-group" {{action topicSelection this }}>
                      <div class="group-image">    
                         <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing"  {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>                
                         <div class="group-image-container"><img {{bind-attr src="image"}} /></div>

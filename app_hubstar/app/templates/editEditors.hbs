@@ -14,7 +14,7 @@
         </div>
         {{/if}}
         {{#each  contentAdministratorPhoto}}
-        <div class="invite-friend hint--rounded hint--bottom" data-hint="{{unbound this.name}}" style="" {{action removeAdministrator record_id}}>             
+        <div class="invite-friend hint--rounded hint--bottom" data-hint="{{unbound this.name}}"  {{action removeAdministrator record_id}}>             
              <div class="invite-this-friend radius-circle easing" ><i class="fa fa-user profile-editors-admin"></i></div>            
             <img class="profilepic_comment radius-circle"  {{bind-attr src= this.photo_url}} /> 
         </div>
@@ -31,7 +31,7 @@
         </div>
         {{/if}}
         {{#each  contentEditorPhoto}}
-        <div class="invite-friend hint--rounded hint--bottom" data-hint="{{unbound this.name}}" style="" {{action removeEditor record_id}}>
+        <div class="invite-friend hint--rounded hint--bottom" data-hint="{{unbound this.name}}"  {{action removeEditor record_id}}>
              <div class="invite-this-friend radius-circle easing" ><i class="fa fa-user profile-editors-edit" ></i></div>           
             <img class="profilepic_comment radius-circle"  {{bind-attr src= this.photo_url}} /> 
         </div>
@@ -51,7 +51,7 @@
         {{#each  contentFollowerPhoto}}
 
         <div class="profile-editors-follower">
-            <div class="invite-friend hint--rounded hint--bottom" data-hint="{{unbound name}}" style="" >
+            <div class="invite-friend hint--rounded hint--bottom" data-hint="{{unbound name}}"  >
                 {{#if controller.isCreator}}
                 <div class="invite-this-friend radius-circle easing"><i class="fa fa-user profile-editors-admin" {{action addToAdministrator record_id}}></i> </div>
                 {{/if}}

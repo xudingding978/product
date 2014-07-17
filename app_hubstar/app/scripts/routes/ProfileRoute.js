@@ -87,14 +87,16 @@ HubStar.ProfileRoute = Ember.Route.extend({
 
         return HubStar.Profile.find(params.profile_id);
     },
-    beforeModel: function(transition) {
-        var model = HubStar.Profile.find(transition.params.profile_id);
-        var that = this;
-        model.then(function() {
-        }, function() {
-            that.transitionTo('fourOhFour', "404");
-        });
-    },
+//    beforeModel: function(transition) {
+//        var model = HubStar.Profile.find(transition.params.profile.profile_id);
+//        var that = this;
+//        console.log("qqqq");
+//        model.then(function() {
+//        }, function() {
+//            console.log("wwww");
+//            that.transitionTo('fourOhFour', "404");
+//        });
+//    },
     actions: {
         transitionToCollectionPhoto: function(collection_id) {
             HubStar.set("scrollCollectionPosition", $(window).scrollTop());
@@ -116,6 +118,15 @@ HubStar.ProfileRoute = Ember.Route.extend({
         },
         transitionToVideo: function(video_id) {
             this.transitionTo("videoVideo", {id: video_id});
+        },
+        error: function(error, transition) {
+//            if (error && error.status === 400) {
+//                // error substate and parent routes do not handle this error 
+//                return this.transitionTo('modelNotFound');
+//            }
+
+            // Return true to bubble this event to any parent route.
+            return  this.transitionTo('fourOhFour', "404");
         }
     },
     redirect: function(params) {

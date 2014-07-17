@@ -106,7 +106,6 @@ class ProfilesController extends Controller {
             $result .=$respone_client_data;
             }
             $result .= '}';
-
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

@@ -15,7 +15,7 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controller.set('switchPhoto', true);
         this.controller.set('collectionTag', true);
         //  this.controller.set('partnerTag', false);
-        HubStar.set("showDiscoveryBar",false);
+        HubStar.set("showDiscoveryBar", false);
         if (localStorage.checkUser === "newUser") {
             setTimeout(function() {
                 window.location.href = 'JavaScript:void(0)';
@@ -43,7 +43,6 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controllerFor('user').setUser();
         if (HubStar.get("checkLoginStatus")) {
             if (HubStar.get('showDiscoveryBar')) {
-                //    HubStar.set('ctaView', true);
             } else {
                 HubStar.set('ctaView', false);
                 setTimeout(function() {
@@ -56,21 +55,20 @@ HubStar.UserRoute = Ember.Route.extend({
 
             }
         }
-       
     },
     model: function(params) {
 
         return HubStar.User.find(params.user_id);
 
     },
-    beforeModel: function(transition) {
-        var model = HubStar.User.find(transition.params.user_id);
-        var that = this;
-        model.then(function() {
-        }, function() {
-            that.transitionTo('fourOhFour', "404");
-        });
-    },
+//    beforeModel: function(transition) {
+//        var model = HubStar.User.find(transition.params.user.user_id);
+//        var that = this;
+//        model.then(function() {
+//        }, function() {
+//            that.transitionTo('fourOhFour', "404");
+//        });
+//    },
     actions: {
         transitionToCollectionPhoto: function(collection_id) {
 
@@ -85,8 +83,8 @@ HubStar.UserRoute = Ember.Route.extend({
                 }
             }
             this.transitionTo("collection", data);
-            
-              if (HubStar.get("checkLoginStatus")) {
+
+            if (HubStar.get("checkLoginStatus")) {
                 if (HubStar.get('showDiscoveryBar') === false) {
                     HubStar.set('ctaView', true);
                 } else {
@@ -97,14 +95,23 @@ HubStar.UserRoute = Ember.Route.extend({
         transitionToArticle: function(article_id) {
             this.transitionTo("article", article_id);
             this.transitionTo("articlePhoto");
-            
-              if (HubStar.get("checkLoginStatus")) {
+
+            if (HubStar.get("checkLoginStatus")) {
                 if (HubStar.get('showDiscoveryBar') === false) {
                     HubStar.set('ctaView', true);
                 } else {
                     HubStar.set('ctaView', false);
                 }
             }
+        },
+        error: function(error, transition) {
+//            if (error && error.status === 400) {
+//                // error substate and parent routes do not handle this error 
+//                return this.transitionTo('modelNotFound');
+//            }
+
+            // Return true to bubble this event to any parent route.
+            return  this.transitionTo('fourOhFour', "404");
         }
     },
     redirect: function(params) {

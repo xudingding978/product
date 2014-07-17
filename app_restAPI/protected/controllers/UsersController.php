@@ -581,7 +581,6 @@ class UsersController extends Controller {
         $tempUpdateResult = CJSON::encode($copy_of_oldRecord, true);
         if ($cb->delete($url)) {
             if ($cb->set($url, $tempUpdateResult)) {
-                error_log(var_export($photos, true));
                 $this->sendResponse(200, CJSON::encode($photos));
             } else {
                 $this->sendResponse(500, 'something wrong');

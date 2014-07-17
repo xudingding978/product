@@ -39,14 +39,7 @@ class MegasController extends Controller {
                 $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
                 $response = $this->profileSetting($response, $this->getUserInput($requireParams[0]), "mega");
             }
-            $m = CJSON::decode($response);
-            if (sizeof($m['megas']) === 0) {
-                $result = '{"' . 'mega' . '":';
-                $result .= '}';
-                $this->sendResponse(200, $result);
-            } else {
-                $this->sendResponse(200, $response);
-            }
+            $this->sendResponse(200, $response);
         } catch (Exception $exc) {
             $result = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":';
             $result .= '}';

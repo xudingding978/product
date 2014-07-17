@@ -347,7 +347,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
             var that = this;
             this.get("categorys").then(function() {
-
                 $(document).ready(function() {
                     setTimeout(function() {
                         that.residentialCommercialStatus();
@@ -366,10 +365,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         HubStar.set("isTopAdDisplay", true);
         HubStar.set("isAddCollection", false);
         HubStar.set("isShareEmail", false);
-
         var that = this;
-
-        this.set('categorys', HubStar.Cate.find(localStorage.geoLocation));
+        var cate = HubStar.Cate.find({RquireType: "cateRead", location: localStorage.geoLocation});
+        this.set('categorys', cate);
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
             var array = $.map(callbck, function(value, index) {

@@ -633,7 +633,7 @@ class Controller extends CController {
       "functions": [
         {
           "script_score": {
-            "script": "doc[' . "'" . "couchbaseDocument.doc.boost" . "'" . '].value/100+1"
+            "script": "doc[' . "'" . "couchbaseDocument.doc.boost" . "'" . '].value/200+1"
           }
         },
 

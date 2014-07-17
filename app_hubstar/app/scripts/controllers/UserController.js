@@ -547,9 +547,16 @@ HubStar.UserController = Ember.Controller.extend({
     {
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
-        this.set('currentUserID', user_id);
-        var user = HubStar.User.find(user_id);
-        return user;
+        var type = address.split("#")[1].split("/")[1];
+        if (type === "users") {
+            this.set('currentUserID', user_id);
+            var user = HubStar.User.find(user_id);
+            return user;
+        }
+        else
+        {
+            return null;
+        }
     },
     notificationSetting: function() {
         if (this.get("notification_setting") !== null && this.get("notification_setting") !== "")

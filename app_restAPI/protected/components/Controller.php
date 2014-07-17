@@ -627,91 +627,13 @@ class Controller extends CController {
             }
         }
 
-
-//         $termQuery = '{
-//  "query": {
-//    "function_score": {
-//      "functions": [
-//        {
-//          "script_score": {
-//            "script": "doc[' . "'" . "couchbaseDocument.doc.boost" . "'" . '].value+1"
-//          }
-//        },
-//        {
-//          "script_score": {
-//            "script": "5-(4/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.comment_count" . "'" . '].value+1))))"
-//          }
-//        },
-//                {
-//          "script_score": {
-//            "script": "5-(4/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.share_count" . "'" . '].value+1))))"
-//          }
-//        },
-//        {
-//          "script_score": {
-//            "script": "10-(18/(sqrt(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.view_count" . "'" . '].value*4+256)))))"
-//          }
-//        },
-//        {
-//          "script_score": {
-//            "script": "5-(8/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.likes_count" . "'" . '].value*8+256))))"
-//          }
-//        },
-//        {
-//          "gauss": {
-//            "couchbaseDocument.doc.accessed": {
-//              "origin": "' . $timestamp . '",
-//              "scale": "31536000",
-//              "decay": "0.5"
-//            }
-//          }
-//        },
-//        {
-//          "gauss": {
-//            "couchbaseDocument.doc.created": {
-//              "origin": "' . $timestamp . '",
-//              "scale": "31536000",
-//              "decay": "0.5"
-//            }
-//          }
-//        }
-//      ],
-//      "query": {
-//        "constantScore": {
-//          "query": {
-//            "multi_match": {
-//          "query": "' . $queryString . '",
-//              "fields": [
-//                "couchbaseDocument.doc.keyword.keyword_name^10",
-//                "country",
-//                "owner_title^2",
-//                "region",
-//                "object_title^2",
-//                "object_description^4",
-//                "couchbaseDocument.doc.article.article_spark_job_id^5"
-//              ]
-//            }
-//          }
-//        }
-//      }
-//    }
-//  },' . $filter . '
-//
-//  "from": "' . $from . '",
-//  "size": "' . $size . '",
-//  "sort": []
-//}';
-
-
-
-
         $termQuery = '{
   "query": {
     "function_score": {
       "functions": [
         {
           "script_score": {
-            "script": "doc[' . "'" . "couchbaseDocument.doc.boost" . "'" . '].value/200+1"
+            "script": "doc[' . "'" . "couchbaseDocument.doc.boost" . "'" . '].value/100+1"
           }
         },
 
@@ -742,6 +664,7 @@ class Controller extends CController {
                 "object_title^2",
                 "object_description^4",
                 "couchbaseDocument.doc.article.credits.credits_text^8",
+                "couchbaseDocument.doc.photo.photo_heliumMediaId^5",
                 "couchbaseDocument.doc.article.article_spark_job_id^5"
               ]
             }
@@ -755,49 +678,6 @@ class Controller extends CController {
   "sort": []
 }';
 
-
-
-
-
-
-
-
-
-
-//        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
-//                "bool": {
-//                    "must": [
-//                        {
-//                            "multi_match": {
-//                                "query": "' . $queryString . '",
-//                                "fields": [
-//                                                "couchbaseDocument.doc.keywords^8",
-//                                                "couchbaseDocument.doc.keyword.keyword_name^10",
-//                                                "couchbaseDocument.doc.article.article_spark_job_id^5",
-//                                                "couchbaseDocument.doc.owner_title^2",
-//                                                "couchbaseDocument.doc.country",
-//                                                "couchbaseDocument.doc.region",
-//                                                "couchbaseDocument.doc.type^10",
-//                                                "couchbaseDocument.doc.object_description^4"]
-//                                                    }
-//                        }
-//                    ],
-//                           "must_not": [
-//                    {
-//                    "queryString": {
-//                        "default_field": "couchbaseDocument.doc.type",
-//                        "query": "user"
-//                      }
-//                  },
-//                  {
-//                    "queryString": {
-//                        "default_field": "couchbaseDocument.doc.type",
-//                        "query": "conversation"
-//                      }
-//                  }
-//                  ]
-//                }
-//            }');
 //        $request->sort($sort1, $sort2);
         //  $response = $request->query($termQuery)->execute();
         //      return $response;
@@ -812,9 +692,9 @@ class Controller extends CController {
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         $result = curl_exec($ch);
         $result_arr = CJSON::decode($result, true);
-        
 
-        
+
+
         $record_arr = $result_arr['hits']['hits'];
         $new_arr = array();
         $new_arr['total'] = $result_arr['hits']['total'];
@@ -1037,106 +917,6 @@ class Controller extends CController {
         return $response;
     }
 
-//    protected function searchArticleWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50, $location = 'Global') {
-//        $request = $this->getElasticSearch();
-//        $request->from($from);
-//        $request->size($size);
-//        if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
-//            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{"query": {
-//                "queryString": {
-//                  "default_field": "couchbaseDocument.doc.country",
-//                  "query": "' . $location . '"
-//>>>>>>> 62942073ecbbb44a399399722361d2e83f4c41f9
-//                }
-//                }
-//              }');
-//            if ($location != "Global") {
-//                $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
-//                "query": {
-//                  "bool": {
-//                    "must": [ {
-//                      "queryString": {
-//                        "default_field": "couchbaseDocument.doc.classification",
-//                        "query": "' . $classification . '"
-//                      }
-//                    },
-//                    {
-//                      "queryString": {
-//                        "default_field": "couchbaseDocument.doc.country",
-//                        "query": "' . $location . '"
-//                      }
-//                    },
-//                        {
-//                      "queryString": {
-//                        "default_field": "couchbaseDocument.doc.is_deleted",
-//                        "query": 0
-//                      }
-//                    }       
-//                    ],
-//                    "must_not": {
-//                   
-//                  }
-//                }
-//                }
-//              }');
-//            }
-//              $request->filter($filter);
-//        }
-//
-//        if ($classification == "All") {
-//
-//            if ($location !== "Global") {
-//                $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
-//                "query": {
-//                  "bool": {
-//                    "must": [     {
-//                      "queryString": {
-//                        "default_field": "couchbaseDocument.doc.country",
-//                        "query": "' . $location . '"
-//                      }
-//                    },
-//                        {
-//                      "queryString": {
-//                        "default_field": "couchbaseDocument.doc.is_deleted",
-//                        "query": 0
-//                      }
-//                    }     
-//                    ],
-//                    "must_not": {
-//                   
-//                  }
-//                }
-//                }
-//              }');
-//                  $request->filter($filter);
-//            }
-//        }
-//        $max = sizeof($conditions);
-//        $bool = Sherlock\Sherlock::queryBuilder()->Bool();
-//        for ($i = 0; $i < $max; $i++) {
-//            $must = $this->getmustQuestWithQueryString($conditions[$i]);
-//            if ($search_type == "must") {
-//                $bool->must($must);
-//            } else if ($search_type == "should") {
-//                $bool->must($must);
-//            } else {
-//                echo "no such search type, please input: must or should as a search type.";
-//            }
-//        }
-//<<<<<<< HEAD
-//        $sort = Sherlock\Sherlock::sortBuilder();
-//        $sort1 = $sort->Field()->name("couchbaseDocument.doc.photo.photo_isExtra")->order('asd');
-//        $sort2 = $sort->Field()->name("couchbaseDocument.doc.photo.photo_sequence")->order("asd");
-//
-//        $request->query($bool);
-//        $request->sort($sort1, $sort2);
-//       
-//        $request->query($bool);
-//>>>>>>> 62942073ecbbb44a399399722361d2e83f4c41f9
-//        $response = $request->execute();
-//
-//        return $response;
-//    }
 
 
     protected function searchArticleWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50, $location = 'Global') {
@@ -1333,9 +1113,44 @@ class Controller extends CController {
                     if (isset($tempResult['stats'][0]['megas'][$i]['photo'][0]['tags'])) {
                         $tempResult['stats'][0]['megas'][$i]['photo'][0]['tags'] = array();
                     }
-                    if($tempResult['stats'][0]['megas'][$i]['type']!=="profile")
-                    {
+                    if ($tempResult['stats'][0]['megas'][$i]['type'] !== "profile") {
                         $tempResult['stats'][0]['megas'][$i]['keyword'] = array();
+                    }
+                }
+            }
+        } else if ($type === 'singleMega') {
+            if (isset($tempResult['mega'])) {
+                $hit = $tempResult['mega'];
+                if (isset($hit['owner_id'])) {
+                    $profile_id = $hit['owner_id'];
+                    $domain = $this->getDomain();
+                    $docID_profile = $domain . "/profiles/" . trim($profile_id);
+                    $tempMega_profile = $cb->get($docID_profile);
+                    $mega_profile = CJSON::decode($tempMega_profile, true);
+                    $profile_editors = (isset($mega_profile["profile"][0]["profile_editors"])) ? $mega_profile["profile"][0]["profile_editors"] : '*@trendsideas.com';
+                    $profile_name = (isset($mega_profile["profile"][0]["profile_name"])) ? $mega_profile["profile"][0]["profile_name"] : 'Trends Ideas';
+                    $profile_pic = (isset($mega_profile["profile"][0]["profile_pic_url"])) ? $mega_profile["profile"][0]["profile_pic_url"] : 'http://s3.hubsrv.com/trendsideas.com/profiles/new-home-trends/profile_picture/profile_picture_192x192.jpg';
+                    $tempResult['mega']['editors'] = $profile_editors;
+                    $tempResult['mega']['owner_title'] = $profile_name;
+                    $tempResult['mega']['owner_profile_pic'] = $profile_pic;
+                    if (isset($mega_profile['classification'])) {
+                        $profile_classification = $mega_profile['classification'];
+                    }
+                    $tempResult['mega']['classification'] = $profile_classification;
+                    $profile_editor = (isset($mega_profile["profile"][0]["profile_editor"])) ? $mega_profile["profile"][0]["profile_editor"] : '';
+                    $profile_administrator = (isset($mega_profile["profile"][0]["profile_administrator"])) ? $mega_profile["profile"][0]["profile_administrator"] : '';
+                    $profile_creator = (isset($mega_profile["profile"][0]["profile_creator"])) ? $mega_profile["profile"][0]["profile_creator"] : '';
+                    $tempResult['mega']['profile_editor'] = $profile_editor;
+                    $tempResult['mega']['profile_administrator'] = $profile_administrator;
+                    $tempResult['mega']['profile_creator'] = $profile_creator;
+                    $tempResult['mega']['owner_contact_email'] = (isset($mega_profile["profile"][0]["owner_contact_email"])) ? $mega_profile["profile"][0]["owner_contact_email"] : "";
+                    $tempResult['mega']['owner_contact_cc_emails'] = (isset($mega_profile["profile"][0]["owner_contact_cc_emails"])) ? $mega_profile["profile"][0]["owner_contact_cc_emails"] : "";
+                    $tempResult['mega']['owner_contact_bcc_emails'] = (isset($mega_profile["profile"][0]["owner_contact_bcc_emails"])) ? $mega_profile["profile"][0]["owner_contact_bcc_emails"] : "";
+                    if (isset($tempResult['mega']['photo'][0]['tags'])) {
+                        $tempResult['mega']['photo'][0]['tags'] = array();
+                    }
+                    if ($tempResult['mega']['type'] !== "profile") {
+                        $tempResult['mega']['keyword'] = array();
                     }
                 }
             }
@@ -1371,8 +1186,7 @@ class Controller extends CController {
                     if (isset($tempResult['megas'][$i]['photo'][0]['tags'])) {
                         $tempResult['megas'][$i]['photo'][0]['tags'] = array();
                     }
-                    if($tempResult['megas'][$i]['type']!=="profile")
-                    {
+                    if ($tempResult['megas'][$i]['type'] !== "profile") {
                         $tempResult['megas'][$i]['keyword'] = array();
                     }
                 }

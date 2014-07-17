@@ -43,7 +43,7 @@ class MegasController extends Controller {
         } catch (Exception $exc) {
             $result = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":';
             $result .= '}';
-            $this->sendResponse(200, $result );
+            $this->sendResponse(200, $result);
         }
     }
 
@@ -90,7 +90,6 @@ class MegasController extends Controller {
         $this->sendResponse(204, $request_json);
     }
 
-
     public function createGroup($mega) {
 
         $cb = $this->couchBaseConnection();
@@ -129,31 +128,20 @@ class MegasController extends Controller {
     public function actionRead() {
         try {
 
-            $temp = explode("/", $_SERVER['REQUEST_URI']);
-            $id = $temp [sizeof($temp) - 1];
-            $cb = $this->couchBaseConnection();
-            $docID = $this->getDomain() . "/profiles/" . $id;
-            $reponse = $cb->get($docID);
-            $mega_profile = CJSON::decode($reponse, true);
-
-            $profile_editors = (isset($mega_profile["profile"][0]["profile_editors"])) ? $mega_profile["profile"][0]["profile_editors"] : '*@trendsideas.com';
-            $profile_name = (isset($mega_profile["profile"][0]["profile_name"])) ? $mega_profile["profile"][0]["profile_name"] : 'Trends Ideas';
-            $profile_pic = (isset($mega_profile["profile"][0]["profile_pic_url"])) ? $mega_profile["profile"][0]["profile_pic_url"] : 'http://s3.hubsrv.com/trendsideas.com/profiles/new-home-trends/profile_picture/profile_picture_192x192.jpg';
-            $mega_profile['editors'] = $profile_editors;
-            $mega_profile['owner_title'] = $profile_name;
-            $mega_profile['owner_profile_pic'] = $profile_pic;
-            $profile_editor = (isset($mega_profile["profile"][0]["profile_editor"])) ? $mega_profile["profile"][0]["profile_editor"] : '';
-            $profile_administrator = (isset($mega_profile["profile"][0]["profile_administrator"])) ? $mega_profile["profile"][0]["profile_administrator"] : '';
-            $profile_creator = (isset($mega_profile["profile"][0]["profile_creator"])) ? $mega_profile["profile"][0]["profile_creator"] : '';
-            $mega_profile['profile_editor'] = $profile_editor;
-            $mega_profile['profile_administrator'] = $profile_administrator;
-            $mega_profile['profile_creator'] = $profile_creator;
-            $mega_profile['owner_contact_email'] = $mega_profile["profile"][0]["owner_contact_email"];
-            $mega_profile['owner_contact_cc_emails'] = $mega_profile["profile"][0]["owner_contact_cc_emails"];
-            $mega_profile['owner_contact_bcc_emails'] = $mega_profile["profile"][0]["owner_contact_bcc_emails"];
-            $reponse = CJSON::encode($mega_profile);
-            $reponse = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
-            $this->sendResponse(200, $reponse);
+            $temp = explode("?", $_SERVER['REQUEST_URI']);
+            $request_string = $temp [sizeof($temp) - 1];
+            $response = "";
+            $requests = explode('/', $request_string);
+            $response = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $requests[2]);
+            $response = $this->profileSetting($response, "mega", "singleMega");
+            $m = CJSON::decode($response);
+            if (!isset($m['mega'])) {
+                $result = '{"' . 'mega' . '":';
+                $result .= '}';
+                $this->sendResponse(200, $result);
+            } else {
+                $this->sendResponse(200, $response);
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

@@ -244,7 +244,7 @@
             ++this._currentStep;
 
         }
-        console.log("sss");
+      
         var address = document.URL;
         var urlName = address.split("#")[1].split("/")[1];
         if (urlName === "search") {

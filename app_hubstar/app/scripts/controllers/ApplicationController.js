@@ -332,6 +332,7 @@ HubStar.ApplicationController = Ember.Controller.extend({
                 $(document).ready(function() {
                     setTimeout(function() {
                         that.residentialCommercialStatus();
+                        $(".Navigator-box").css("margin-left","110px");
                     }, 50);
                 });
             });

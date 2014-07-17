@@ -22,18 +22,18 @@
                 </div>
                 {{#if controller.isUploadPhoto}}
                 <div class="user-post-content-upload-photo">
-                    <div class='remove-comment-photo easing' {{action removePic}}><i class="fa fa-times"></i></div>
-                    <img  {{bind-attr src= "newStyleImageSource"}} >
+                    <div class="remove-comment-photo easing" {{action removePic}}><i class="fa fa-times"></i></div>
+                    <img  {{bindAttr src= "newStyleImageSource"}} >
                 </div>
                 {{/if}}
                 <div class="user-post-content-button">
-                    <div  class="message-btn easing hint--bottom hint--rounded border-right" data-hint="Add Photo"><i class='fa fa-picture-o'>&nbsp;</i>Add Photo
+                    <div  class="message-btn easing hint--bottom hint--rounded border-right" data-hint="Add Photo"><i class="fa fa-picture-o">&nbsp;</i>Add Photo
                         <div class="user-post-content-button-add-photo-back"> 
                             {{view HubStar.SingleImageInputButtonView }}
                         </div>
                     </div>
                     {{#if controller.isPosting}}
-                    <div class="message-btn easing hint--bottom hint--rounded" {{action addComment}} data-hint="Post"><i class='fa fa-check'>&nbsp;</i>Post </div>
+                    <div class="message-btn easing hint--bottom hint--rounded" {{action addComment}} data-hint="Post"><i class="fa fa-check">&nbsp;</i>Post </div>
                     {{else}}
                     <div class="message-btn-x easing" ><i class="spinner">&nbsp;</i>Posting </div>
                     {{/if}}
@@ -45,7 +45,7 @@
 
 </div>
 
-<div  id="content_message" class='Message-Board_comment-container'>
+<div id="content_message" class="Message-Board_comment-container">
     {{#each  contentMsg}}
 
     <div id="message_{{unbound this.message_id}}">          

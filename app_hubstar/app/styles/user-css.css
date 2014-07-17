@@ -531,6 +531,98 @@ textarea.add-interests{
     left: 0;
 }
 
+.user-edit-password{
+    padding: 1px 6px;
+}
+
+
+.useredit-table{
+    padding-right: 147px; 
+    width: 100%; 
+    font-size: 14px;  
+    display: table; 
+    border-spacing: 4px;
+    margin:10px auto;
+}
+
+.useredit-table-row{
+    text-align: right;
+}
+
+.useredit-col1-width{
+    width: 30%;
+}
+
+.useredit-col2-style{
+    margin: 0 20px; 
+    display: block;
+}
+
+.useredit-col2-input{
+    margin: 0;
+    width: 100%;
+}
+
+.useredit-col2-input2{
+    margin: 0;
+    width: 100%; 
+    height:100px;
+}
+
+.useredit-col2-name{
+    margin: 0;
+    width: 49.3%;
+    display: inline-block;
+}
+
+.useredit-col2-margin{
+    margin-bottom: 5px;
+}
+
+.user-tab-save{
+    right: 0;
+    margin: 10px auto 0;
+    width: 150px;
+}
+.useredit-row{
+    margin: 10px 40px;
+}
+.useredit-notification{
+    font-size: 15px; 
+    font-weight: bold; 
+    color: #555;
+}
+
+.useredit-trendsuser{
+    width: 100%;
+    height: auto; 
+    min-height: 50px;
+    padding-left: 25px;
+}
+
+.useredit-back{
+    margin: 0 auto;
+    width: 100px;
+    clear: both;
+}
+
+.useredit-crop-container{
+    width: 600px;
+    height: 350px;
+    margin: 10px auto; 
+    text-align: center;
+}
+
+.useredit-canvas{
+    height: 100%;
+    width: auto;
+    margin: 0 auto; 
+}
+
+.useredit-action{
+    margin: 20px auto;
+    width: 150px;
+}
 /*-----------------user talk --------------*/
 .user-talk-main-container{
     z-index: 11; 
@@ -648,6 +740,9 @@ textarea.add-interests{
     line-height: 40px;
 }
 
+.user-talk-spinner{
+    top: 12px;
+}
 
 /* ---------------- user post -----------*/
 
@@ -1042,6 +1137,14 @@ textarea.add-interests{
     margin-left: 20px;
 }
 
+.invitepeople-search{
+    font-size: 15px; 
+    line-height: 50px; 
+    font-weight: bold; 
+    width: 50px;
+    height: 49px;
+}
+
 .invitepeople-display-container{
     position: relative; 
     width: 100%;
@@ -1257,11 +1360,6 @@ textarea.add-interests{
     overflow: hidden;
 }
 
-/* message.hbs */
-.message-replyedit-container{
-    padding: 15px;
-}
-
 /* itemFunction.hbs */
 .itemfunction-add{
     display: none;
@@ -1357,6 +1455,182 @@ notification-context{
     top: -25px;
 }
 
+/* item.hbs */
+.item-authentic-block{
+    position: absolute;
+    margin: 10px; 
+    top: 11px;
+    left: 150px;
+}
 
+.item-edit-box{
+    right: 40px;
+}
 
+.item-title{
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size:16px;
+    word-break: break-word;
+    text-transform: capitalize;
+}
+
+.reset-margin{
+    margin:0;
+}
+
+.item-hoverarea{
+    cursor: pointer;
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border: 2px solid #fff;
+    line-height: 66px;
+    text-align: center;
+    color: #fff;
+    font-size: 25px;
+    margin: 90px auto;
+    left: 136px;
+    right: 0;
+    box-shadow: 0 0 10px #f3f3f3;
+    z-index: 1;
+}
+
+.item-videoplay{
+    margin-left: 5px;
+    text-shadow: 0 0 10px #f3f3f3;
+}
+
+.item-edit-area{
+    position: absolute;
+    margin: 10px; 
+    top: 11px;
+    left: 150px;
+}
+
+.item-edit-action{
+    font-size: 16px; 
+    margin: 0px 5px;
+}
+
+.item-edit-delete{
+    right: 40px;
+}
+
+.item-wordbreak{
+    word-break: break-word;
+}
+
+.item-article{
+    font-size: 13px; 
+    max-height: 50px;
+}
+
+.item-pdf-icon{
+    margin-left: 5px;
+    text-shadow: 0 0 10px #f3f3f3; 
+    color:#fff; 
+    font-size:50px;
+}
+
+.item-pdf-title{
+    font-style:italic;
+}
+
+.item-article-overflow{
+    text-overflow: ellipsis;
+}
+
+.item-txt-auto{
+    width: auto;
+}
+
+/* message.hbs */
+.message-bg{
+    background-color: #fafafa;
+}
+.message-replyedit-container{
+    padding: 15px;
+}
+
+.message-topreply{
+    padding: 10px 0 10px 70px;
+    position: relative;  
+    background-color: #f3f3f3;  
+    border-bottom: 1px solid #ddd;
+}
+
+.message-modify{
+    float: right;
+    color: #888;
+    margin: 18px 20px;
+    font-size: 13px; 
+    position: relative;
+    z-index: 1;
+}
+
+.message-deleteicon{
+    margin: 0 10px; 
+    cursor: pointer;
+}
+
+.message-profileimg{
+    position: absolute; 
+    top: 15px;
+    margin: 0 0 0 -55px;
+    border: 1px solid #f3f3f3;
+    width: 45px;
+    height: 45px;
+    overflow: hidden;
+}
+
+.message-profileimg img{
+    width: 45px; 
+    height: 45px;
+}
+
+.message-title{
+    margin: 8px 0; 
+    z-index: 0;
+}
+
+.message-content-imgContainer{
+    font-size: 12px;
+    margin: 10px 20px;
+}
+
+.message-content-imgbox{
+    margin: 5px auto;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.message-content-imgbox img{
+    border: 4px solid #fff;
+}
+
+.message-post-reply{
+    padding:10px 0;
+}
+
+.message-replytimename{
+    margin-left: 70px;
+    width: 270px;
+}
+
+.message-post-action{
+    left: 240px;
+    right: initial;
+    top: 20px;
+}
+
+.message-post-img{
+    margin: 5px auto;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.message-post-action img{
+    border: 4px solid #fff;
+}
 

@@ -1,14 +1,14 @@
-<div class="Register-Page" style="">
+<div class="Register-Page" >
     <div class="Register-Page_background"></div>
     <div class="register-page-top-bar">
         <img class="logonew"  src="../../../images/landing-trends.png">
-        <div class="Login-or-Register" style="">
+        <div class="Login-or-Register" >
             <span id="login-btn" class="white-text-hover easing" {{action loginPane on="click"  target="view"}}>LOG IN</span>
             <span>&nbsp | &nbsp</span>
             <a href="http://about.trendsideas.com" target="blank"><span class="white-text-hover easing">HELP</span></a>
         </div>
 
-        <div class="promotion-line" style="">
+        <div class="promotion-line" >
             <span>83,000 IDEAS</span>
             <span>&nbsp | &nbsp</span>
             <span>210,000 PRODUCTS</span>
@@ -71,16 +71,16 @@
                         </div>
                     </div>
 
-                    <div  id="email" class="login-textfield" style="">
+                    <div  id="email" class="login-textfield" >
                         {{view HubStar.RegisterEnterKeyTextFieldView valueBinding="email" placeholder="Your Email" }}
                     </div>
 
-                    <div id="password" class="login-textfield"  style="">
+                    <div id="password" class="login-textfield"  >
                         {{view HubStar.RegisterEnterKeyTextFieldView type="password" valueBinding="password" placeholder="Password" }}
                     </div>
                 </div>
 
-                <div id="register-btn" class="register-btn easing" style="" {{action signUp}} > Register</div>
+                <div id="register-btn" class="register-btn easing"  {{action signUp}} > Register</div>
             </div>
 
 
@@ -92,11 +92,11 @@
                     </div>
 
                     <div style="border-bottom: 1px solid #e3e3e3;">
-                        <div class="login-select easing" style=""{{action setmale}}>
+                        <div class="login-select easing" {{action setmale}}>
                              Male
                     </div>
 
-                    <div class="login-select easing" style=""{{action setfemale}}>
+                    <div class="login-select easing" {{action setfemale}}>
                          Female
                 </div>
             </div>
@@ -105,7 +105,7 @@
                 {{view HubStar.DoneEnterKeyTextFieldView valueBinding="age" placeholder="How old are you?" }}
             </div>
         </div>
-        <div class="back-btn easing" style="" >Back</div>
+        <div class="back-btn easing"  >Back</div>
         <div class="register-btn easing register-btn-small"  {{action next}}>Next</div>
 
     </div>
@@ -116,7 +116,7 @@
     <div id="register-with-email-step-3" class="popup-container" style="display:none; width: 102%;">
 
         <div class="popup-bg-fadeout" style="background-color: transparent">&nbsp;</div>
-        <div class="interest-selecting-container" style="">
+        <div class="interest-selecting-container" >
             <div   style="background-color: #f3f3f3;padding: 5px; border-bottom: 1px solid #ddd;">
                 <div class="tell-us-what-ur-interested-in">
                     Tell us what you're interested in!
@@ -129,13 +129,14 @@
 
                 <div style="position: relative;"> 
                     {{#each controller.contentTopicResidential}}
-                    <div class="select-interest" style=""{{action selectTopic id topic}}>
+                    <div class="select-interest" {{action selectTopic id topic}}>
                          <div id="minus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action selectTopic id topic }}><i class="fa fa-minus" ></i></div>
                         <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><i class="fa fa-plus" ></i></div>
                         <div class="" style="position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
-                            <div  class="usersobject-hoverarea easing" style="" ></div>
-                            <div class="interest-image-container"><img {{bind-attr src="image"}} /></div>
-                        </div>
+                            <div  class="usersobject-hoverarea easing"  ></div>
+                            <div class="interest-image-container"><img {{bindAttr src="image"}} /></div>
+
+                       </div>
                         <div class="interest-topic-name" >
                             {{topic}}
                         </div>
@@ -150,12 +151,13 @@
                 </div>
 
                 {{#each controller.contentTopicCommercial}}
-                <div class="select-interest" style=""{{action selectTopic id topic}}>
+                <div class="select-interest" {{action selectTopic id topic}}>
                      <div id="minus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action selectTopic id topic }}><i class="fa fa-minus" ></i></div>
                     <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><i class="fa fa-plus" ></i></div>
                     <div class="" style="position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
-                        <div  class="usersobject-hoverarea easing" style="" ></div>
-                        <div class="interest-image-container"><img {{bind-attr src="image"}} /></div>
+
+                        <div  class="usersobject-hoverarea easing"  ></div>
+                        <div class="interest-image-container"><img {{bindAttr src="image"}} /></div>
                     </div>
                     <div class="interest-topic-name">
                         {{topic}}
@@ -180,7 +182,7 @@
                 </div>
             </div>
         </div>
-        <div class="registraion-suceesful-message" style="">
+        <div class="registraion-suceesful-message" >
             Registration successful! You'll soon receive an email with your account information and an activation link. Click on the activation link to activate your myTrends account!
         </div>
         <div id="finishRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute;display:block" {{action done}}>Done&nbsp;<i class="fa fa-long-arrow-right" style="font-size: 13px;"></i></div>
@@ -247,11 +249,11 @@
         <div style="padding: 0 8px;position: relative;">
 
 
-            <div id="loginUsername" class="login-textfield" style="">
+            <div id="loginUsername" class="login-textfield" >
                 {{view HubStar.LoginEnterKeyTextFieldView  elementId="loginusername" valueBinding="loginUsername" placeholder="Your Email" }}
             </div>
 
-            <div id="loginPassword" class="login-textfield"  style="">
+            <div id="loginPassword" class="login-textfield"  >
                 {{view HubStar.LoginEnterKeyTextFieldView type="password" elementId="loginpassword" valueBinding="loginPassword" placeholder="Password" }}
                 <div class="hint--right hint--rounded" data-hint="forgot password?" style="cursor:pointer;float: right;margin-top: -40px;height: 30px;color:#888;">
                     <i class="fa fa-question-circle">&nbsp</i>
@@ -259,13 +261,13 @@
             </div>
         </div>
 
-        <div id="register-btn" class="register-btn easing" style="" {{action login}}> Log in</div>
+        <div id="register-btn" class="register-btn easing"  {{action login}}> Log in</div>
     </div>
     <div id="user-forgot-password-pane" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
         <div  id="resetPasswordEmail"class="login-textfield" style="padding: 0 10px">
             {{view Ember.TextField valueBinding="resetPasswordEmail" placeholder="Your Email" }}
         </div>
-        <div class="back-btn easing" style="" >Back</div>
+        <div class="back-btn easing"  >Back</div>
         <div id='reset-btn' class="register-btn easing register-btn-small" {{action emailSend}}>Reset password</div>
     </div>
 
@@ -387,7 +389,7 @@
 
 
 <a href="http://about.trendsideas.com" target="blank">
-    <div class="learnmore-btn easing" style="">Learn more</div>
+    <div class="learnmore-btn easing" >Learn more</div>
 </a>
 </div>
 

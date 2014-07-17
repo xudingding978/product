@@ -1993,7 +1993,7 @@ div.album-description-bg{
     -webkit-transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
     transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
     margin: 15px 0 0 0;
-    max-width: 5%;
+    max-width: 0%;
     position: absolute;
     right: 0;
     top: 0;
@@ -3408,18 +3408,16 @@ div.album-description-bg{
 }
 
 .search-wrapper-container{
-    position: absolute; 
-    top: 140px; 
-    width: 880px;
-    left:0; 
-    right: 0; 
-    margin: auto;
+    position: relative;
+    top: 140px;
+    width: 1030px;
+    margin: 0 auto;
     text-align: center;
-    height:400px;
+    height: 350px;
 }
 
 .searchbar-title{
-    position:relative;
+    position: relative;
     font-size: 50px;
     color: white;
     font-weight: bold;
@@ -3435,8 +3433,10 @@ div.album-description-bg{
 }
 
 .searchbar-maintopic{
-    position:relative; 
-    height:100px;
+    position: relative;
+    height: 130px;
+    width: 60%;
+    margin: 0 auto
 }
 
 .searchbar-listIcon{
@@ -3488,7 +3488,9 @@ div.album-description-bg{
     margin:0;
     width: 160px;
 }
-
+.footer-share{
+    padding-top: 15px;
+}
 .footer-twitter{
     padding: 0 27px;
 }
@@ -3685,4 +3687,40 @@ div.album-description-bg{
 .sent-btn img{
     margin: 0 7px;
     width: 25px;
+}
+
+/* -----------top bar ad------- */
+.topbar-ad{
+    height:140px;
+    width:100%;
+    background-color: black; 
+    opacity: 0.6;
+    margin:0 auto; 
+    z-index:3;
+}
+
+.topbar-ad-a{
+    top:10px; 
+    position: relative;
+}
+
+.topbar-ad-b{
+    top:90px; 
+    position: fixed;
+}
+
+.topbar-ad-action{
+    position:absolute; 
+    top:0; 
+    right: 0; 
+    color: #fff; 
+    font-size: 30px;
+}
+
+.topbar-ad-searchwall{
+    width: 760px;
+    height: 120px;
+    margin: auto;
+    position: relative;
+    top: 10px;
 }

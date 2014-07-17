@@ -63,19 +63,18 @@ HubStar.ArticleController = Ember.Controller.extend({
                 if (type === "users")
                 {
                     photoObject = HubStar.Mega.find(collection_id);
-
                     this.transitionToRoute("userPhoto", photoObject); //user photo
                     HubStar.set('ctaView', false);
                 }
                 else if (type === "profiles")
                 {
                     photoObject = HubStar.Mega.find(collection_id);
-
                     this.transitionToRoute("profilePhoto", photoObject); // profile photo
                     HubStar.set('ctaView', false);
                 }
                 else if (type === "photos" || type === "articles" || type === "videos")
                 {
+                    
                     var m = HubStar.Mega.find(user_id);
                     HubStar.set("closeArticlePhoto", true);
                     this.transitionToRoute("search", {id: m.get("owner_title")});

@@ -51,9 +51,9 @@
     <div  class="message-comment-container">
         <div class="message-input-box">
             <a>
-                <img class="profilepic_comment message-input-img" {{bind-attr src= controller.commenter_photo_url}} /> 
-                <div class='user-says-angle-before'></div>
-                <div class='user-says-angle-after'></div>
+                <img class="profilepic_comment message-input-img" {{bindAttr src= controller.commenter_photo_url}} /> 
+                <div class="user-says-angle-before"></div>
+                <div class="user-says-angle-after"></div>
             </a>
 
             <div class="post-comment-container">
@@ -62,20 +62,20 @@
                 </div>
                 {{#if controller.isUploadPhoto}}
                 <div class="post-upload">
-                    <div class='remove-comment-photo easing' {{action removePic }}><i class="fa fa-times"></i></div>
-                    <img  {{bind-attr src= "newStyleImageSource"}}>
+                    <div class="remove-comment-photo easing" {{action removePic }}><i class="fa fa-times"></i></div>
+                    <img  {{bindAttr src= "newStyleImageSource"}}>
                 </div>
                 {{/if}}
                 <div class="post-action-container">
-                    <div  class="message-btn easing post-addphoto"><i class='fa fa-picture-o'>&nbsp;</i>Add Photo
+                    <div class="message-btn easing post-addphoto"><i class="fa fa-picture-o">&nbsp;</i>Add Photo
                         <div class="post-addphoto-txt"> 
                             {{view HubStar.SingleImageInputButtonView }}
                         </div>
                     </div>
                     {{#if controller.isPosting}}
-                    <div class="message-btn easing" style=''{{action addComment}}><i class='fa fa-check'>&nbsp;</i>Send</div>
+                    <div class="message-btn easing" {{action addComment}}><i class="fa fa-check">&nbsp;</i>Send</div>
                     {{else}}
-                    <div class="message-btn-x easing" style=''><i class="spinner">&nbsp;</i>Posting </div>
+                    <div class="message-btn-x easing" ><i class="spinner">&nbsp;</i>Posting </div>
                     {{/if}}
                 </div>
 
@@ -89,13 +89,13 @@
         {{#each conversationItemContent}}
         <div class="Message-Board_comment-item">         
             <div class="comment-position">   
-                <a class="profilepic-comment-container"   href="#/users/{{unbound this.sender_id}}">
-                    <img class="profilepic_comment" {{bind-attr src= this.sender_photo_url_large}} />
+                <a class="profilepic-comment-container" href="#/users/{{unbound this.sender_id}}">
+                    <img class="profilepic_comment" {{bindAttr src= this.sender_photo_url_large}} />
                 </a>
-                <div style="">
+                <div >
                     <div class="comment-namentime">
                         <div class="namentime_position">
-                            <a class="comment-username"   href="#/users/{{unbound this.sender_id}}">
+                            <a class="comment-username" href="#/users/{{unbound this.sender_id}}">
                                 {{this.name }}
                             </a>
                             <div class="posttime-container">

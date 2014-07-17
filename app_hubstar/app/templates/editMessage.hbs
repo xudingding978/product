@@ -13,8 +13,8 @@
             </div>
             {{#if controller.isUploadPhoto}}
             <div class="editMessage-addimg" >
-                <div class='remove-comment-photo easing' {{action removePic model.message_id}}><i class="fa fa-times"></i></div>             
-                <img  {{bind-attr src= "newStyleImageSource"}}>
+                <div class="remove-comment-photo easing" {{action removePic model.message_id}}><i class="fa fa-times"></i></div>             
+                <img  {{bindAttr src= "newStyleImageSource"}}>
             </div>
             {{else}}
             {{#if model.isUrl }}

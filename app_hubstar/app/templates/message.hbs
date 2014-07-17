@@ -21,7 +21,7 @@
             {{/if}}
         </div>
         <div class="radius-circle message-profileimg" >
-            <img class="profilepic_comment" href="#/users/{{unbound model.user_id}}" {{bindAttr src= model.photo_url_large}} /> 
+            <img class="profilepic_comment" href="#/users/{{unbound model.user_id}}" {{bind-attr src= model.photo_url_large}} /> 
         </div>
 
         <div class="comment-namentime message-title" >
@@ -39,7 +39,7 @@
         {{{model.msg}}}
         {{#if model.isUrl }}
         <div class="message-content-imgbox">
-            <img {{bindAttr src= model.url}} />
+            <img {{bind-attr src= model.url}} />
         </div>
         {{/if}}
     </div>
@@ -95,7 +95,7 @@
             {{#unless this.enableToEdit}}
             <div class="your-reply message-post-reply" >
                 <a class="your-relpy_profilepic" href="#/users/{{unbound this.user_id}}">
-                    <img class="profilepic_comment"  {{bindAttr src= this.photo_url_large}} />
+                    <img class="profilepic_comment"  {{bind-attr src= this.photo_url_large}} />
                 </a>
                 <div class="message-replytimename">
                     <div class="comment-namentime">
@@ -125,7 +125,7 @@
                         {{this.msg}}<br>
                         {{#if this.isUrl }}   <!-- if the isUrl is not null which mean it has the picture url, so it can show the image-->
                         <div class="message-post-img">
-                            <img {{bindAttr src= this.url}}/>
+                            <img {{bind-attr src= this.url}}/>
                         </div>
                         {{/if}}
                     </div>

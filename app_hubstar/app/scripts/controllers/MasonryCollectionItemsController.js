@@ -1,5 +1,5 @@
 
-HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
+HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
     content: [],
     uploadImageContent: [],
     title: null,

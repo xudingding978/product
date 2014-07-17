@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-HubStar.MegaController = Ember.ArrayController.extend({
+HubStar.MegaController = Ember.Controller.extend({
     content: [],
     clickOrRoute: false,
     megaResouce: null,

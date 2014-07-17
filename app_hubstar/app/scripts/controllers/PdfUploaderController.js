@@ -29,9 +29,10 @@ HubStar.PdfUploaderController = Ember.ArrayController.extend({
             var pdf = this.seekCurrentPdf(pdf_id);
             if (pdf !== null) {
                 pdf.set("pdf_title", this.get('pdf_title'));
-                pdf.set("pdf_desc", this.get('pdf_desc'));
+                pdf.set("pdf_desc", this.get('pdf_desc'));                
                 pdf.store.save();
-             
+                console.log('2222222222222');
+                this.get('controllers.applicationFeedback').statusObserver(null, "Saved Successfully.");
             }
         },
         cancelDetail: function(param) {

@@ -9,6 +9,7 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     is_profile_editing_mode:false,
     makeSureDelete: false,
     message: "",
+    delete_id: null,
     getVideo: true,
     pdfContent: [],
     isRenderDeleteItemTemplate: false,
@@ -16,7 +17,8 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     actions: {
         deleteConfirm: function()
         {
-            this.deleteSelectedCollection();
+            var id = this.get('delete_id');
+            this.deleteSelectedCollection(id);
             this.send("cancelDelete");
         },
         cancelDelete: function() {
@@ -135,36 +137,28 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
         this.set('makeSureDelete', !this.get('makeSureDelete'));
 
     },
-    deleteConfirm: function()
-    {
-        var id = this.get('delete_id');
-        this.deleteSelectedCollection(id);
-        this.cancelDelete();
-    },
+//    deleteConfirm: function()
+//    {
+//        var id = this.get('delete_id');
+//        this.deleteSelectedCollection(id);
+//        this.cancelDelete();
+//    },
     deleteSelectedCollection: function(id)
     {
         for (var i = 0; i < this.get('pdfContent').get('length'); i++) {
             var tempmega = this.get('pdfContent').objectAt(i);
             if (tempmega.get('id') === id)
             {
-                console.log(tempmega.get("save_count"));
                 this.get('pdfContent').removeObject(tempmega);
                 if (tempmega.get("save_count") > 0)
                 {
                     tempmega.set("is_deleted", true);
                     tempmega.store.save();
                 } else {
-                    console.log(tempmega);
                     tempmega.deleteRecord();
                     tempmega.store.save();
                 }
                                 
-//                var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
-
-//                profile.set("profile_video_num", this.get('videoesContent').get("length"));
-
-//                profile.store.save();
-//                this.get("controllers.profile").set("profileVideoStatistics", this.get('videoesContent').get("length"));
                 break;
             }
         }

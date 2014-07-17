@@ -22,11 +22,7 @@
 
 
         <div  id="pdfInformation" >
-            {{#if controller.loadingTime}}
 
-            {{render loadingSpinner}}
-
-            {{/if}}
             {{#each pdfArray}}          
 
 
@@ -75,7 +71,7 @@
 </div>
 <div class="message-btn easing pdfuploader-action-choose" >
     Choose 
-    <div class="pdfuploader-action-choose-btn"> {{view HubStar.ImageInputButtonView }}</div> 
+    <div class="pdfuploader-action-choose-btn"> {{view HubStar.SingleImageInputButtonView }}</div> 
 </div>
 <div class="message-btn easing pdfuploader-action-btn" {{action submit}}>
      Submit  
@@ -85,3 +81,8 @@
 
 
 </div>
+{{#if controller.loadingTime}}
+
+{{render loadingSpinner}}
+
+{{/if}}

@@ -219,7 +219,7 @@
                     <span class="useredit-notification">How You Get Notifications:</span>
                     {{#each controller.subcateMethod}}
                     <li class="checkbox-container width-100" {{action checkedMethodAction list_id this}}>
-                        <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox">
+                        <input type="checkbox" {{bind-attr id="list_id" checked="isSelection"}} class="css-checkbox">
                             <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check {{unbound list_id}}">{{category_topic}}</label>
                     </li>
                     {{/each}}
@@ -229,7 +229,7 @@
                         <span class="useredit-notification">What You Get Notified About:</span>
                         {{#each controller.subcate}}
                         <li class="checkbox-container width-100" {{action checkedAction list_id this}}>
-                            <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox">
+                            <input type="checkbox" {{bind-attr id="list_id" checked="isSelection"}} class="css-checkbox">
                                 <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check {{unbound list_id}}">{{category_topic}}</label>
                         </li>
                         {{/each}}
@@ -276,7 +276,7 @@
                                 <a href="#/profiles/{{unbound this.profile_id}}">
                                     <div class="profile-image" > 
                                         <div class="profile-top-image-position">
-                                            <img {{bindAttr src="this.profile_pic"}} style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                                            <img {{bind-attr src="this.profile_pic"}} style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
                                         </div>
                                         <div class="profile-top-name-position">{{this.profile_name}}</div>
                                     </div>
@@ -337,7 +337,7 @@
 
     <div id="crop-container" class="useredit-crop-container">
         <div class="contr"></div>
-        <canvas id="panel" class="crop-canvas useredit-canvas" ><img {{bindAttr src="newStyleImageSource"}} ></canvas>
+        <canvas id="panel" class="crop-canvas useredit-canvas" ><img {{bind-attr src="newStyleImageSource"}} ></canvas>
     </div>
     <div class="useredit-action">
 

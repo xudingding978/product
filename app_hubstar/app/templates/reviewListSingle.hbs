@@ -49,21 +49,16 @@
                     <li class="ite" {{action  fbShare model}} >
                         <i class="fa fa-facebook share-type share-type-pos2" ></i><span class="share-type-txt2">Facebook</span>
                     </li>
-                    <li class='ite' {{action tShare model}} >
+                    <li class="ite" {{action tShare model}} >
                         <i class="fa fa-twitter share-type share-type-pos2" ></i><span class="share-type-txt2">Twitter</span>
                     </li>
                     <li class="ite" {{action gpShare model}}>
                         <i class="fa fa-google-plus share-type share-type-pos2" ></i><span class="share-type-txt2">Google+</span>
                     </li>
-
-<!--                    <li class="ite" {{action eShare model}}>
-                        <img src="../../../images/sent.png" style="width: 16px;height: 16px">
-                            <i class="send_email share-type share-type-pos2" ></i><span class="share-type-txt1">E-mail</span>
-                    </li>-->
                 </ul>
                 {{#if model.getUser}}
-                <div class="new-btn review-list-share-button-left"   {{action removeReview}}><i class="fa fa-trash-o"></i></div>                 
-                <div class="new-btn review-list-share-button-left"   {{action editReview}}><i class="fa fa-pencil"></i></div>
+                <div class="new-btn review-list-share-button-left" {{action removeReview}}><i class="fa fa-trash-o"></i></div>                 
+                <div class="new-btn review-list-share-button-left" {{action editReview}}><i class="fa fa-pencil"></i></div>
                 {{/if}}
             </div>
         </div>  

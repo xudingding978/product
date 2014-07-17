@@ -28,12 +28,7 @@
 
 
             <div class="pdfuploader-preview-container">
-                <!--                <div id="pdf_id_{{unbound id}}" >
-                                    <span class="pdfuploader-preview"{{action modifyDetail pdf_id}}><img alt="Click!" {{bindAttr src="pdf_cover_image"}}></span> 
-                                    <span class="pdfuploader-preview pdfuploader-preview-title" {{action modifyDetail id}}>{{pdf_title}}</span>
-                                    <span><i class="fa fa-trash-o pdfuploader-trash" style="" {{action deletePdf id}}></i></span> 
-                                    <span><i class="fa fa-edit pdfuploader-edit" {{action modifyDetail id}}></i></span>             
-                                </div>-->
+
 
                 <div {{bindAttr id="id"}} class="pdfuploader-editing-container">
                     <div class="pdfuploader-editing-preview">
@@ -51,9 +46,7 @@
                         </div>
 
                     </div>
-                    <div class="new-btn blue-btn easing pdfuploader-cancel" {{action cancelDetail id}}>Cancel
-
-                </div>
+                    
                 <div class="new-btn green-btn easing pdfuploader-save" {{action saveDetail id}}>Save
 
             </div>

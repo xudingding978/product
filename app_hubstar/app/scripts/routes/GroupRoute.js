@@ -18,15 +18,10 @@ HubStar.GroupRoute = Ember.Route.extend({
     model: function(params) {
         return HubStar.Group.find(params.group_id);
     },
-    beforeModel: function(transition) {
-        var model = HubStar.Group.find(transition.params.group_id);
-        var that = this;
-        model.then(function() {
-        }, function() {
-            that.transitionTo('fourOhFour', "404");
-        });
-    },
     actions: {
+        error: function(error, transition) {
+            return  this.transitionTo('fourOhFour', "404");
+        }
     },
     redirect: function(params) {
 

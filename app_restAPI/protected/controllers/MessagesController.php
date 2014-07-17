@@ -320,8 +320,8 @@ class MessagesController extends Controller {
 
                     if ($currentMessage["reply_id"] === $message_id) {
 
-                        $currentMessage["msg"] = $commentContent;
-                        $currentMessage["time_stamp"] = $date;
+                        $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j]["msg"] = $commentContent;
+                        $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j]["time_stamp"] = $date;
                         $dataNew["time_stamp"] = $date;
                         $dataNew["msg"] = $commentContent;
 

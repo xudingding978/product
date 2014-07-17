@@ -4,7 +4,7 @@
  */
 
 HubStar.MegaController = Ember.Controller.extend({
-    content: [],
+    contentData: [],
     clickOrRoute: false,
     megaResouce: null,
     temp: null,
@@ -483,12 +483,12 @@ HubStar.MegaController = Ember.Controller.extend({
                     }
                 } else
                 {
-                    if (this.get('content').get('length') > 1) {
+                    if (this.get('contentData').get('length') > 1) {
                         this.set("contentTags", "");
                         this.get("controllers.showTag").set("contentTags", "");
                         // this.get("controllers.showTag").readTags();
                         if (!this.get('selectedPhoto')) {
-                            this.set('selectedPhoto', this.get('content').get('lastObject'));
+                            this.set('selectedPhoto', this.get('contentData').get('lastObject'));
                         }
                         var selectedIndex = this.findSelectedItemIndex();
                         selectedIndex--;
@@ -496,12 +496,12 @@ HubStar.MegaController = Ember.Controller.extend({
                             this.get("controllers.checkingLoginStatus").popupLogin();
                         }
                         if (selectedIndex < 0) {
-                            selectedIndex = this.get('content').get('length') - 1;
-                            this.set('image_no', this.get('content').get('length'));
+                            selectedIndex = this.get('contentData').get('length') - 1;
+                            this.set('image_no', this.get('contentData').get('length'));
                         }
                         this.set("selectPhoto", true);
                         this.set('image_no', selectedIndex + 1);
-                        this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+                        this.set('selectedPhoto', this.get('contentData').objectAt(selectedIndex));
                         this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
                         //this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
                         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
@@ -577,25 +577,25 @@ HubStar.MegaController = Ember.Controller.extend({
                     }
                 } else
                 {
-                    if (this.get('content').get('length') > 1) {
+                    if (this.get('contentData').get('length') > 1) {
                         this.set("contentTags", "");
                         this.get("controllers.showTag").set("contentTags", "");
                         if (!this.get('selectedPhoto')) {
-                            this.set('selectedPhoto', this.get('content').get('firstObject'));
+                            this.set('selectedPhoto', this.get('contentData').get('firstObject'));
                         }
                         var selectedIndex = this.findSelectedItemIndex();
                         selectedIndex++;
-                        if (selectedIndex >= this.get('content').get('length') - 1) {
+                        if (selectedIndex >= this.get('contentData').get('length') - 1) {
                             this.get("controllers.checkingLoginStatus").popupLogin();
                         }
-                        if (selectedIndex >= (this.get('content').get('length'))) {
+                        if (selectedIndex >= (this.get('contentData').get('length'))) {
 
                             this.set('image_no', 1);
                             selectedIndex = 0;
                         }
                         this.set("selectPhoto", true);
                         this.set('image_no', selectedIndex + 1);
-                        this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+                        this.set('selectedPhoto', this.get('contentData').objectAt(selectedIndex));
                         this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
                         //this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
                         var address = document.URL;
@@ -690,7 +690,7 @@ HubStar.MegaController = Ember.Controller.extend({
                     var date = new Date();
                     var message_id = createMessageid() + commenter_id;
                     var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
-                        "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
+                        "commenter_id": commenter_id, "name": name, "contentData": commentContent, "time_stamp": date.toString(),
                         "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
                     comments.insertAt(0, tempComment);
                     tempComment.save();
@@ -728,7 +728,7 @@ HubStar.MegaController = Ember.Controller.extend({
                     comments.objectAt(i).set("isEdit", false);
                 }
             }
-            var msg = object.get("content");
+            var msg = object.get("contentData");
             HubStar.set("updateCommentmsg", msg);
         },
         deleteTag: function(tag_id) {
@@ -833,14 +833,14 @@ HubStar.MegaController = Ember.Controller.extend({
                 }
             }
             this.set("selectedPhoto", this.get('selectedPhoto'));
-            var contents = this.get('content');
+            var contents = this.get('contentData');
             var selectedIndex = 1;
             for (var index = 0; index <= contents.get('length') - 1; index++) {
                 if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id) {
                     selectedIndex = index + 1;
                 }
             }
-            if (selectedIndex >= (this.get('content').get('length') + 1)) {
+            if (selectedIndex >= (this.get('contentData').get('length') + 1)) {
                 this.set('image_no', 1);
                 selectedIndex = 1;
             }
@@ -868,9 +868,9 @@ HubStar.MegaController = Ember.Controller.extend({
 
     },
     findSelectedItemIndex: function() {
-        var content = this.get('content');
-        for (var index = 0; index <= content.get('length'); index++) {
-            if (this.get('selectedPhoto') === content.objectAt(index)) {
+        var contentData = this.get('contentData');
+        for (var index = 0; index <= contentData.get('length'); index++) {
+            if (this.get('selectedPhoto') === contentData.objectAt(index)) {
                 return index;
             }
         }
@@ -1094,10 +1094,10 @@ HubStar.MegaController = Ember.Controller.extend({
             }
             if (that.get("selectPhoto") === false)   //selectPhoto is user to control left or right operation
             {
-                that.set("content", []);
+                that.set("contentData", []);
                 that.set("currentUser", HubStar.User.find(localStorage.loginStatus));
                 that.set("selectedPhoto", photoObj);
-                that.get("content").pushObject(photoObj);
+                that.get("contentData").pushObject(photoObj);
                 var megaResouce = HubStar.Mega.find(megaObject.id);
                 that.set('megaResouce', megaResouce);
                 that.set("photo_album_id", "album_" + megaObject.id);
@@ -1166,11 +1166,11 @@ HubStar.MegaController = Ember.Controller.extend({
                         if (mega.get('id') !== id) {
                             if (HubStar.Mega.find(id).get('collection_id') === collection_id) {
                                 if (flag === false) {
-                                    that.get("content").insertAt(that.get("content").get("length") - i, HubStar.Mega.find(id).get("photo").objectAt(0));
+                                    that.get("contentData").insertAt(that.get("contentData").get("length") - i, HubStar.Mega.find(id).get("photo").objectAt(0));
                                 }
                                 else
                                 {
-                                    that.get("content").insertAt(0, HubStar.Mega.find(id).get("photo").objectAt(0));
+                                    that.get("contentData").insertAt(0, HubStar.Mega.find(id).get("photo").objectAt(0));
                                 }
                             }
                         }
@@ -1181,7 +1181,7 @@ HubStar.MegaController = Ember.Controller.extend({
                         }
                     }
                 }
-                that.checkSinglePhoto(that.get("content").length);
+                that.checkSinglePhoto(that.get("contentData").length);
                 that.set("isRead", false);
             });
         }
@@ -1211,7 +1211,7 @@ HubStar.MegaController = Ember.Controller.extend({
         var collection_id = a.split("#")[1].split("/")[4];
         if (this.get("clickOrRoute") === false) //it  accesses the collection photo by click
         {
-            var photoContent = this.get("controllers.masonryCollectionItems").get("content");
+            var photoContent = this.get("controllers.masonryCollectionItems").get("contentData");
             var isCollectionIDExist = this.isParamExist(collection_id);
             if ((isCollectionIDExist || mega.get("type") === "video")) {
                 var flag = false;
@@ -1223,11 +1223,11 @@ HubStar.MegaController = Ember.Controller.extend({
                         if (mega.get('id') !== id)
                         {
                             if (flag === false) {
-                                this.get("content").insertAt(i, HubStar.Mega.find(id).get("photo").objectAt(0));
+                                this.get("contentData").insertAt(i, HubStar.Mega.find(id).get("photo").objectAt(0));
                             }
                             else
                             {
-                                this.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
+                                this.get("contentData").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
                             }
                         }
                         else
@@ -1248,11 +1248,11 @@ HubStar.MegaController = Ember.Controller.extend({
                             photoContent.objectAt(i).set("photo_image_original_url", photoUrl);
                             photoContent.objectAt(i).set("photo_image_thumbnail_url", photoUrl);
                             if (flag === false) {
-                                this.get("content").insertAt(i, photoContent.objectAt(i));
+                                this.get("contentData").insertAt(i, photoContent.objectAt(i));
                             }
                             else
                             {
-                                this.get("content").pushObject(photoContent.objectAt(i));
+                                this.get("contentData").pushObject(photoContent.objectAt(i));
                             }
                         }
                         else
@@ -1274,11 +1274,11 @@ HubStar.MegaController = Ember.Controller.extend({
                             photoContent.objectAt(i).set("photo_title", object_title);
                             photoContent.objectAt(i).set("photo_caption", photo_caption);
                             if (flag === false) {
-                                this.get("content").insertAt(i, photoContent.objectAt(i));
+                                this.get("contentData").insertAt(i, photoContent.objectAt(i));
                             }
                             else
                             {
-                                this.get("content").pushObject(photoContent.objectAt(i));
+                                this.get("contentData").pushObject(photoContent.objectAt(i));
                             }
                         }
                         else
@@ -1289,7 +1289,7 @@ HubStar.MegaController = Ember.Controller.extend({
                     }
                 }
             }
-            this.checkSinglePhoto(this.get("content").length);
+            this.checkSinglePhoto(this.get("contentData").length);
         }
         else if (this.get("clickOrRoute") === true) // it  assesses the collection photo from route
         {
@@ -1318,11 +1318,11 @@ HubStar.MegaController = Ember.Controller.extend({
                         if (mega.get('id') !== id)
                         {
                             if (flag === false) {
-                                that.get("content").insertAt(that.get("content").get("length") - i, pics.objectAt(i).get('photo').objectAt(0));
+                                that.get("contentData").insertAt(that.get("contentData").get("length") - i, pics.objectAt(i).get('photo').objectAt(0));
                             }
                             else
                             {
-                                that.get("content").insertAt(0, pics.objectAt(i).get('photo').objectAt(0));
+                                that.get("contentData").insertAt(0, pics.objectAt(i).get('photo').objectAt(0));
                             }
                         }
                         else
@@ -1340,11 +1340,11 @@ HubStar.MegaController = Ember.Controller.extend({
                             article.set("photo_image_original_url", photoUrl);
                             article.set("photo_image_thumbnail_url", photoUrl);
                             if (flag === false) {
-                                that.get("content").insertAt(that.get("content").get("length") - i, article);
+                                that.get("contentData").insertAt(that.get("contentData").get("length") - i, article);
                             }
                             else
                             {
-                                that.get("content").insertAt(0, article);
+                                that.get("contentData").insertAt(0, article);
                             }
                         }
                         else
@@ -1363,11 +1363,11 @@ HubStar.MegaController = Ember.Controller.extend({
                             article.set("photo_image_original_url", photoUrl);
                             article.set("photo_image_thumbnail_url", photoUrl);
                             if (flag === false) {
-                                that.get("content").insertAt(that.get("content").get("length") - i, article);
+                                that.get("contentData").insertAt(that.get("contentData").get("length") - i, article);
                             }
                             else
                             {
-                                that.get("content").insertAt(0, article);
+                                that.get("contentData").insertAt(0, article);
                             }
                         }
                         else
@@ -1377,7 +1377,7 @@ HubStar.MegaController = Ember.Controller.extend({
                         }
                     }
                 }
-                that.checkSinglePhoto(that.get("content").get("length"));
+                that.checkSinglePhoto(that.get("contentData").get("length"));
                 that.set("isRead", false);
             });
         }
@@ -1389,7 +1389,7 @@ HubStar.MegaController = Ember.Controller.extend({
         var owner_profile_id = mega.get("owner_id");
         if (this.get("clickOrRoute") === false) //it  accesses the collection photo by click
         {
-            var photoContent = this.get("controllers.masonryCollectionItems").get("content");
+            var photoContent = this.get("controllers.masonryCollectionItems").get("contentData");
             var isProfileIDExist = this.isParamExist(owner_profile_id);
             var isCollectionIDExist = this.isParamExist(collection_id);
             if (isProfileIDExist && (isCollectionIDExist || mega.get("type") === "video")) {
@@ -1401,11 +1401,11 @@ HubStar.MegaController = Ember.Controller.extend({
                         if (mega.get('id') !== id)
                         {
                             if (flag === false) {
-                                this.get("content").insertAt(i, HubStar.Mega.find(id).get("photo").objectAt(0));
+                                this.get("contentData").insertAt(i, HubStar.Mega.find(id).get("photo").objectAt(0));
                             }
                             else
                             {
-                                this.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
+                                this.get("contentData").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
                             }
                         }
                         else
@@ -1424,11 +1424,11 @@ HubStar.MegaController = Ember.Controller.extend({
                             photoContent.objectAt(i).set("photo_image_original_url", photoUrl);
                             photoContent.objectAt(i).set("photo_image_thumbnail_url", photoUrl);
                             if (flag === false) {
-                                this.get("content").insertAt(i, photoContent.objectAt(i));
+                                this.get("contentData").insertAt(i, photoContent.objectAt(i));
                             }
                             else
                             {
-                                this.get("content").pushObject(photoContent.objectAt(i));
+                                this.get("contentData").pushObject(photoContent.objectAt(i));
                             }
                         }
                         else
@@ -1449,11 +1449,11 @@ HubStar.MegaController = Ember.Controller.extend({
                             photoContent.objectAt(i).set("photo_title", object_title);
                             photoContent.objectAt(i).set("photo_caption", photo_caption);
                             if (flag === false) {
-                                this.get("content").insertAt(i, photoContent.objectAt(i));
+                                this.get("contentData").insertAt(i, photoContent.objectAt(i));
                             }
                             else
                             {
-                                this.get("content").pushObject(photoContent.objectAt(i));
+                                this.get("contentData").pushObject(photoContent.objectAt(i));
                             }
                         }
                         else
@@ -1463,7 +1463,7 @@ HubStar.MegaController = Ember.Controller.extend({
                         }
                     }
                 }
-                this.checkSinglePhoto(this.get("content").length);
+                this.checkSinglePhoto(this.get("contentData").length);
             }
         }
         else if (this.get("clickOrRoute") === true) // it  assesses the collection photo from route
@@ -1489,11 +1489,11 @@ HubStar.MegaController = Ember.Controller.extend({
                         if (mega.get('id') !== id)
                         {
                             if (flag === false) {
-                                that.get("content").insertAt(i, HubStar.Mega.find(id).get("photo").objectAt(0));
+                                that.get("contentData").insertAt(i, HubStar.Mega.find(id).get("photo").objectAt(0));
                             }
                             else
                             {
-                                that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
+                                that.get("contentData").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
                             }
                         }
                         else
@@ -1511,11 +1511,11 @@ HubStar.MegaController = Ember.Controller.extend({
                             article.set("photo_image_original_url", photoUrl);
                             article.set("photo_image_thumbnail_url", photoUrl);
                             if (flag === false) {
-                                that.get("content").insertAt(i, article);
+                                that.get("contentData").insertAt(i, article);
                             }
                             else
                             {
-                                that.get("content").pushObject(article);
+                                that.get("contentData").pushObject(article);
                             }
                         }
                         else
@@ -1534,11 +1534,11 @@ HubStar.MegaController = Ember.Controller.extend({
                             article.set("photo_image_original_url", photoUrl);
                             article.set("photo_image_thumbnail_url", photoUrl);
                             if (flag === false) {
-                                that.get("content").insertAt(i, article);
+                                that.get("contentData").insertAt(i, article);
                             }
                             else
                             {
-                                that.get("content").pushObject(article);
+                                that.get("contentData").pushObject(article);
                             }
                         }
                         else
@@ -1548,7 +1548,7 @@ HubStar.MegaController = Ember.Controller.extend({
                         }
                     }
                 }
-                that.checkSinglePhoto(that.get("content").length);
+                that.checkSinglePhoto(that.get("contentData").length);
                 that.set("isRead", false);
             });
         }

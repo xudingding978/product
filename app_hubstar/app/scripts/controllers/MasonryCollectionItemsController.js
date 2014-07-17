@@ -1,6 +1,6 @@
 
 HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
-    content: [],
+    contentData: [],
     uploadImageContent: [],
     title: null,
     collection_id: null,
@@ -102,7 +102,7 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
             {
                 coverImge = Mega.get('article').objectAt(0).get("article_image_url");
             }
-            for (var i = 0; i < userOrprofile.get('content').length; i++) {
+            for (var i = 0; i < userOrprofile.get('contentData').length; i++) {
 
                 if (userOrprofile.objectAt(i).get("id") === collection_id) {
 
@@ -128,9 +128,9 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
                     var currentCollection = null;
                     var collectedColletionids = null;
 
-                    for (var j = 0; j < this.get('content').length; j++) {
-                        if (this.get('content').objectAt(j).get('id') === this.get('itemID')) {
-                            tempItem = this.get('content').objectAt(j);
+                    for (var j = 0; j < this.get('contentData').length; j++) {
+                        if (this.get('contentData').objectAt(j).get('id') === this.get('itemID')) {
+                            tempItem = this.get('contentData').objectAt(j);
                             for (var i = 0; i < currentUser.get('collections').get('length'); i++) {
                                 if (currentUser.get('collections').objectAt(i).get('id') === this.get('collectionID'))
                                 {
@@ -143,7 +143,7 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
                                     tempcollectedColletionids = tempcollectedColletionids.replace(this.get('itemID'), "");
                                     currentCollection.set('collection_ids', tempcollectedColletionids);
                                     currentCollection.store.save();
-                                    this.get('content').removeObject(tempItem);
+                                    this.get('contentData').removeObject(tempItem);
                                     break;
                                 }
                             }
@@ -154,9 +154,9 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
                 else
                 {
                     var profile = HubStar.Profile.find(this.get("profileId"));
-                    for (var i = 0; i < this.get('content').length; i++) {
-                        if (this.get('content').objectAt(i).get('id') === this.get('itemID')) {
-                            tempItem = this.get('content').objectAt(i);
+                    for (var i = 0; i < this.get('contentData').length; i++) {
+                        if (this.get('contentData').objectAt(i).get('id') === this.get('itemID')) {
+                            tempItem = this.get('contentData').objectAt(i);
                             if (this.get('type') === 'profile') {
                                 var item = HubStar.Mega.find(this.get('itemID'));
 
@@ -205,7 +205,7 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
 //                                tempItem.store.save();
 //                            }
                             }
-                            this.get('content').removeObject(tempItem);
+                            this.get('contentData').removeObject(tempItem);
                             break;
                         }
                     }
@@ -232,7 +232,7 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
     init: function() {
     },
     selectModelForUser: function(collection_id) {
-        this.set('content', []);
+        this.set('contentData', []);
         this.set('type', "user");
         this.set('collection_id', collection_id);
         this.set("isUser", true);
@@ -274,7 +274,7 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
         results.then(function() {
             for (var i = 0; i < results.get("length"); i++) {
                 var tempObject = results.objectAt(i);
-                that.get("content").pushObject(tempObject);
+                that.get("contentData").pushObject(tempObject);
             }
             $(document).ready(function() {
                 setTimeout(function() {
@@ -393,7 +393,7 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
     resetContent: function()
     {
 
-        this.set('content', []);
+        this.set('contentData', []);
         this.set('uploadImageContent', []);
 
         var owner_id = this.get("profileId");
@@ -404,9 +404,9 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
         this.set("loadingTime", true);
         pics.addObserver('isLoaded', function() {
             if (pics.get('isLoaded')) {
-                for (var i = this.get("content").length - 1; i >= 0; i--) {
+                for (var i = this.get("contentData").length - 1; i >= 0; i--) {
                     var tempObject = pics.objectAt(i);
-                    that.get("content").pushObject(tempObject);
+                    that.get("contentData").pushObject(tempObject);
                 }
                 $(document).ready(function() {
                     setTimeout(function() {

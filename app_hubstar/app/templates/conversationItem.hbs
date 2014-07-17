@@ -51,7 +51,7 @@
     <div  class="message-comment-container">
         <div class="message-input-box">
             <a>
-                <img class="profilepic_comment message-input-img" {{bindAttr src= controller.commenter_photo_url}} /> 
+                <img class="profilepic_comment message-input-img" {{bind-attr src= controller.commenter_photo_url}} /> 
                 <div class="user-says-angle-before"></div>
                 <div class="user-says-angle-after"></div>
             </a>
@@ -63,7 +63,7 @@
                 {{#if controller.isUploadPhoto}}
                 <div class="post-upload">
                     <div class="remove-comment-photo easing" {{action removePic }}><i class="fa fa-times"></i></div>
-                    <img  {{bindAttr src= "newStyleImageSource"}}>
+                    <img  {{bind-attr src= "newStyleImageSource"}}>
                 </div>
                 {{/if}}
                 <div class="post-action-container">
@@ -90,7 +90,7 @@
         <div class="Message-Board_comment-item">         
             <div class="comment-position">   
                 <a class="profilepic-comment-container" href="#/users/{{unbound this.sender_id}}">
-                    <img class="profilepic_comment" {{bindAttr src= this.sender_photo_url_large}} />
+                    <img class="profilepic_comment" {{bind-attr src= this.sender_photo_url_large}} />
                 </a>
                 <div >
                     <div class="comment-namentime">

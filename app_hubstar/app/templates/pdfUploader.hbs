@@ -30,12 +30,12 @@
             <div class="pdfuploader-preview-container">
 
 
-                <div {{bindAttr id="id"}} class="pdfuploader-editing-container">
+                <div {{bind-attr id="id"}} class="pdfuploader-editing-container">
                     <div class="pdfuploader-editing-preview">
                         <div class="changePDFpic easing hint--right hint--rounded" data-hint="Change Cover" {{action changeCover id}}>
                              <i class="fa fa-plus-circle"></i>     
                         </div>  
-                        <img alt=""  {{bindAttr src="pdf_cover_image"}}>
+                        <img alt=""  {{bind-attr src="pdf_cover_image"}}>
                     </div>
                     <div class="pdfuploader-editing-info">
                         <div class="pdfuploader-title">
@@ -76,6 +76,6 @@
 </div>
 {{#if controller.loadingTime}}
 
-{{render loadingSpinner}}
+{{render "loadingSpinner"}}
 
 {{/if}}

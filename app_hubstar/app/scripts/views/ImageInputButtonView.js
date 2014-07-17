@@ -6,7 +6,6 @@ HubStar.ImageInputButtonView = Ember.TextField.extend({
     change: function(evt) {
 
         var controller = this.get('targetObject');
-        console.log(controller);
         var photoCreateController = controller.get('controllers.photoCreate');
         photoCreateController.commitFiles(evt);
     }

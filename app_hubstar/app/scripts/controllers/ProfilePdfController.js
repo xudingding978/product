@@ -46,6 +46,19 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
                     url
                     ).focus();
         },
+        dropdownPhotoSetting: function(id)
+        {
+            this.set('delete_id', id);
+            var ids = '#dropdown_id_' + id;
+            $(ids).toggleClass('hideClass');
+            $(ids).click(function() {
+                $(this).removeClass('hideClass');
+            }).mouseleave(function() {
+                $(this).addClass('hideClass');
+            });
+
+
+        },
         pdfCreateModeSwitch: function()
         {
             this.set('is_pdf_create_mode', true);
@@ -104,7 +117,6 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
             this.set('is_user_editing_mode', false);
         }
         this.relayout();
-        console.log(this.get('is_profile_editing_mode'));
     },
     relayout: function()
     {
@@ -117,20 +129,7 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
                 });
             }, 100);
         }, 200);
-    },
-    dropdownPhotoSetting: function(id)
-    {
-        this.set('delete_id', id);
-        var ids = '#dropdown_id_' + id;
-        $(ids).toggleClass('hideClass');
-        $(ids).click(function() {
-            $(this).removeClass('hideClass');
-        }).mouseleave(function() {
-            $(this).addClass('hideClass');
-        });
-
-
-    },
+    },    
     removeCollectedItem: function(type)
     {
         this.set('message', "Remove this pdf?");
@@ -175,7 +174,6 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     },
             
     transitionToPdf: function(id) {
-    console.log(id);
     var url = "";
     for (var i = 0; i < this.get('pdfContent').get('length'); i ++) {
         if (this.get('pdfContent').objectAt(i).get('id') === id) {
@@ -183,7 +181,7 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
             url = this.get('pdfContent').objectAt(i).get('pdf').objectAt(0).get('pdf_url');
         }
     }
-    console.log(url);
+
         window.open(
                 url
                 ).focus();

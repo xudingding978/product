@@ -1,5 +1,5 @@
 
-HubStar.PdfUploaderController = Ember.ArrayController.extend({
+HubStar.PdfUploaderController = Ember.ObjectController.extend({
     needs: ["profilePdf", "applicationFeedback", 'profile', 'megaCreate'],
     pdfArray: [],
     loadingTime: false,
@@ -25,13 +25,18 @@ HubStar.PdfUploaderController = Ember.ArrayController.extend({
         },
         changeCover: function(param) {
         },
+        submit: function() {
+            for (var i = 0; i < this.get('pdfArray').get('length'); i++) {
+                this.get('pdfArray').objectAt(i).store.save();
+            }
+            this.send("closeUploader");
+        },
         saveDetail: function(pdf_id) {
             var pdf = this.seekCurrentPdf(pdf_id);
             if (pdf !== null) {
                 pdf.set("pdf_title", this.get('pdf_title'));
                 pdf.set("pdf_desc", this.get('pdf_desc'));                
                 pdf.store.save();
-                console.log('2222222222222');
                 this.get('controllers.applicationFeedback').statusObserver(null, "Saved Successfully.");
             }
         },
@@ -43,14 +48,14 @@ HubStar.PdfUploaderController = Ember.ArrayController.extend({
     init: function() {
         this.setMega();
     },
-    cancel: function() {
-        this.reset();
-        var profilePdf = this.get('controllers.profilePdf');
-        profilePdf.pdfCreateModeSwitch();     
-    },
-    deletePdf: function(id) {
-        this.get('controllers.profilePdf').deleteSelectedCollection(id);
-    },
+//    cancel: function() {
+//        this.reset();
+//        var profilePdf = this.get('controllers.profilePdf');
+//        profilePdf.pdfCreateModeSwitch();     
+//    },
+//    deletePdf: function(id) {
+//        this.get('controllers.profilePdf').deleteSelectedCollection(id);
+//    },
     seekCurrentPdf: function(pdf_id) {
         var pdf = null;
         for (var i = 0; i < this.get("pdfArray").get('length'); i++) {
@@ -124,12 +129,7 @@ HubStar.PdfUploaderController = Ember.ArrayController.extend({
     reset: function() {
         this.set('pdfArray', []);
     },
-    submit: function() {
-        for (var i = 0; i < this.get('pdfArray').get('length'); i++) {
-            this.get('pdfArray').objectAt(i).store.save();
-        }
-        this.send("closeUploader");
-    },
+    
     setMega: function() {
         var profileController = this.get('controllers.profile');
         var tempmega = profileController.get("model");

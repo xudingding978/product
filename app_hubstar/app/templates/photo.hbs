@@ -20,6 +20,26 @@
             </div>
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this image" {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span>
+                <ul class="hideClass edit-object-ul share-box" id="dropdown_id_photo_share1_">
+
+
+                    <li class="ite" {{action  fbShare "1"}} >
+                        <i class="fa fa-facebook share-type share-type-pos2"></i><span class="share-type-txt2">Facebook</span>
+                    </li>
+                    <li class='ite' {{action tShare "1"}} >
+                        <i class="fa fa-twitter share-type share-type-pos2"></i><span class="share-type-txt2">Twitter</span>
+                    </li>
+                    <li class='ite' {{action pShare "1"}} >
+                        <i class="fa fa-pinterest share-type share-type-pos2"></i><span class="share-type-txt2">Pinterest</span>
+                    </li>
+                    <li class="ite" {{action gpShare "1"}}>
+                        <i class="fa fa-google-plus share-type share-type-pos2"></i><span class="share-type-txt2">Google+</span>
+                    </li>
+                    <li class="ite" {{action eShare "1"}}>
+                        <img src="../../../images/sent.png" class="share-type-email" >
+                        <i class="send_email share-type share-type-pos2" ></i><span class="share-type-txt1">E-mail</span>
+                    </li>
+                </ul>
             </div>
             {{/unless}}
             {{#if HubStar.tagging_display}}
@@ -52,26 +72,7 @@
             {{/unless}}
             {{/unless}}
             {{/if}}
-            <ul class="hideClass edit-object-ul share-box" id="dropdown_id_photo_share1_">
 
-
-                <li class="ite" {{action  fbShare "1"}} >
-                    <i class="fa fa-facebook share-type share-type-pos2"></i><span class="share-type-txt2">Facebook</span>
-                </li>
-                <li class='ite' {{action tShare "1"}} >
-                    <i class="fa fa-twitter share-type share-type-pos2"></i><span class="share-type-txt2">Twitter</span>
-                </li>
-                <li class='ite' {{action pShare "1"}} >
-                    <i class="fa fa-pinterest share-type share-type-pos2"></i><span class="share-type-txt2">Pinterest</span>
-                </li>
-                <li class="ite" {{action gpShare "1"}}>
-                    <i class="fa fa-google-plus share-type share-type-pos2"></i><span class="share-type-txt2">Google+</span>
-                </li>
-                <li class="ite" {{action eShare "1"}}>
-                    <img src="../../../images/sent.png" class="share-type-email" >
-                    <i class="send_email share-type share-type-pos2" ></i><span class="share-type-txt1">E-mail</span>
-                </li>
-            </ul>
 
             <script type="text/javascript">
                 (function(d) {
@@ -85,7 +86,7 @@
 
         </div>
         {{#if HubStar.checkLoginStatus}}
-         {{view HubStar.CallToActionView}}
+        {{view HubStar.CallToActionView}}
         {{/if}}
         <div  id="close_photo_wrapper" class="closeview" {{action closeWindow on="click" target="controller"}} >
             <i class="fa fa-times"></i>

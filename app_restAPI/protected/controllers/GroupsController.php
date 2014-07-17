@@ -99,13 +99,14 @@ class GroupsController extends Controller {
             $fileName = $this->getDomain() . $_SERVER['REQUEST_URI'];
             $reponse = $cb->get($fileName);
             $request_arr = CJSON::decode($reponse, true);
-
-            $docID = $this->getDomain() . "/users/" . $request_arr["groups"][0]['group_creator'];
-            $old = $cb->get($docID);
-            $userInfo = CJSON::decode($old, true);
-            $photo = (isset($userInfo["user"][0]["photo_url_large"])) ? $userInfo["user"][0]["photo_url_large"] : $userInfo["user"][0]["photo_url"];
-            $request_arr["groups"][0]["group_hero_cover_url"] = $photo;
-            $request_arr["groups"][0]["group_creator_name"] = $userInfo["user"][0]["display_name"];
+            if (isset($request_arr["groups"][0]['group_creator'])) {
+                $docID = $this->getDomain() . "/users/" . $request_arr["groups"][0]['group_creator'];
+                $old = $cb->get($docID);
+                $userInfo = CJSON::decode($old, true);
+                $photo = (isset($userInfo["user"][0]["photo_url_large"])) ? $userInfo["user"][0]["photo_url_large"] : $userInfo["user"][0]["photo_url"];
+                $request_arr["groups"][0]["group_hero_cover_url"] = $photo;
+                $request_arr["groups"][0]["group_creator_name"] = $userInfo["user"][0]["display_name"];
+            }
             $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["groups"][0]));
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
 //Iterate over the hits and print out some data

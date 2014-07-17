@@ -313,6 +313,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     }, 15);
                 }, 5);
             });
+        },function(){
         });
         this.checkEditingMode();
     },

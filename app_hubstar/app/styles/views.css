@@ -3432,7 +3432,9 @@ div.album-description-bg{
 
 .searchbar-maintopic{
     position: relative;
-height: 130px;
+    height: 130px;
+    width: 60%;
+    margin: 0 auto
 }
 
 .searchbar-listIcon{

@@ -241,9 +241,10 @@
         if (typeof (this._currentStep) === 'undefined') {
             this._currentStep = 0;
         } else {
+            ++this._currentStep;
 
         }
-
+        console.log("sss");
         var address = document.URL;
         var urlName = address.split("#")[1].split("/")[1];
         if (urlName === "search") {

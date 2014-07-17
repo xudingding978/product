@@ -40,7 +40,13 @@ class CatesController extends Controller {
     }
 
     public function actionRead() {
-        
+        $domain = $this->getDomainWihoutAPI();
+        $configuration = $this->getProviderConfigurationByName($domain, "categories");
+        if ($_SERVER['REQUEST_URI'] === "International") {
+            $topicSelection = $configuration[0]['global'][0]['topics'];
+        }
+        $response = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . CJSON::encode($topicSelection, true) . '}';
+        $this->sendResponse(200, $response);
     }
 
     public function actionUpdate() {

@@ -369,7 +369,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         var that = this;
 
-        this.set('categorys', HubStar.Cate.find({}));
+        this.set('categorys', HubStar.Cate.find(localStorage.geoLocation));
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
             var array = $.map(callbck, function(value, index) {

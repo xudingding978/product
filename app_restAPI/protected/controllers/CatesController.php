@@ -24,6 +24,10 @@ class CatesController extends Controller {
                 $domain = $this->getDomainWihoutAPI();
                 $configuration = $this->getProviderConfigurationByName($domain, "categories");
                 $topicSelection = $configuration[0]['global'][0]['topics'];
+            } else if ($search_strings[1] === 'USA') {
+                $domain = $this->getDomainWihoutAPI();
+                $configuration = $this->getProviderConfigurationByName($domain, "categories");
+                $topicSelection = $configuration[0]['united states'][0]['topics'];
             }
         }
 

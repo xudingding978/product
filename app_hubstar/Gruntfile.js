@@ -23,7 +23,7 @@ module.exports = function(grunt) {
         test: 'test'
     };
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
+        //pkg: grunt.file.readJSON('package.json'),
         yeoman: yeomanConfig,
         manifest: {
             generate: {
@@ -147,7 +147,7 @@ module.exports = function(grunt) {
                         return [
                             lrSnippet,
                             mountFolder(connect, '.tmp'),
-                            mountFolder(connect, 'app')
+                            mountFolder(connect, yeomanConfig.app)
                         ];
                     }
                 }
@@ -301,7 +301,7 @@ module.exports = function(grunt) {
             }
         },
         useminPrepare: {
-            html: '<%= yeoman.app %>/index.html',
+            html: '.tmp/index.html',
             options: {
                 dest: '<%= yeoman.dist %>'
             }

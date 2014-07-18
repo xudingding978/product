@@ -1048,7 +1048,7 @@ div#appfeedback .fresh-message > i.fa-times{
     float: left;
 }
 .display-none{
-    display: none;
+    display: none ;
 }
 .reply-comment-action{
     float: right;

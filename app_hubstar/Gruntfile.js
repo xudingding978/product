@@ -68,19 +68,27 @@ module.exports = function(grunt) {
 //                ].join('&&')
 //            }
 //        },
-        replace: {
-            dist: {
+        replace: {          
+            version: {
                 src: '<%= yeoman.app %>/templates/navigator.hbs',
                 dest: '<%= yeoman.app %>/templates/navigator.hbs',
                 replacements: [{
-                        from: /lastidentifie\"\>[0-9]{1,500}/g,
+                        from: /lastidentifie\"\>\d\.\d\.[0-9]{1,500}/g,
                         to: function(matchedWord) {
-                            var temp = matchedWord.substring(0, matchedWord.indexOf(">") + 1);
-                            var num = matchedWord.substring(matchedWord.indexOf(">") + 1);
+                            var temp = matchedWord.substring(0, matchedWord.lastIndexOf(".") + 1);
+                            var num = matchedWord.substring(matchedWord.lastIndexOf(".") + 1);
                             num = parseInt(num) + 1;
                             return temp + num;
                         }
                     }]
+            },
+            dist: {
+                src: '<%= yeoman.app %>/index.html',
+                dest: '<%= yeoman.app %>/index.html',
+                replacements: [{
+                    from: 'ember.js', 
+                    to: 'ember.prod.js'
+                }]
             }
         },
         watch: {
@@ -455,6 +463,7 @@ module.exports = function(grunt) {
     ]);
     grunt.registerTask('build', [
         'clean:dist',
+        'replace:version',
         'replace:dist',
         'useminPrepare',
         'concurrent:dist',

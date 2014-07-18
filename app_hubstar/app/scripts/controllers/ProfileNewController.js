@@ -257,11 +257,6 @@ HubStar.ProfileNewController = Ember.Controller.extend({
     },
     init: function()
     {
-        this.setTopicModel(HubStar.Cate.find({}));
-        
-         
-        
-        
     },
     validateEmail: function(email)
     {

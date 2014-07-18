@@ -15,11 +15,10 @@
     
     {{#if HubStar.top_ad_display}}
     {{#if HubStar.isTopAdDisplay}}
-    <div id ="top_bar_ads" style="height:140px;width:100%;background-color: black; opacity: 0.6;margin:0 auto; top:10px; position: relative;z-index: 3">
-        <div style="position:absolute; top:0; right: 0; color: #fff; font-size: 30px;" {{action closeTopAd}}><i class="fa fa-times"></i></div>
-        <div id ="search_wall_top" style="width: 760px;height: 120px;margin: auto;position: relative;top: 10px;">
-        </div>
-    </div>
+    <div id ="top_bar_ads" class="topbar-ad topbar-ad-a" >
+            <div class="topbar-ad-action" {{action closeTopAd}}><i class="fa fa-times"></i></div>
+            <div id ="search_wall_top" class="topbar-ad-searchwall">
+            </div>
     {{/if}}
     {{/if}}
     {{view HubStar.MasonryView}}
@@ -31,18 +30,15 @@
     
     {{#if HubStar.top_ad_display}}
     {{#if HubStar.isTopAdDisplay}}
-    <div id ="top_bar_ads" style="height:140px;width:100%;background-color: black; opacity: 0.6;margin:0 auto; top:90px; position: fixed;z-index:3">
-        <div style="position:absolute; top:0; right: 0; color: #fff; font-size: 30px;"  {{action closeTopAd}}><i class="fa fa-times"></i></div>
-        <div id ="search_wall_top" style="width: 760px;height: 120px;margin: auto;position: relative;top: 10px;">
-        </div>
-    </div>
+       <div id ="top_bar_ads" class="topbar-ad topbar-ad-b" >
+           <div class="topbar-ad-action"  {{action closeTopAd}}><i class="fa fa-times"></i></div>
+           <div id ="search_wall_top" class="topbar-ad-searchwall">
+           </div>
+       </div>
     {{/if}}
     {{/if}}
     {{/unless}}
 
-
-
-    <div style="position:relative;">
         {{outlet profiles}}
         {{outlet profile}}
         {{outlet user}}
@@ -52,7 +48,6 @@
         {{#if controller.islogin}}
         {{render "footer"}}
         {{/if}}
-    </div>
     {{outlet photos}}
     {{outlet articles}}
     {{outlet videoes}}

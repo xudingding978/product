@@ -107,10 +107,10 @@
                     <li class="ite" {{action  fbShare "2"}} >
                         <i class="fa fa-facebook share-type share-type-pos2"></i><span class="share-type-txt2">Facebook</span>
                     </li>
-                    <li class='ite' {{action tShare "2"}} >
+                    <li class="ite" {{action tShare "2"}} >
                         <i class="fa fa-twitter share-type share-type-pos2"></i><span class="share-type-txt2">Twitter</span>
                     </li>
-                    <li class='ite' {{action pShare "2"}} >
+                    <li class="ite" {{action pShare "2"}} >
                         <i class="fa fa-pinterest share-type share-type-pos2"></i><span class="share-type-txt2">Pinterest</span>
                     </li>
                     <li class="ite" {{action gpShare "2"}}>
@@ -201,7 +201,7 @@
                                 </div>
                                 <div class="discuss-submit">
 
-                                    <div class="message-btn easing width-100"{{action addComment}}><i class='fa fa-check'>&nbsp;</i>Post </div>
+                                    <div class="message-btn easing width-100"{{action addComment}}><i class="fa fa-check">&nbsp;</i>Post </div>
 
                                 </div>
                             </div>
@@ -216,7 +216,7 @@
                             <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
                                 <img class="profilepic_comment" {{bind-attr src="commenter_profile_pic_url"}} />
                             </a>
-                            <div style="">
+                            <div >
                                 <div class="comment-namentime">
                                     <a class="comment-username"  href="#/users/{{unbound commenter_id}}">
                                         {{name}}
@@ -255,10 +255,11 @@
         </div>
     </div>
 </div>
-
 {{#if isShareEmail}}
 {{render "shareEmail"}}
 {{/if}}
+<<<<<<< HEAD
+=======
 
 {{#if controller.contact}}
 {{render "contact"}}
@@ -267,3 +268,4 @@
 {{#if controller.collectable}}
 {{render "addCollection"}}
 {{/if}}
+>>>>>>> 27d836fb20fab836eb4af82623c98c5906bb840c

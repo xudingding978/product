@@ -68,8 +68,8 @@ module.exports = function(grunt) {
 //                ].join('&&')
 //            }
 //        },
-        replace: {
-            dist: {
+        replace: {          
+            version: {
                 src: '<%= yeoman.app %>/templates/navigator.hbs',
                 dest: '<%= yeoman.app %>/templates/navigator.hbs',
                 replacements: [{
@@ -81,6 +81,14 @@ module.exports = function(grunt) {
                             return temp + num;
                         }
                     }]
+            },
+            dist: {
+                src: '<%= yeoman.app %>/index.html',
+                dest: '<%= yeoman.app %>/index.html',
+                replacements: [{
+                    from: 'ember.js', 
+                    to: 'ember.prod.js'
+                }]
             }
         },
         watch: {
@@ -455,6 +463,7 @@ module.exports = function(grunt) {
     ]);
     grunt.registerTask('build', [
         'clean:dist',
+        'replace:version',
         'replace:dist',
         'useminPrepare',
         'concurrent:dist',

@@ -176,10 +176,8 @@ class PhotosController extends Controller {
 
             //$oldRecord['photo'][0]['photo_keywords'] = $newRecord['photo']['photo_keywords'];
             //$keyword = $this->getPictureKeyword($newRecord['photo']['photo_keywords'], $oldRecord['owner_id']);
-
             //$oldRecord['keyword'] = $keyword;
             //$oldRecord['photo'][0]['photo_keywords'] =  $newRecord['photo']['photo_keywords'];
-
             //$keyword = $this->getProfileKeyword($owner_id);
             //$oldRecord['keyword'] = $keyword;
 
@@ -214,12 +212,12 @@ class PhotosController extends Controller {
         $orig_size['height'] = imagesy($compressed_photo);
         $urls = array();
         if ($variable === "logo") {
-            $url = $this->savePhotoInTypes($orig_size, "user_picture", $name, $compressed_photo, $data_arr, $id, "group" ,null);
+            $url = $this->savePhotoInTypes($orig_size, "user_picture", $name, $compressed_photo, $data_arr, $id, "group", null);
             array_unshift($urls, $url);
         } else if ($variable === "bg") {
-            $url = $this->savePhotoInTypes($orig_size, "user_cover", $name, $compressed_photo, $data_arr, $id, "group" ,null);    
-            $url_small = $this->savePhotoInTypes($orig_size, "hero", $name, $compressed_photo, $data_arr, $id,"group" ,null);            
-            array_unshift($urls, $url,$url_small);
+            $url = $this->savePhotoInTypes($orig_size, "user_cover", $name, $compressed_photo, $data_arr, $id, "group", null);
+            $url_small = $this->savePhotoInTypes($orig_size, "hero", $name, $compressed_photo, $data_arr, $id, "group", null);
+            array_unshift($urls, $url, $url_small);
         }
         if ($urls) {
             $this->sendResponse(200, CJSON::encode($urls));
@@ -429,15 +427,12 @@ class PhotosController extends Controller {
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
         $bucket = 's3.hubsrv.com';
-        if ($optional == null || $optional == 'undefined' || $optional == "") {           
+        if ($optional == null || $optional == 'undefined' || $optional == "") {
             $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $photo_name;
-        } 
-        else if($optional === 'group')
-        {
+        } else if ($optional === 'group') {
             $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
             $url = $this->getDomain() . '/groups' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
-        }
-        else if ($optional == 'profile_picture') {
+        } else if ($optional == 'profile_picture') {
             $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
             $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
         } else if ($optional == "photo") {
@@ -640,36 +635,38 @@ class PhotosController extends Controller {
 
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);
-            $oldRecord = CJSON::decode($tempRecord, true);
-            $oldRecord['object_description'] = $photoCaption;
-//            if (!isset($oldRecord['view_count'])) {
-//                $oldRecord["view_count"] = 1;
-//            } else {
-//                $oldRecord['view_count'] = $mega['mega']['view_count']; // ,but it  will also add one when share  //$mega['mega']['view_count']; 
-//            }
-            if (!isset($oldRecord['accessed'])) {
-                $oldRecord["accessed"] = 1;
+            if ($tempRecord !== "") {
+                $oldRecord = CJSON::decode($tempRecord, true);
+                $oldRecord['object_description'] = $photoCaption;
+
+                if (!isset($oldRecord['accessed'])) {
+                    $oldRecord["accessed"] = 1;
+                }
+                $oldRecord["accessed"] = date_timestamp_get(new DateTime());
+
+                if (!isset($oldRecord['share_count'])) {
+                    $oldRecord["share_count"] = 0;
+                } else {
+                    $oldRecord["share_count"] = $mega['mega']['share_count'];   // //or using   $mega['mega']['share_count']; 
+                }
+                $oldRecord['photo'][0]['photo_title'] = $photoTitle;
+                $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
+                $oldRecord['photo'][0]['photo_link_text'] = $linkText;
+                $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;
+
+                //$newkeyword = $this->getPictureKeyword($keyword, $oldRecord['owner_id']);
+                //$oldRecord['keyword'] = $newkeyword;
+
+
+                $oldRecord['is_deleted'] = $deleted;
+                if ($cb->set($url, CJSON::encode($oldRecord))) {
+                    $this->sendResponse(204);
+                } else {
+                    $this->sendResponse(500, "some thing wrong");
+                }
             }
-            $oldRecord["accessed"] = date_timestamp_get(new DateTime());
-
-            if (!isset($oldRecord['share_count'])) {
-                $oldRecord["share_count"] = 0;
-            } else {
-                $oldRecord["share_count"] = $mega['mega']['share_count'];   // //or using   $mega['mega']['share_count']; 
-            }
-            $oldRecord['photo'][0]['photo_title'] = $photoTitle;
-            $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
-            $oldRecord['photo'][0]['photo_link_text'] = $linkText;
-            $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;
-
-            //$newkeyword = $this->getPictureKeyword($keyword, $oldRecord['owner_id']);
-            //$oldRecord['keyword'] = $newkeyword;
-
-
-            $oldRecord['is_deleted'] = $deleted;
-            if ($cb->set($url, CJSON::encode($oldRecord))) {
-                $this->sendResponse(204);
-            } else {
+            else
+            {
                 $this->sendResponse(500, "some thing wrong");
             }
         } catch (Exception $exc) {
@@ -678,4 +675,5 @@ class PhotosController extends Controller {
     }
 
 }
+
 ?>

@@ -18,6 +18,12 @@ class CatesController extends Controller {
         $response = "";
         $requireParams = explode('&', $request_string);
         $types = explode("=", $requireParams[0]);
+         $cb = $this->couchBaseConnection();
+        $url = $this->getDomain() . "/"  ;
+        $tempRecord = $cb->get($url);
+        if($tempRecord===""){
+        error_log($tempRecord);}
+        
         if ($types[1] === "cateRead") {
             $search_strings = explode("=", $requireParams[1]);
             if ($search_strings[1] === 'International') {

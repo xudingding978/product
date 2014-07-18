@@ -9,8 +9,7 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     needs: ["application", "user", "applicationFeedback"],
     init: function()
     {
-        this.setTopicModel(HubStar.Cate.find({}));
-
+        //this.setTopicModel(HubStar.Cate.find({}));
     },
     topicSearch: function(search_topic) {
         this.transitionToRoute('searchIndexTom');

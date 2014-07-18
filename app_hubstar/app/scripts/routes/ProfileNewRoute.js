@@ -7,6 +7,7 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
     },
     setupController: function(controller, model) {
         this.controllerFor('user').set('model', model);
+        controller.setTopicModel(this.controllerFor('application').get('categorys'));
         setTimeout(function() {
             $('.nothingHere').attr('style', 'display:none');
         }, 10);

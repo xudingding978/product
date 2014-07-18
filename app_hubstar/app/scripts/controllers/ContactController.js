@@ -44,6 +44,16 @@ HubStar.ContactController = Ember.Controller.extend({
             this.set('projectBudgetDropdown', false);
             this.set('projectExperienceDropdown', false);
             this.set('showCate', false);
+            
+             if (!this.get('rememberMessage')) {
+                this.set("emailBody", "");
+                this.set("emailSubject", "");
+            }
+            this.set('projectCategorySelection', 'Please Select One ...');
+            this.set('timeframeSelection', 'Please Select One ...');
+            this.set('projectBudgetSelection', 'Please Select One ...');
+            this.set('projectExperienceSelection', 'Please Select One ...');
+            this.set('showCate', false);
 
             videoController.send("closeContact");
             megaController.send("closeContact");
@@ -172,7 +182,6 @@ HubStar.ContactController = Ember.Controller.extend({
         }
     },
     init: function() {
-        this.set('categorys', this.get("controllers.application").get("categorys"));
         this.set('projectCategorySelection', 'Please Select One ...');
         this.set('timeframeSelection', 'Please Select One ...');
         this.set('projectBudgetSelection', 'Please Select One ...');

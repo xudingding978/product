@@ -404,7 +404,7 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
         this.set("loadingTime", true);
         pics.addObserver('isLoaded', function() {
             if (pics.get('isLoaded')) {
-                for (var i = this.get("contentData").length - 1; i >= 0; i--) {
+                for (var i = this.get("content").length - 1; i >= 0; i--) {
                     var tempObject = pics.objectAt(i);
                     that.get("contentData").pushObject(tempObject);
                 }

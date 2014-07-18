@@ -1,6 +1,7 @@
 // Generated on 2013-08-01 using generator-ember 0.5.9
 'use strict';
-var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
+var LIVERELOAD_PORT = 35729;
+var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
 var mountFolder = function(connect, dir) {
     return connect.static(require('path').resolve(dir));
 };
@@ -11,8 +12,10 @@ var mountFolder = function(connect, dir) {
 // 'test/spec/**/*.js'
 
 module.exports = function(grunt) {
-// load all grunt tasks
-    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+    // show elapsed time at the end
+    require('time-grunt')(grunt);
+    // load all grunt tasks
+    require('load-grunt-tasks')(grunt);
     // configurable paths
     var yeomanConfig = {
         app: 'app',
@@ -82,9 +85,17 @@ module.exports = function(grunt) {
                         }
                     }]
             },
+            app: {
+                src: '<%= yeoman.app %>/index.html',
+                dest: '.tmp/index.html',
+                replacements: [{
+                    from: 'ember.js', 
+                    to: 'ember.js'
+                }]
+            },
             dist: {
                 src: '<%= yeoman.app %>/index.html',
-                dest: '<%= yeoman.app %>/index.html',
+                dest: '.tmp/index.html',
                 replacements: [{
                     from: 'ember.js', 
                     to: 'ember.prod.js'
@@ -94,7 +105,7 @@ module.exports = function(grunt) {
         watch: {
             emberTemplates: {
                 files: '<%= yeoman.app %>/templates/**/*.hbs',
-                tasks: ['emberTemplates', 'livereload']
+                tasks: ['emberTemplates']
             },
             coffee: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
@@ -110,15 +121,18 @@ module.exports = function(grunt) {
             },
             neuter: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-                tasks: ['neuter', 'livereload']
+                tasks: ['neuter']
             },
             livereload: {
+                options:{
+                    livereload:LIVERELOAD_PORT
+                },
                 files: [
+                    '.tmp/scripts/*.js',
                     '<%= yeoman.app %>/*.html',
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg,ico}'
-                ],
-                tasks: ['livereload', 'buildTest', 'test']
+                ]
             }
         },
         connect: {
@@ -430,7 +444,7 @@ module.exports = function(grunt) {
     });
     //grunt.loadNpmTasks('grunt-contrib-qunit');
     //grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.renameTask('regarde', 'watch');
+    //grunt.renameTask('regarde', 'watch');
     grunt.registerTask('server', function(target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
@@ -438,9 +452,9 @@ module.exports = function(grunt) {
 
         grunt.task.run([
             'clean:server',
+            'replace:app',
             'concurrent:server',
             'neuter:app',
-            'livereload-start',
             'connect:livereload',
             'open',
             'watch'

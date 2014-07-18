@@ -1,4 +1,4 @@
-HubStar.ProfilesController = Ember.ArrayController.extend({
+HubStar.ProfilesController = Ember.Controller.extend({
 model: [],
         init: function() {
 

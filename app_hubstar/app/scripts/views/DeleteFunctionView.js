@@ -10,8 +10,14 @@ HubStar.DeleteFunctionView = Ember.View.extend({
             else if (controller._debugContainerKey.indexOf("profileVideos") !== -1) {
 
                 controller.send("deleteConfirm");
+                ;
+            }
+            else if (controller._debugContainerKey.indexOf("profilePdf") !== -1) {
+
+                controller.send("deleteConfirm");
             }
             else if (controller._debugContainerKey.indexOf("reviewListSingle") !== -1) {
+
 
                 controller.send("deleteConfirm");
             }
@@ -71,14 +77,18 @@ HubStar.DeleteFunctionView = Ember.View.extend({
                 controller.send("removeConversationItem", controller.get("s"));
 
             }
-            else {
-            }
+
         },
         cancelDelete: function() {
             var controller = this.get('controller');
 
+
             if (controller._debugContainerKey.indexOf("addCollection") !== -1)
             {
+            }
+            else if (controller._debugContainerKey.indexOf("profilePdf") !== -1) {
+
+                controller.send("cancelDelete");
             }
             else if (controller._debugContainerKey.indexOf("profileVideos") !== -1) {
 

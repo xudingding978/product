@@ -25,6 +25,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         this.set('contentData', []);
         this.set("model", model);
         this.set('clientID', model.id);
+        this.checkAuthenticUser();
         this.set('loadingTime', false);
         this.set('partnerID', model.get('profile_partner_ids'));
         if (this.get('partnerID') !== null && this.get('partnerID') !== 'undefined' && this.get('partnerID') !== "") {
@@ -32,7 +33,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             var data = HubStar.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
             var that = this;
             data.then(function() {
-                that.checkAuthenticUser();
+                
                 that.setContent(data);
                 that.get('controllers.profile').paternsStatistics(data.get("length"));
             });

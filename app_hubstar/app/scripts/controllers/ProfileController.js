@@ -404,6 +404,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.transitionToRoute('profilePdf');
             }
         },
+      
         yesAbout: function(checkingInfo) {
             $(window).scrollTop(650);
             if (checkingInfo === "aboutMe") {
@@ -849,9 +850,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
         },
         keywordSearch: function(keyword) {
-            this.transitionToRoute('searchIndexTom');
-            this.get("controllers.application").set('search_string', keyword);
-            this.get("controllers.application").newSearch();
+            this.transitionToRoute('search', {id: keyword});
         },
         dropdown: function(checking) {
             if (checking === "package") {

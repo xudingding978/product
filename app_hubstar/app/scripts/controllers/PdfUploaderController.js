@@ -20,36 +20,42 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
             if (pdf !== null) {
                 this.set("pdf_title", pdf.get('pdf_title'));
                 this.set("pdf_desc", pdf.get('pdf_desc'));
-                $('#pdf_id_' + pdf_id).slideToggle(200);
-                $('#' + pdf_id).slideToggle(1000);
+                
             }
         },
         changeCover: function(param) {
+        },
+        submit: function() {
+            for (var i = 0; i < this.get('pdfArray').get('length'); i++) {
+                this.get('pdfArray').objectAt(i).store.save();
+            }
+            this.send("closeUploader");
         },
         saveDetail: function(pdf_id) {
             var pdf = this.seekCurrentPdf(pdf_id);
             if (pdf !== null) {
                 pdf.set("pdf_title", this.get('pdf_title'));
-                pdf.set("pdf_desc", this.get('pdf_desc'));
+                pdf.set("pdf_desc", this.get('pdf_desc'));                
                 pdf.store.save();
-                $('#' + pdf_id).slideToggle(1000);
-                $('#pdf_id_' + pdf_id).slideToggle(200);
+                this.get('controllers.applicationFeedback').statusObserver(null, "Saved Successfully.");
             }
         },
         cancelDetail: function(param) {
-            $('#' + param).slideToggle(1000);
-            $('#pdf_id_' + param).slideToggle(200);
+           
 
         }
     },
     init: function() {
         this.setMega();
     },
-    cancel: function() {
-        this.reset();
-        var profilePdf = this.get('controllers.profilePdf');
-        profilePdf.send("pdfCreateModeSwitch");
-    },
+//    cancel: function() {
+//        this.reset();
+//        var profilePdf = this.get('controllers.profilePdf');
+//        profilePdf.pdfCreateModeSwitch();     
+//    },
+//    deletePdf: function(id) {
+//        this.get('controllers.profilePdf').deleteSelectedCollection(id);
+//    },
     seekCurrentPdf: function(pdf_id) {
         var pdf = null;
         for (var i = 0; i < this.get("pdfArray").get('length'); i++) {
@@ -87,6 +93,8 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
                     pdf.store.save();
                     that.get("pdfArray").insertAt(0, pdf);
                     that.set('loadingTime', false);
+                    that.set("pdf_title", name.split('.')[0]);
+                that.set("pdf_desc", "");
                 });
             });
             var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
@@ -98,15 +106,30 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
             this.get('controllers.applicationFeedback').statusObserver(null, "Undefined Format");
         }
     },
+    commitFiles: function(evt) {
+        $('#dragAndDroppArea').attr('style', "display:block");
+        var input = evt.target;
+        var files = input.files;
+        var that = this;
+//        this.fileChecking(files.length);
+//        this.checkingCleanBeforeUpload();
+        for (var i = 0; i < files.length; i++) {
+            (function(file) {
+                var name = file.name;
+                var type = file.type;
+                var fileSize = file.size;
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    that.profileStyleImageDrop(e, name);
+                }, reader.readAsDataURL(files[i]);
+            })(files[i]);
+            evt.preventDefault();
+        }
+    },
     reset: function() {
         this.set('pdfArray', []);
     },
-    submit: function() {
-        for (var i = 0; i < this.get('pdfArray').get('length'); i++) {
-            this.get('pdfArray').objectAt(i).store.save();
-        }
-        this.send("closeUploader");
-    },
+    
     setMega: function() {
         var profileController = this.get('controllers.profile');
         var tempmega = profileController.get("model");
@@ -121,3 +144,9 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         }
     }
 });
+
+HubStar.PdfUploaderController.cancel = function(event) {
+    event.preventDefault();
+    return false;
+};
+

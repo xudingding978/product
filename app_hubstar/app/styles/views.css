@@ -2540,6 +2540,10 @@ div.album-description-bg{
     vertical-align: middle;
 }
 
+.tagImg-target{
+    cursor:pointer;
+}
+
 .tagMiddle{
     z-index: 1;
     position: relative;

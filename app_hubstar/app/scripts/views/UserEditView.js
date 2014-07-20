@@ -1,6 +1,9 @@
 HubStar.UserEditView = Ember.View.extend({
     templateName: 'userEdit',
+    is_trends_user: false,
+    
     didInsertElement: function() {
+
       var u = HubStar.User.find(localStorage.loginStatus);
         var that =this;
             u.then(function() {

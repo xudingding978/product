@@ -4,7 +4,7 @@
 {{render "loadingSpinner"}}
 
 {{/if}}
- 
+
 <div class="masonry-container">
     <!-- masonry from here -->
 
@@ -51,67 +51,64 @@
                             Drag & Drop Your Photos Here
                         </span>
                         <span class="masonry-upload-title2">Individual images must not exceed 10MB in size.<br> Upload a maximum of 20 images and a total of 20MB at a time.<br>(Supported file formats: .bmp, .gif, .jpg/.jpeg, .png)</span> 
-                    </div>
+                                    </div>
 
-                    <div class="new-btn blue-btn masonry-upload-choose-container" >
-                        Choose 
-                        <div class="masonry-upload-choose"> {{view HubStar.ImageInputButtonView }}</div> 
-                    </div> 
+                                    <div class="new-btn blue-btn masonry-upload-choose-container" >
+                                        Choose 
+                                        <div class="masonry-upload-choose"> {{view HubStar.ImageInputButtonView }}</div> 
+                                    </div> 
 
-                    <div id="dragAndDroppArea" class="dragndropbox not-display" >
+                                    <div id="dragAndDroppArea" class="dragndropbox not-display" >
 
-                        {{#each uploadImageContent}}
-
-
-
-
-                        <div class="masonry-upload-imgBox">
-                            <div> 
-                                {{#each photo}}
-
-                                <img  {{bind-attr src= "photo_image_original_url"}}  alt="Logo" class="masonry-upload-img">
-
-                                <div {{bind-attr class="photo_source_id"}} style="display:none;">
-                                    <img class="masonry-upload-spinner" src="../../../images/uploadphotos_spinner.gif"/>
-
-                                </div>
-                                {{/each}}
-                            </div>
-                            <div class="masonry-img-title">{{photo_title}}</div>
-                        </div>
-                        {{/each}}
-                    </div>
-                </div>
-                <div class="controlbtn-field masonry-gap" >
-                    <div class="controlbtn masonry-controlbtn" >
-                        <span class="new-btn" {{action back }}>Close</span>
-                        <span class="new-btn green-btn" {{action photoUpload}}>Upload</span>
-                    </div>
-                </div>
-
-                {{/view}}
-                {{else}}
-                {{render "photoCreateInfoSetting"}}
-                {{/unless}}
-            </div>
-        </div>
-        {{/if}}
-        {{/if}}
-        {{/if}}
-
-        {{#each controller.content}}
-        {{view HubStar.ItemView}}
-        {{/each}}
+                                        {{#each uploadImageContent}}
 
 
 
 
-    </div>
-</div>
+                                        <div class="masonry-upload-imgBox">
+                                            <div> 
+                                                {{#each photo}}
+                                                <img  {{bind-attr src= "photo_image_original_url"}}  alt="Logo" class="masonry-upload-img">
+                                                    <div {{bind-attr id="id"}} class="display-none" >
+                                                        <img class="masonry-upload-spinner" src="../../../images/uploadphotos_spinner.gif"/>
+                                                    </div>
+                                                    {{/each}}
+                                            </div>
+                                            <div class="masonry-img-title">{{photo_title}}</div>
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                    </div>
+                                    <div class="controlbtn-field masonry-gap" >
+                                        <div class="controlbtn masonry-controlbtn" >
+                                            <span class="new-btn" {{action back }}>Close</span>
+                                            <span class="new-btn green-btn" {{action photoUpload}}>Upload</span>
+                                        </div>
+                                    </div>
+
+                                    {{/view}}
+                                    {{else}}
+                                    {{render "photoCreateInfoSetting"}}
+                                    {{/unless}}
+                                    </div>
+                                    </div>
+                                    {{/if}}
+                                    {{/if}}
+                                    {{/if}}
+
+                                    {{#each controller.content}}
+                                    {{view HubStar.ItemView}}
+                                    {{/each}}
 
 
-{{#if controller.makeSureDelete}}
 
-{{view HubStar.DeleteFunctionView}}
 
-{{/if}}
+                                    </div>
+                                    </div>
+
+
+                                    {{#if controller.makeSureDelete}}
+
+                                    {{view HubStar.DeleteFunctionView}}
+
+                                    {{/if}}

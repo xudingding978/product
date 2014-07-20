@@ -415,12 +415,13 @@ HubStar.LoginModalView = Ember.View.extend({
             /* going back to step 1 function*/
 
             $(".Login-box .register-clicker").click(function() {
+                
                 setTimeout(function() {
                     $("#first_name input").focus();
                 }, 1);
                 if ($('.Login-box #register-with-email-step-2').hasClass('active-step')) {
                     //alert('closing step2');
-
+                    
                     $('.Login-box #social-link').animate({height: 'toggle'});
                     $('.Login-box #register-with-email-step-2').animate({height: 'toggle'});
                     if ($('.Login-box #click-register').hasClass('active-tab')) {
@@ -431,12 +432,14 @@ HubStar.LoginModalView = Ember.View.extend({
                     else {
                         $('.Login-box #click-register').addClass('active-tab');
                         /* opening step */
+                       ;
                     }
 
                 }
                 /* closing/opening register section while on step 2 function */
 
                 if ($('.Login-box #register-with-email-drop-down').css('display') === 'block' && $('#click-register').hasClass('active-tab')) {
+                    
                     $('.Login-box #click-register').removeClass('active-tab');
                     $('.Login-box #social-link').animate({height: 'toggle'});
                     $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
@@ -445,8 +448,9 @@ HubStar.LoginModalView = Ember.View.extend({
                 /* closing register section while on step 1 function */
 
 
-                if ($('.Login-box #register-with-email-drop-down').css('display') === 'none' && $('#register-with-email-step-2').hasClass('')) {
+                if ($('.Login-box #register-with-email-drop-down').css('display') === 'none' && $('#register-with-email-step-2').hasClass('loginmodal-email')) {
                     //alert('opening step 1');
+                    
                     $('.Login-box #click-register-social').removeClass('social-active');
                     $('.Login-box #click-register').addClass('active-tab');
                     $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});

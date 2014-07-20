@@ -35,8 +35,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         {id: "15", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/retail.png', topic: 'Retail Design'}
     ],
     classification: "All",
-    loginModal:false,
-    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection', 'search'],
+    loginModal: false,
+    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection', 'search','profile','profileNew'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -331,6 +331,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 $(document).ready(function() {
                     setTimeout(function() {
                         that.residentialCommercialStatus();
+                        $(".Navigator-box").css("margin-left", "110px");
                     }, 50);
                 });
             });
@@ -346,7 +347,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
             var that = this;
             this.get("categorys").then(function() {
-
                 $(document).ready(function() {
                     setTimeout(function() {
                         that.residentialCommercialStatus();
@@ -365,10 +365,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         HubStar.set("isTopAdDisplay", true);
         HubStar.set("isAddCollection", false);
         HubStar.set("isShareEmail", false);
-
         var that = this;
-
-        this.set('categorys', HubStar.Cate.find({}));
+        var cate;
+        if (localStorage.geoLocation === "United States") {
+            cate = HubStar.Cate.find({RquireType: "cateRead", location: "USA"});
+        }
+        else
+        {
+            cate = HubStar.Cate.find({RquireType: "cateRead", location: "International"});
+        }
+        this.set('categorys', cate);
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
             var array = $.map(callbck, function(value, index) {
@@ -400,7 +406,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             ga('Trends.send', 'event', 'button', 'click', 'SignUp');
             HubStar.set('checkLoginStatus', true);
             setTimeout(function() {
-                
+
                 $("#profiles-main-container").css("display", "block");
                 $('#register-with-social-select-interests').css('display', 'block');
                 $('#user-login-pane').css('display', 'none');
@@ -601,9 +607,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 $("#topResidentialCommerical").css('display', "none");
             } else {
-                 if (HubStar.get("isTopAdDisplay")) { 
+                if (HubStar.get("isTopAdDisplay")) {
                     $('#masonry_wrapper').css('top', "240px");
-                        $("#top_bar_ads").css({"position": "fixed", "top": "90px"});       
+                    $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
                 }
                 else
                 {

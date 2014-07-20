@@ -28,14 +28,32 @@ HubStar.DropdownListView = Ember.View.extend({
         });
 
         $('#geoDropdown > .ite').click(function() {
-            localStorage.geoLocation=$(this).text();
-            that.get('controller').set("geoLocation",localStorage.geoLocation);
+            var locationOld = localStorage.geoLocation;
+            localStorage.geoLocation = $(this).text();
+            that.get('controller').set("geoLocation", localStorage.geoLocation);
+            if (localStorage.geoLocation === "United States") {
+                if (locationOld !== localStorage.geoLocation) {
+                    var cate = HubStar.Cate.find({RquireType: "cateRead", location: "USA"});
+                    that.get('controller').set('categorys', cate);
+                    that.get('controller').get('controllers.profile').setTopicModel(cate);
+                    that.get('controller').get('controllers.profileNew').setTopicModel(cate);
+                }
+            }
+            else
+            {
+                if (locationOld === "United States") {
+                    var cate = HubStar.Cate.find({RquireType: "cateRead", location: "International"});
+                    that.get('controller').set('categorys', cate);
+                    that.get('controller').get('controllers.profile').setTopicModel(cate);
+                    that.get('controller').get('controllers.profileNew').setTopicModel(cate);
+                }
+            }
             that.get('controller').get('controllers.applicationFeedback').statusObserver(null, "Your geographic location has been changed to " + localStorage.geoLocation);
         });
 
         $('#geoDropdown > .ite').click(function() {
-            localStorage.geoLocation=$(this).text();
-            that.get('controller').set("geoLocation",localStorage.geoLocation);
+            localStorage.geoLocation = $(this).text();
+            that.get('controller').set("geoLocation", localStorage.geoLocation);
         });
 
         $('#countryDropdown > .ite').click(function() {
@@ -44,8 +62,8 @@ HubStar.DropdownListView = Ember.View.extend({
         });
         $('#regionDropdown > .ite').click(function() {
             that.get('controller').set('regionSelection', $(this).text());
-             setTimeout(function() {
-                     $("#regionChecking").css("display","inline-block");
+            setTimeout(function() {
+                $("#regionChecking").css("display", "inline-block");
             }, 1);
         });
 

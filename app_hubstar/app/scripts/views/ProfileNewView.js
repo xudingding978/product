@@ -51,8 +51,8 @@ HubStar.ProfileNewView = Ember.View.extend({
                     $("#regionChecking").css("display", "inline-block");
                 }
             }, 1);
-
         });
+
     }
 });
 

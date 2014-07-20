@@ -5,19 +5,14 @@
         {{render "comment" this}}
     </div>
 </div>
-
-
 {{/if}}
 
 {{business_profile_pic}}
 {{#if getPhoto}}
 <div class="box col2 noStyle1" data-step="9" data-intro="This is an <b>image</b> result. Click the image to see a full screen view and to read the caption." data-position='right' {{action checkingLoginStatus target="view" on="click"}} >
-
-
-
     <div class="object-tags-box">
         <div class="object-tags">
-            <span class="tags-mark" style="background-color: #427fed"></span>
+            <span class="tags-mark"></span>
             <div class="tags easing">
                 <div class="object-type hint--left hint--rounded" data-hint="Image">
                     <i class="fa fa-picture-o" ></i>
@@ -29,28 +24,28 @@
 
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
-            <a class="mainfeature-container" href="#/photos/{{unbound id}}" style="cursor: pointer">
+            <a class="mainfeature-container cursor-pointer" href="#/photos/{{unbound id}}" >
                 <div id="init_photo_{{unbound id}}">
                     <img  class="this-is-the-object" {{bind-attr src="object_image_url" }} {{action transitionToPhoto id}} />
                 </div>
             </a>
 
-            <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 150px;">
+            <span class="edit-object easing item-authentic-block" >
 
                 {{#if controller.is_authentic_user}}
 
                 <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
-                     <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
-                    <i class='fa fa-caret-down'></i>
+                     <i class="fa fa-cog itemprofile-edit-action" ></i>
+                    <i class="fa fa-caret-down"></i>
                 </div>
-                <ul class="hideClass edit-object-ul" style="right: 40px;" id="dropdown_id_{{unbound id}}">
+                <ul class="hideClass edit-object-ul item-edit-box" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
-                    <li class='ite'  {{action changeCollectionCover id controller.collection_id HubStar.Profile}}> <i class="fa fa-check-circle" style="font-size: 16px;  margin: 0px 5px;"></i>Set as collection cover</li>
+                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o itemprofile-edit-action" ></i>Delete</li>
+                    <li class="ite"  {{action changeCollectionCover id controller.collection_id HubStar.Profile}}> <i class="fa fa-check-circle itemprofile-edit-action" ></i>Set as collection cover</li>
                     {{/if}}
                     {{#if controller.is_user_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Remove</li>
-                    <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User}}><i class="fa fa-camera" style="font-size: 16px; margin: 0px 5px;"></i>Set as Cover</li>
+                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o itemprofile-edit-action" ></i>Remove</li>
+                    <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User}}><i class="fa fa-camera itemprofile-edit-action" ></i>Set as Cover</li>
                     {{/if}}
                 </ul>
 
@@ -63,25 +58,25 @@
 
 
             <div class="profilepic-on-masonry">
-                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  
-                    <img style="width:{{unbound profile_width}}; height: {{unbound profile_height}};"  {{action transitionToProfile owner_id}} {{bind-attr src="owner_profile_pic"}}/></a>
+                <a class="poster-name cursor-pointer" href="#/profiles/{{unbound owner_id}}">  
+                    <img style="width:{{unbound profile_width}}; height: {{unbound profile_height}};" {{action transitionToProfile owner_id}} {{bind-attr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; word-break: break-word;" href="#/profiles/{{unbound owner_id}}/collections" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name cursor-pointer item-wordbreak" href="#/profiles/{{unbound owner_id}}/collections" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
-                    <span class="posttime" style="display:none;">{{date created}}</span>
+                    <span class="posttime display-none" >{{date created}}</span>
                 </div>
             </div>
         </div>
 
         <div class="masonry-object_text">
             <div class="masonry-object_text-container">
-                <div style="font-weight: bold;margin-bottom: 5px;font-size:16px;word-break: break-word;">{{#each photo}}{{photo_title}}{{/each}} </div>
+                <div class="item-title">{{#each photo}}{{photo_title}}{{/each}} </div>
             </div>
 
-            <div class="more_detail" style="margin:0;"{{bind-attr id="id"}} >
+            <div class="more_detail reset-margin" {{bind-attr id="id"}} >
                 <div class="more_text-container" >
-                    <div style="display:block;">
+                    <div class="cursor-pointer">
                         {{#each photo}}
                         {{{photo_caption}}}
                         {{/each}}
@@ -105,7 +100,7 @@
 <div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}} >
     <div class="object-tags-box">
         <div class="object-tags">
-            <span class="tags-mark" style="background-color: #427fed"></span>
+            <span class="tags-mark" ></span>
             <div class="tags easing">
                 <div class="tags easing">
                     <div class="object-type hint--left hint--rounded" data-hint="Video">
@@ -116,23 +111,22 @@
         </div>
     </div>
     {{render "itemFunction" this}}
-
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
 
             {{#if controller.isUser}}
             <a class="mainfeature-container" {{action transitionToPhoto id}}>
-               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 1;">
-                    <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
+               <div class="hover-opacity radius-circle easing item-hoverarea" >
+                    <i class="fa fa-play item-videoplay" ></i>
                 </div>
                 <div id="init_photo_{{unbound id}}">
-                    <img class="this-is-the-object"{{bind-attr src="object_image_url"  }}  />      
+                    <img class="this-is-the-object"{{bind-attr src="object_image_url" }} />      
                 </div>
             </a>
             {{else}}
             <a class="mainfeature-container" {{action transitionToVideo id}}>
-               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 1;">
-                    <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
+               <div class="hover-opacity radius-circle easing item-hoverarea" >
+                    <i class="fa fa-play item-videoplay" ></i>
                 </div>
                 <div id="init_photo_{{unbound id}}">
                     <img {{bind-attr src="object_image_url" }} class="this-is-the-object" />
@@ -140,22 +134,22 @@
             </a>
             {{/if}}
 
-            <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 150px;">
+            <span class="edit-object easing item-edit-area">
 
                 {{#if controller.is_authentic_user}}
 
 
 
                 <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
-                     <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
-                    <i class='fa fa-caret-down'></i>
+                     <i class="fa fa-cog item-edit-action" ></i>
+                    <i class="fa fa-caret-down"></i>
                 </div>
-                <ul class="hideClass edit-object-ul" style="right: 40px;" id="dropdown_id_{{unbound id}}">
+                <ul class="hideClass edit-object-ul item-edit-delete" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
+                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o item-edit-action" ></i>Delete</li>
                     {{/if}}
                     {{#if controller.is_user_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Remove</li>
+                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o item-edit-action" ></i>Remove</li>
                     {{/if}}
                 </ul>
 
@@ -172,27 +166,26 @@
 
 
             <div class="profilepic-on-masonry">
-                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  style="width:{{unbound profile_width}}; height: {{unbound profile_height}};" {{action transitionToProfile owner_id}} {{bind-attr src="owner_profile_pic"}}/></a>
+                <a class="poster-name cursor-pointer" href="#/profiles/{{unbound owner_id}}">  <img  style="width:{{unbound profile_width}}; height: {{unbound profile_height}};" {{action transitionToProfile owner_id}} {{bind-attr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; word-break: break-word;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name cursor-pointer item-wordbreak" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
-                    <span class="posttime" style="display:none;">{{date created}}</span>
+                    <span class="posttime display-none" >{{date created}}</span>
                 </div>
 
             </div>
         </div>
 
         <div class="masonry-object_text">
-            <div style="">
-                <p style="font-weight: bold;margin-bottom: 5px;font-size:16px;word-break: break-word;" {{action transitionToVideo id}}>{{object_title}}</p>
-                <p class="masonry-object_text-container" style="font-size: 13px; max-height: 50px;">{{object_description}}</p>
+            <div>
+                <p class="item-title" {{action transitionToVideo id}}>{{object_title}}</p>
+                <p class="masonry-object_text-container item-article" >{{object_description}}</p>
             </div>
 
             {{#if moreDisplay}}
-            <span role="button" class="masonry_more-btn easing"  {{bind-attr id="more_button"}} {{action transitionToVideo id}} >more &nbsp;</span>
+            <span role="button" class="masonry_more-btn easing" {{bind-attr id="more_button"}} {{action transitionToVideo id}} >more &nbsp;</span>
             {{/if}}
-
         </div>
     </div>
 
@@ -204,7 +197,7 @@
 <div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}} >
     <div class="object-tags-box">
         <div class="object-tags">
-            <span class="tags-mark" style="background-color: #427fed"></span>
+            <span class="tags-mark" ></span>
             <div class="tags easing">              
                     <div class="object-type hint--left hint--rounded" data-hint="PDF">
                         <i class="fa fa-file-text"></i>
@@ -219,8 +212,8 @@
 
             {{#if controller.isUser}}
             <a class="mainfeature-container" {{action transitionToPdf id}}>
-                <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
-                    <i  style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3; color:#fff; font-size:50px;">PDF</i>
+                <div class="hover-opacity radius-circle easing item-hoverarea">
+                    <i class="item-pdf-icon">PDF</i>
                 </div>
                 <div id="init_photo_{{unbound id}}">
                     <img class="this-is-the-object"{{bind-attr src="object_image_url"  }}  />      
@@ -228,26 +221,27 @@
         </a>
             {{else}}
             <a class="mainfeature-container" {{action transitionToPdf id}}> 
-               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
-                    <i  style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3; color:#fff; font-size:50px;">PDF</i>
+               <div class="hover-opacity radius-circle easing item-hoverarea">
+                    <i class="item-pdf-icon">PDF</i>
                 </div>
                <div id="init_photo_{{unbound id}}">
                 <img {{bind-attr src="object_image_url" }} class="this-is-the-object" />
                  </div>
             </a>
             {{/if}}
-            <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 150px;">
+            <span class="edit-object easing item-edit-area" >
                 {{#if controller.is_authentic_user}}
                 <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
-                     <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
-                    <i class='fa fa-caret-down'></i>
+                     <i class="fa fa-cog item-edit-action" ></i>
+                    <i class="fa fa-caret-down"></i>
                 </div>
-                <ul class="hideClass edit-object-ul" style="right: 40px;" id="dropdown_id_{{unbound id}}">
+                <ul class="hideClass edit-object-ul item-edit-delete" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
+
+                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o item-edit-action" ></i>Delete</li>
                     {{/if}}
                     {{#if controller.is_user_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Remove</li>
+                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o item-edit-action" ></i>Remove</li>
                     {{/if}}
                 </ul>
 
@@ -261,21 +255,21 @@
 
 
             <div class="profilepic-on-masonry">
-                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bind-attr src="owner_profile_pic"}}/></a>
+                <a class="poster-name cursor-pointer" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bind-attr src="owner_profile_pic"}}/></a>
             </div>
-            <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; word-break: break-word;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+            <div class="object_username ">
+                <a class="poster-name cursor-pointer item-wordbreak" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
-                    <span class="posttime" style="display:none;">{{date created}}</span>
+                    <span class="posttime display-none" >{{date created}}</span>
                 </div>
 
             </div>
         </div>
 
         <div class="masonry-object_text">
-            <div style="">
-                <p style="font-weight: bold;margin-bottom: 5px;font-size:16px;font-style:italic;word-break: break-word;" {{action transitionToPdf id}}>{{object_title}}</p>
-                <p class="masonry-object_text-container" style="font-size: 13px; max-height: 50px;">{{object_description}}</p>
+            <div>
+                <p class="item-title item-pdf-title" {{action transitionToPdf id}}>{{object_title}}</p>
+                <p class="masonry-object_text-container item-article" >{{object_description}}</p>
             </div>
             
              {{#if moreDisplay}}
@@ -290,11 +284,11 @@
 {{/if}}
 
 {{#if getArticle}}
-<div class="box col2 noStyle1"  data-step="8" data-intro="This is an <b>article</b> result. Click the image to read the article and see all the images associated with it." data-position='right' {{action checkingLoginStatus target="view" on="click"}}>
+<div class="box col2 noStyle1" data-step="8" data-intro="This is an <b>article</b> result. Click the image to read the article and see all the images associated with it." data-position='right' {{action checkingLoginStatus target="view" on="click"}}>
 
     <div class="object-tags-box">
         <div class="object-tags">
-            <span class="tags-mark" style="background-color: #427fed"></span>
+            <span class="tags-mark" ></span>
             <div class="tags easing">
 
                 <div class="object-type hint--left hint--rounded" data-hint="Article">
@@ -316,20 +310,20 @@
                 </div>
             </a>   
 
-            <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 150px;">
+            <span class="edit-object easing item-edit-area" >
                 {{#if controller.is_authentic_user}}
                 <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
-                     <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
-                    <i class='fa fa-caret-down'></i>
+                     <i class="fa fa-cog item-edit-action" ></i>
+                    <i class="fa fa-caret-down"></i>
                 </div>
-                <ul class="hideClass edit-object-ul" style="right: 40px;" id="dropdown_id_{{unbound id}}">
+                <ul class="hideClass edit-object-ul item-edit-delete" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
-                    <li class='ite'  {{action changeCollectionCover id controller.collection_id HubStar.Profile "article"}}> <i class="fa fa-check-circle" style="font-size: 16px;  margin: 0px 5px;"></i>Set as collection cover</li>
+                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o item-edit-action" ></i>Delete</li>
+                    <li class="ite"  {{action changeCollectionCover id controller.collection_id HubStar.Profile "article"}}> <i class="fa fa-check-circle item-edit-action" ></i>Set as collection cover</li>
                     {{/if}}
                     {{#if controller.is_user_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Remove</li>
-                    <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User "article"}}><i class="fa fa-camera" style="font-size: 16px; margin: 0px 5px;"></i>Set as Cover</li>
+                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o item-edit-action" ></i>Remove</li>
+                    <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User "article"}}><i class="fa fa-camera item-edit-action" ></i>Set as Cover</li>
                     {{/if}}
                 </ul>
                 {{/if}}
@@ -338,25 +332,23 @@
 
         <div class="masonry-object_poster">
             <div class="profilepic-on-masonry">
-                <img   style="width:{{unbound profile_width}}; height: {{unbound profile_height}};"  {{action transitionToProfile owner_id}} {{bind-attr src="owner_profile_pic"}}/>
+                <img style="width:{{unbound profile_width}}; height: {{unbound profile_height}};"  {{action transitionToProfile owner_id}} {{bind-attr src="owner_profile_pic"}}/>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="word-break: break-word;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{owner_title}}</a>
-                <div class="posttime-container" style="display:none;">
+                <a class="poster-name item-wordbreak cursor-pointer item-txt-auto" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} >{{owner_title}}</a>
+                <div class="posttime-container display-none" >
                     <span class="posttime">{{date created}}</span>
                 </div>
             </div>
 
         </div>
 
-
         <div class="masonry-object_text">
             <div class="masonry-object_text-container">
-                <a style="font-size: 16px; font-weight: bold;cursor: pointer;text-transform: capitalize; word-break: break-word;" {{action transitionToArticle id}}>{{object_title}}</a>
-                <p style="text-overflow: ellipsis"; {{action transitionToArticle id}}>{{{object_description}}}</p>
+                <a class="item-title cursor-pointer" {{action transitionToArticle id}}>{{object_title}}</a>
+                <p class="item-article-overflow" {{action transitionToArticle id}}>{{{object_description}}}</p>
             </div>
-
-            <div class="more_detail" {{bind-attr id="id"}} style="display:none;width:auto">
+            <div class="more_detail display-none item-txt-auto" {{bind-attr id="id"}} >
                 <h1>{{object_title}}</h1>
                 {{{object_description}}}
 
@@ -366,7 +358,6 @@
             {{/if}}
         </div>
     </div>
-
     {{render "comment" this}}
 </div>
 {{/if}}

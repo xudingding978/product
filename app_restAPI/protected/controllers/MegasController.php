@@ -311,25 +311,29 @@ class MegasController extends Controller {
 
             $docID = $this->getDomain() . "/profiles/" . $id;
             $oldRecord = $cb->get($docID);
-            $oldRecord = CJSON::decode($oldRecord, true);
-            if (!isset($oldRecord['view_count'])) {
-                $oldRecord["view_count"] = 1; //$newRecord['mega']['view_count'];
-            } else {
-                $oldRecord["view_count"] = $newRecord['mega']['view_count']; //$newRecord['mega']['view_count'];
-            }
-            if (!isset($oldRecord['accessed'])) {
-                $oldRecord["accessed"] = 1;
-            }
-            $oldRecord["accessed"] = date_timestamp_get(new DateTime());
+            if ($oldRecord !== "") {
+                $oldRecord = CJSON::decode($oldRecord, true);
+                if (!isset($oldRecord['view_count'])) {
+                    $oldRecord["view_count"] = 1; //$newRecord['mega']['view_count'];
+                } else {
+                    $oldRecord["view_count"] = $newRecord['mega']['view_count']; //$newRecord['mega']['view_count'];
+                }
+                if (!isset($oldRecord['accessed'])) {
+                    $oldRecord["accessed"] = 1;
+                }
+                $oldRecord["accessed"] = date_timestamp_get(new DateTime());
 
-            if (!isset($oldRecord['share_count'])) {
-                $oldRecord["share_count"] = 0;
-            } else {
-                $oldRecord["share_count"] = $newRecord['mega']['share_count'];
-            }
+                if (!isset($oldRecord['share_count'])) {
+                    $oldRecord["share_count"] = 0;
+                } else {
+                    $oldRecord["share_count"] = $newRecord['mega']['share_count'];
+                }
 
-            if ($cb->set($docID, CJSON::encode($oldRecord))) {
-                $this->sendResponse(204);
+                if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                    $this->sendResponse(204);
+                } else {
+                    $this->sendResponse(500, "some thing wrong");
+                }
             } else {
                 $this->sendResponse(500, "some thing wrong");
             }

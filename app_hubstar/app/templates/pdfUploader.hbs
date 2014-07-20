@@ -3,9 +3,12 @@
 
 <div class="review-wrapper pdfuploader-container" >
 
+    <div class="pdfuploader-add-resource">Add Resource</div>
+
+
+    {{#view HubStar.SingleFileUploaderView }}
     <div class="t-style-box pdfuploader-inner" >
 
-        {{#view HubStar.SingleFileUploaderView}}
         <div id="pdfUploaderData" class="pdfuploader-back" >
             <div id="pdfUploaderContent" class="pdfuploader-txtContainer">
                 <i class="fa fa-arrow-circle-o-up pdfuploader-icon" ></i>
@@ -15,7 +18,8 @@
                 <span class="pdfuploader-txt2">Please upload no more than 20 photos at a time, and maximum size of 20MB per photo.</span> 
             </div>
         </div>
-        
+
+
 
         <div  id="pdfInformation" >
 
@@ -24,16 +28,9 @@
 
 
             <div class="pdfuploader-preview-container">
-                <div id="pdf_id_{{unbound id}}">
-                    <span class="pdfuploader-preview"{{action modifyDetail pdf_id}}><img alt="Click!" {{bind-attr src="pdf_cover_image"}}></span> 
-                    <span class="pdfuploader-preview pdfuploader-preview-title" {{action modifyDetail id}}>{{pdf_title}}</span>
-                    <span><i class="fa fa-trash-o pdfuploader-trash" style=""></i></span> 
-                    <span><i class="fa fa-edit pdfuploader-edit" {{action modifyDetail id}}></i></span>             
-                </div>
 
                 <div {{bind-attr id="id"}} class="pdfuploader-editing-container">
                     <div class="pdfuploader-editing-preview">
-
                         <div class="changePDFpic easing hint--right hint--rounded" data-hint="Change Cover" {{action changeCover id}}>
                              <i class="fa fa-plus-circle"></i>     
                         </div>  
@@ -48,9 +45,7 @@
                         </div>
 
                     </div>
-                    <div class="new-btn blue-btn easing pdfuploader-cancel" {{action cancelDetail id}}>Cancel
-
-                </div>
+                    
                 <div class="new-btn green-btn easing pdfuploader-save" {{action saveDetail id}}>Save
 
             </div>
@@ -58,19 +53,17 @@
     </div>
     {{/each}}
 </div>
-{{/view}}
+
 </div>
-
-
-
+{{/view}}
 
 <div class="pdfuploader-action-container" >
     <div class="message-btn easing pdfuploader-action-btn" {{action closeUploader}}>
-         Cancel  
+         Skip  
 </div>
 <div class="message-btn easing pdfuploader-action-choose" >
     Choose 
-    <div class="pdfuploader-action-choose-btn"> {{view HubStar.ImageInputButtonView }}</div> 
+    <div class="pdfuploader-action-choose-btn"> {{view HubStar.SingleImageInputButtonView }}</div> 
 </div>
 <div class="message-btn easing pdfuploader-action-btn" {{action submit}}>
      Submit  

@@ -19,6 +19,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
         ProfileController.set('partnerTag', false);
         ProfileController.set('reviewTag', false);
         ProfileController.set('videoTag', false);
+        ProfileController.set('followerProfileTag', false);   
         ProfileController.set('is_authentic_user', false);
         ProfileController.setTopicModel(this.controllerFor('application').get('categorys'));
         if (localStorage.checkUser === "newUser") {

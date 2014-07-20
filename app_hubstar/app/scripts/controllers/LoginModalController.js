@@ -347,7 +347,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         for (var i = 0; i < checkList.length; i++)
         {
             var patternEmail = /^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$/;
-            document.getElementById(checkList[i].id).setAttribute("class", "login-textfield");
+            $("#" +checkList[i].id).removeClass("error-textfield");
             if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !== undefined)
             {
                 if (checkList[i].input.length > checkList[i].lengthMax || checkList[i].input.length < checkList[i].lengthMin)
@@ -358,7 +358,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-password').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
 
-                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    $("#" +checkList[i].id).addClass("error-textfield");
                     break;
 
                 }
@@ -374,7 +374,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                     $('.black-tool-tip').css('display', 'none');
                     $('#missing-fields').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
 
-                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    $("#" +checkList[i].id).addClass("error-textfield");
                     break;
 
 
@@ -390,7 +390,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name-register-with-spaces').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    $("#" +checkList[i].id).addClass("error-textfield");
                     break;
                 }
                 else if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
@@ -402,7 +402,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
 
-                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    $("#" +checkList[i].id).addClass("error-textfield");
                     break;
                 }// INVALID user name when the user attempts to login.
             }

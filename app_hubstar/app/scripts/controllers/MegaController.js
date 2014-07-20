@@ -453,7 +453,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
             } else {
                 this.transitionToRoute("searchIndexTom");
             }
-            HubStar.set('ctaView', true);
         },
         previesImage: function(event, pic_x, pic_y) {
             // this.set("contentTags", "");

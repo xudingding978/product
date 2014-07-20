@@ -42,11 +42,19 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controllerFor('user').set("model", model);
         this.controllerFor('user').setUser();
         if (HubStar.get("checkLoginStatus")) {
-            if (HubStar.get('showDiscoveryBar') === false) {
+            if (HubStar.get('showDiscoveryBar')) {
+            } else {
                 HubStar.set('ctaView', false);
+                setTimeout(function() {
+                    if ($(window).width() > 1200) {
+                        $("#cta-popup").removeClass("cta-popup-small-top");
+                    } else {
+                        $("#cta-popup").addClass("cta-popup-small-top");
+                    }
+                }, 1);
+
             }
         }
-
     },
     model: function(params) {
 

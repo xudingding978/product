@@ -2,6 +2,7 @@ HubStar.ContactView = Ember.View.extend({
     templateName: 'contact',
     classNames: ["contact-container"],
     didInsertElement: function() {
+        this.get("controller").set('categorys', this.get("controller").get("controllers.application").get("categorys"));
         var unknown = '-';
 
         // screen
@@ -167,7 +168,7 @@ HubStar.ContactView = Ember.View.extend({
         };
 
         this.get("controller").set("userEnvironment", 'OS: ' + jscd.os + ' ' + jscd.osVersion + ' ' + 'Browser: ' + jscd.browser + ' ' + jscd.browserVersion);
-
+        
 
 
     }

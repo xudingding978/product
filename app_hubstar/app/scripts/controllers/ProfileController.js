@@ -1169,9 +1169,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     init: function() {
-
-        this.set('is_authentic_user', false);
-        this.setTopicModel(HubStar.Cate.find({}));
     },
     goToProfileRoute: function(id)
     {

@@ -23,10 +23,8 @@
 
     {{#if controller.isUploadPhoto}}
     <div class="user-talk-upload-photo">
-        <div class='remove-comment-photo easing' {{action removePic }}><i class="fa fa-times"></i></div>
-
+        <div class="remove-comment-photo easing" {{action removePic }}><i class="fa fa-times"></i></div>
         <img  {{bind-attr src= "newStyleImageSource"}} >
-
     </div>
     {{/if}}  
 
@@ -34,15 +32,15 @@
 
     <div class="user-talk-buttons">
         <div  class="message-btn easing user-talk-cancel" {{action cancelTalk on="click" target="controller"}}><i class="fa fa-times">&nbsp;</i>Cancel</div>
-        <div  class="message-btn easing user-talk-add-photo"><i class='fa fa-picture-o'>&nbsp;</i>Add Photo
+        <div  class="message-btn easing user-talk-add-photo"><i class="fa fa-picture-o">&nbsp;</i>Add Photo
             <div> 
                 {{view HubStar.SingleImageInputButtonView }}
             </div>
         </div>
         {{#if controller.isPosting}}
-        <div class="message-btn easing user-talk-send" {{action addComment}}><i class='fa fa-check'>&nbsp;</i>Send</div>
+        <div class="message-btn easing user-talk-send" {{action addComment}}><i class="fa fa-check">&nbsp;</i>Send</div>
         {{else}}
-        <div class="message-btn-x easing user-talk-send"><i class="spinner" style='top: 12px';>&nbsp;</i>Posting </div>
+        <div class="message-btn-x easing user-talk-send"><i class="spinner user-talk-spinner" >&nbsp;</i>Posting </div>
         {{/if}}
     </div>
 

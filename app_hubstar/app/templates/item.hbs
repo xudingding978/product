@@ -237,6 +237,7 @@
                 </div>
                 <ul class="hideClass edit-object-ul item-edit-delete" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
+
                     <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o item-edit-action" ></i>Delete</li>
                     {{/if}}
                     {{#if controller.is_user_editing_mode}}

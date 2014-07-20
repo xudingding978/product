@@ -404,6 +404,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.transitionToRoute('profilePdf');
             }
         },
+      
         yesAbout: function(checkingInfo) {
             $(window).scrollTop(650);
             if (checkingInfo === "aboutMe") {

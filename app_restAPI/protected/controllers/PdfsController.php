@@ -141,7 +141,9 @@ class PdfsController extends Controller {
     public function actionUpdate() {
         $request_json = file_get_contents('php://input');
         $newRecord = CJSON::decode($request_json, true);
-        $id = $newRecord['pdf']['id'];
+        $url = $_SERVER['REQUEST_URI'];
+        $url_arr = explode("/",$url);
+        $id = end($url_arr);
         try {
             $cb = $this->couchBaseConnection();
 
@@ -149,8 +151,10 @@ class PdfsController extends Controller {
             $docID = $this->getDomain() . "/" . $id;
             $cbRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
             $oldRecord = CJSON::decode($cbRecord, true);
-            $oldRecord['pdf'][0] = $newRecord['pdf'];
-
+            $oldRecord['pdf'][0]['pdf_title'] = $newRecord['pdf']['pdf_title'];
+            $oldRecord['pdf'][0]['pdf_desc'] = $newRecord['pdf']['pdf_desc'];
+            $oldRecord['object_title'] = $newRecord['pdf']['pdf_title'];
+            $oldRecord['object_description'] = $newRecord['pdf']['pdf_desc'];
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {

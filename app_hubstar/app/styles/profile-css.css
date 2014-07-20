@@ -3204,11 +3204,11 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .pdfuploader-back{
-    position: absolute; 
+    position: absolute;
     top: 0;
-    background-color: rgba(204, 204, 204, 0.75); 
-    height: 490px; 
-    z-index: 0; 
+    background-color: rgba(255, 255, 255, 0.75);
+    height: 440px;
+    z-index: 0;
     width: 600px;
 }
 .pdfuploader-inner{
@@ -3221,7 +3221,7 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .pdfuploader-txtContainer{
-    top: 30.5%;
+    top: 25%;
     position: absolute;
     width: 100%;
     text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;
@@ -3248,6 +3248,17 @@ div#appfeedback .fresh-message > i.fa-times{
     width: 380px;
     margin: auto;
 }
+
+.pdfuploader-add-resource{
+    width:100%; 
+    height: 50px; 
+    background-color: #ccc; 
+    text-align: center; 
+    font-size: 25px; 
+    font-weight: bold;
+    padding: 14px 0;
+}
+
 
 .pdfuploader-preview-container{
     border: 3px solid #ccc;
@@ -3288,7 +3299,7 @@ div#appfeedback .fresh-message > i.fa-times{
 }
 
 .pdfuploader-editing-container{
-    display: none;
+    display: block;
     padding: 10px;
     margin: 0 10px;
 }

@@ -129,7 +129,19 @@ HubStar.ProfileRoute = Ember.Route.extend({
 
             // Return true to bubble this event to any parent route.
             return  this.transitionTo('fourOhFour', "404");
-        }
+        },
+        transitionToPdf: function(id) {
+            var url = "";
+            var pdfContent = this.controllerFor('profilePdf').get('pdfContent');
+            for (var i = 0; i < pdfContent.get('length'); i++) {
+                if (pdfContent.objectAt(i).get('id') === id) {
+                    url = pdfContent.objectAt(i).get('pdf').objectAt(0).get('pdf_url');
+                }
+            }
+            window.open(
+                    url
+                    ).focus();
+        }  
     },
     redirect: function(params) {
         var p= HubStar.Profile.find(params.id);

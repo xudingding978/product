@@ -84,7 +84,7 @@ class PdfsController extends Controller {
         $profile_json = $cb->get($docID);
         $profile_mega = CJSON::decode($profile_json);
         if (!isset($profile_mega['profile'][0]['pdf_id']) || $profile_mega['profile'][0]['pdf_id'] == null || $profile_mega['profile'][0]['pdf_id'] == 'undefined') {
-            $profile_mega['profile'][0]['pdf_id'] = $id;
+            $profile_mega['profile'][0]['pdf_id'] = $id."";
         } else {
             $profile_mega['profile'][0]['pdf_id'] = $profile_mega['profile'][0]['pdf_id'] . "," . $id;
         }

@@ -2,9 +2,9 @@
     <!--enable to edit the tag controller-->
     <div class="tagitshow">
     <div class="tagImg">
-        <a href="{{unbound controller.tag.linkto}}" > 
+        <div class ="tagImg-target" {{action gotoTarget controller.tag.linkto on="click" target="view"}}" > 
             <img  {{bind-attr src= "controller.tag.pic_url"}} style="width:{{unbound controller.tag.width}}; height:{{unbound controller.tag.height}}">
-        </a>
+        </div>
     </div>
     <div class="tagMiddle">
         <div class="tagName" class="name">
@@ -17,11 +17,11 @@
                 {{controller.tag.desc}}
             </div>
             {{else}}
-            <a href="{{unbound controller.tag.linkto}}" >
+           <div class ="tagImg-target" {{action gotoTarget controller.tag.linkto on="click" target="view"}}" > 
                 <div class="tagDesc">
                     {{controller.tag.desc}}
                 </div>
-            </a>
+            </div>
             {{/if}}
 
         </div>

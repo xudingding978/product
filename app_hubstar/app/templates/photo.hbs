@@ -141,7 +141,7 @@
                 <i class="fa fa-arrow-right"></i>
             </div>
             {{#unless controller.isRead}}
-            <div class="text-on-black"> {{controller.image_no}}/{{content.length}} </div>
+            <div class="text-on-black"> {{controller.image_no}}/{{contentData.length}} </div>
             {{/unless}}
         </div>
 
@@ -382,7 +382,7 @@
                                 </div>
 
                                 <div class="comment-content">
-                                    {{content}}
+                                    {{contentData}}
 
                                     <!-- for +someone into the conversation-->
                                     <span>

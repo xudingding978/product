@@ -1,9 +1,9 @@
 HubStar.GroupNetworkController = Ember.Controller.extend({
-    content: [],
+    contentData: [],
     profileIds: "",
     needs: ['permission', 'applicationFeedback', 'group'],
     getClientId: function(model) {
-        this.set('content', []);
+        this.set('contentData', []);
         this.set('loadingTime', false);
         this.set('profileIds', model);
         if (this.get('profileIds') !== null && this.get('profileIds') !== 'undefined' && this.get('profileIds') !== "") {
@@ -40,7 +40,7 @@ HubStar.GroupNetworkController = Ember.Controller.extend({
                 }
             }
             tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
-            that.get("content").pushObject(tempmega);
+            that.get("contentData").pushObject(tempmega);
         }
     }
 }

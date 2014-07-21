@@ -83,6 +83,9 @@ HubStar.TagContentView = Ember.View.extend({
     actions: {
         hideContent: function() {
             this.get("controller").set("showEachTagContent", false);
+        },
+        gotoTarget: function(url){
+            window.open(url);
         }
     },
     mouseLeave: Ember.aliasMethod('hideContent')

@@ -29,9 +29,9 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
             this.set('delete_id', null);
             this.relayout();
         },
-        removeCollectedItem: function()
+        removeCollectedItem: function(type)
         {
-            this.set('message', "Remove this video?");
+            this.set('message', "Remove this pdf?");
             this.set('makeSureDelete', !this.get('makeSureDelete'));
 
         },
@@ -73,7 +73,6 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     },
     getClientId: function(model) {
         var results = HubStar.Mega.find({"RquireType": "pdf", 'ownerid': model.get("id")});
-
         var that = this;
         this.set("loadingTime", true);
         results.then(function() {
@@ -129,13 +128,7 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
                 });
             }, 100);
         }, 200);
-    },    
-    removeCollectedItem: function(type)
-    {
-        this.set('message', "Remove this pdf?");
-        this.set('makeSureDelete', !this.get('makeSureDelete'));
-
-    },
+    },        
 //    deleteConfirm: function()
 //    {
 //        var id = this.get('delete_id');
@@ -157,7 +150,14 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
                     tempmega.deleteRecord();
                     tempmega.store.save();
                 }
-                                
+                var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
+                var pdf_id = profile.get('pdf_id');
+                pdf_id = pdf_id.replace(id+',','');
+                pdf_id = pdf_id.replace(id,'');
+                console.log(pdf_id);
+                profile.set("pdf_id", pdf_id);
+                profile.store.save();
+                this.get("controllers.profile").set("profilePdfStatistics", this.get('pdfContent').get("length"));                
                 break;
             }
         }

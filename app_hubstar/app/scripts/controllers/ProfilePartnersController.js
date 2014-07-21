@@ -1,5 +1,5 @@
 HubStar.ProfilePartnersController = Ember.Controller.extend({
-    content: [],
+    contentData: [],
     clientID: "",
     partnerID: "",
     model: "",
@@ -22,9 +22,10 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     }.observes('currentAddPartnerPic'),
     getClientId: function(model) {
         this.set("partnerNew", "");
-        this.set('content', []);
+        this.set('contentData', []);
         this.set("model", model);
         this.set('clientID', model.id);
+        this.checkAuthenticUser();
         this.set('loadingTime', false);
         this.set('partnerID', model.get('profile_partner_ids'));
         if (this.get('partnerID') !== null && this.get('partnerID') !== 'undefined' && this.get('partnerID') !== "") {
@@ -32,7 +33,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             var data = HubStar.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
             var that = this;
             data.then(function() {
-                that.checkAuthenticUser();
+                
                 that.setContent(data);
                 that.get('controllers.profile').paternsStatistics(data.get("length"));
             });
@@ -66,7 +67,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             profileOwner.set('profile_partner_ids', this.get('partnerID'));
             this.removePartnerObject(idDel);
             profileOwner.store.commit();
-            this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
+            this.get('controllers.profile').paternsStatistics(this.get('contentData').get("length"));
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
                 setTimeout(function() {
@@ -81,7 +82,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     },
     removePartnerObject: function(partner_id)
     {
-        var data = this.get('content');
+        var data = this.get('contentData');
         for (var i = 0; i < data.get("length"); i++) {
             var tempmega = data.objectAt(i);
             if (tempmega.get('id') === partner_id) {
@@ -116,7 +117,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                     this.get('controllers.profile').set('newDesc', '');
                 }
             }
-            this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
+            this.get('controllers.profile').paternsStatistics(this.get('contentData').get("length"));
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please input valid url", "warnning");
         }
@@ -127,7 +128,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         profileOwner.set('profile_partner_ids', this.get('partnerID'));
         profileOwner.store.commit();
         var newPartner = HubStar.Mega.find(client_id);
-        this.get("content").insertAt(0, newPartner);
+        this.get("contentData").insertAt(0, newPartner);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
@@ -164,7 +165,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         });
     },
     searchPartner: function(searchKeyWord) {
-        this.set('content', []);
+        this.set('contentData', []);
         var data = HubStar.Mega.find({RequireType: "partnerSearch", profile_partner_ids: this.get('partnerID'), "keyword": searchKeyWord});
         var that = this;
         this.set('loadingTime', true);
@@ -204,7 +205,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                 }
             }
             tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
-            that.get("content").pushObject(tempmega);
+            that.get("contentData").pushObject(tempmega);
         }
     }
 

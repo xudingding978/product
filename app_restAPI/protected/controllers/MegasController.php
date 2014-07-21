@@ -292,6 +292,9 @@ class MegasController extends Controller {
             $megas = CJSON::decode($request_json, true);
             $mega = $megas['mega'];
             $docID = $this->getDocId($mega['type'], $mega['id']);
+            if ($mega['type'] == 'pdf') {
+                $this->deleteProfilePdf($mega['pdf'][0]);
+            }
             $cb = $this->couchBaseConnection();
             if ($cb->delete($docID)) {
                 $this->sendResponse(204);
@@ -302,6 +305,16 @@ class MegasController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
+    
+    public function deleteProfilePdf($pdf) {
+        $cb = $this->couchBaseConnection();
+        $docID = $this->getDomain() . "/profiles/" . $pdf['pdf_profile_id'];
+        $profile_json = $cb->get($docID);
+        $profile_mega = CJSON::decode($profile_json);
+        $profile_mega['profile'][0]['pdf_id'] = str_replace(",".$pdf['id'], "", $profile_mega['profile'][0]['pdf_id']);
+        $profile_mega['profile'][0]['pdf_id'] = str_replace($pdf['id'], "", $profile_mega['profile'][0]['pdf_id']);
+        $cb->set($docID, CJSON::encode($profile_mega));
+    }
 
     public function updateProfileRecord($newRecord) {
 
@@ -311,25 +324,29 @@ class MegasController extends Controller {
 
             $docID = $this->getDomain() . "/profiles/" . $id;
             $oldRecord = $cb->get($docID);
-            $oldRecord = CJSON::decode($oldRecord, true);
-            if (!isset($oldRecord['view_count'])) {
-                $oldRecord["view_count"] = 1; //$newRecord['mega']['view_count'];
-            } else {
-                $oldRecord["view_count"] = $newRecord['mega']['view_count']; //$newRecord['mega']['view_count'];
-            }
-            if (!isset($oldRecord['accessed'])) {
-                $oldRecord["accessed"] = 1;
-            }
-            $oldRecord["accessed"] = date_timestamp_get(new DateTime());
+            if ($oldRecord !== "") {
+                $oldRecord = CJSON::decode($oldRecord, true);
+                if (!isset($oldRecord['view_count'])) {
+                    $oldRecord["view_count"] = 1; //$newRecord['mega']['view_count'];
+                } else {
+                    $oldRecord["view_count"] = $newRecord['mega']['view_count']; //$newRecord['mega']['view_count'];
+                }
+                if (!isset($oldRecord['accessed'])) {
+                    $oldRecord["accessed"] = 1;
+                }
+                $oldRecord["accessed"] = date_timestamp_get(new DateTime());
 
-            if (!isset($oldRecord['share_count'])) {
-                $oldRecord["share_count"] = 0;
-            } else {
-                $oldRecord["share_count"] = $newRecord['mega']['share_count'];
-            }
+                if (!isset($oldRecord['share_count'])) {
+                    $oldRecord["share_count"] = 0;
+                } else {
+                    $oldRecord["share_count"] = $newRecord['mega']['share_count'];
+                }
 
-            if ($cb->set($docID, CJSON::encode($oldRecord))) {
-                $this->sendResponse(204);
+                if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                    $this->sendResponse(204);
+                } else {
+                    $this->sendResponse(500, "some thing wrong");
+                }
             } else {
                 $this->sendResponse(500, "some thing wrong");
             }

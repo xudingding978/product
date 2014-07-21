@@ -141,7 +141,23 @@ HubStar.SearchRoute = Ember.Route.extend({
                 }
             }
 
-        }
+        },
+        transitionToPdf: function(id) {
+            var url = "";
+//            var pdfContent = this.controllerFor('profilePdf').get('pdfContent');
+//            for (var i = 0; i < pdfContent.get('length'); i++) {
+//                if (pdfContent.objectAt(i).get('id') === id) {
+//                    url = pdfContent.objectAt(i).get('pdf').objectAt(0).get('pdf_url');
+//                }
+//            }
+            var mega = HubStar.Mega.find(id);
+            if (mega.get('type') === 'pdf') {
+                url = mega.get('pdf').objectAt(0).get('pdf_url');
+            }
+            window.open(
+                    url
+                    ).focus();
+        } 
     },
     redirect: function() {
     },

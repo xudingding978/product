@@ -1,6 +1,6 @@
 
 HubStar.PhotoCreateController = Ember.ArrayController.extend({
-    content: [],
+    contentData: [],
     newMegas: [],
     mode: null,
     filesNumber: null,
@@ -144,7 +144,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             mega.addObserver('isSaving', function() {
 
                 if (mega.get('isSaving')) {
-                    $('.' + file.get('photo_source_id')).attr("style", "display:block");
+                    $('#' + file.get('id')).css("display", "block");
                 }
                 else {
 
@@ -190,7 +190,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     checkingCleanBeforeUpload: function() {
 
         if (HubStar.get('isNewUpload')) {
-            this.set('content', []);
+            this.set('contentData', []);
             HubStar.set('isNewUpload', false);
         }
     },
@@ -215,8 +215,8 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         var data;
         if (HubStar.get('selectedCollection') !== undefined && HubStar.get('selectedCollection') !== null && HubStar.get('selectedCollection').id === collection.get("id"))
         {
-            var content = HubStar.get('selectedCollection').collection_ids;
-            if (content === null || content === undefined || content === "") {
+            var contentData = HubStar.get('selectedCollection').collection_ids;
+            if (contentData === null || contentData === undefined || contentData === "") {
                 data = JSON.stringify([HubStar.get('selectedCollection').id, HubStar.get('selectedCollection').optional, photoId]);
                 requiredBackEnd('collections', 'savePhotoCollection', data, 'POST', function(params) {
                     if (collection.get("collection_ids") === null || collection.get("collection_ids") === undefined || collection.get("collection_ids") === "") {

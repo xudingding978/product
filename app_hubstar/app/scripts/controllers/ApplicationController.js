@@ -2,7 +2,7 @@
 /*global Ember */
 /*global $:false */
 
-HubStar.ApplicationController = Ember.ArrayController.extend({
+HubStar.ApplicationController = Ember.Controller.extend({
     selected_topics: "",
     isAdd: false,
     error: false,
@@ -15,6 +15,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     navigator_id1: "",
     headerAbout: false,
     userProfile: false,
+    contentData:[],
     contentTopicResidential: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment Design'},
         {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/bathroom.png', topic: 'Bathrooms'},
@@ -35,9 +36,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         {id: "15", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/retail.png', topic: 'Retail Design'}
     ],
     classification: "All",
+
     loginModal:false,
-    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection', 'search'],
-    content: [],
+    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection', 'search','profile','profileNew'],
+
     loginInfo: "",
     search_area: "",
     search_string: "inspirational",
@@ -331,7 +333,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 $(document).ready(function() {
                     setTimeout(function() {
                         that.residentialCommercialStatus();
-                        $(".Navigator-box").css("margin-left","110px");
+                        $(".Navigator-box").css("margin-left", "110px");
                     }, 50);
                 });
             });
@@ -347,7 +349,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
             var that = this;
             this.get("categorys").then(function() {
-
                 $(document).ready(function() {
                     setTimeout(function() {
                         that.residentialCommercialStatus();
@@ -366,10 +367,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         HubStar.set("isTopAdDisplay", true);
         HubStar.set("isAddCollection", false);
         HubStar.set("isShareEmail", false);
-
         var that = this;
-
-        this.set('categorys', HubStar.Cate.find({}));
+        var cate;
+        if (localStorage.geoLocation === "United States") {
+            cate = HubStar.Cate.find({RquireType: "cateRead", location: "USA"});
+        }
+        else
+        {
+            cate = HubStar.Cate.find({RquireType: "cateRead", location: "International"});
+        }
+        this.set('categorys', cate);
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
             var array = $.map(callbck, function(value, index) {
@@ -401,7 +408,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             ga('Trends.send', 'event', 'button', 'click', 'SignUp');
             HubStar.set('checkLoginStatus', true);
             setTimeout(function() {
-                
+
                 $("#profiles-main-container").css("display", "block");
                 $('#register-with-social-select-interests').css('display', 'block');
                 $('#user-login-pane').css('display', 'none');
@@ -602,9 +609,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 $("#topResidentialCommerical").css('display', "none");
             } else {
-                 if (HubStar.get("isTopAdDisplay")) { 
+                if (HubStar.get("isTopAdDisplay")) {
                     $('#masonry_wrapper').css('top', "240px");
-                        $("#top_bar_ads").css({"position": "fixed", "top": "90px"});       
+                    $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
                 }
                 else
                 {
@@ -722,7 +729,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
             }
-            this.pushObject(tempmega);
+            this.get('contentData').pushObject(tempmega);
         }
         var that = this;
         $(document).ready(function() {
@@ -791,7 +798,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     newSearch: function() {
         if (this.get('loadingTime') === false) {
             this.set("googletagCmd", []);
-            this.set("content", []);
+            this.set("contentData", []);
             this.set("oldChildren", 0);
             this.set("totalItems", 0);
             this.set("from", 0);
@@ -846,7 +853,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("pageCount", 0);
         this.set("loginInfo", localStorage.loginStatus);
         this.set("googletagCmd", []);
-        this.set("content", []);
+        this.set("contentData", []);
         this.set("adPageNo", 0);
 
         this.set("totalItems", 0);

@@ -125,8 +125,12 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
             }
         },
         shareDisplay: function(id) {
-
-            $('#share_' + id).children('ul').removeClass("hideClass");
+            $('#share_' + id).children('ul').toggleClass('hideClass');
+            $('#share_' + id).children('ul').click(function() {
+                $('#share_' + id).children('ul').removeClass("hideClass");
+            }).mouseleave(function() {
+                $('#share_' + id).children('ul').addClass('hideClass');
+            });
         },
         shareHide: function(id) {
             $('#share_' + id).children('ul').addClass("hideClass");

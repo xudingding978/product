@@ -35,17 +35,7 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
             this.set('makeSureDelete', !this.get('makeSureDelete'));
 
         },
-        transitionToPdf: function(id) {
-            var url = "";
-            for (var i = 0; i < this.get('pdfContent').get('length'); i++) {
-                if (this.get('pdfContent').objectAt(i).get('id') === id) {
-                    url = this.get('pdfContent').objectAt(i).get('pdf').objectAt(0).get('pdf_url');
-                }
-            }
-            window.open(
-                    url
-                    ).focus();
-        },
+        
         dropdownPhotoSetting: function(id)
         {
             this.set('delete_id', id);
@@ -173,19 +163,6 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
         this.relayout();
     },
             
-    transitionToPdf: function(id) {
-    var url = "";
-    for (var i = 0; i < this.get('pdfContent').get('length'); i ++) {
-        if (this.get('pdfContent').objectAt(i).get('id') === id) {
-            console.log(i);
-            url = this.get('pdfContent').objectAt(i).get('pdf').objectAt(0).get('pdf_url');
-        }
-    }
-
-        window.open(
-                url
-                ).focus();
-    },
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var current_user_email = currentUser.get('email');

@@ -20,7 +20,9 @@ module.exports = function(grunt) {
     var yeomanConfig = {
         app: 'app',
         dist: 'dist',
-        test: 'test'
+        test: 'test',
+        sev: '../app_restAPI/protected/config',
+        ignr: '../'
     };
     grunt.initConfig({
         //pkg: grunt.file.readJSON('package.json'),
@@ -99,6 +101,22 @@ module.exports = function(grunt) {
                 replacements: [{
                     from: 'ember.js', 
                     to: 'ember.prod.js'
+                }]
+            },
+            testbucket:{
+                src:'<%=yeoman.sev %>/params-local.php',
+                dest:'<%=yeoman.sev %>/params-local.php',
+                replacements: [{
+                    from: 'develop', 
+                    to: 'test'
+                }]
+            },
+            productbucket:{
+                src:'<%=yeoman.sev %>/params-local.php',
+                dest:'<%=yeoman.sev %>/params-local.php',
+                replacements: [{
+                    from: 'develop', 
+                    to: 'production'
                 }]
             }
         },
@@ -179,6 +197,9 @@ module.exports = function(grunt) {
             }
         },
         clean: {
+            options:{
+                force:true
+            },
             dist: {
                 files: [{
                         dot: true,
@@ -199,11 +220,20 @@ module.exports = function(grunt) {
                         ]
                     }]
             },
-            server: '.tmp'
+            server: '.tmp',
+            ignore: {
+                files:[{
+                        dot: true,
+                        src: [
+                            '<%=yeoman.ignr %>/.gitignore'
+                        ]
+                }]
+            }
         },
         jshint: {
             options: {
-                jshintrc: '.jshintrc'  //dont change this file
+                jshintrc: '.jshintrc',  //dont change this file
+                reporter: require('jshint-stylish')
                         //reporterOutput: 'jshintFailFile/jshintAddCollectionController.xml'   //create report for one file
                         //reporterOutput: 'jshintFailFile/jshint.xml' 
             },
@@ -479,7 +509,7 @@ module.exports = function(grunt) {
         'clean:dist',
         'replace:version',
         'replace:dist',
-        'useminPrepare',
+        'useminPrepare:html',
         'concurrent:dist',
         'neuter:app',
         'concat',
@@ -491,6 +521,46 @@ module.exports = function(grunt) {
         'manifest',
         'rev:test'
     ]);
+    //testSiteBuild include change bucket to test and deleted ignore file
+    grunt.registerTask('testSiteBuild', [
+        'clean:dist',
+        'replace:version',
+        'replace:dist',
+        'useminPrepare:html',
+        'concurrent:dist',
+        'neuter:app',
+        'concat',
+        'cssmin',
+        'uglify',
+        'copy:dist',
+        'rev',
+        'usemin',
+        'manifest',
+        'rev:test',
+        'replace:testbucket',
+        'clean:ignore'
+    ]);
+    
+    //productSiteBuild include change bucket to test and deleted ignore file
+    grunt.registerTask('productSiteBuild', [
+        'clean:dist',
+        'replace:version',
+        'replace:dist',
+        'useminPrepare:html',
+        'concurrent:dist',
+        'neuter:app',
+        'concat',
+        'cssmin',
+        'uglify',
+        'copy:dist',
+        'rev',
+        'usemin',
+        'manifest',
+        'rev:test',
+        'replace:productbucket',
+        'clean:ignore'
+    ]);
+    
     grunt.registerTask('default', [
         'jshint'
                 //  'test',

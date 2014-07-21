@@ -23,12 +23,7 @@ HubStar.UserArticleRoute = Ember.Route.extend({
 
         megaModel.then(function() {
             that.controllerFor("article").getInitData(megaModel);
-        }, function() {
-
-            that.transitionTo('fourOhFour', "404");
         });
-
-
     },
     model: function(params) {
         var model = HubStar.Mega.find(params.article_id);

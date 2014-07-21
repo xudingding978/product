@@ -19,5 +19,5 @@ HubStar.MasonryView = Ember.View.extend({
     },  
     mega: function() {
         this.rerender();
-    }.observes('controller.content')
+    }.observes('controller.contentData')
 });

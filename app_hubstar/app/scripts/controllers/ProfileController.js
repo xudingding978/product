@@ -655,9 +655,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.set('contactChecking', !this.get('contactChecking'));
             }
         },
-        dropdownPhotoSetting: function() {
-            $("#dropdown_id_").toggleClass('hideClass');
-            $("#dropdown_id_").click(function() {
+        dropdownPhotoSetting: function(id) {
+            $("#dropdown_id_" + id).toggleClass('hideClass');
+            $("#dropdown_id_" + id).click(function() {
                 $(this).removeClass('hideClass');
             }).mouseleave(function() {
                 $(this).addClass('hideClass');
@@ -852,9 +852,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
         },
         keywordSearch: function(keyword) {
-            this.transitionToRoute('searchIndexTom');
-            this.get("controllers.application").set('search_string', keyword);
-            this.get("controllers.application").newSearch();
+            this.transitionToRoute('search', {id: keyword});
         },
         dropdown: function(checking) {
             if (checking === "package") {

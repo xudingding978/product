@@ -2,7 +2,7 @@
     HubStar.IndexController = Ember.ArrayController.extend({
         needs: ['application', 'status'],
         loginInfo: "",
-        content: [],
+        contentData: [],
         islogin: false,
         search_string: "",
         search_area: "",
@@ -12,7 +12,7 @@
             var d = new Date();
             var start = d.getTime();
             var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string")});
-            this.set("content", results);
+            this.set("contentData", results);
             var stats = Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string")});
             var that = this;
             stats.addObserver('isLoaded', function() {
@@ -36,7 +36,7 @@
             ac.grapData();
             st.grapData();
             var results = HubStar.Mega.find({});           
-            this.set("content", results);
+            this.set("contentData", results);
         },
         getResponseTime: function(start, end)
         {

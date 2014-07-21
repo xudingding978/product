@@ -1,5 +1,5 @@
 HubStar.ArticleController = Ember.Controller.extend({
-    content: [],
+    contentData: [],
     image_no: 1,
     selectedPhoto: null,
     captionTitle: "",
@@ -398,7 +398,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                 this.set("contentTagsArticle", "");
                 this.get("controllers.showTag").set("contentTags", "");
                 if (!this.get('selectedPhoto')) {
-                    this.set('selectedPhoto', this.get('content').get('lastObject'));
+                    this.set('selectedPhoto', this.get('contentData').get('lastObject'));
                 }
                 var selectedIndex = this.findSelectedItemIndex();
                 selectedIndex--;
@@ -407,12 +407,12 @@ HubStar.ArticleController = Ember.Controller.extend({
                 }
                 if (selectedIndex < 0) {
 
-                    selectedIndex = this.get('content').get('length') - 1;
-                    this.set('image_no', this.get('content').get('length'));
+                    selectedIndex = this.get('contentData').get('length') - 1;
+                    this.set('image_no', this.get('contentData').get('length'));
                 }
                 this.set("isShowPhotoUrl", true);
                 this.set('image_no', selectedIndex + 1);
-                this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+                this.set('selectedPhoto', this.get('contentData').objectAt(selectedIndex));
                 this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
                 this.get("controllers.showTag").readTags(this.get('selectedPhoto').get("id"), "article");
                 if (this.get("accessFromSearchBoard") === false)
@@ -494,20 +494,20 @@ HubStar.ArticleController = Ember.Controller.extend({
                 this.get("controllers.showTag").set("contentTags", "");
                 this.set("isShowPhotoUrl", true);
                 if (!this.get('selectedPhoto')) {
-                    this.set('selectedPhoto', this.get('content').get('firstObject'));
+                    this.set('selectedPhoto', this.get('contentData').get('firstObject'));
                 }
                 var selectedIndex = this.findSelectedItemIndex();
                 selectedIndex++;
-                if (selectedIndex >= this.get('content').get('length') - 1) {
+                if (selectedIndex >= this.get('contentData').get('length') - 1) {
                     this.get("controllers.checkingLoginStatus").popupLogin();
                 }
-                if (selectedIndex >= (this.get('content').get('length'))) {
+                if (selectedIndex >= (this.get('contentData').get('length'))) {
 
                     this.set('image_no', 1);
                     selectedIndex = 0;
                 }
                 this.set('image_no', selectedIndex + 1);
-                this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+                this.set('selectedPhoto', this.get('contentData').objectAt(selectedIndex));
                 this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
                 this.get("controllers.showTag").readTags(this.get('selectedPhoto').get("id"), "article");
                 if (this.get("accessFromSearchBoard") === false)
@@ -617,7 +617,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                     var date = new Date();
                     var message_id = createMessageid() + commenter_id;
                     var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
-                        "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
+                        "commenter_id": commenter_id, "name": name, "contentData": commentContent, "time_stamp": date.toString(),
                         "is_delete": false, optional: this.get('article').get('type') + '/' + this.get('article').get('id')});
                     comments.insertAt(0, tempComment);
                     comments.store.save();
@@ -654,7 +654,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                     comments.objectAt(i).set("isEdit", false);
                 }
             }
-            var msg = object.get("content");
+            var msg = object.get("contentData");
             HubStar.set("updateCommentmsg", msg);
         },
         closeContact: function() {
@@ -694,7 +694,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             this.set('captionTitle', this.get('selectedPhoto').get("photo_title"));
             this.set('caption', this.get('selectedPhoto').get("photo_caption"));
 
-            var contents = this.get('content');
+            var contents = this.get('contentData');
             var selectedIndex = 1;
             for (var index = 0; index <= contents.get('length') - 1; index++) {
 
@@ -703,7 +703,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                 }
             }
 
-            if (selectedIndex >= (this.get('content').get('length') + 1)) {
+            if (selectedIndex >= (this.get('contentData').get('length') + 1)) {
                 this.set('image_no', 1);
                 selectedIndex = 1;
             }
@@ -751,9 +751,9 @@ HubStar.ArticleController = Ember.Controller.extend({
         HubStar.set("readCaption", true);
     },
     findSelectedItemIndex: function() {
-        var content = this.get('content');
-        for (var index = 0; index <= content.get('length'); index++) {
-            if (this.get('selectedPhoto') === content.objectAt(index)) {
+        var contentData = this.get('contentData');
+        for (var index = 0; index <= contentData.get('length'); index++) {
+            if (this.get('selectedPhoto') === contentData.objectAt(index)) {
                 return index;
             }
         }
@@ -913,7 +913,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("enableTag", false);
         this.set("showTagAfterSave", false);
         this.JudgeBusinessProfile(); //it is used to judge whether the user has business profile or it is the trends account
-        this.set("content", []);
+        this.set("contentData", []);
         this.set("selectedPhoto", '');
         this.set('image_no', 1);
         var that = this;
@@ -975,7 +975,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                     for (var i = 0; i < length; i++) {
                         var temp = this.objectAt(i);
                         if (temp.get("photo") !== undefined) {
-                            that.get("content").pushObject(temp.get("photo").objectAt(0)); //find the object which contain photos and push it into model
+                            that.get("contentData").pushObject(temp.get("photo").objectAt(0)); //find the object which contain photos and push it into model
                         }
                     }
                     if (that.get("accessFromSearchBoard") === false)
@@ -984,12 +984,12 @@ HubStar.ArticleController = Ember.Controller.extend({
                         {
                             if (that.get("controllers.masonryCollectionItems").get("type") === "profile")
                             {
-                                that.transitionToRoute("profileArticlePhoto", that.get('content').objectAt(0));
+                                that.transitionToRoute("profileArticlePhoto", that.get('contentData').objectAt(0));
                             }
                             else
                             {
 
-                                that.transitionToRoute("articlePhoto", that.get('content').objectAt(0));
+                                that.transitionToRoute("articlePhoto", that.get('contentData').objectAt(0));
                             }
                             this.set("isShowPhotoUrl", false);
                         }
@@ -1009,29 +1009,29 @@ HubStar.ArticleController = Ember.Controller.extend({
 
                                 if (search_id === "default")
                                 {
-                                    that.transitionToRoute("searchDefaultArticlePhoto", that.get("content").objectAt(0));
+                                    that.transitionToRoute("searchDefaultArticlePhoto", that.get("contentData").objectAt(0));
                                 } else
                                 {
-                                    that.transitionToRoute("searchIndexArticlePhoto", that.get("content").objectAt(0));
+                                    that.transitionToRoute("searchIndexArticlePhoto", that.get("contentData").objectAt(0));
                                 }
 
                             } else if (search_type === "profiles")
                             {
-                                that.transitionToRoute("profileArticlePhoto", that.get('content').objectAt(0));
+                                that.transitionToRoute("profileArticlePhoto", that.get('contentData').objectAt(0));
                             }
                             else if (search_type === "users")
                             {
-                                that.transitionToRoute("articlePhoto", that.get('content').objectAt(0));
+                                that.transitionToRoute("articlePhoto", that.get('contentData').objectAt(0));
                             }
                             else if (search_type === "articles")
                             {
-                                that.transitionToRoute("searchsArticlePhoto", that.get('content').objectAt(0));
+                                that.transitionToRoute("searchsArticlePhoto", that.get('contentData').objectAt(0));
                             }
                             this.set("isShowPhotoUrl", false);
                         }
 
                     }
-                    if (that.get('content').length !== 1) {
+                    if (that.get('contentData').length !== 1) {
                         $(document).ready(function() {
                             setTimeout(function() {
                                 $("#previousarticlephoto").removeClass("touch-cursor");
@@ -1047,7 +1047,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                             }, 10);
                         });
                     }
-                    that.set('selectedPhoto', that.get('content').objectAt(0)); //set selectedPhoto to the first photo
+                    that.set('selectedPhoto', that.get('contentData').objectAt(0)); //set selectedPhoto to the first photo
                     that.set('captionTitle', that.get('selectedPhoto').get("photo_title"));
                     that.set('caption', that.get('selectedPhoto').get("photo_caption"));
                     that.captionDisplay();
@@ -1065,7 +1065,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
                     else
                     {
-                        that.send("selectImage", that.get("content").objectAt(0).get("id"));
+                        that.send("selectImage", that.get("contentData").objectAt(0).get("id"));
 
                         if (HubStar.get("photoID") === null || HubStar.get("photoID") === undefined || HubStar.get("photoID") === "")
                         {

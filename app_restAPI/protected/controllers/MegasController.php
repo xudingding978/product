@@ -292,6 +292,9 @@ class MegasController extends Controller {
             $megas = CJSON::decode($request_json, true);
             $mega = $megas['mega'];
             $docID = $this->getDocId($mega['type'], $mega['id']);
+            if ($mega['type'] == 'pdf') {
+                $this->deleteProfilePdf($mega['pdf'][0]);
+            }
             $cb = $this->couchBaseConnection();
             if ($cb->delete($docID)) {
                 $this->sendResponse(204);
@@ -301,6 +304,16 @@ class MegasController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
+    }
+    
+    public function deleteProfilePdf($pdf) {
+        $cb = $this->couchBaseConnection();
+        $docID = $this->getDomain() . "/profiles/" . $pdf['pdf_profile_id'];
+        $profile_json = $cb->get($docID);
+        $profile_mega = CJSON::decode($profile_json);
+        $profile_mega['profile'][0]['pdf_id'] = str_replace(",".$pdf['id'], "", $profile_mega['profile'][0]['pdf_id']);
+        $profile_mega['profile'][0]['pdf_id'] = str_replace($pdf['id'], "", $profile_mega['profile'][0]['pdf_id']);
+        $cb->set($docID, CJSON::encode($profile_mega));
     }
 
     public function updateProfileRecord($newRecord) {

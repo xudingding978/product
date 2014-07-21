@@ -2,7 +2,7 @@
 /*global Ember */
 /*global $:false */
 
-HubStar.ApplicationController = Ember.ArrayController.extend({
+HubStar.ApplicationController = Ember.Controller.extend({
     selected_topics: "",
     isAdd: false,
     error: false,
@@ -15,6 +15,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     navigator_id1: "",
     headerAbout: false,
     userProfile: false,
+    contentData:[],
     contentTopicResidential: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment Design'},
         {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/bathroom.png', topic: 'Bathrooms'},
@@ -35,9 +36,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         {id: "15", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/retail.png', topic: 'Retail Design'}
     ],
     classification: "All",
-    loginModal: false,
+
+    loginModal:false,
     needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection', 'search','profile','profileNew'],
-    content: [],
+
     loginInfo: "",
     search_area: "",
     search_string: "inspirational",
@@ -727,7 +729,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
             }
-            this.pushObject(tempmega);
+            this.get('contentData').pushObject(tempmega);
         }
         var that = this;
         $(document).ready(function() {
@@ -796,7 +798,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     newSearch: function() {
         if (this.get('loadingTime') === false) {
             this.set("googletagCmd", []);
-            this.set("content", []);
+            this.set("contentData", []);
             this.set("oldChildren", 0);
             this.set("totalItems", 0);
             this.set("from", 0);
@@ -851,7 +853,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("pageCount", 0);
         this.set("loginInfo", localStorage.loginStatus);
         this.set("googletagCmd", []);
-        this.set("content", []);
+        this.set("contentData", []);
         this.set("adPageNo", 0);
 
         this.set("totalItems", 0);

@@ -36,7 +36,6 @@ HubStar.UserArticleRoute = Ember.Route.extend({
             $("body").css("overflow", "hidden");
             $('#footer').attr("style", "display:none");
         }, 100);
-
     },
     actions: {
         transitionToProfile: function(id) {

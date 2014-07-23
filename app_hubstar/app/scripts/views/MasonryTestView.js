@@ -1,6 +1,6 @@
 HubStar.MasonryTestView = Ember.CollectionView.extend({
     itemViewClass: HubStar.ItemView,
-    contentBinding: "controller.content",
+    contentBinding: "controller.contentData",
     didInsertElement: function() {
           $(function() {
             $('#masonry_container').masonry({
@@ -17,5 +17,5 @@ HubStar.MasonryTestView = Ember.CollectionView.extend({
     },
     mega: function() {
         this.rerender();
-    }.observes('controller.content')
+    }.observes('controller.contentData')
 });

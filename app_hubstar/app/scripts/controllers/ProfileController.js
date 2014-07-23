@@ -88,6 +88,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     profilePartnerStatistics: "",
     profileFollowerStatistics: "",
     profileVideoStatistics: "",
+    profilePdfStatistics: "",
     region: "",
     selectedCollection: "",
     switchPhoto: false,
@@ -154,6 +155,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     categorys: [],
     subcate: [],
     backgroundImage: "",
+    pdf_id:"",
     editorAdd: false,
     isShareEmail: false,
     actions: {
@@ -653,9 +655,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.set('contactChecking', !this.get('contactChecking'));
             }
         },
-        dropdownPhotoSetting: function() {
-            $("#dropdown_id_").toggleClass('hideClass');
-            $("#dropdown_id_").click(function() {
+        dropdownPhotoSetting: function(id) {
+            $("#dropdown_id_" + id).toggleClass('hideClass');
+            $("#dropdown_id_" + id).click(function() {
                 $(this).removeClass('hideClass');
             }).mouseleave(function() {
                 $(this).addClass('hideClass');
@@ -1500,6 +1502,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         else {
             this.followersStatistics(0);
+        }
+        this.set("pdf_id", profile.get("pdf_id"));
+        if (this.get("pdf_id") !== null && this.get('pdf_id').trim() !== "")
+        {
+            var pdf_id = this.get("pdf_id").split(",");
+            this.set('profilePdfStatistics',pdf_id.get('length'));
+        }
+        else {
+            this.set('profilePdfStatistics', 0);
         }
         this.statstics();
     },

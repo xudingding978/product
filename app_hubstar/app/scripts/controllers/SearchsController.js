@@ -1,7 +1,7 @@
-HubStar.SearchsController = Ember.ArrayController.extend({
+HubStar.SearchsController = Ember.Controller.extend({
     needs: ['application', 'status', 'platformBar', 'user'],
     loginInfo: "",
-    content: [],
+    contentData: [],
     search_string: "",
     search_area: "",
     searchResultNum: "",
@@ -11,7 +11,7 @@ HubStar.SearchsController = Ember.ArrayController.extend({
         //var d = new Date();
 //            var start = d.getTime();
         var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string")});
-        this.set("content", results);
+        this.set("contentData", results);
 
     },
     defaultSearch: function() {

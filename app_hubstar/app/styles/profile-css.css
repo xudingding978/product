@@ -2987,6 +2987,9 @@ div#appfeedback .fresh-message > i.fa-times{
     overflow: hidden;
     border-bottom: 1px solid #ddd; 
 }
+#map_canvas_pop img {
+    max-width: none;
+}
 
 .googlemappop-scrollbar{
     display:none; 

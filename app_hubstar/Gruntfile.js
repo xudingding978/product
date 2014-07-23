@@ -1,6 +1,7 @@
 // Generated on 2013-08-01 using generator-ember 0.5.9
 'use strict';
-var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
+var LIVERELOAD_PORT = 35729;
+var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
 var mountFolder = function(connect, dir) {
     return connect.static(require('path').resolve(dir));
 };
@@ -11,16 +12,20 @@ var mountFolder = function(connect, dir) {
 // 'test/spec/**/*.js'
 
 module.exports = function(grunt) {
-// load all grunt tasks
-    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+    // show elapsed time at the end
+    require('time-grunt')(grunt);
+    // load all grunt tasks
+    require('load-grunt-tasks')(grunt);
     // configurable paths
     var yeomanConfig = {
         app: 'app',
         dist: 'dist',
-        test: 'test'
+        test: 'test',
+        sev: '../app_restAPI/protected/config',
+        ignr: '../'
     };
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
+        //pkg: grunt.file.readJSON('package.json'),
         yeoman: yeomanConfig,
         manifest: {
             generate: {
@@ -82,19 +87,43 @@ module.exports = function(grunt) {
                         }
                     }]
             },
+            app: {
+                src: '<%= yeoman.app %>/index.html',
+                dest: '.tmp/index.html',
+                replacements: [{
+                    from: 'ember.js', 
+                    to: 'ember.js'
+                }]
+            },
             dist: {
                 src: '<%= yeoman.app %>/index.html',
-                dest: '<%= yeoman.app %>/index.html',
+                dest: '.tmp/index.html',
                 replacements: [{
                     from: 'ember.js', 
                     to: 'ember.prod.js'
+                }]
+            },
+            testbucket:{
+                src:'<%=yeoman.sev %>/params-local.php',
+                dest:'<%=yeoman.sev %>/params-local.php',
+                replacements: [{
+                    from: 'develop', 
+                    to: 'test'
+                }]
+            },
+            productbucket:{
+                src:'<%=yeoman.sev %>/params-local.php',
+                dest:'<%=yeoman.sev %>/params-local.php',
+                replacements: [{
+                    from: 'develop', 
+                    to: 'production'
                 }]
             }
         },
         watch: {
             emberTemplates: {
                 files: '<%= yeoman.app %>/templates/**/*.hbs',
-                tasks: ['emberTemplates', 'livereload']
+                tasks: ['emberTemplates']
             },
             coffee: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
@@ -110,15 +139,18 @@ module.exports = function(grunt) {
             },
             neuter: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-                tasks: ['neuter', 'livereload']
+                tasks: ['neuter']
             },
             livereload: {
+                options:{
+                    livereload:LIVERELOAD_PORT
+                },
                 files: [
+                    '.tmp/scripts/*.js',
                     '<%= yeoman.app %>/*.html',
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg,ico}'
-                ],
-                tasks: ['livereload', 'buildTest', 'test']
+                ]
             }
         },
         connect: {
@@ -133,7 +165,7 @@ module.exports = function(grunt) {
                         return [
                             lrSnippet,
                             mountFolder(connect, '.tmp'),
-                            mountFolder(connect, 'app')
+                            mountFolder(connect, yeomanConfig.app)
                         ];
                     }
                 }
@@ -165,6 +197,9 @@ module.exports = function(grunt) {
             }
         },
         clean: {
+            options:{
+                force:true
+            },
             dist: {
                 files: [{
                         dot: true,
@@ -185,11 +220,20 @@ module.exports = function(grunt) {
                         ]
                     }]
             },
-            server: '.tmp'
+            server: '.tmp',
+            ignore: {
+                files:[{
+                        dot: true,
+                        src: [
+                            '<%=yeoman.ignr %>/.gitignore'
+                        ]
+                }]
+            }
         },
         jshint: {
             options: {
-                jshintrc: '.jshintrc'  //dont change this file
+                jshintrc: '.jshintrc',  //dont change this file
+                reporter: require('jshint-stylish')
                         //reporterOutput: 'jshintFailFile/jshintAddCollectionController.xml'   //create report for one file
                         //reporterOutput: 'jshintFailFile/jshint.xml' 
             },
@@ -287,7 +331,7 @@ module.exports = function(grunt) {
             }
         },
         useminPrepare: {
-            html: '<%= yeoman.app %>/index.html',
+            html: '.tmp/index.html',
             options: {
                 dest: '<%= yeoman.dist %>'
             }
@@ -429,8 +473,8 @@ module.exports = function(grunt) {
         }
     });
     //grunt.loadNpmTasks('grunt-contrib-qunit');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.renameTask('regarde', 'watch');
+    //grunt.loadNpmTasks('grunt-contrib-uglify');
+    //grunt.renameTask('regarde', 'watch');
     grunt.registerTask('server', function(target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
@@ -438,9 +482,9 @@ module.exports = function(grunt) {
 
         grunt.task.run([
             'clean:server',
+            'replace:app',
             'concurrent:server',
             'neuter:app',
-            'livereload-start',
             'connect:livereload',
             'open',
             'watch'
@@ -465,7 +509,7 @@ module.exports = function(grunt) {
         'clean:dist',
         'replace:version',
         'replace:dist',
-        'useminPrepare',
+        'useminPrepare:html',
         'concurrent:dist',
         'neuter:app',
         'concat',
@@ -477,6 +521,46 @@ module.exports = function(grunt) {
         'manifest',
         'rev:test'
     ]);
+    //testSiteBuild include change bucket to test and deleted ignore file
+    grunt.registerTask('testSiteBuild', [
+        'clean:dist',
+        'replace:version',
+        'replace:dist',
+        'useminPrepare:html',
+        'concurrent:dist',
+        'neuter:app',
+        'concat',
+        'cssmin',
+        'uglify',
+        'copy:dist',
+        'rev',
+        'usemin',
+        'manifest',
+        'rev:test',
+        'replace:testbucket',
+        'clean:ignore'
+    ]);
+    
+    //productSiteBuild include change bucket to test and deleted ignore file
+    grunt.registerTask('productSiteBuild', [
+        'clean:dist',
+        'replace:version',
+        'replace:dist',
+        'useminPrepare:html',
+        'concurrent:dist',
+        'neuter:app',
+        'concat',
+        'cssmin',
+        'uglify',
+        'copy:dist',
+        'rev',
+        'usemin',
+        'manifest',
+        'rev:test',
+        'replace:productbucket',
+        'clean:ignore'
+    ]);
+    
     grunt.registerTask('default', [
         'jshint'
                 //  'test',

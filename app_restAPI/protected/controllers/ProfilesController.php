@@ -174,7 +174,7 @@ class ProfilesController extends Controller {
             } else {
                 $setPhotoBoost = FALSE;
             }
-            $oldRecord['profile'][0]['profile_partner_ids'] = $newRecord['profile_partner_ids'];
+            //$oldRecord['profile'][0]['profile_partner_ids'] = $newRecord['profile_partner_ids'];
             $oldRecord['profile'][0]['profile_physical_address'] = $newRecord['profile_physical_address'];
             $oldRecord['profile'][0]['profile_suburb'] = $newRecord['profile_suburb'];
             $oldRecord['profile'][0]['profile_regoin'] = $newRecord['profile_regoin'];
@@ -302,7 +302,34 @@ class ProfilesController extends Controller {
         $oldRecordDeep['profile'][0]['profile_partner_ids'] = str_replace($item_id . ',', "", $oldRecordDeep['profile'][0]['profile_partner_ids']);
         $oldRecordDeep['profile'][0]['profile_partner_ids'] = str_replace(',' . $item_id, "", $oldRecordDeep['profile'][0]['profile_partner_ids']);
         $oldRecordDeep['profile'][0]['profile_partner_ids'] = str_replace($item_id, "", $oldRecordDeep['profile'][0]['profile_partner_ids']);
-        
+
+        if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+            $this->sendResponse(200, CJSON::encode($oldRecordDeep['profile'][0]['profile_partner_ids']));
+        } else {
+            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+        }
+    }
+
+    public function actionAddPartner() {
+        $request_json = CJSON::decode(file_get_contents('php://input'), true);
+        $request_arr_all = CJSON::decode($request_json, true);
+
+        $item_id = $request_arr_all[0];
+        $profile_id = $request_arr_all[1];
+
+        $docIDDeep = $this->getDomain() . "/profiles/" . $profile_id; //$id  is the page owner
+        $cb = $this->couchBaseConnection();
+        $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+        $oldRecordDeep = CJSON::decode($oldDeep, true);
+        if (!isset($oldRecordDeep['profile'][0]['profile_partner_ids']) || $oldRecordDeep['profile'][0]['profile_partner_ids'] === null) {
+            $oldRecordDeep['profile'][0]['profile_partner_ids'] = "";
+        }
+        if ($oldRecordDeep['profile'][0]['profile_partner_ids'] === "") {
+            $oldRecordDeep['profile'][0]['profile_partner_ids'] = $item_id;
+        } else {
+            $oldRecordDeep['profile'][0]['profile_partner_ids'] = $item_id.','.$oldRecordDeep['profile'][0]['profile_partner_ids'];
+        }
+
         if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
             $this->sendResponse(200, CJSON::encode($oldRecordDeep['profile'][0]['profile_partner_ids']));
         } else {

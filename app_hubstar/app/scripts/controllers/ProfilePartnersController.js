@@ -134,8 +134,17 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     pushUptoBackend: function(client_id)
     {
         var profileOwner = HubStar.Profile.find(this.get('clientID'));
-        profileOwner.set('profile_partner_ids', this.get('partnerID'));
-        profileOwner.store.commit();
+
+        var data = [];
+        data[0] = client_id;
+        data[1] = this.get('clientID');
+        data = JSON.stringify(data);
+        var that = this;
+        requiredBackEnd('profiles', 'addPartner', data, 'POST', function(params) {
+            profileOwner.set('profile_partner_ids', params);
+            profileOwner.save();
+        });
+
         var newPartner = HubStar.Mega.find(client_id);
         this.get("contentData").insertAt(0, newPartner);
         setTimeout(function() {
@@ -161,7 +170,6 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             var current_user_email = currentUser.get('email');
             var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
             that.set("is_authentic_user", is_authentic_user || is_edit);
-            that.set('loadingTime', false);
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
                 setTimeout(function() {
@@ -219,6 +227,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
+                that.set('loadingTime', false);
                 $('#masonry_user_container').masonry();
                 $('html,body').animate({
                     scrollTop: $("#profile_submenu").offset().top - 100

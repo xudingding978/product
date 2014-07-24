@@ -321,15 +321,16 @@ class ProfilesController extends Controller {
         $cb = $this->couchBaseConnection();
         $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
         $oldRecordDeep = CJSON::decode($oldDeep, true);
-        if (!isset($oldRecordDeep['profile'][0]['profile_partner_ids']) || $oldRecordDeep['profile'][0]['profile_partner_ids'] === null) {
-            $oldRecordDeep['profile'][0]['profile_partner_ids'] = "";
+        if (strpos($oldRecordDeep['profile'][0]['profile_partner_ids'], $item_id)===false) {
+            if (!isset($oldRecordDeep['profile'][0]['profile_partner_ids']) || $oldRecordDeep['profile'][0]['profile_partner_ids'] === null) {
+                $oldRecordDeep['profile'][0]['profile_partner_ids'] = "";
+            }
+            if ($oldRecordDeep['profile'][0]['profile_partner_ids'] === "") {
+                $oldRecordDeep['profile'][0]['profile_partner_ids'] = $item_id;
+            } else {
+                $oldRecordDeep['profile'][0]['profile_partner_ids'] = $item_id . ',' . $oldRecordDeep['profile'][0]['profile_partner_ids'];
+            }
         }
-        if ($oldRecordDeep['profile'][0]['profile_partner_ids'] === "") {
-            $oldRecordDeep['profile'][0]['profile_partner_ids'] = $item_id;
-        } else {
-            $oldRecordDeep['profile'][0]['profile_partner_ids'] = $item_id.','.$oldRecordDeep['profile'][0]['profile_partner_ids'];
-        }
-
         if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
             $this->sendResponse(200, CJSON::encode($oldRecordDeep['profile'][0]['profile_partner_ids']));
         } else {

@@ -181,6 +181,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                         
                         data[0] = collection.get("id");
                         data[1] = JSON.stringify(collection);
+                        data = JSON.stringify(data);
                         requiredBackEnd('collections', 'saveUserCollection', data, 'POST', function(params) {
                             collection.save();
                             var tempComment = [ob_id];

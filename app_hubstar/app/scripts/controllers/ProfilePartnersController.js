@@ -14,6 +14,88 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         cancelDelete: function() {
             this.set('willDelete', false);
             this.set('makeSureDelete', false);
+        },
+        submit: function() {
+            var client_input = this.get("currentAddPartnerPic");
+            if (client_input.indexOf("/profiles/") !== -1) {
+                var client_id = client_input.split("/profiles/")[1].split('/')[0];
+                var temp = this.get('partnerID');
+                if (temp === null || temp === "") {
+                    this.set('partnerID', client_id);
+                    this.pushUptoBackend(client_id);
+                } else {
+                    if (temp.indexOf(client_id) !== -1) {
+
+                        this.get('controllers.applicationFeedback').statusObserver(null, "This partner is already in your list", "warnning");
+                    }
+                    else if (this.get("clientID") === client_id) {
+                        this.get('controllers.applicationFeedback').statusObserver(null, "Please do not add yourself", "warnning");
+                    }
+                    else {
+                        this.set('partnerID', client_id + "," + temp);
+                        this.pushUptoBackend(client_id);
+                        this.set('currentAddPartnerPic', '');
+                        $(" #uploadArea").attr('style', "display:none");
+                        $(" #uploadObject").attr('style', "display:block");
+                        this.get('controllers.profile').set('newTitle', '');
+                        this.get('controllers.profile').set('newDesc', '');
+                    }
+                }
+                this.get('controllers.profile').paternsStatistics(this.get('contentData').get("length"));
+            } else {
+                this.get('controllers.applicationFeedback').statusObserver(null, "Please input valid url", "warnning");
+            }
+        },
+        deleteSelectedPartner: function(idDel) {
+            if (idDel !== undefined)
+            {
+                this.set("delID", idDel);
+            }
+            else
+            {
+                idDel = this.get("delID");
+            }
+            var message = "Remove this partner?";
+            this.set("message", message);
+            this.set('makeSureDelete', true);
+            if (this.get('willDelete')) {
+//            var ids = this.get("partnerID").split(",");
+//            var delResult = "";
+//            for (var i = 0; i < ids.length; i++)
+//            {
+//                if (idDel !== ids[i])
+//                {
+//                    delResult = delResult + ids[i] + ",";
+//                }
+//            }
+//            delResult = delResult.substr(0, delResult.length - 1);
+                var data = [];
+                var profileOwner = HubStar.Profile.find(this.get('clientID'));
+                data[0] = idDel;
+                data[1] = this.get('clientID');
+                data = JSON.stringify(data);
+                var that = this;
+                requiredBackEnd('profiles', 'deletePartner', data, 'POST', function(params) {
+                    that.set('partnerID', params);
+                    profileOwner.set('profile_partner_ids', that.get('partnerID'));
+                    profileOwner.save();
+                });
+
+
+                this.removePartnerObject(idDel);
+
+                this.get('controllers.profile').paternsStatistics(this.get('contentData').get("length"));
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry("reloadItems");
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry();
+                    }, 100);
+                }, 200);
+                this.send("cancelDelete");
+            } else {
+                this.set('willDelete', true);
+                //HubStar.set('data', model);
+            }
         }
     },
     addingPartnerObserver: function() {
@@ -33,51 +115,9 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             var data = HubStar.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
             var that = this;
             data.then(function() {
-                
                 that.setContent(data);
                 that.get('controllers.profile').paternsStatistics(data.get("length"));
             });
-        }
-    },
-    deleteSelectedPartner: function(idDel) {
-        if (idDel !== undefined)
-        {
-            this.set("delID", idDel);
-        }
-        else
-        {
-            idDel = this.get("delID");
-        }
-        var message = "Remove this partner?";
-        this.set("message", message);
-        this.set('makeSureDelete', true);
-        if (this.get('willDelete')) {
-            var ids = this.get("partnerID").split(",");
-            var delResult = "";
-            for (var i = 0; i < ids.length; i++)
-            {
-                if (idDel !== ids[i])
-                {
-                    delResult = delResult + ids[i] + ",";
-                }
-            }
-            delResult = delResult.substr(0, delResult.length - 1);
-            this.set('partnerID', delResult);
-            var profileOwner = HubStar.Profile.find(this.get('clientID'));
-            profileOwner.set('profile_partner_ids', this.get('partnerID'));
-            this.removePartnerObject(idDel);
-            profileOwner.store.commit();
-            this.get('controllers.profile').paternsStatistics(this.get('contentData').get("length"));
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
-                setTimeout(function() {
-                    $('#masonry_user_container').masonry();
-                }, 100);
-            }, 200);
-            this.cancelDelete();
-        } else {
-            this.set('willDelete', true);
-            //HubStar.set('data', model);
         }
     },
     removePartnerObject: function(partner_id)
@@ -89,37 +129,6 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                 data.removeObject(tempmega);
                 break;
             }
-        }
-    },
-    submit: function() {
-        var client_input = this.get("currentAddPartnerPic");
-        if (client_input.indexOf("/profiles/") !== -1) {
-            var client_id = client_input.split("/profiles/")[1].split('/')[0];
-            var temp = this.get('partnerID');
-            if (temp === null || temp === "") {
-                this.set('partnerID', client_id);
-                this.pushUptoBackend(client_id);
-            } else {
-                if (temp.indexOf(client_id) !== -1) {
-
-                    this.get('controllers.applicationFeedback').statusObserver(null, "This partner is already in your list", "warnning");
-                }
-                else if (this.get("clientID") === client_id) {
-                    this.get('controllers.applicationFeedback').statusObserver(null, "Please do not add yourself", "warnning");
-                }
-                else {
-                    this.set('partnerID', client_id + "," + temp);
-                    this.pushUptoBackend(client_id);
-                    this.set('currentAddPartnerPic', '');
-                    $(" #uploadArea").attr('style', "display:none");
-                    $(" #uploadObject").attr('style', "display:block");
-                    this.get('controllers.profile').set('newTitle', '');
-                    this.get('controllers.profile').set('newDesc', '');
-                }
-            }
-            this.get('controllers.profile').paternsStatistics(this.get('contentData').get("length"));
-        } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please input valid url", "warnning");
         }
     },
     pushUptoBackend: function(client_id)
@@ -205,8 +214,17 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                 }
             }
             tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
-            that.get("contentData").pushObject(tempmega);
+            that.get("contentData").insertAt(0, tempmega);
         }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+                $('html,body').animate({
+                    scrollTop: $("#profile_submenu").offset().top - 100
+                });
+            }, 100);
+        }, 200);
     }
 
 }

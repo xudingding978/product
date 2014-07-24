@@ -102,8 +102,8 @@ class ProfilesController extends Controller {
             $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["profile"][0]));
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
 //Iterate over the hits and print out some data
-            if($request_arr!==null){
-            $result .=$respone_client_data;
+            if ($request_arr !== null) {
+                $result .=$respone_client_data;
             }
             $result .= '}';
             echo $this->sendResponse(200, $result);
@@ -145,11 +145,11 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_domains'] = $newRecord['profile_domains'];
             $oldRecord['profile'][0]['profile_country'] = $newRecord['profile_country'];
             $oldRecord['profile'][0]['profile_editors'] = $newRecord['profile_editors'];
-            
+
             $oldRecord['profile'][0]['profile_editor'] = $newRecord['profile_editor'];
             $oldRecord['profile'][0]['profile_administrator'] = $newRecord['profile_administrator'];
             $oldRecord['profile'][0]['profile_creator'] = $newRecord['profile_creator'];
-            
+
             $oldRecord['creator'] = $newRecord['profile_creator'];
             $oldRecord['editors'] = $newRecord['profile_editors'];
             $oldRecord['profile'][0]['profile_hours'] = $newRecord['profile_hours'];
@@ -169,7 +169,7 @@ class ProfilesController extends Controller {
                 $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
                 $boost = $this->setBoost($newRecord['profile_package_name']);
                 $oldRecord['profile'][0]['profile_boost'] = $boost;
-                $oldRecord['boost']=$boost;
+                $oldRecord['boost'] = $boost;
                 $setPhotoBoost = TRUE;
             } else {
                 $setPhotoBoost = FALSE;
@@ -210,6 +210,7 @@ class ProfilesController extends Controller {
 //                $this->setPhotoBoost($oldRecord['profile'][0]['profile_boost'], $oldRecord['profile'][0]['id']);
 //            }
         } catch (Exception $exc) {
+            
         }
     }
 
@@ -282,6 +283,31 @@ class ProfilesController extends Controller {
             }
         }
         return $data_arr;
+    }
+
+    public function actionDeletePartner() {
+        $request_json = CJSON::decode(file_get_contents('php://input'), true);
+        $request_arr_all = CJSON::decode($request_json, true);
+
+        $item_id = $request_arr_all[0];
+        $profile_id = $request_arr_all[1];
+
+        $docIDDeep = $this->getDomain() . "/profiles/" . $profile_id; //$id  is the page owner
+        $cb = $this->couchBaseConnection();
+        $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+        $oldRecordDeep = CJSON::decode($oldDeep, true);
+        if (!isset($oldRecordDeep['profile'][0]['profile_partner_ids']) || $oldRecordDeep['profile'][0]['profile_partner_ids'] === null) {
+            $oldRecordDeep['profile'][0]['profile_partner_ids'] = "";
+        }
+        $oldRecordDeep['profile'][0]['profile_partner_ids'] = str_replace($item_id . ',', "", $oldRecordDeep['profile'][0]['profile_partner_ids']);
+        $oldRecordDeep['profile'][0]['profile_partner_ids'] = str_replace(',' . $item_id, "", $oldRecordDeep['profile'][0]['profile_partner_ids']);
+        $oldRecordDeep['profile'][0]['profile_partner_ids'] = str_replace($item_id, "", $oldRecordDeep['profile'][0]['profile_partner_ids']);
+        
+        if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+            $this->sendResponse(200, CJSON::encode($oldRecordDeep['profile'][0]['profile_partner_ids']));
+        } else {
+            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+        }
     }
 
     public function setBoost($package_name) {

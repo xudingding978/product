@@ -72,6 +72,106 @@ class CollectionsController extends Controller {
         }
     }
 
+    public function actionDeleteUserCollection() {
+        $request_json = CJSON::decode(file_get_contents('php://input'), true);
+        $request_arr_all = CJSON::decode($request_json, true);
+
+        $item_id = $request_arr_all[0];
+        $collection_id = $request_arr_all[1];
+        $user_id = $request_arr_all[2];
+        $docIDDeep = $this->getDomain() . "/users/" . $user_id; //$id  is the page owner
+        $cb = $this->couchBaseConnection();
+        $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+        $oldRecordDeep = CJSON::decode($oldDeep, true);
+        if (!isset($oldRecordDeep['user'][0]['collections'])) {
+            $oldRecordDeep['user'][0]['collections'] = array();
+        }
+        $collectionItems = "";
+        for ($i = 0; $i < sizeof($oldRecordDeep['user'][0]['collections']); $i++) {
+            if ($oldRecordDeep['user'][0]['collections'][$i]["id"] === $collection_id) {
+                $oldRecordDeep['user'][0]['collections'][$i]["collection_ids"] = str_replace($item_id . ',', "", $oldRecordDeep['user'][0]['collections'][$i]["collection_ids"]);
+                $oldRecordDeep['user'][0]['collections'][$i]["collection_ids"] = str_replace(',' . $item_id, "", $oldRecordDeep['user'][0]['collections'][$i]["collection_ids"]);
+                $oldRecordDeep['user'][0]['collections'][$i]["collection_ids"] = str_replace($item_id, "", $oldRecordDeep['user'][0]['collections'][$i]["collection_ids"]);
+                $oldRecordDeep['user'][0]['collections'][$i]["updated_at"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+                $collectionItems = $oldRecordDeep['user'][0]['collections'][$i]["collection_ids"];
+            }
+        }
+        if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+            $this->sendResponse(200, CJSON::encode($collectionItems));
+        } else {
+            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+        }
+    }
+
+    public function actionDeleteProfileCollection() {
+        $request_json = CJSON::decode(file_get_contents('php://input'), true);
+        $request_arr_all = CJSON::decode($request_json, true);
+
+        $item_id = $request_arr_all[0];
+        $collection_id = $request_arr_all[1];
+        $profiles_id = $request_arr_all[2];
+        $docIDDeep = $this->getDomain() . "/profiles/" . $profiles_id; //$id  is the page owner
+        $cb = $this->couchBaseConnection();
+        $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+        $oldRecordDeep = CJSON::decode($oldDeep, true);
+        if (!isset($oldRecordDeep['profile'][0]['collections'])) {
+            $oldRecordDeep['profile'][0]['collections'] = array();
+        }
+        $collectionItems = "";
+        for ($i = 0; $i < sizeof($oldRecordDeep['profile'][0]['collections']); $i++) {
+            if ($oldRecordDeep['profile'][0]['collections'][$i]["id"] === $collection_id) {
+                $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = str_replace($item_id . ',', "", $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"]);
+                $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = str_replace(',' . $item_id, "", $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"]);
+                $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = str_replace($item_id, "", $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"]);
+                $oldRecordDeep['profile'][0]['collections'][$i]["updated_at"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+                $collectionItems = $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"];
+            }
+        }
+        if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+            $this->sendResponse(200, CJSON::encode($collectionItems));
+        } else {
+            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+        }
+    }
+
+    public function actionSaveUserCollection() {
+        $request_json = CJSON::decode(file_get_contents('php://input'), true);
+        $request_arr_all = CJSON::decode($request_json, true);
+
+        $request_arr_id = $request_arr_all[0];
+        $request_arr = CJSON::decode($request_arr_all[1], true);
+        $docIDDeep = $this->getDomain() . "/users/" . $request_arr["optional"]; //$id  is the page owner
+        $cb = $this->couchBaseConnection();
+        $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+        $oldRecordDeep = CJSON::decode($oldDeep, true);
+        if (!isset($oldRecordDeep['user'][0]['collections'])) {
+            $oldRecordDeep['user'][0]['collections'] = array();
+        }
+
+        $collectionIDs = explode(",", $request_arr["collection_ids"]);
+        $id = $collectionIDs[0];
+        $collectionItems = "";
+
+        for ($i = 0; $i < sizeof($oldRecordDeep['user'][0]['collections']); $i++) {
+            if ($oldRecordDeep['user'][0]['collections'][$i]["id"] === $request_arr_id) {
+                if (!isset($oldRecordDeep['user'][0]['collections'][$i]["collection_ids"]) || $oldRecordDeep['user'][0]['collections'][$i]["collection_ids"] === null || $oldRecordDeep['user'][0]['collections'][$i]["collection_ids"] === "") {
+                    $oldRecordDeep['user'][0]['collections'][$i]["collection_ids"] = $id;
+                    $oldRecordDeep['user'][0]['collections'][$i]["cover"] = $request_arr["cover"];
+                } else {
+                    $oldRecordDeep['user'][0]['collections'][$i]["collection_ids"] = $id . "," . $oldRecordDeep['user'][0]['collections'][$i]["collection_ids"];
+                    $oldRecordDeep['user'][0]['collections'][$i]["cover"] = $request_arr["cover"];
+                }
+                $oldRecordDeep['user'][0]['collections'][$i]["updated_at"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+                $collectionItems = $oldRecordDeep['user'][0]['collections'][$i]["collection_ids"];
+            }
+        }
+        if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+            $this->sendResponse(200, CJSON::encode($collectionItems));
+        } else {
+            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+        }
+    }
+
     public function actionSaveCollection() {
         $request_json = CJSON::decode(file_get_contents('php://input'), true);
         $request_arr = CJSON::decode($request_json, true);
@@ -89,10 +189,10 @@ class CollectionsController extends Controller {
             if ($oldRecordDeep['profile'][0]['collections'][$i]["id"] === $request_arr["id"]) {
                 if (!isset($oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"]) || $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] === null || $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] === "") {
                     $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = $id;
-                    $oldRecordDeep['profile'][0]['collections'][$i]["cover"]=$request_arr["cover"];
+                    $oldRecordDeep['profile'][0]['collections'][$i]["cover"] = $request_arr["cover"];
                 } else {
                     $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] . "," . $id;
-                     $oldRecordDeep['profile'][0]['collections'][$i]["cover"]=$request_arr["cover"];
+                    $oldRecordDeep['profile'][0]['collections'][$i]["cover"] = $request_arr["cover"];
                 }
                 $oldRecordDeep['profile'][0]['collections'][$i]["updated_at"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
                 $collectionItems = $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"];
@@ -174,7 +274,10 @@ class CollectionsController extends Controller {
                 $collection_num = $this->getSelectedcollection($records, $id);
 
                 if ($collection_num !== -1) {
-                    $oldRecord["profile"][0]["collections"] [$collection_num] = $newRecord["collection"];
+                    $oldRecord["profile"][0]["collections"] [$collection_num]["title"] = $newRecord["collection"]["title"];
+                    $oldRecord["profile"][0]["collections"] [$collection_num]["updated_at"] = $newRecord["collection"]["updated_at"];
+                    $oldRecord["profile"][0]["collections"] [$collection_num]["desc"] = $newRecord["collection"]["desc"];
+                    $oldRecord["profile"][0]["collections"] [$collection_num]["cover"] = $newRecord["collection"]["cover"];
                 }
             } else {
                 $docID = $this->getDomain() . "/users/" . $owner_id;
@@ -184,7 +287,10 @@ class CollectionsController extends Controller {
                 $collection_num = $this->getSelectedcollection($records, $id);
 
                 if ($collection_num !== -1) {
-                    $oldRecord["user"][0]["collections"] [$collection_num] = $newRecord["collection"];
+                    $oldRecord["user"][0]["collections"] [$collection_num]["title"] = $newRecord["collection"]["title"];
+                    $oldRecord["user"][0]["collections"] [$collection_num]["updated_at"] = $newRecord["collection"]["updated_at"];
+                    $oldRecord["user"][0]["collections"] [$collection_num]["desc"] = $newRecord["collection"]["desc"];
+                    $oldRecord["user"][0]["collections"] [$collection_num]["cover"] = $newRecord["collection"]["cover"];
                 }
             }
             if ($cb->set($docID, CJSON::encode($oldRecord))) {

@@ -160,7 +160,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                 var content;
                 var that = this;
                 var message;
-                var data;
+                var data=[];
                 var defaulturl = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png";
                 var ob_id = this.get("objectID");
                 if (HubStar.get("isProfile") === false) {
@@ -177,11 +177,18 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                             collection.set('cover', this.get("commentObject").get("object_image_url"));
                         }
                         collection.set("updated_at", new Date());
-                        collection.save();
-                        var tempComment = [ob_id];
-                        requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
-                            that.get("commentObject").set("save_count", params);
-                            that.get("commentObject").store.save();
+
+                        
+                        data[0] = collection.get("id");
+                        data[1] = JSON.stringify(collection);
+                        data = JSON.stringify(data);
+                        requiredBackEnd('collections', 'saveUserCollection', data, 'POST', function(params) {
+                            collection.save();
+                            var tempComment = [ob_id];
+                            requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
+                                that.get("commentObject").set("save_count", params);
+                                that.get("commentObject").store.save();
+                            });
                         });
                         this.sendFeedBack();
                     }

@@ -15,6 +15,7 @@ HubStar.PartnersRoute = Ember.Route.extend({
             this.controllerFor('profile').set('followerProfileTag', false);
             this.controllerFor('profile').set('pdfTag', false);
             this.controllerFor('profile').set('videoTag', false);
+            this.controllerFor('itemProfiles').setPartnerRemove();
             $(document).ready(function() {
                 setTimeout(function() {
                     $('#user-stats > li').removeClass('selected-user-stats');
@@ -22,7 +23,7 @@ HubStar.PartnersRoute = Ember.Route.extend({
                 }, 50);
             });
             this.controllerFor('profilePartners').getClientId(model);
-            this.controllerFor('profile').send("selectPartner",model);
+            //this.controllerFor('profile').send("selectPartner",model);
         }
     },
     model: function(params) {

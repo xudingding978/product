@@ -24,7 +24,7 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
             });
         },
         removeCollectedItem: function(idDel) {
-            this.get('controllers.profilePartners').deleteSelectedPartner(idDel);
+            this.get('controllers.profilePartners').send("deleteSelectedPartner",idDel);
         },
         toProfilePage: function(model) {
             HubStar.set("scrollPartenerPosition", $(window).scrollTop());

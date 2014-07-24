@@ -102,7 +102,7 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
             {
                 coverImge = Mega.get('article').objectAt(0).get("article_image_url");
             }
-            for (var i = 0; i < userOrprofile.get('contentData').length; i++) {
+            for (var i = 0; i < userOrprofile.get("length"); i++) {
 
                 if (userOrprofile.objectAt(i).get("id") === collection_id) {
 
@@ -123,6 +123,7 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
             this.send("dropdownPhotoSetting", itemID);
             if (this.get('willDelete')) {
                 var tempItem;
+                var data = [];
                 if (this.get("type") === "user") {
                     var currentUser = HubStar.User.find(localStorage.loginStatus);
                     var currentCollection = null;
@@ -139,10 +140,14 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
                                     if (collectedColletionids === null) {
                                         collectedColletionids = "";
                                     }
-                                    var tempcollectedColletionids = collectedColletionids.replace(this.get('itemID') + ",", "");
-                                    tempcollectedColletionids = tempcollectedColletionids.replace(this.get('itemID'), "");
-                                    currentCollection.set('collection_ids', tempcollectedColletionids);
-                                    currentCollection.store.save();
+                                    data[0] = this.get('itemID');
+                                    data[1] = currentCollection.get("id");
+                                    data[2] = currentCollection.get('optional');
+                                    data = JSON.stringify(data);
+                                    requiredBackEnd('collections', 'deleteUserCollection', data, 'POST', function(params) {
+                                        currentCollection.set('collection_ids', params);
+                                        currentCollection.save();
+                                    });
                                     this.get('contentData').removeObject(tempItem);
                                     break;
                                 }
@@ -172,18 +177,18 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
                                                 collectedColletionids = "";
                                             }
 
-                                            var ids = collectedColletionids.split(",");
-                                            var delResult = "";
-                                            for (var i = 0; i < ids.length; i++)
-                                            {
-                                                if (this.get('itemID') !== ids[i])
-                                                {
-                                                    delResult = delResult + ids[i] + ",";
-                                                }
-                                            }
-                                            delResult = delResult.substr(0, delResult.length - 1);
+//                                            var ids = collectedColletionids.split(",");
+//                                            var delResult = "";
+//                                            for (var i = 0; i < ids.length; i++)
+//                                            {
+//                                                if (this.get('itemID') !== ids[i])
+//                                                {
+//                                                    delResult = delResult + ids[i] + ",";
+//                                                }
+//                                            }
+//                                            delResult = delResult.substr(0, delResult.length - 1);
 
-                                            currentCollection.set('collection_ids', delResult);
+
                                             if (this.get("profileId") === item.get("owner_id") && item.get("collection_id") === this.get('collectionID')) {
                                                 if (item.get("save_count") > 0)
                                                 {
@@ -195,7 +200,15 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
                                                     item.store.save();
                                                 }
                                             }
-                                            currentCollection.store.save();
+                                            data[0] = this.get('itemID');
+                                            data[1] = currentCollection.get("id");
+                                            data[2] = currentCollection.get('optional');
+                                            data = JSON.stringify(data);
+                                            requiredBackEnd('collections', 'deleteProfileCollection', data, 'POST', function(params) {
+                                                currentCollection.set('collection_ids', params);
+                                                currentCollection.save();
+                                            });
+
                                             break;
                                         }
                                     }
@@ -313,7 +326,7 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
                     }, 15);
                 }, 5);
             });
-        },function(){
+        }, function() {
         });
         this.checkEditingMode();
     },

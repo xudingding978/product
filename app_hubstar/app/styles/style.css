@@ -633,6 +633,10 @@ div.search-loading-invisible{
 .edit-object-ul > .ite:first-child {border-radius: 3px 3px 0 0}
 .edit-object-ul > .ite:last-child {border-radius: 0 0 3px 3px}
 
+.edit-obj{
+    padding: 10px !important;
+}
+
 .ite:hover{
     color: #555;
     background-color: rgba(0,0,0,0.1);

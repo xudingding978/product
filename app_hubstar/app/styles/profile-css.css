@@ -3688,3 +3688,7 @@ div#appfeedback .fresh-message > i.fa-times{
     margin-left: 150px;
     color: red;
 }
+
+.trash-icon{
+    margin: 0 7px !important;
+}

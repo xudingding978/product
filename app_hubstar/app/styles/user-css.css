@@ -1464,7 +1464,8 @@ notification-context{
 }
 
 .item-edit-box{
-    right: 40px;
+    right: -31px;
+    width: 130px;
 }
 
 .item-title{
@@ -1511,10 +1512,6 @@ notification-context{
 .item-edit-action{
     font-size: 16px; 
     margin: 0px 5px;
-}
-
-.item-edit-delete{
-    right: 40px;
 }
 
 .item-wordbreak{

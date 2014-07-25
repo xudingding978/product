@@ -623,7 +623,7 @@ div.search-loading-invisible{
 }
 
 .edit-object-ul > .ite{
-    padding: 10px 30px 10px 20px;
+    padding: 10px;
     color: #555;
     border-top: 1px solid #fff;
     border-bottom: 1px solid #ddd;
@@ -632,6 +632,10 @@ div.search-loading-invisible{
 
 .edit-object-ul > .ite:first-child {border-radius: 3px 3px 0 0}
 .edit-object-ul > .ite:last-child {border-radius: 0 0 3px 3px}
+
+.edit-object-edit{
+    width: 90px;
+}
 
 .ite:hover{
     color: #555;

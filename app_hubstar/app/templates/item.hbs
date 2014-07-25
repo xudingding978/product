@@ -40,17 +40,17 @@
                 </div>
                 <ul class="hideClass edit-object-ul item-edit-box" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o itemprofile-edit-action" ></i>Delete</li>
-                    <li class="ite"  {{action changeCollectionCover id controller.collection_id HubStar.Profile}}> <i class="fa fa-check-circle itemprofile-edit-action" ></i>Set as collection cover</li>
+                    <li class="ite" {{action removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o itemprofile-edit-action" ></i>Delete</li>
+                    <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.Profile}}> <i class="fa fa-check-circle itemprofile-edit-action" ></i>Set as Cover</li>
                     {{/if}}
                     {{#if controller.is_user_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o itemprofile-edit-action" ></i>Remove</li>
-                    <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User}}><i class="fa fa-camera itemprofile-edit-action" ></i>Set as Cover</li>
+                    <li class="ite" {{action removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o itemprofile-edit-action" ></i>Remove</li>
+                    <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User}}><i class="fa fa-check-circle itemprofile-edit-action" ></i>Set as Cover</li>
                     {{/if}}
                 </ul>
 
                 {{/if}}
-            </span>
+            </span> 
         </div>
 
 
@@ -144,12 +144,12 @@
                      <i class="fa fa-cog item-edit-action" ></i>
                     <i class="fa fa-caret-down"></i>
                 </div>
-                <ul class="hideClass edit-object-ul item-edit-delete" id="dropdown_id_{{unbound id}}">
+                <ul class="hideClass edit-object-ul item-edit-box" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o item-edit-action" ></i>Delete</li>
+                    <li class="ite" {{action removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o item-edit-action" ></i>Delete</li>
                     {{/if}}
                     {{#if controller.is_user_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o item-edit-action" ></i>Remove</li>
+                    <li class="ite" {{action removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o item-edit-action" ></i>Remove</li>
                     {{/if}}
                 </ul>
 
@@ -235,7 +235,7 @@
                      <i class="fa fa-cog item-edit-action" ></i>
                     <i class="fa fa-caret-down"></i>
                 </div>
-                <ul class="hideClass edit-object-ul item-edit-delete" id="dropdown_id_{{unbound id}}">
+                <ul class="hideClass edit-object-ul item-edit-box" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
 
                     <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o item-edit-action" ></i>Delete</li>
@@ -316,14 +316,14 @@
                      <i class="fa fa-cog item-edit-action" ></i>
                     <i class="fa fa-caret-down"></i>
                 </div>
-                <ul class="hideClass edit-object-ul item-edit-delete" id="dropdown_id_{{unbound id}}">
+                <ul class="hideClass edit-object-ul item-edit-box" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
                     <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o item-edit-action" ></i>Delete</li>
-                    <li class="ite"  {{action changeCollectionCover id controller.collection_id HubStar.Profile "article"}}> <i class="fa fa-check-circle item-edit-action" ></i>Set as collection cover</li>
+                    <li class="ite"  {{action changeCollectionCover id controller.collection_id HubStar.Profile "article"}}> <i class="fa fa-check-circle item-edit-action" ></i>Set as Cover</li>
                     {{/if}}
                     {{#if controller.is_user_editing_mode}}
                     <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o item-edit-action" ></i>Remove</li>
-                    <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User "article"}}><i class="fa fa-camera item-edit-action" ></i>Set as Cover</li>
+                    <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User "article"}}><i class="fa fa-check-circle item-edit-action" ></i>Set as Cover</li>
                     {{/if}}
                 </ul>
                 {{/if}}

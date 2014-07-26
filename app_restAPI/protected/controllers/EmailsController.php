@@ -614,7 +614,7 @@ class EmailsController extends Controller {
         </div>
         <div style="width: 100%; border-bottom: 1px solid #555; padding: 20px;text-align: center;color:black;">
                 <div style="font-size:12px;margin-bottom:10px;font-style: italic;">Copyright @ 2014 Trends Publishing International. All rights reserved.</div>
-                <div style="font-size:12px;margin-bottom:20px"><a href="my.trendsideas.com">Sign up</a> to MyTrends</div>
+                <div style="font-size:12px;margin-bottom:20px"><a href="trendsideas.com">Sign up</a> to MyTrends</div>
                 
                 <div style="font-size:12px;margin-bottom:10px;font-weight:bold;">Our mailing address is:</div>
                 <div style="font-size:12px;margin-bottom:10px">Trends Publishing International</div>

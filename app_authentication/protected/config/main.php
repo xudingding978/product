@@ -40,11 +40,15 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
-$dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
 
-$domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
+$dot_number = str_word_count($_SERVER['HTTP_HOST'], 0, ".");
 
-
+if ($dot_number > 1) {
+    $dot_positon = strpos($_SERVER['HTTP_HOST'], ".");
+    $domain = substr($_SERVER['HTTP_HOST'], $dot_positon);
+} else {
+    $domain = "." . $_SERVER['HTTP_HOST'];
+}
 
 return CMap::mergeArray(
                 array(
@@ -164,7 +168,7 @@ return CMap::mergeArray(
 //                    ),
 //                ),
             ),
-                      'params' => array(
+            'params' => array(
 // this is used in contact page
                 'adminEmail' => 'webmaster@example.com',
                 // this the primary elastic search server and index

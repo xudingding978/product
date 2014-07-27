@@ -21,9 +21,6 @@ HubStar.ProfileArticleRoute = Ember.Route.extend({
         var that = this;
         d.then(function(){           
          that.controllerFor("article").getInitData(d);
-        },function() {
-            
-           that.transitionTo('fourOhFour',"404");
         });
     },
     model: function(params) {

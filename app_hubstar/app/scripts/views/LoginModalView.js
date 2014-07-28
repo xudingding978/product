@@ -209,6 +209,11 @@ HubStar.LoginModalView = Ember.View.extend({
     didInsertElement: function() {
         var that = this;
         $(document).ready(function() {
+             if (/iPhone|iPad/i.test(navigator.userAgent)) {
+                $('.social-login-iconbox').addClass('btn');
+                $('.social-links-container').css('padding', '0px');
+                $('.btn').css('border', '1px  #bbbbbb');
+            }
             if (localStorage.loginState === "login") {
                 $('.Login-box #login-btn').text('Sign up for a new account!');
                 $('.Login-box .black-tool-tip').css('display', 'none');

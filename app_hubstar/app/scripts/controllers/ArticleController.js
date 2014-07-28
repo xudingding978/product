@@ -332,7 +332,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             if (this.get("controllers.checkingLoginStatus").popupLogin())
             {
                 this.set('descript', this.get('selectedPhoto').get('photo_title'));
-                var currentUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedPhoto').get('id');
+                var currentUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
                 if (this.get('selectedPhoto').get("type") === "article")
                 {
                     this.set('descript', this.get('selectedPhoto').get('article').objectAt(0).get("article_headline"));

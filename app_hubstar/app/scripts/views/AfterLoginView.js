@@ -49,8 +49,14 @@ HubStar.AfterLoginView = Ember.View.extend({
                 $("#cancel").css("display", "none");
                 $(window).scrollTop(0);
             } else if (checking === "myMessageBoard") {
-                location.href = this.get("controller").get("myMessageBoard");
+                //location.href = this.get("controller").get("myMessageBoard");
                 //$("#user-dd-menu").attr("style", "display:none");
+                var that = this;
+                var user = HubStar.User.find(localStorage.loginStatus);
+                this.get("controller").transitionToRoute('user', user);
+                setTimeout(function() {
+                    that.get("controller").transitionToRoute('messageCenter');
+                }, 20);
                 this.get("controller").set('userProfile', false);
                 $("#cancel").css("display", "none");
 

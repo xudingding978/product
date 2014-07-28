@@ -479,7 +479,7 @@ HubStar.ApplicationController = Ember.Controller.extend({
         this.set("geoLocation", localStorage.geoLocation);
 
         if (localStorage.loginStatus) {
-            HubStar.set('ctaView', false);
+            HubStar.set('checkLoginStatus', false);
             var u = HubStar.User.find(localStorage.loginStatus);
             u.then(function() {
                 HubStar.set("profiles", []);

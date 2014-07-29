@@ -37,43 +37,62 @@
         <link rel="stylesheet" href="bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.css" type="text/css">  
         <!-- endbuild -->  
 
-    </head>
-    <body id="body_id" >
-        <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script>
+            (function() {
+                var _fbq = window._fbq || (window._fbq = []);
+                if (!_fbq.loaded) {
+                    var fbds = document.createElement('script');
+                    fbds.async = true;
+                    fbds.src = '//connect.facebook.net/en_US/fbds.js';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(fbds, s);
+                    _fbq.loaded = true;
+                }
+                _fbq.push(['addPixelId', '1513451855551675']);
+            })();
+            window._fbq = window._fbq || [];
+            window._fbq.push(['track', 'PixelInitialized', {}]);
+        </script>
+    <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=1513451855551675&amp;ev=NoScript" /></noscript>
 
-        <!-- build:js(app) scripts/components.js -->
-        <script src="bower_components/modernizr/modernizr.js"></script>
-        <script src="bower_components/javascriptHelper/browserdetecter.js"></script>
-        <script src="bower_components/jquery/jquery.js"></script>
-        <script src="bower_components/handlebars/handlebars-v1.3.0.js"></script>
-        <script src="bower_components/jquery.ui/jquery-ui-1.9.2.custom.min.js"></script>
-        <script src="bower_components/jquery.masonry/jquery.masonry.min.js"></script>
-        <script src="bower_components/bootstrap/bootstrap.min.js"></script>
-        <script src="bower_components/ember/ember.js"></script>
-        <script src="bower_components/ember-data-shim/ember-data.js"></script>
-        <script src="bower_components/moment/moment.js"></script>
-        <script src="bower_components/javascriptHelper/javascriptHelper.js"></script>
-        <script src="bower_components/javascriptHelper/html5ImageCropper.js"></script>
-        <script src="bower_components/wysihtml5/parser_rules/advanced.js" ></script>
-        <script src="bower_components/wysihtml5/dist/wysihtml5-0.3.0.js"  ></script>
-        <script src="bower_components/mousetrap.min.js" ></script>
-        <script src="bower_components/starrating/jquery.ratings.js"></script>    
-        <script src="bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="bower_components/jquery-scrollto/lib/jquery-scrollto.js"></script>
-        <script src="bower_components/dfp.js" ></script>
-        <script src="bower_components/javascriptHelper/countries.js" ></script>
-        <script src="bower_components/intro/intro.js" ></script>        
-        <!-- endbuild -->
 
-        <!-- build:js(.tmp) scripts/templates.js -->
-        <script src="scripts/compiled-templates.js"></script>      
-        <!-- endbuild -->
+</head>
+<body id="body_id" >
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
-        <!-- build:js(.tmp) scripts/main.js -->
-        <script src="scripts/combined-scripts.js"></script>
-        <!-- endbuild -->
+    <!-- build:js(app) scripts/components.js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <script src="bower_components/javascriptHelper/browserdetecter.js"></script>
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/handlebars/handlebars-v1.3.0.js"></script>
+    <script src="bower_components/jquery.ui/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="bower_components/jquery.masonry/jquery.masonry.min.js"></script>
+    <script src="bower_components/bootstrap/bootstrap.min.js"></script>
+    <script src="bower_components/ember/ember.js"></script>
+    <script src="bower_components/ember-data-shim/ember-data.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/javascriptHelper/javascriptHelper.js"></script>
+    <script src="bower_components/javascriptHelper/html5ImageCropper.js"></script>
+    <script src="bower_components/wysihtml5/parser_rules/advanced.js" ></script>
+    <script src="bower_components/wysihtml5/dist/wysihtml5-0.3.0.js"  ></script>
+    <script src="bower_components/mousetrap.min.js" ></script>
+    <script src="bower_components/starrating/jquery.ratings.js"></script>    
+    <script src="bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="bower_components/jquery-scrollto/lib/jquery-scrollto.js"></script>
+    <script src="bower_components/dfp.js" ></script>
+    <script src="bower_components/javascriptHelper/countries.js" ></script>
+    <script src="bower_components/intro/intro.js" ></script>        
+    <!-- endbuild -->
 
-        <script type='text/javascript'>
+    <!-- build:js(.tmp) scripts/templates.js -->
+    <script src="scripts/compiled-templates.js"></script>      
+    <!-- endbuild -->
+
+    <!-- build:js(.tmp) scripts/main.js -->
+    <script src="scripts/combined-scripts.js"></script>
+    <!-- endbuild -->
+
+    <script type='text/javascript'>
 //            var googletag = googletag || {};
 //            googletag.cmd = googletag.cmd || [];
             (function() {
@@ -86,38 +105,38 @@
                 var node = document.getElementsByTagName('script')[0];
                 node.parentNode.insertBefore(gads, node);
             })();
-        </script>
-        <noscript>
-        <h1>
-            Is seems that your browser has disabled JavaScript or does not support JavaScript! Please make sure you have enabled JavaScript or upgrade your browser.
-        </h1>
-        </noscript>
+    </script>
+    <noscript>
+    <h1>
+        Is seems that your browser has disabled JavaScript or does not support JavaScript! Please make sure you have enabled JavaScript or upgrade your browser.
+    </h1>
+    </noscript>
 
-        <script type="text/javascript">
-            //facebook
-            window.fbAsyncInit = function() {
-                // init the FB JS SDK
-                FB.init({
-                    appId: '358102574293594', // App ID from the app dashboard
-                    channelUrl: '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel file for x-domain comms
-                    status: true, // Check Facebook Login status
-                    xfbml: true                                  // Look for social plugins on the page
-                });
+    <script type="text/javascript">
+        //facebook
+        window.fbAsyncInit = function() {
+            // init the FB JS SDK
+            FB.init({
+                appId: '358102574293594', // App ID from the app dashboard
+                channelUrl: '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel file for x-domain comms
+                status: true, // Check Facebook Login status
+                xfbml: true                                  // Look for social plugins on the page
+            });
 
-                // Additional initialization code such as adding Event Listeners goes here
-            };
-            // Load the SDK asynchronously
-            (function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) {
-                    return;
-                }
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "//connect.facebook.net/en_US/all.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-        </script>     
-        <div id="fb-root"></div>
-    </body>
+            // Additional initialization code such as adding Event Listeners goes here
+        };
+        // Load the SDK asynchronously
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>     
+    <div id="fb-root"></div>
+</body>
 </html>

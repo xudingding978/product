@@ -73,51 +73,75 @@ module.exports = function(grunt) {
 //                ].join('&&')
 //            }
 //        },
-        replace: {          
+        replace: {
             version: {
-                src: '<%= yeoman.app %>/templates/navigator.hbs',
-                dest: '<%= yeoman.app %>/templates/navigator.hbs',
-                replacements: [{
-                        from: /lastidentifie\"\>\d\.\d\.[0-9]{1,500}/g,
-                        to: function(matchedWord) {
-                            var temp = matchedWord.substring(0, matchedWord.lastIndexOf(".") + 1);
-                            var num = matchedWord.substring(matchedWord.lastIndexOf(".") + 1);
-                            num = parseInt(num) + 1;
-                            return temp + num;
+                options: {
+                    patterns: [
+                        {
+                            match: /lastidentifie\"\>\d\.\d\.[0-9]{1,500}/g,
+                            replacement: function(matchedWord) {
+                                var temp = matchedWord.substring(0, matchedWord.lastIndexOf(".") + 1);
+                                var num = matchedWord.substring(matchedWord.lastIndexOf(".") + 1);
+                                num = parseInt(num) + 1;
+                                return temp + num;
+                            }
                         }
-                    }]
+                    ]
+                },
+                files: [
+                    {expand: true, flatten: true, src: ['<%= yeoman.app %>/templates/navigator.hbs'], dest: '<%= yeoman.app %>/templates/'}
+                ]
             },
             app: {
-                src: '<%= yeoman.app %>/index.html',
-                dest: '.tmp/index.html',
-                replacements: [{
-                    from: 'ember.js', 
-                    to: 'ember.js'
-                }]
+                options: {
+                    variables: {
+                        ember: '/bower_components/ember/ember.js'
+                    }
+                },
+                files: [
+                    {src: '<%= yeoman.app %>/index.html', dest: '.tmp/index.html'}
+                ]
+
             },
             dist: {
-                src: '<%= yeoman.app %>/index.html',
-                dest: '.tmp/index.html',
-                replacements: [{
-                    from: 'ember.js', 
-                    to: 'ember.prod.js'
-                }]
+                options: {
+                    variables: {
+                        ember: '/bower_components/ember/ember.prod.js'
+                    }
+                },
+                files: [
+                    {src: '<%= yeoman.app %>/index.html', dest: '.tmp/index.html'}
+                ]
             },
-            testbucket:{
-                src:'<%=yeoman.sev %>/params-local.php',
-                dest:'<%=yeoman.sev %>/params-local.php',
-                replacements: [{
-                    from: 'develop', 
-                    to: 'test'
-                }]
+            testbucket: {
+                options: {
+                    patterns: [
+                        {
+                            match: /develop/g,
+                            replacement: function () {
+                                return 'test';
+                            }
+                        }
+                    ]
+                },
+                files: [
+                    {expand: true, flatten: true, src: ['<%=yeoman.sev %>/params-local.php'], dest: '<%=yeoman.sev %>/'}
+                ]
             },
             productbucket:{
-                src:'<%=yeoman.sev %>/params-local.php',
-                dest:'<%=yeoman.sev %>/params-local.php',
-                replacements: [{
-                    from: 'develop', 
-                    to: 'production'
-                }]
+                options: {
+                    patterns: [
+                        {
+                            match: /develop/g,
+                            replacement: function () {
+                                return 'production';
+                            }
+                        }
+                    ]
+                },
+                files: [
+                    {expand: true, flatten: true, src: ['<%=yeoman.sev %>/params-local.php'], dest: '<%=yeoman.sev %>/'}
+                ]
             }
         },
         watch: {
@@ -235,7 +259,7 @@ module.exports = function(grunt) {
                 jshintrc: '.jshintrc',  //dont change this file
                 reporter: require('jshint-stylish')
                         //reporterOutput: 'jshintFailFile/jshintAddCollectionController.xml'   //create report for one file
-                        //reporterOutput: 'jshintFailFile/jshint.xml' 
+                        //reporterOutput: 'jshintFailFile/jshint.xml'
             },
             all: [
 
@@ -302,7 +326,7 @@ module.exports = function(grunt) {
         // not used since Uglify task does concat,
         // but still available if needed
 //        concat: {
-//            
+//
 //        },
         // not enabled since usemin task does concat and uglify
         // check index.html to edit your build targets
@@ -326,8 +350,6 @@ module.exports = function(grunt) {
                         '<%= yeoman.dist %>/{,*/}*.manifest'
                     ]
                 }
-
-
             }
         },
         useminPrepare: {
@@ -540,7 +562,7 @@ module.exports = function(grunt) {
         'replace:testbucket',
         'clean:ignore'
     ]);
-    
+
     //productSiteBuild include change bucket to test and deleted ignore file
     grunt.registerTask('productSiteBuild', [
         'clean:dist',
@@ -560,7 +582,7 @@ module.exports = function(grunt) {
         'replace:productbucket',
         'clean:ignore'
     ]);
-    
+
     grunt.registerTask('default', [
         'jshint'
                 //  'test',

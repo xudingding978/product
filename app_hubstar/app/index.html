@@ -37,9 +37,23 @@
         <link rel="stylesheet" href="/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.css" type="text/css">
         <!-- endbuild -->
 
-    </head>
-    <body id="body_id" >
-        <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+       <script>
+            (function() {
+                var _fbq = window._fbq || (window._fbq = []);
+                if (!_fbq.loaded) {
+                    var fbds = document.createElement('script');
+                    fbds.async = true;
+                    fbds.src = '//connect.facebook.net/en_US/fbds.js';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(fbds, s);
+                    _fbq.loaded = true;
+                }
+                _fbq.push(['addPixelId', '1513451855551675']);
+            })();
+            window._fbq = window._fbq || [];
+            window._fbq.push(['track', 'PixelInitialized', {}]);
+        </script>
+    <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=1513451855551675&amp;ev=NoScript" /></noscript>
 
         <!-- build:js(app) /scripts/components.js -->
         <script src="/bower_components/modernizr/modernizr.js"></script>
@@ -73,7 +87,16 @@
         <script src="/scripts/combined-scripts.js"></script>
         <!-- endbuild -->
 
-        <script type='text/javascript'>
+
+    <!-- build:js(.tmp) scripts/templates.js -->
+    <script src="scripts/compiled-templates.js"></script>      
+    <!-- endbuild -->
+
+    <!-- build:js(.tmp) scripts/main.js -->
+    <script src="scripts/combined-scripts.js"></script>
+    <!-- endbuild -->
+
+    <script type='text/javascript'>
 //            var googletag = googletag || {};
 //            googletag.cmd = googletag.cmd || [];
             (function() {
@@ -86,24 +109,23 @@
                 var node = document.getElementsByTagName('script')[0];
                 node.parentNode.insertBefore(gads, node);
             })();
-        </script>
-        <noscript>
-        <h1>
-            Is seems that your browser has disabled JavaScript or does not support JavaScript! Please make sure you have enabled JavaScript or upgrade your browser.
-        </h1>
-        </noscript>
+    </script>
+    <noscript>
+    <h1>
+        Is seems that your browser has disabled JavaScript or does not support JavaScript! Please make sure you have enabled JavaScript or upgrade your browser.
+    </h1>
+    </noscript>
 
-        <script type="text/javascript">
-            //facebook
-            window.fbAsyncInit = function() {
-                // init the FB JS SDK
-                FB.init({
-                    appId: '358102574293594', // App ID from the app dashboard
-                    channelUrl: '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel file for x-domain comms
-                    status: true, // Check Facebook Login status
-                    xfbml: true                                  // Look for social plugins on the page
-                });
-
+    <script type="text/javascript">
+        //facebook
+        window.fbAsyncInit = function() {
+            // init the FB JS SDK
+            FB.init({
+                appId: '358102574293594', // App ID from the app dashboard
+                channelUrl: '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel file for x-domain comms
+                status: true, // Check Facebook Login status
+                xfbml: true                                  // Look for social plugins on the page
+            });
                 // Additional initialization code such as adding Event Listeners goes here
             };
             // Load the SDK asynchronously
@@ -121,3 +143,4 @@
         <div id="fb-root"></div>
     </body>
 </html>
+

@@ -30,7 +30,7 @@
     "connect-livereload": "~0.4.0",
     "grunt-ember-templates": "0.4.21",
     "time-grunt": "~0.4.0",
-    "grunt-text-replace": "~0.3.11",
+    "grunt-replace": "^0.7.8",
     "jshint-stylish": "~0.4.0",
     "grunt-neuter": "~0.6.0",      
     "grunt-contrib-coffee": "~0.10.1",

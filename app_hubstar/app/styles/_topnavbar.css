@@ -311,7 +311,7 @@
     top: 2px;
 }
 .Navigator-box{
-    margin-top: 60px;
+    margin-top: 68px;
     width: 665px;
     height: 460px;
     border-radius: 3px;
@@ -325,7 +325,7 @@
 .Navigator-box:before{
     content: "";
     position: absolute;
-    left: 30px;
+    left: 40px;
     top: -19px;
     border-color: transparent transparent #f3f3f3 transparent;
     border-style: solid;
@@ -336,7 +336,7 @@
 .Navigator-box:after{
     content: "";
     position: absolute;
-    left: 30px;
+    left: 40px;
     top: -20px;
     border-color: transparent transparent #888 transparent;
     border-style: solid;
@@ -1099,8 +1099,8 @@ search-bar-on-small-screen #topResidentialCommerical{
 
 .navigator-titleContainer{
     background-color: #f3f3f3; 
-    height: 45px; 
-    line-height: 45px;
+    height: 40px; 
+    line-height: 40px;
     width: 100%; 
     border-bottom: 1px solid #ddd;
     padding: 0 15px;
@@ -1108,7 +1108,7 @@ search-bar-on-small-screen #topResidentialCommerical{
 }
 
 .navigator-title{
-    font-size: 18px;
+    font-size: 15px;
     font-weight: bold;
     color: #555;
 }
@@ -1166,7 +1166,7 @@ search-bar-on-small-screen #topResidentialCommerical{
 .notificationtop-titleContainer{
     background-color: #f3f3f3; 
     width:100%;
-    height: 35px; 
+    height: 40px; 
     border-bottom: 1px solid #ddd;
     padding: 0 20px;
     position: relative;
@@ -1176,7 +1176,7 @@ search-bar-on-small-screen #topResidentialCommerical{
 
 .notificationtop-title{
     color: #666;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 38px;
     font-weight: bold;
     float: left;
@@ -1245,7 +1245,7 @@ search-bar-on-small-screen #topResidentialCommerical{
     position: relative;
     float: right;
     top: -40px;
-    font-size: 10px;
+    font-size: 13px;
 }
 
 .notificationtop-moreContainer{
@@ -1388,9 +1388,10 @@ search-bar-on-small-screen #topResidentialCommerical{
 
 @media only screen and (min-width : 768px) and (max-width : 979px) {
 
-    .Dropdownstyle2{
+/*    .Dropdownstyle2{
         right:185px;
     }
+    */
 }
 
 
@@ -1480,7 +1481,20 @@ search-bar-on-small-screen #topResidentialCommerical{
     #notification-filter{
         display:none !important;
     }
+    
+    .Dropdownstyle2{
+        right:50px;
+    }
 
 
 }
 
+.navigator-titleContainer .categories{
+    font-size: 15px;
+    color:#000;
+}
+
+.uppermenu{
+    text-align: center;
+    
+}

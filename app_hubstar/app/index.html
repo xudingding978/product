@@ -36,8 +36,7 @@
         <link rel="stylesheet" href="http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css">
         <link rel="stylesheet" href="/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.css" type="text/css">
         <!-- endbuild -->
-
-       <script>
+        <script>
             (function() {
                 var _fbq = window._fbq || (window._fbq = []);
                 if (!_fbq.loaded) {
@@ -54,6 +53,10 @@
             window._fbq.push(['track', 'PixelInitialized', {}]);
         </script>
     <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=1513451855551675&amp;ev=NoScript" /></noscript>
+
+    </head>
+    <body id="body_id" >
+        <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
         <!-- build:js(app) /scripts/components.js -->
         <script src="/bower_components/modernizr/modernizr.js"></script>
@@ -86,15 +89,6 @@
         <!-- build:js(.tmp) /scripts/main.js -->
         <script src="/scripts/combined-scripts.js"></script>
         <!-- endbuild -->
-
-
-    <!-- build:js(.tmp) scripts/templates.js -->
-    <script src="scripts/compiled-templates.js"></script>      
-    <!-- endbuild -->
-
-    <!-- build:js(.tmp) scripts/main.js -->
-    <script src="scripts/combined-scripts.js"></script>
-    <!-- endbuild -->
 
     <script type='text/javascript'>
 //            var googletag = googletag || {};
@@ -143,4 +137,3 @@
         <div id="fb-root"></div>
     </body>
 </html>
-

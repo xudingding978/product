@@ -24,7 +24,7 @@ var HubStar = window.HubStar = Ember.Application.create({
                 var array = $.map(callbck, function(value, index) {
                     return [value];
                 });
-                if (HubStar.get("ads") !== null && HubStar.get("ads") !== undefined) {
+                if (HubStar.get("objectAds") !== null && HubStar.get("objectAds") !== undefined) {
                 }
                 else
                 {

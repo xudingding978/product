@@ -339,10 +339,8 @@ module.exports = function(grunt) {
                     src: [
                         '<%= yeoman.dist %>/scripts/{,*/}*.js',
                         '<%= yeoman.dist %>/styles/{,*/}*.css'
-
                     ]
                 }
-
             },
             test: {
                 files: {
@@ -447,12 +445,12 @@ module.exports = function(grunt) {
         },
         concurrent: {
             server: [
-                'emberTemplates'
-
-
+                'emberTemplates',
+                'compass:server'
             ],
             test: [
-                'emberTemplates'
+                'emberTemplates',
+                'compass'
 
             ],
             dist: [
@@ -494,9 +492,6 @@ module.exports = function(grunt) {
             }
         }
     });
-    //grunt.loadNpmTasks('grunt-contrib-qunit');
-    //grunt.loadNpmTasks('grunt-contrib-uglify');
-    //grunt.renameTask('regarde', 'watch');
     grunt.registerTask('server', function(target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);

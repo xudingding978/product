@@ -365,8 +365,8 @@
 
 .Navigator_links{
     background-color: #f3f3f3; 
-    height: 35px; 
-    line-height: 35px;
+    height: 40px; 
+    line-height: 40px;
     width: 100%; 
     border-top: 1px solid #ddd;
     padding: 0 15px;
@@ -1022,11 +1022,11 @@ search-bar-on-small-screen #topResidentialCommerical{
     position: absolute;
     width: 410px;
     margin: 10px;
-    border-radius: 5px;
+    border-radius: 3px;
     background-color: rgb(255, 255, 255);
     top: 45px;
     right: 40px;
-    box-shadow: 0 0 10px #555;
+    box-shadow: 0 0 10px #aaa;
 }
 
 
@@ -1172,6 +1172,7 @@ search-bar-on-small-screen #topResidentialCommerical{
     position: relative;
     display: block;
     clear: both;
+    border-radius: 3px;
 }
 
 .notificationtop-title{
@@ -1491,7 +1492,7 @@ search-bar-on-small-screen #topResidentialCommerical{
 
 .navigator-titleContainer .categories{
     font-size: 15px;
-    color:#000;
+    color:#555;
 }
 
 .uppermenu{

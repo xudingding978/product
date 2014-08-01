@@ -1,8 +1,8 @@
 
 var HubStar = window.HubStar = Ember.Application.create({
-    LOG_TRANSITIONS: true,
+    LOG_TRANSITIONS: false,
     LOG_BINDINGS: false,
-    LOG_RESOLVER:true,
+
     ready: function() {
         HubStar.set("isLogin", false);
         if(localStorage.loginStatus === "" || localStorage.loginStatus === null || localStorage.loginStatus === undefined){

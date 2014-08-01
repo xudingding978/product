@@ -10,7 +10,7 @@ var website_record;
 var website_url_record;
 var collection_title_record;
 var collection_desc_record;
-HubStar.ProfileController = Ember.ObjectController.extend({
+HubStar.ProfileController = Ember.Controller.extend({
     role: "",
     model: null,
     aboutMe: "aboutMe",

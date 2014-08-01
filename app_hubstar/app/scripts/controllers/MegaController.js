@@ -430,7 +430,7 @@ HubStar.MegaController = Ember.Controller.extend({
                     //this.transitionToRoute("profileCollections");
                     var that = this;
                     setTimeout(function() {
-                        that.transitionToRoute("profileCollection", data);
+                        that.transitionToRoute("profileCollection");
                     }, 15);
                 }
             }
@@ -525,7 +525,7 @@ HubStar.MegaController = Ember.Controller.extend({
                                         break;
                                     }
                                 }
-                                this.transitionToRoute("profileCollection", data);
+                                this.transitionToRoute("profileCollection");
                                 this.transitionToRoute("profilePhoto", this.get("megaResouce"));
                             }
                             else
@@ -618,7 +618,7 @@ HubStar.MegaController = Ember.Controller.extend({
                                         break;
                                     }
                                 }
-                                this.transitionToRoute("profileCollection", data);
+                                this.transitionToRoute("profileCollection");
                                 this.transitionToRoute("profilePhoto", this.get("megaResouce"));
                             }
                             else
@@ -796,7 +796,7 @@ HubStar.MegaController = Ember.Controller.extend({
                                 break;
                             }
                         }
-                        this.transitionToRoute("profileCollection", data);
+                        this.transitionToRoute("profileCollection");
                         this.transitionToRoute("profilePhoto", this.get("megaResouce").get('photo').objectAt(0));
                     }
                 }

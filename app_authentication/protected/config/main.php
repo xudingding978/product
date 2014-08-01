@@ -41,7 +41,7 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 // CWebApplication properties can be configured here.
 
 
-$dot_number = str_word_count($_SERVER['HTTP_HOST'], 0, ".");
+$dot_number = substr_count($_SERVER['HTTP_HOST'], ".");
 
 if ($dot_number > 1) {
     $dot_positon = strpos($_SERVER['HTTP_HOST'], ".");

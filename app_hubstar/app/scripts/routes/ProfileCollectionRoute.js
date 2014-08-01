@@ -45,16 +45,16 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
         var address = document.URL;
         var owner_id = address.split("#")[1].split("/")[2];
         var profile = HubStar.Profile.find(owner_id);
-        var id = "";
+        var data = "";
         for (var j = 0; j < profile.get('collections').get('length'); j++) {
             if (profile.get('collections').objectAt(j).get('id') === params.profileCollection_id)
             {
-                id = profile.get('collections').objectAt(j).get('optional');
+                data = profile.get('collections').objectAt(j);
             }
         }
-        var model = HubStar.Mega.find({RquireType: "profileCollection", owner_profile_id: id, collection_id: params.profileCollection_id});
-        model.set("id", params.profileCollection_id);
-        return model;
+        //var model = HubStar.Mega.find({RquireType: "profileCollection", owner_profile_id: id, collection_id: params.profileCollection_id});
+        //model.set("id", params.profileCollection_id);
+        return data;
     },
     
     actions: {

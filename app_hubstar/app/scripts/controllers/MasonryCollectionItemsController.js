@@ -332,7 +332,6 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
     },
     selectModelForProfile: function(collection_id, title, profileId) {
         this.set('collection_id', collection_id);
-
         var owner_id = profileId;
         this.set("profileId", profileId);
         this.resetContent();
@@ -356,12 +355,9 @@ HubStar.MasonryCollectionItemsController = Ember.Controller.extend({
             var results = HubStar.Collection.find({RquireType: "personalCollection", profile_id: owner_id, collection_id: collection_id});
             var that = this;
 
-            results.addObserver('isLoaded', function() {
-                if (results.get('isLoaded')) {
-                    var titleFill = results.objectAt(0).get("title");
-                    that.set('title', titleFill);
-
-                }
+            results.then(function() {
+                var titleFill = results.objectAt(0).get("title");
+                that.set('title', titleFill);
             });
         }
         else {

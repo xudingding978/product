@@ -426,11 +426,10 @@ HubStar.MegaController = Ember.Controller.extend({
                     }
                     this.set("selectPhoto", false);
                     this.set('selectType', null);
-                    this.transitionToRoute("profile", profile); // transition to profile
+
                     var that = this;
-                    setTimeout(function() {
-                        that.transitionToRoute("profileCollection", data);
-                    }, 15);
+                    that.transitionToRoute("profileCollection",data);
+
                 }
             }
             else if (this.get('controllers.masonryCollectionItems').get("type") === "user")
@@ -524,7 +523,7 @@ HubStar.MegaController = Ember.Controller.extend({
                                         break;
                                     }
                                 }
-                                this.transitionToRoute("profileCollection", data);
+                                //this.transitionToRoute("profileCollection");
                                 this.transitionToRoute("profilePhoto", this.get("megaResouce"));
                             }
                             else
@@ -617,7 +616,7 @@ HubStar.MegaController = Ember.Controller.extend({
                                         break;
                                     }
                                 }
-                                this.transitionToRoute("profileCollection", data);
+                                //this.transitionToRoute("profileCollection");
                                 this.transitionToRoute("profilePhoto", this.get("megaResouce"));
                             }
                             else
@@ -795,7 +794,7 @@ HubStar.MegaController = Ember.Controller.extend({
                                 break;
                             }
                         }
-                        this.transitionToRoute("profileCollection", data);
+                        //this.transitionToRoute("profileCollection");
                         this.transitionToRoute("profilePhoto", this.get("megaResouce").get('photo').objectAt(0));
                     }
                 }

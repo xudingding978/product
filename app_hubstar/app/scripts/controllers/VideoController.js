@@ -1,5 +1,6 @@
 HubStar.VideoController = Ember.Controller.extend({
     megaResouce: null,
+    description:"",
     videoObject: null,
     video_iframe_code: null,
     currentUser: null,
@@ -387,6 +388,7 @@ HubStar.VideoController = Ember.Controller.extend({
             videoIframe = videoIframe.replace("480", Math.ceil(width));
             videoIframe = videoIframe.replace("360", Math.ceil(height));
             that.set('video_iframe_code', videoIframe);
+            that.set('description',multiRow(that.get("megaResouce").get("object_description")));
             $(window).resize(function() {
                 var videoIframe = that.get('video_iframe_code');
                 var width = videoIframe.split("width=\"")[1].split("\" height=\"")[0];

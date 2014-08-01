@@ -83,7 +83,6 @@ HubStar.ProfileRoute = Ember.Route.extend({
 
             }
         }
-        
     },
     model: function(params) {
 

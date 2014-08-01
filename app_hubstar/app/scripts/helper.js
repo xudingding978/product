@@ -145,7 +145,7 @@ Ember.Handlebars.registerBoundHelper('test', function(test) {
 
 Ember.Handlebars.registerBoundHelper('form', function(data) {
     var datanew = data.split(' ').join('-');
-         var datanewest = datanew.toLowerCase().replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
-         return datanewest;  
+    var datanewest = datanew.toLowerCase().replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+    return datanewest;
 });
 

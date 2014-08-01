@@ -35,7 +35,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
             }
         }
         this.controllerFor('masonryCollectionItems').selectModelForProfile(id, title, profileId);
-
+//
         this.controllerFor('profile').set('switchPhoto', false);
         this.controllerFor('masonryCollectionItems').set('uploadStuff', true);
         this.controllerFor('masonryCollectionItems').set('canEditbyOwner', true);
@@ -56,6 +56,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
         model.set("id", params.profileCollection_id);
         return model;
     },
+    
     actions: {
         transitionToPhoto: function(id) {
             this.controllerFor('mega').set("type", "profile");

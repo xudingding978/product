@@ -426,7 +426,8 @@ HubStar.MegaController = Ember.Controller.extend({
                     }
                     this.set("selectPhoto", false);
                     this.set('selectType', null);
-                    this.transitionToRoute("profile", profile); // transition to profile
+                    //this.transitionToRoute("profile", profile); // transition to profile
+                    //this.transitionToRoute("profileCollections");
                     var that = this;
                     setTimeout(function() {
                         that.transitionToRoute("profileCollection", data);

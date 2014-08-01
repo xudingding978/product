@@ -151,7 +151,7 @@
                         {{/if}}
                     </div>
 
-                    <div class="article-text"> {{controller.megaResouce.object_description}}</div>
+                    <div class="article-text"> {{{controller.description}}}</div>
                     {{else}}
                     {{view Ember.TextField valueBinding="controller.megaResouce.object_title"  id="" class="edit_photo-titile_field"  }} 
                     {{view Ember.TextArea valueBinding="controller.megaResouce.object_description"  id="" class="edit_photo-caption_field"}} 

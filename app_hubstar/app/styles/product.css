@@ -1,0 +1,152 @@
+.blur_black{
+    z-index: 10;
+    position: fixed;
+    opacity: .6;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+
+
+table .title{
+    background-color:lightblue;
+}
+
+table tr:not(:first-child):hover{
+    background-color:#ccc;
+}
+
+
+table td, table th{
+    border: 1px solid #000;
+    height:50px;
+    text-align: center !important;
+    width:100px;
+    padding:10px;
+}
+
+table th{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.product{
+    z-index: 11;
+    position: fixed;
+    width: 800px;
+    height:auto;
+    margin: 0 auto;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    top: 25%;
+    left: 0;
+    right: 0;
+}
+
+
+.item{
+    z-index: 11;
+    position: fixed;
+    width: 300px;
+    height:auto;
+    margin: 0 auto;
+    border-radius: 0 0 5px 5px;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    top: 30%;
+    left: 0;
+    right: 0;
+    border: 1px solid #000;
+}
+
+
+.item table{   
+    margin: 0 auto;
+    left: 0; 
+    right: 0;
+}
+
+
+.item table td, .item table th{
+    width:50%;
+
+}
+
+.top{
+    width: 300px;
+    position: fixed;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 25%;
+    border-radius: 5px 5px 0 0;
+    height: 50px;
+    background-color: white;
+    z-index: 12;
+    text-align: center;
+    line-height: 50px;
+    font-size: 23px;
+    border: 1px solid #000;
+}
+
+.edit-input{
+    width: 101px;
+    height: 60px;
+    position:absolute;
+    border:1px solid #000;
+    display:none;
+    cursor: default;
+}
+
+.size{
+    width: 101px;
+    height: 60px;
+}
+
+
+.button{
+    width: 800px;
+    position: fixed;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background-color: white;
+    z-index: 12;
+    text-align: center;
+    line-height: 50px;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+
+}
+
+.new-btn{
+    display: inline-block;
+    width: auto;
+    position: relative;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 2px;
+    cursor: default;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 8px;
+}
+
+.green-btn {
+    background-color: #53a93f;
+    color: #fff;
+    text-shadow: none;
+}
+
+.no-resize{
+    resize: none;
+}
+
+

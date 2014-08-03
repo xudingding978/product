@@ -1,0 +1,47 @@
+
+<div  class="blur_black" >&nbsp;</div>
+
+
+<div  class="product">
+    <table>
+        <tr class="title">
+            <th>Product Code</th>
+            <th>Product Description</th>
+            <th>Unit of Measure</th>
+            <th>Average Land Price</th>
+            <th>Supplier</th>
+            <th>Sell Prices 1</th>
+            <th>Sell Prices 2</th>
+            <th>Sell Prices 3</th>
+        </tr>
+        {{#each model}}
+        <tr id="{{unbound this.Guid}}" {{action "clickerJudge" this on="click"}}>
+
+            <td>{{this.ProductCode}} </td>
+
+            <td id="decs_{{unbound this.Guid}}">
+                {{this.ProductDescription}}
+            </td>
+            <td>{{this.UnitOfMeasure.Name}}</td>
+            <td>{{this.AverageLandPrice}}</td>
+            <td>{{this.Supplier.SupplierName}}</td>
+            <td>{{this.SellPriceTier1.Value}}</td>
+            <td>{{this.SellPriceTier2.Value}}</td>
+            <td>{{this.SellPriceTier3.Value}}</td>
+        </tr>
+       {{/each}}
+    </table>
+     <div id="input" class="edit-input">
+        {{view Ember.TextArea valueBinding="controller.decs"   class="size no-resize"  }}
+    </div>
+     
+    {{#if controller.isEdit}}
+    <div class="button" >
+    <span class="new-btn green-btn"  {{action accept }}>Yes</span>
+    <span class="new-btn" {{action decline }}>No</span>
+    </div>
+    {{/if}}
+    {{#if controller.isSupplyDisplay}}
+    {{partial "supplyItem"}}
+    {{/if}}
+</div>

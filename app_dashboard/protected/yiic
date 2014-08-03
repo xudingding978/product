@@ -1,7 +1,0 @@
-#!/usr/bin/env php
-<?php
-
-/* setup default time zone */
-date_default_timezone_set('UTC');
-
-require_once(dirname(__FILE__).'/yiic.php');
